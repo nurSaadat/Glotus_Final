@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:weightSum="100"
+    tools:context=".ReceptionFiles.Reception">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <TextView
+            android:id="@+id/tv_nomer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Номер"
+            android:textSize="24sp"
+            android:textColor="@android:color/white"
+            android:background="@color/colorPrimaryDark"
+            android:textAlignment="center"
+            android:layout_weight="50"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text=" от "
+            android:textSize="24sp"
+            android:textColor="@android:color/white"
+            android:background="@color/colorPrimaryDark"
+            android:textAlignment="center"
+            android:layout_weight="10"
+            />
+
+        <TextView
+            android:id="@+id/tv_data"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text=" дата "
+            android:textSize="24sp"
+            android:textColor="@android:color/white"
+            android:background="@color/colorPrimaryDark"
+            android:textAlignment="center"
+            android:layout_weight="40"
+            />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="Документ основания"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                />
+
+            <Spinner
+                android:id="@+id/spinner_document_osnov"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Дата"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp"
+                    />
+
+                <EditText
+                    android:id="@+id/et_data"
+                    android:layout_width="88dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/tv_1"
+                    android:ems="5"
+                    android:inputType="date"
+                    android:text="21.09.18"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="56dp"
+                    android:text="Заказчик: "
+                    android:textAlignment="textStart"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_zakazchic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/tv_2"
+                    android:layout_toEndOf="@+id/tv_2"
+                    android:text="TextView"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignTop="@id/tv_2"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="32dp"
+                    android:text="Отправитель: "
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_otpravitel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/tv_3"
+                    android:layout_toEndOf="@+id/tv_3"
+                    android:text="TextView"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignTop="@+id/tv_3"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="12dp"
+                    android:text="Получатель: "
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_poluchatel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/tv_4"
+                    android:layout_toEndOf="@+id/tv_4"
+                    android:text="TextView"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:layout_weight="100"
+                        android:text="Вес факт"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_ves_fact"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="20"
+                        android:ems="10"
+                        android:inputType="numberDecimal"
+                        android:text="000" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:layout_weight="100"
+                        android:text="Объем факт"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp"
+                        />
+
+                    <EditText
+                        android:id="@+id/et_obem_fact"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="20"
+                        android:ems="10"
+                        android:inputType="numberDecimal"
+                        android:text="000"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:layout_weight="100"
+                        android:text="Упаковка"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp"
+                        />
+
+                    <EditText
+                        android:id="@+id/et_upakovka"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="20"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="Name"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10"
+                        android:text="Груз поврежден"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp"
+                        />
+
+                    <CheckBox
+                        android:id="@+id/cb_gruz_povrezhden"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="60"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lay_to_hide"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:id="@+id/hide_lay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="8dp"
+                        android:weightSum="100">
+
+                        <ImageView
+                            android:id="@+id/iw_camera_icon"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_weight="33"
+                            app:srcCompat="@drawable/ic_camera_alt_black_24dp" />
+
+                        <ImageView
+                            android:id="@+id/iv_photo1"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_weight="33" />
+
+                        <ImageView
+                            android:id="@+id/iv_photo2"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_weight="33" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/hide_lay1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="end"
+                        android:orientation="vertical"
+                        android:weightSum="1">
+
+                        <EditText
+                            android:id="@+id/et_message_povrezhden"
+                            android:layout_width="wrap_content"
+                            android:layout_height="56dp"
+                            android:layout_weight="1"
+                            android:ems="20"
+                            android:inputType="text"
+                            android:text="Text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/hide_lay2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Button
+                            android:id="@+id/del"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="130dp"
+                            android:text="Удалить" />
+
+
+                        <Button
+                            android:id="@+id/btn_save"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="Сохранить" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="12dp"
+                        android:text="Менеджер: "
+                        android:textAlignment="textStart"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_menedzher"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/tv_5"
+                        android:layout_toEndOf="@+id/tv_5"
+                        android:text="TextView"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignTop="@id/tv_5"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="32dp"
+                        android:text="Подразделение: "
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_podrazdel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/tv_6"
+                        android:layout_toEndOf="@+id/tv_6"
+                        android:text="TextView"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignTop="@+id/tv_6"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginBottom="12dp"
+                        android:text="Комментарий: "
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/tv_7"
+                        android:layout_toEndOf="@+id/tv_7"
+                        android:text="TextView"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignTop="@+id/tv_7"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="32dp"
+                        android:text="Транспорт: "
+                        android:textAlignment="textStart"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        />
+
+                    <!--<TextView
+                        android:id="@+id/tv_transport"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/tv_8"
+                        android:layout_toEndOf="@+id/tv_8"
+                        android:text="TextView"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        />-->
+                    <Spinner
+                        android:id="@+id/spin_transport"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/tv_8"
+                        android:layout_toEndOf="@+id/tv_8"
+                        android:text="TextView"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"/>
+
+                    <TextView
+                        android:id="@+id/tv_9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignTop="@id/tv_8"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="32dp"
+                        android:text="Почта заказчика: "
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_zakazchick_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/tv_9"
+                        android:layout_toEndOf="@+id/tv_9"
+                        android:text="TextView"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignTop="@+id/tv_9"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginBottom="12dp"
+                        android:text="Номер заказчика: "
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_zakazchik_nomer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/tv_9"
+                        android:layout_toEndOf="@+id/tv_9"
+                        android:text="TextView"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="Сопроводительный документ"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp"
+                    android:onClick="doSmth1"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="Документ подтверждения"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp"
+                    android:onClick="doSmth2"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_etiketka"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btn_otpr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

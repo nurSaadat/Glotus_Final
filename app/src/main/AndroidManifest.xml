@@ -22,6 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SuperviserListFiles.SuperviserListActivity"></activity>
+        <activity android:name=".ReceptionFiles.Reception"></activity>
 
         <provider
             android:authorities="${applicationId}.provider"

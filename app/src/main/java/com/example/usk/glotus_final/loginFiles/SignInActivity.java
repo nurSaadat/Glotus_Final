@@ -18,9 +18,20 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
+import com.example.usk.glotus_final.Catalog.Adress;
+import com.example.usk.glotus_final.Catalog.Mdnames;
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserListFiles.SuperviserListActivity;
 import com.example.usk.glotus_final.connection.ConnectionServer;
+import com.example.usk.glotus_final.connection.Server;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+
+import okio.ByteString;
 
 public class SignInActivity extends AppCompatActivity {
     Handler mainHandler = new Handler(Looper.getMainLooper());
@@ -40,10 +51,8 @@ public class SignInActivity extends AppCompatActivity {
     ProgressBar progressBar;
 
     User user;
-    ConnectionServer server;
-    static int status;
-    public static String json="";
-    public static boolean pr=false;
+    Server server=new Server();
+
 
 
     @Override
@@ -66,8 +75,6 @@ public class SignInActivity extends AppCompatActivity {
                 mPassword.getText().toString());
 
         //connect with server
-        server=new ConnectionServer("http://185.209.21.191/test/odata/standard.odata?$format=json",
-                user.getCredential());
 
         // For saving user data
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -134,20 +141,47 @@ public class SignInActivity extends AppCompatActivity {
         Log.d(TAG, "loginUser: " + name + " " + password);
 
         //тут продолжи код ( что делать должен? )
-        SignInActivity.this.runOnUiThread(new Runnable() {
+        progressing(false);
+
+       /* SignInActivity.this.runOnUiThread(new Runnable() {
             public void run() {
                 progressing(false);
 
             }});
-        update();
-        System.out.println("signing");
-        System.out.println(user.getCredential());
-        System.out.println("-----------");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                progressing(false);
+            }
+        }).start();
+*/
+/*
+       // server=new Server("http://185.209.21.191/test/odata/standard.odata",getCredential(name,password));
+        server.setUrl("http://185.209.21.191/test/odata/standard.odata?$format=json");
+        server.setCredential(getCredential(name,password));
+        System.out.println(server.get());
+        System.out.println(server.getAns());
+        user.setCred(getCredential(name,password));
 
-        json=server.get(user.getCredential());
-        System.out.println(json);
+        check(server.getStatus());*/
+        //
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                server.setUrl("http://185.209.21.191/test/odata/standard.odata?$format=json");
+                server.setCredential(getCredential(name,password));
+                System.out.println(server.get());
+                System.out.println(server.getAns());
+                user.setCred(getCredential(name,password));
 
-        status=ConnectionServer.status;
+                check(server.getStatus());
+            }
+        }).start();
+
+    }
+
+
+    public void check(Integer status){
         if(status==-1)
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
@@ -173,12 +207,64 @@ public class SignInActivity extends AppCompatActivity {
 
                 }
             });
-            pr = true;
+            getCatalogs();
             finish();
             Intent myIntent = new Intent(SignInActivity.this, SuperviserListActivity.class);
             startActivity(myIntent);
         }
-        //
+    }
+    public void getCatalogs(){
+        Server server= new Server("http://185.209.21.191/test/odata/standard.odata/Catalog_Адресаты?$format=json");
+        String data=server.get();
+        JSONArray array = null;
+        JSONObject jsonObj = null;
+        try {
+            jsonObj = new JSONObject(data);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            array = jsonObj.getJSONArray("value");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < array.length(); i++) {
+            try {
+                Adress.adress.put(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("Description"));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        server.setUrl("http://185.209.21.191/test/odata/standard.odata/Catalog_Пользователи?$format=json");
+        data=server.get();
+
+        array = null;
+        jsonObj = null;
+        try {
+            jsonObj = new JSONObject(data);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            array = jsonObj.getJSONArray("value");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < array.length(); i++) {
+            try {
+                Mdnames.mdnames.put(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("Description"));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
+
 
     }
 
@@ -194,13 +280,6 @@ public class SignInActivity extends AppCompatActivity {
         } else {
             mCheckbox.setChecked(false);
         }
-    }
-
-    public void update(){
-        user.setUsername(mEmail.getText().toString());
-        user.setPassword(mPassword.getText().toString());
-        server.setUrl("http://185.209.21.191/test/odata/standard.odata?$format=json");
-        server.setCredential(user.getCredential());
     }
 
     public void progressing(Boolean action){
@@ -221,5 +300,15 @@ public class SignInActivity extends AppCompatActivity {
             progressBar.setVisibility(View.INVISIBLE);
         }
 
+    }
+    public String getCredential(String login,String pass){
+        try {
+            String usernameAndPassword =  login+ ":" + pass;
+            byte[] bytes = usernameAndPassword.getBytes("UTF-8");
+            String encoded = ByteString.of(bytes).base64();
+            return "Basic " + encoded;
+        } catch (UnsupportedEncodingException e) {
+            throw new AssertionError();
+        }
     }
 }

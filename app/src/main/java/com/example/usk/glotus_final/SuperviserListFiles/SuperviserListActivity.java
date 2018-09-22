@@ -13,6 +13,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
+import com.example.usk.glotus_final.Catalog.Adress;
+import com.example.usk.glotus_final.Catalog.Mdnames;
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.connection.ConnectionServer;
 import com.example.usk.glotus_final.loginFiles.User;
@@ -46,6 +48,7 @@ public class SuperviserListActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: Started successfully");
         refresh();
 
+
         /*ZayavkaListAdapter adapter = new ZayavkaListAdapter(this, R.layout.superviser_list_item_layout, mZayavkas);
         list.setAdapter(adapter);*/
     }
@@ -57,7 +60,7 @@ public class SuperviserListActivity extends AppCompatActivity {
 
         ListView mListView = (ListView) findViewById(R.id.superviser_list);
 
-        ConnectionServer server=new ConnectionServer("http://185.209.21.191/test/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json&$filter=СтатусЗаказа%20eq%20%27Новая%27",User.cred);
+       ConnectionServer server=new ConnectionServer("http://185.209.21.191/test/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json",User.cred);
         String json = (server.get(User.cred));
         System.out.println(json);
 
@@ -87,15 +90,22 @@ public class SuperviserListActivity extends AppCompatActivity {
 
             Zayavka john = null;
             try {
+             //   String otkuda=getadr(array.getJSONObject(i).getString("Откуда_Key"));
+               // String kuda=getadr(array.getJSONObject(i).getString("Куда_Key"));
+                //String mened=getadr(array.getJSONObject(i).getString("Менеджер_Key"));
+
+
+
+
                 john = new Zayavka(array.getJSONObject(i).getString("Number"),
                         array.getJSONObject(i).getString("Date"),
                         array.getJSONObject(i).getString("Отправитель"),
-                        array.getJSONObject(i).getString("Получатель"),
-                        array.getJSONObject(i).getString("Откуда_Key"),
-                        array.getJSONObject(i).getString("Куда_Key"),
+                        array.getJSONObject(i).getString("Получатель"),/**/
+                        Adress.adress.get(array.getJSONObject(i).getString("Откуда_Key")),
+                        Adress.adress.get(array.getJSONObject(i).getString("Куда_Key")),
                         array.getJSONObject(i).getString("Ref_Key"),
                         array.getJSONObject(i).getString("Заказчик_Key"),
-                        array.getJSONObject(i).getString("Менеджер_Key"),
+                        Mdnames.mdnames.get(array.getJSONObject(i).getString("Менеджер_Key")),
                         array.getJSONObject(i).getString("Подразделение_Key"));
 
             } catch (JSONException e) {
@@ -103,6 +113,10 @@ public class SuperviserListActivity extends AppCompatActivity {
             }
             mZayavkas.add(john);
         }
+      /* for(int i=0;i<10;i++){
+           Zayavka a= new Zayavka("a","a","a","a","a","a","a","a","a","a");
+           mZayavkas.add(a);
+       }*/
 
         ZayavkaListAdapter adapter = new ZayavkaListAdapter(this, R.layout.superviser_list_item_layout, mZayavkas);
         mListView.setAdapter(adapter);
@@ -110,13 +124,39 @@ public class SuperviserListActivity extends AppCompatActivity {
         swipeView.setRefreshing(false);
     }
     String s="";
-    public String getmdname(String mnkey){
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
 
+
+
+    public String getadr(String mnkey) {
+        ConnectionServer mns = new ConnectionServer("http://185.209.21.191/test/odata/standard.odata/Catalog_Адресаты?$format=json&$filter=Ref_Key%20eq%20guid%27" + mnkey + "%27", User.cred);
+        JSONArray array = null;
+        JSONObject jsonObj = null;
+        try {
+            jsonObj = new JSONObject(mns.get(User.cred));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            array = jsonObj.getJSONArray("value");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            array = jsonObj.getJSONArray("value");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        for (int i = 0; i < array.length(); i++) {
+            try {
+                return array.getJSONObject(i).getString("Description");
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        });
+        }
+        return "";
+    }
+    public String getmdname(String mnkey){
 
         ConnectionServer mns= new ConnectionServer("http://185.209.21.191/test/odata/standard.odata/Catalog_Пользователи?$format=json&$filter=Ref_Key%20eq%20guid%27"+mnkey+"%27",User.cred);
         JSONArray array = null;

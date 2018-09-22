@@ -37,4 +37,8 @@ public class User {
             throw new AssertionError();
         }
     }
+
+    public static void setCred(String cred) {
+        User.cred = cred;
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.usk.glotus_final.SuperviserListFiles;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -70,7 +71,7 @@ public class ZayavkaListAdapter extends ArrayAdapter<Zayavka> {
         final Zayavka zayavka=new Zayavka(number,date,sender,recept,senderadr,receptadr,ref_key,zakaz,manager,podrazd);
         final View result;
 
-        ViewHolder holder;
+        final ViewHolder holder;
 
         if(convertView==null){
             LayoutInflater inflater = LayoutInflater.from(mContext);
@@ -98,9 +99,17 @@ public class ZayavkaListAdapter extends ArrayAdapter<Zayavka> {
         holder.number.setText(zayavka.getNumber());
         holder.sender.setText(zayavka.getSender());
         holder.recept.setText(zayavka.getRecept());
-        holder.senderadr.setText(getadr(zayavka.getSenderadr()));
-        holder.receptadr.setText(getadr(zayavka.getReceptadr()));
+       // holder.senderadr.setText((zayavka.getSenderadr()));
+       // holder.receptadr.setText((zayavka.getReceptadr()));
         holder.manager.setText(zayavka.getMenedjer());
+
+        holder.senderadr.setText(zayavka.getSenderadr());
+        holder.receptadr.setText(zayavka.getReceptadr());
+
+
+
+
+
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +125,6 @@ public class ZayavkaListAdapter extends ArrayAdapter<Zayavka> {
 
         return convertView;
     }
-
     public String getadr(String mnkey) {
         ConnectionServer mns = new ConnectionServer("http://185.209.21.191/test/odata/standard.odata/Catalog_Адресаты?$format=json&$filter=Ref_Key%20eq%20guid%27" + mnkey + "%27", User.cred);
         JSONArray array = null;
@@ -146,4 +154,42 @@ public class ZayavkaListAdapter extends ArrayAdapter<Zayavka> {
         }
         return "";
     }
+    public String getmdname(String mnkey){
+
+        ConnectionServer mns= new ConnectionServer("http://185.209.21.191/test/odata/standard.odata/Catalog_Пользователи?$format=json&$filter=Ref_Key%20eq%20guid%27"+mnkey+"%27",User.cred);
+        JSONArray array = null;
+        JSONObject jsonObj=null;
+        try {
+            jsonObj = new JSONObject(mns.get(User.cred));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            array = jsonObj.getJSONArray("value");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            array = jsonObj.getJSONArray("value");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        for(int i = 0; i < array.length(); i++) {
+
+            try {
+                return array.getJSONObject(i).getString("Code");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+
+        return "";
+
+
+
+    }
+
 }

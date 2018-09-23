@@ -296,7 +296,6 @@ public class Reception extends AppCompatActivity {
             iz="[ "+iz+" ]";
 
         }
-
         String body="{\n" +
                 //"    \"КоличествоФакт\": \""+kolich.getText().toString()+"\",\n" +
                 "    \"ВесФакт\": \""+vesFact.getText().toString()+"\",\n" +

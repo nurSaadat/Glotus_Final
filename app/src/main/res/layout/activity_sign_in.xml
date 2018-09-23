@@ -85,4 +85,19 @@
         android:layout_width="261dp"
         android:layout_height="wrap_content" />
 
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="211dp"
+        android:layout_marginTop="-100dp"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="211dp"
+        android:layout_marginTop="-30dp"
+        android:layout_height="wrap_content"
+        android:text="Вход в систему" />
+
+
 </LinearLayout>

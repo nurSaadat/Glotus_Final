@@ -41,12 +41,25 @@ public class SuperviserListActivity extends AppCompatActivity {
         swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refresh();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        refresh();
+                    }
+                }).start();
+
             }
         });
         //mZayavkas.add(new Zayavka("0", "Glotus"));
+        swipeView.setRefreshing(true);
         Log.d(TAG, "onCreate: Started successfully");
-        refresh();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                refresh();
+            }
+        }).start();
+
 
 
         /*ZayavkaListAdapter adapter = new ZayavkaListAdapter(this, R.layout.superviser_list_item_layout, mZayavkas);
@@ -58,7 +71,7 @@ public class SuperviserListActivity extends AppCompatActivity {
         mZayavkas = new ArrayList<>();
         //ArrayList<Orders> peopleList = new ArrayList<>();
 
-        ListView mListView = (ListView) findViewById(R.id.superviser_list);
+        final ListView mListView = (ListView) findViewById(R.id.superviser_list);
 
        ConnectionServer server=new ConnectionServer("http://185.209.21.191/test/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json",User.cred);
         String json = (server.get(User.cred));
@@ -118,10 +131,16 @@ public class SuperviserListActivity extends AppCompatActivity {
            mZayavkas.add(a);
        }*/
 
-        ZayavkaListAdapter adapter = new ZayavkaListAdapter(this, R.layout.superviser_list_item_layout, mZayavkas);
-        mListView.setAdapter(adapter);
+        final ZayavkaListAdapter adapter = new ZayavkaListAdapter(this, R.layout.superviser_list_item_layout, mZayavkas);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mListView.setAdapter(adapter);
+                swipeView.setRefreshing(false);
+            }
+        });
 
-        swipeView.setRefreshing(false);
+
     }
     String s="";
 

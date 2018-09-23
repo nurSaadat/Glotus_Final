@@ -14,7 +14,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -29,7 +31,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 
 import okio.ByteString;
 
@@ -49,6 +55,9 @@ public class SignInActivity extends AppCompatActivity {
     private String name = "";
     private String password = "";
     ProgressBar progressBar;
+    ProgressBar progressBar2;
+    ImageView iv_logo_main;
+    TextView textView;
 
     User user;
     Server server=new Server();
@@ -67,8 +76,15 @@ public class SignInActivity extends AppCompatActivity {
         mPassword = (EditText) findViewById(R.id.et_password);
         btnLogin = (Button) findViewById(R.id.btn_sign_in);
         mCheckbox = (CheckBox) findViewById(R.id.cb_remember_me);
+        iv_logo_main =(ImageView) findViewById(R.id.iv_logo_main);
         progressBar=findViewById(R.id.progressBar);
+        progressBar2=findViewById(R.id.progressBar2);
+        textView=(TextView) findViewById(R.id.textView);
+
+        textView.setVisibility(View.INVISIBLE);
+        progressBar2.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.INVISIBLE);
+
 
         //create a new objects by getting the data from login form
         user=new User(mEmail.getText().toString(),
@@ -92,6 +108,21 @@ public class SignInActivity extends AppCompatActivity {
                 loginUser(view);
             }
         });
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if(netIsAvailable()==false){
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(SignInActivity.this,"Ошибка соединения с интернетом!",Toast.LENGTH_SHORT).show();
+                            progressing(true);
+                        }
+                    });
+                }
+            }
+        }).start();
+
 
     }
 
@@ -142,6 +173,8 @@ public class SignInActivity extends AppCompatActivity {
 
         //тут продолжи код ( что делать должен? )
         progressing(false);
+        textView.setText("Вход в систему");
+        progressBar2.setProgress(10);
 
        /* SignInActivity.this.runOnUiThread(new Runnable() {
             public void run() {
@@ -207,6 +240,13 @@ public class SignInActivity extends AppCompatActivity {
 
                 }
             });
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    textView.setText("Авторизовано");
+                    progressBar2.setProgress(20);
+                }
+            });
             getCatalogs();
             finish();
             Intent myIntent = new Intent(SignInActivity.this, SuperviserListActivity.class);
@@ -214,8 +254,21 @@ public class SignInActivity extends AppCompatActivity {
         }
     }
     public void getCatalogs(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                textView.setText("Скачивание каталог Адресаты");
+            }
+        });
+
         Server server= new Server("http://185.209.21.191/test/odata/standard.odata/Catalog_Адресаты?$format=json");
         String data=server.get();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressBar2.setProgress(30);
+            }
+        });
         JSONArray array = null;
         JSONObject jsonObj = null;
         try {
@@ -232,10 +285,30 @@ public class SignInActivity extends AppCompatActivity {
             try {
                 Adress.adress.put(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("Description"));
 
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressBar2.setProgress(50);
+            }
+        });
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    textView.setText("Скачивание каталог Менеджер");
+                }
+            });
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressBar2.setProgress(70);
+            }
+        });
 
 
         server.setUrl("http://185.209.21.191/test/odata/standard.odata/Catalog_Пользователи?$format=json");
@@ -261,11 +334,31 @@ public class SignInActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressBar2.setProgress(100);
+            }
+        });
 
 
 
 
 
+
+    }
+    private static boolean netIsAvailable() {
+        try {
+            final URL url = new URL("http://www.google.com");
+            final URLConnection conn = url.openConnection();
+            conn.connect();
+            conn.getInputStream().close();
+            return true;
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            return false;
+        }
     }
 
     private void checkSharedPreferences(){
@@ -289,14 +382,22 @@ public class SignInActivity extends AppCompatActivity {
             mEmail.setVisibility(View.INVISIBLE);
             mPassword.setVisibility(View.INVISIBLE);
             btnLogin.setVisibility(View.INVISIBLE);
+            mCheckbox.setVisibility(View.INVISIBLE);
+
+            textView.setVisibility(View.VISIBLE);
+            progressBar2.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.VISIBLE);
         }
         //in set True will login form
         else
         {
+            mCheckbox.setVisibility(View.VISIBLE);
             mEmail.setVisibility(View.VISIBLE);
             mPassword.setVisibility(View.VISIBLE);
             btnLogin.setVisibility(View.VISIBLE);
+
+            textView.setVisibility(View.INVISIBLE);
+            progressBar2.setVisibility(View.INVISIBLE);
             progressBar.setVisibility(View.INVISIBLE);
         }
 

@@ -106,10 +106,6 @@ public class SuperviserListActivity extends AppCompatActivity {
              //   String otkuda=getadr(array.getJSONObject(i).getString("Откуда_Key"));
                // String kuda=getadr(array.getJSONObject(i).getString("Куда_Key"));
                 //String mened=getadr(array.getJSONObject(i).getString("Менеджер_Key"));
-
-
-
-
                 john = new Zayavka(array.getJSONObject(i).getString("Number"),
                         array.getJSONObject(i).getString("Date"),
                         array.getJSONObject(i).getString("Отправитель"),
@@ -206,10 +202,6 @@ public class SuperviserListActivity extends AppCompatActivity {
 
         }
 
-
         return "";
-
-
-
     }
 }

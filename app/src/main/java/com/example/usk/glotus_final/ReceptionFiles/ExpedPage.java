@@ -2,12 +2,10 @@ package com.example.usk.glotus_final.ReceptionFiles;
 
 import android.content.Intent;
 import android.graphics.pdf.PdfDocument;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.print.PrintAttributes;
 import android.print.pdf.PrintedPdfDocument;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,72 +13,70 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.usk.glotus_final.R;
+import com.example.usk.glotus_final.SuperviserListFiles.SuperviserListItemActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-
-public class Etiketka extends AppCompatActivity{
-    private RelativeLayout pdf_contEt;
-    private ScrollView scrollViewEt;
+public class ExpedPage extends AppCompatActivity {
+    private RelativeLayout pdf_cont;
+    private ScrollView scrollView2;
     private MenuItem btn_generate;
+    private PdfData item=Reception.pd;
+    private String upak=Reception.upakovka.getSelectedItem().toString();
 
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_etiketka);
+        setContentView(R.layout.activity_exped);
 
-        scrollViewEt=findViewById(R.id.scrollView3);
-        pdf_contEt=findViewById(R.id.relativeLay);
+        scrollView2=findViewById(R.id.scrollview);
+        pdf_cont=findViewById(R.id.relLay);
         buildText();
     }
 
     public void buildText(){
-        PdfData pd=Reception.pd;
+        TextView expedNum=findViewById(R.id.expedNum);
+        TextView date=findViewById(R.id.vremyaFill);
+        TextView otkuda=findViewById(R.id.marshrutFill);
+        TextView kuda=findViewById(R.id.marshrutFill2);
+        TextView naimenOtpr=findViewById(R.id.naimenGruzFill);
+        TextView addressOtpr=findViewById(R.id.adresFill);
+        TextView contactOtpr=findViewById(R.id.contacFill);           //from 1C
+        TextView naimenPoluch=findViewById(R.id.naimenPoluchFill);
+        TextView addressPoluch=findViewById(R.id.adressPoluchFill);
+        TextView contactPoluch=findViewById(R.id.contactPoluchFill);  //from 1C
+        TextView platelshik=findViewById(R.id.platelshikFill);
+        TextView naimenGruz=findViewById(R.id.naimenGruzFill);        //from 1C
+        TextView characGruz=findViewById(R.id.characterGruzFill);     //from 1C
+        TextView kolvoMest=findViewById(R.id.kolvoMestFill);
+        TextView upakovka=findViewById(R.id.upakovka);
+        TextView ves=findViewById(R.id.ves);
+        TextView obiem=findViewById(R.id.obiem);
+        TextView dopUslugi=findViewById(R.id.dopUslugiFill);            //from 1C
+        TextView osobOtmExp=findViewById(R.id.osobOtmExpFill);          //from 1C
+        TextView soprDoc=findViewById(R.id.soprDocFill);                //from 1C
 
-        TextView fromCity=findViewById(R.id.otkudaField);
-        TextView toCity=findViewById(R.id.kudaField);
-        TextView otpr= findViewById(R.id.otpravitelField);
-        TextView poluch=findViewById(R.id.poluchatelField);
-        TextView kolvMest=findViewById(R.id.kolvoMestField);
-        TextView ves=findViewById(R.id.vesField);
-        TextView obm=findViewById(R.id.obiemField);
-        TextView trans=findViewById(R.id.transportTypeField);
-        TextView rasp=findViewById(R.id.raspechatalField);
-        TextView numZ=findViewById(R.id.numZakaz);
-        TextView dateZ=findViewById(R.id.dateZakazField);
-        TextView fromCityBottom=findViewById(R.id.otkudaBottomField);
-        TextView toCityBottom=findViewById(R.id.kudaBottomField);
-        TextView mesta=findViewById(R.id.mestoBottomField);
-        TextView otprBottom=findViewById(R.id.otpravitelBottomField);
-        TextView poluchBottom=findViewById(R.id.poluchatelBottomField);
-        TextView pasrbottom=findViewById(R.id.raspBottomField);
-        TextView numZbottom=findViewById(R.id.numZakazBottom);
-        TextView dateBottom=findViewById(R.id.dateZakazBottom);
-
-        fromCity.setText(pd.getFromCity());
-        toCity.setText(pd.getToCity());
-        otpr.setText(pd.getOtpravitel());
-        poluch.setText(pd.getPoluchatel());
-        kolvMest.setText(pd.getKolvoMest());
-        ves.setText(pd.getVes());
-        obm.setText(pd.getObiem());
-        trans.setText(pd.getTypeTrans());
-        rasp.setText(pd.getRasp());
-        numZ.setText(pd.getNumZakaz());
-        dateZ.setText(pd.getDate());
-        fromCityBottom.setText(pd.getFromCity());
-        toCityBottom.setText(pd.getToCity());
-        mesta.setText("1 из "+ pd.getKolvoMest());
-        otprBottom.setText(pd.getOtpravitel());
-        poluchBottom.setText(pd.getPoluchatel());
-        pasrbottom.setText(pd.getRasp());
-        numZbottom.setText(pd.getNumZakaz());
-        dateBottom.setText(pd.getDate());
+        expedNum.setText(item.getNumZakaz());
+        date.setText(item.getDate());
+        otkuda.setText(item.getFromCity());
+        kuda.setText(item.getToCity());
+        naimenOtpr.setText(item.getOtpravitel());
+        addressOtpr.setText(item.getFromCity());
+        naimenPoluch.setText(item.getPoluchatel());
+        addressPoluch.setText(item.getToCity());
+        platelshik.setText(item.getPoluchatel());
+        kolvoMest.setText(item.getKolvoMest());
+        upakovka.setText(upak);
+        ves.setText(item.getVes());
+        obiem.setText(item.getObiem());
     }
 
     @Override
@@ -92,20 +88,18 @@ public class Etiketka extends AppCompatActivity{
         return true;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         if (id == R.id.pdf_create) {
-            save(pdf_contEt);
+            save(pdf_cont);
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void save (View v){
-        RelativeLayout scroll = (RelativeLayout) findViewById(R.id.relativeLay);
+        RelativeLayout scroll = (RelativeLayout) findViewById(R.id.relLay);
         int yy = scroll.getScrollY()+scroll.getHeight();
         int xx = scroll.getWidth();
 
@@ -121,7 +115,7 @@ public class Etiketka extends AppCompatActivity{
         document.finishPage(page);
         try {
             File mFolder = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
-            File imageFile = new File(mFolder,"Этикетка"+ "_"+ System.currentTimeMillis() + ".pdf");
+            File imageFile = new File(mFolder,"filename"+ "_"+ System.currentTimeMillis() + ".pdf");
             if (!mFolder.exists()) {
                 mFolder.mkdirs();
             }
@@ -134,9 +128,10 @@ public class Etiketka extends AppCompatActivity{
             Toast.makeText(this, "При сохранении возникла ошибка", Toast.LENGTH_LONG).show();
         }
     }
+
     @Override
     public void onBackPressed() {
-        Intent myIntent = new Intent(Etiketka.this, Reception.class);
+        Intent myIntent = new Intent(ExpedPage.this, Reception.class);
         startActivity(myIntent);
     }
 }

@@ -1,0 +1,714 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReceptionFiles.ExpedPage">
+
+
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
+
+        <RelativeLayout
+            android:id="@+id/relLay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/headerText"
+                android:layout_width="173dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="80dp"
+                android:text="@string/constant"
+                android:textColor="@android:color/black"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/expedRaspis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="75dp"
+                android:layout_marginTop="138dp"
+                android:padding="3dp"
+                android:text="@string/qwer"
+                android:textColor="@android:color/black"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/expedNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/expedRaspis"
+                android:layout_marginEnd="75dp"
+                android:padding="3dp"
+                android:text="@string/expedNumber"
+                android:textColor="@android:color/black"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_alignBottom="@+id/expedRaspis"
+                android:layout_alignParentStart="true"
+                android:background="@android:color/black" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="167dp">
+
+                <TableRow android:layout_width="388dp">
+
+                    <TextView
+                        android:id="@+id/vremya"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/date"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/vremyaFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/dateFill"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/marshrut"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/marshrut"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/marshrutFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/marshFill1"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tere"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/tere"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/marshrutFill2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/marshFill2"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+                </TableRow>
+            </TableLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="193dp">
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/gruzootpravitel"
+                        android:layout_width="371dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="3dp"
+                        android:text="@string/gruzootpravitel"
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </TableRow>
+            </TableLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="215dp">
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/naimenovanie"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/naimenovanie"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/naimenovanieFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/naimenovanieаFill"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+                </TableRow>
+            </TableLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="22dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="235dp">
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/adres"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/adres"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/adresFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/adresFill"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+                </TableRow>
+            </TableLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="255dp">
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/contact"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/contact"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/contacFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/contactFill"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+                </TableRow>
+            </TableLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="275dp">
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/gruzopoluchatel"
+                        android:layout_width="368dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="3dp"
+                        android:text="@string/gruzopoluchatel"
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </TableRow>
+            </TableLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="295dp">
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/naimenPoluch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/naimenPoluch"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/naimenPoluchFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/naimenPoluchFill"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+                </TableRow>
+            </TableLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="315dp">
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/adressPoluch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/adressPolusch"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/adressPoluchFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/adressPoluchFill"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+                </TableRow>
+            </TableLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="335dp">
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/contactPoluch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/contactPoluch"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/contactPoluchFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/contactPoluchFill"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+                </TableRow>
+            </TableLayout>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="355dp">
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/platelshik"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/platelshik"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/platelshikFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/platelshikFill"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+                </TableRow>
+            </TableLayout>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="375dp">
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/dataGruz"
+                        android:layout_width="373dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/datagruz"
+                        android:padding="3dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </TableRow>
+            </TableLayout>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="395dp">
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/naimenGruz"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/naimenGruz"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/naimenGruzFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/naimenGruzFill"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+                </TableRow>
+            </TableLayout>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="415dp">
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/characterGruz"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/characterGruz"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/characterGruzFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/characterGruzFill"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+                </TableRow>
+            </TableLayout>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="435dp">
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/kolvoMest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/kolvoMest"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/kolvoMestFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/kolvoMestFill"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/upakovka"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/upakovka"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+                </TableRow>
+            </TableLayout>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="455dp">
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/vesAndObiem"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/vesObiem"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/ves"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/ves"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/vesFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/vesFill"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/obiem"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/obiem"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/obiemFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/obiemFill"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+                </TableRow>
+            </TableLayout>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="475dp">
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/dopUslugi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/dopUslugi"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/dopUslugiFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="something"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+                </TableRow>
+            </TableLayout>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="495dp">
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/osobOtmExp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/osobOtmExp"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/osobOtmExpFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="something"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+                </TableRow>
+            </TableLayout>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="515dp">
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/soprDoc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/soprDoc"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/soprDocFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="something"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+                </TableRow>
+            </TableLayout>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="535dp">
+                <TableRow>
+
+
+                    <TextView
+                        android:id="@+id/longText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/longText"
+                        android:textColor="@android:color/black"
+                        android:textSize="9sp" />
+                </TableRow>
+            </TableLayout>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="585dp">
+                <TableRow>
+
+
+                    <TextView
+                        android:id="@+id/longText1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/longText1"
+                        android:textColor="@android:color/black"
+                        android:textSize="9sp" />
+                </TableRow>
+            </TableLayout>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="615dp">
+                <TableRow>
+
+
+                    <TextView
+                        android:id="@+id/longText2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/longText2"
+                        android:textColor="@android:color/black"
+                        android:textSize="9sp" />
+                </TableRow>
+            </TableLayout>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="630dp">
+                <TableRow>
+
+
+                    <TextView
+                        android:id="@+id/longText3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/longText3"
+                        android:textColor="@android:color/black"
+                        android:textSize="9sp" />
+                </TableRow>
+            </TableLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>

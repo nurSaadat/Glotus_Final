@@ -69,122 +69,127 @@
                 android:text="Документ основания"
                 android:textAlignment="textStart"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp"
-                />
+                android:textSize="18sp" />
 
             <Spinner
                 android:id="@+id/spinner_document_osnov"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                />
+                android:layout_marginBottom="8dp" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_1"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginTop="12dp"
-                    android:text="Дата"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="18sp"
-                    />
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/et_data"
-                    android:layout_width="88dp"
+                    <TextView
+                        android:id="@+id/tv_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Дата"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_data"
+                        android:layout_width="88dp"
+                        android:layout_height="wrap_content"
+                        android:ems="5"
+                        android:inputType="date"
+                        android:text="21.09.18"
+                        android:textAlignment="center"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@+id/tv_1"
-                    android:ems="5"
-                    android:inputType="date"
-                    android:text="21.09.18"
-                    android:textAlignment="center"
-                    android:textSize="18sp"
-                    />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_2"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/tv_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:text="Заказчик: "
+                        android:textAlignment="textStart"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tv_zakazchic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:layout_marginLeft="57dp"
+                        android:text="заказчик"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginTop="56dp"
-                    android:text="Заказчик: "
-                    android:textAlignment="textStart"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_zakazchic"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/tv_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:text="Отправитель: "
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tv_otpravitel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:layout_marginLeft="25dp"
+                        android:text="отправитель"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/tv_2"
-                    android:layout_toEndOf="@+id/tv_2"
-                    android:text="TextView"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignTop="@id/tv_2"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginTop="32dp"
-                    android:text="Отправитель: "
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    />
+                    <TextView
+                        android:id="@+id/tv_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:text="Получатель: "
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/tv_otpravitel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/tv_3"
-                    android:layout_toEndOf="@+id/tv_3"
-                    android:text="TextView"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignTop="@+id/tv_3"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginBottom="12dp"
-                    android:text="Получатель: "
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_poluchatel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/tv_4"
-                    android:layout_toEndOf="@+id/tv_4"
-                    android:text="TextView"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    />
-
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/tv_poluchatel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:layout_marginLeft="35dp"
+                        android:text="получатель"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+                </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -232,8 +237,7 @@
                         android:text="Объем факт"
                         android:textAlignment="textStart"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="18sp"
-                        />
+                        android:textSize="18sp" />
 
                     <EditText
                         android:id="@+id/et_obem_fact"
@@ -242,8 +246,7 @@
                         android:layout_weight="20"
                         android:ems="10"
                         android:inputType="numberDecimal"
-                        android:text="000"
-                        />
+                        android:text="000" />
 
                 </LinearLayout>
 
@@ -258,21 +261,45 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="12dp"
                         android:layout_weight="100"
-                        android:text="Упаковка"
+                        android:text="Количество"
                         android:textAlignment="textStart"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="18sp"
-                        />
+                        android:textSize="18sp" />
 
                     <EditText
-                        android:id="@+id/et_upakovka"
+                        android:id="@+id/et_kolich"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="20"
                         android:ems="10"
-                        android:inputType="textPersonName"
-                        android:text="Name"
-                        />
+                        android:inputType="numberDecimal"
+                        android:text="000" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:text="Упаковка"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+
+                    <Spinner
+                        android:id="@+id/spin_upakovka"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="47dp"
+                        android:layout_weight="20"
+                        android:ems="10"
+                        android:inputType="textPersonName"/>
 
                 </LinearLayout>
 
@@ -289,15 +316,13 @@
                         android:text="Груз поврежден"
                         android:textAlignment="textStart"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="18sp"
-                        />
+                        android:textSize="18sp" />
 
                     <CheckBox
                         android:id="@+id/cb_gruz_povrezhden"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="60"
-                        />
+                        android:layout_weight="60" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -396,19 +421,17 @@
                         android:text="Менеджер: "
                         android:textAlignment="textStart"
                         android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/tv_menedzher"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/tv_podrazdel"
                         android:layout_alignTop="@+id/tv_5"
-                        android:layout_toEndOf="@+id/tv_5"
-                        android:text="TextView"
+                        android:text="Менеджер"
                         android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/tv_6"
@@ -420,19 +443,17 @@
                         android:layout_marginTop="32dp"
                         android:text="Подразделение: "
                         android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/tv_podrazdel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/tv_comment"
                         android:layout_alignTop="@+id/tv_6"
-                        android:layout_toEndOf="@+id/tv_6"
-                        android:text="TextView"
+                        android:text="Подразделение"
                         android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/tv_7"
@@ -440,24 +461,22 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_alignTop="@+id/tv_6"
+                        android:layout_marginBottom="12dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginTop="32dp"
-                        android:layout_marginBottom="12dp"
                         android:text="Комментарий: "
                         android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/tv_comment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/tv_zakazchick_email"
                         android:layout_alignTop="@+id/tv_7"
-                        android:layout_toEndOf="@+id/tv_7"
-                        android:text="TextView"
+                        android:text="Комментарий"
                         android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/tv_8"
@@ -470,28 +489,16 @@
                         android:text="Транспорт: "
                         android:textAlignment="textStart"
                         android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        />
+                        android:textSize="18sp" />
 
-                    <!--<TextView
-                        android:id="@+id/tv_transport"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/tv_8"
-                        android:layout_toEndOf="@+id/tv_8"
-                        android:text="TextView"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        />-->
                     <Spinner
                         android:id="@+id/spin_transport"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/tv_menedzher"
                         android:layout_alignTop="@+id/tv_8"
-                        android:layout_toEndOf="@+id/tv_8"
-                        android:text="TextView"
                         android:textColor="@android:color/black"
-                        android:textSize="18sp"/>
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/tv_9"
@@ -503,19 +510,17 @@
                         android:layout_marginTop="32dp"
                         android:text="Почта заказчика: "
                         android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/tv_zakazchick_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/tv_zakazchik_nomer"
                         android:layout_alignTop="@+id/tv_9"
-                        android:layout_toEndOf="@+id/tv_9"
-                        android:text="TextView"
+                        android:text="Почта заказчика"
                         android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/tv_10"
@@ -523,37 +528,35 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_alignTop="@+id/tv_9"
+                        android:layout_marginBottom="12dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginTop="32dp"
-                        android:layout_marginBottom="12dp"
                         android:text="Номер заказчика: "
                         android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/tv_zakazchik_nomer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/tv_9"
-                        android:layout_toEndOf="@+id/tv_9"
-                        android:text="TextView"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignTop="@+id/tv_10"
+                        android:layout_marginEnd="24dp"
+                        android:text="Номер заказчика "
                         android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        />
+                        android:textSize="18sp" />
 
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/sopDoc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
                     android:text="Сопроводительный документ"
                     android:textAlignment="textStart"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="18sp"
-                    android:onClick="doSmth1"
-                    />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -562,11 +565,10 @@
                     android:text="Документ подтверждения"
                     android:textAlignment="textStart"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="18sp"
-                    android:onClick="doSmth2"
-                    />
+                    android:textSize="18sp" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -575,16 +577,16 @@
                     android:id="@+id/btn_etiketka"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Этикетка"
                     android:layout_marginLeft="150dp"
+                    android:hint="Этикетка"
                     android:textColor="@android:color/black" />
 
                 <Button
                     android:id="@+id/btn_otpr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Отправить"
                     android:layout_marginLeft="10dp"
+                    android:hint="Отправить"
                     android:textColor="@android:color/black" />
             </LinearLayout>
         </LinearLayout>

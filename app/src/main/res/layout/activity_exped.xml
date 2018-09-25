@@ -564,6 +564,15 @@
                         android:textColor="@android:color/black"
                         android:textSize="10sp"
                         android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/dopUslugiFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="something"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
                 </TableRow>
             </TableLayout>
             <TableLayout
@@ -583,6 +592,15 @@
                         android:textColor="@android:color/black"
                         android:textSize="10sp"
                         android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/osobOtmExpFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="something"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
                 </TableRow>
             </TableLayout>
             <TableLayout
@@ -602,6 +620,15 @@
                         android:textColor="@android:color/black"
                         android:textSize="10sp"
                         android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/soprDocFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="something"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
                 </TableRow>
             </TableLayout>
             <TableLayout

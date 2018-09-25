@@ -13,6 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.usk.glotus_final.R;
@@ -26,6 +28,9 @@ public class ExpedPage extends AppCompatActivity {
     private RelativeLayout pdf_cont;
     private ScrollView scrollView2;
     private MenuItem btn_generate;
+    private PdfData item=Reception.pd;
+    private String upak=Reception.upakovka.getSelectedItem().toString();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +39,44 @@ public class ExpedPage extends AppCompatActivity {
 
         scrollView2=findViewById(R.id.scrollview);
         pdf_cont=findViewById(R.id.relLay);
-        //buildText();
+        buildText();
+    }
+
+    public void buildText(){
+        TextView expedNum=findViewById(R.id.expedNum);
+        TextView date=findViewById(R.id.vremyaFill);
+        TextView otkuda=findViewById(R.id.marshrutFill);
+        TextView kuda=findViewById(R.id.marshrutFill2);
+        TextView naimenOtpr=findViewById(R.id.naimenGruzFill);
+        TextView addressOtpr=findViewById(R.id.adresFill);
+        TextView contactOtpr=findViewById(R.id.contacFill);           //from 1C
+        TextView naimenPoluch=findViewById(R.id.naimenPoluchFill);
+        TextView addressPoluch=findViewById(R.id.adressPoluchFill);
+        TextView contactPoluch=findViewById(R.id.contactPoluchFill);  //from 1C
+        TextView platelshik=findViewById(R.id.platelshikFill);
+        TextView naimenGruz=findViewById(R.id.naimenGruzFill);        //from 1C
+        TextView characGruz=findViewById(R.id.characterGruzFill);     //from 1C
+        TextView kolvoMest=findViewById(R.id.kolvoMestFill);
+        TextView upakovka=findViewById(R.id.upakovka);
+        TextView ves=findViewById(R.id.ves);
+        TextView obiem=findViewById(R.id.obiem);
+        TextView dopUslugi=findViewById(R.id.dopUslugiFill);            //from 1C
+        TextView osobOtmExp=findViewById(R.id.osobOtmExpFill);          //from 1C
+        TextView soprDoc=findViewById(R.id.soprDocFill);                //from 1C
+
+        expedNum.setText(item.getNumZakaz());
+        date.setText(item.getDate());
+        otkuda.setText(item.getFromCity());
+        kuda.setText(item.getToCity());
+        naimenOtpr.setText(item.getOtpravitel());
+        addressOtpr.setText(item.getFromCity());
+        naimenPoluch.setText(item.getPoluchatel());
+        addressPoluch.setText(item.getToCity());
+        platelshik.setText(item.getPoluchatel());
+        kolvoMest.setText(item.getKolvoMest());
+        upakovka.setText(upak);
+        ves.setText(item.getVes());
+        obiem.setText(item.getObiem());
     }
 
     @Override

@@ -58,35 +58,22 @@ public class Reception extends AppCompatActivity {
     ConnectionServer server;
     JSONArray transport = null;
     static PdfData pd;
-
+    static Spinner upakovka;
     LinearLayout layToHide;
-
-    TextView numZakaz;
-    TextView date;
-    Spinner docOsnov;    //I will change
-    EditText dateToFill;
-    TextView zakazchik;
-    TextView otpravitel;
-    TextView poluchatel;
-    EditText vesFact;
-    EditText obiemFact;
-    EditText kolich;
-    Spinner upakovka;
-    CheckBox gruz;
-    EditText komentToFill;
-    Button save;
-    Button delete;
-    TextView manager;
-    TextView podrazdelenie;
+    Spinner docOsnov; //
     Spinner transportType;
-    TextView postZakazshik;
-    TextView numZakazshik;
-    ImageView img;
-    ImageView img1;
-    ImageView img2;
+    TextView numZakaz, date;
+    TextView zakazchik, otpravitel, poluchatel;
+    TextView manager,podrazdelenie;
+    TextView postZakazshik, numZakazshik; //
     TextView soprDoc;
-    Button etiketka;
-    Button saveBtn;
+    EditText dateToFill;
+    EditText vesFact, obiemFact, kolich, komentToFill;
+    CheckBox gruz;
+    Button save,delete;
+    Button etiketka,saveBtn;
+    ImageView img,img1,img2;
+
 
     Boolean damage=false;
     String msg="\n" +

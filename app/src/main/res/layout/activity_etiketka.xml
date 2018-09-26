@@ -430,12 +430,12 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                app:srcCompat="@mipmap/ic_launcher_foreground"
+
                 tools:ignore="VectorDrawableCompat" />
 
         </RelativeLayout>
     </ScrollView>
 
     <!--<include layout="@layout/jai"/>-->
-
+    <!--app:srcCompat="@mipmap/ic_launcher_foreground"-->
 </LinearLayout>

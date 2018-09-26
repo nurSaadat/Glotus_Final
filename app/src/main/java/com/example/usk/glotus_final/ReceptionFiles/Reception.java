@@ -20,6 +20,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.usk.glotus_final.Catalog.Kontragent;
+import com.example.usk.glotus_final.Catalog.Transport;
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserListFiles.SuperviserListItemActivity;
 import com.example.usk.glotus_final.SuperviserListFiles.ZayavkaListAdapter;
@@ -39,6 +41,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -83,7 +86,7 @@ public class Reception extends AppCompatActivity {
     String kkuda="";
     String ootkuda="";
     String trkey="00000000-0000-0000-0000-000000000000";
-    String mnkey="00000000-0000-0000-0000-000000000000";
+    String mnkey="";
     String pdkey="00000000-0000-0000-0000-000000000000";
     String dckey="00000000-0000-0000-0000-000000000000";
     String zkkey="00000000-0000-0000-0000-000000000000";
@@ -103,13 +106,8 @@ public class Reception extends AppCompatActivity {
         pdkey=ZayavkaListAdapter.item.getPodrazd();
 
         zakazchik=findViewById(R.id.tv_zakazchic);
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                zakazchik.setText(getZakazName(zkkey));
-                System.out.println("aaaaa");
-            }
-        });
+
+        zakazchik.setText(Kontragent.kontragent.get(zkkey));
 
         //
         numZakaz=findViewById(R.id.tv_nomer);
@@ -130,8 +128,10 @@ public class Reception extends AppCompatActivity {
         poluchatel.setText(ZayavkaListAdapter.item.getRecept());
         //
         manager=findViewById(R.id.tv_manager);
-        manager.setText(getManagerName());
-        //
+        System.out.println(ZayavkaListAdapter.item.getMenedjer());
+
+        //manager.setText(ZayavkaListAdapter.item.getMenedjer());
+
         podrazdelenie=findViewById(R.id.tv_podrazdel);
         podrazdelenie.setText(ZayavkaListAdapter.item.getPodrazd());
 
@@ -362,12 +362,16 @@ public class Reception extends AppCompatActivity {
     }
 
     public void setTransportSpinner(final Spinner spinner){
+        List<String> list = new ArrayList<String>();
+        final List<String> rlist = new ArrayList<String>();
+
+        /*
         server=new ConnectionServer("http://185.209.21.191/test/odata/standard.odata/Catalog_Транспорт?$format=json",User.cred);
         String json = (server.get(User.cred));
 
         JSONArray array = null;
         JSONObject jsonObj=null;
-        List<String> list = new ArrayList<String>();
+
         try {
             jsonObj = new JSONObject(json);
             array = jsonObj.getJSONArray("value");
@@ -383,7 +387,18 @@ public class Reception extends AppCompatActivity {
             transport=array;
         } catch (JSONException e) {
             e.printStackTrace();
+        }*/
+
+
+        list.add("Выберите:");
+        for (Map.Entry<String, String> entry : Transport.transport.entrySet()) {
+            System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+            list.add(entry.getValue());
+            rlist.add(entry.getKey());
         }
+
+
+
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,list);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -395,12 +410,8 @@ public class Reception extends AppCompatActivity {
                 System.out.println(spinner.getSelectedItem());
                 System.out.println(spinner.getSelectedItemPosition());
                 if(spinner.getSelectedItemPosition()-1>=0)
-                    try {
-                        System.out.println(transport.getJSONObject(spinner.getSelectedItemPosition()-1).getString("Description"));
-                        trkey=transport.getJSONObject(spinner.getSelectedItemPosition()-1).getString("Ref_Key");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                        trkey=rlist.get(spinner.getSelectedItemPosition()-1);
+
             }
 
             @Override

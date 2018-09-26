@@ -26,7 +26,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="60"
-                app:srcCompat="@mipmap/ic_launcher" />
+                app:srcCompat="@mipmap/ic_launcher"
+                />
 
             <TextView
                 android:id="@+id/tv_data"
@@ -41,6 +42,8 @@
             android:id="@+id/tv_code"
             android:layout_width="match_parent"
             android:layout_height="28dp"
+            android:textStyle="bold"
+            android:gravity="center"
             android:text="Hello"/>
 
     </LinearLayout>

@@ -13,12 +13,13 @@ public class Zayavka {
     private String zakaz;
     private String menedjer;
     private String podrazd;
+    private String status;
 
     public Zayavka(){
         
     }
 
-    public Zayavka(String number, String date, String sender, String recept, String senderadr, String receptadr, String Ref_key, String zakaz,String menedjer, String podrazd ) {
+    public Zayavka(String number, String date, String sender, String recept, String senderadr, String receptadr, String Ref_key, String zakaz,String menedjer, String podrazd, String status ) {
         this.number = number;
         this.date = date;
         this.sender = sender;
@@ -29,6 +30,7 @@ public class Zayavka {
         this.zakaz=zakaz;
         this.menedjer=menedjer;
         this.podrazd=podrazd;
+        this.status=status;
     }
 
     public String getDate() {
@@ -78,6 +80,13 @@ public class Zayavka {
     }
     public String getPodrazd() {
         return podrazd;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     /*private String created_at, zakazchik, otpravitel, poluchatel, upakovka, brak, status, title ,ves, obem, kolichestvo, id;

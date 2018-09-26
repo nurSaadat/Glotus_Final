@@ -1,12 +1,16 @@
 package com.example.usk.glotus_final.loginFiles;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -19,12 +23,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.example.usk.glotus_final.Catalog.Adress;
+import com.example.usk.glotus_final.Catalog.Kontragent;
 import com.example.usk.glotus_final.Catalog.Mdnames;
+import com.example.usk.glotus_final.Catalog.Transport;
+import com.example.usk.glotus_final.Encryption.AES;
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserListFiles.SuperviserListActivity;
-import com.example.usk.glotus_final.connection.ConnectionServer;
 import com.example.usk.glotus_final.connection.Server;
 
 import org.json.JSONArray;
@@ -36,8 +41,16 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 import okio.ByteString;
+
 
 public class SignInActivity extends AppCompatActivity {
     Handler mainHandler = new Handler(Looper.getMainLooper());
@@ -58,9 +71,10 @@ public class SignInActivity extends AppCompatActivity {
     ProgressBar progressBar2;
     ImageView iv_logo_main;
     TextView textView;
+    static Server server;
 
     User user;
-    Server server=new Server();
+
 
 
 
@@ -199,22 +213,72 @@ public class SignInActivity extends AppCompatActivity {
         check(server.getStatus());*/
         //
         new Thread(new Runnable() {
+            @SuppressLint("NewApi")
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void run() {
-                server.setUrl("http://185.209.21.191/test/odata/standard.odata?$format=json");
+                /*server.setUrl("http://185.209.21.191/test/odata/standard.odata?$format=json");
                 server.setCredential(getCredential(name,password));
                 System.out.println(server.get());
                 System.out.println(server.getAns());
-                user.setCred(getCredential(name,password));
+                user.setCred(getCredential(name,password));*/
 
-                check(server.getStatus());
+
+                try {
+                    process("http://185.209.21.191/test/odata/standard.odata?$format=json","GET","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz","{}");
+                } catch (NoSuchPaddingException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (InvalidAlgorithmParameterException e) {
+                    e.printStackTrace();
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                } catch (IllegalBlockSizeException e) {
+                    e.printStackTrace();
+                } catch (BadPaddingException e) {
+                    e.printStackTrace();
+                } catch (InvalidKeyException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(server.getRes());
+                System.out.println("-----------------");
+                try {
+                    check(server.getStatus());
+                } catch (NoSuchPaddingException e) {
+                    e.printStackTrace();
+                } catch (InvalidAlgorithmParameterException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (IllegalBlockSizeException e) {
+                    e.printStackTrace();
+                } catch (BadPaddingException e) {
+                    e.printStackTrace();
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                } catch (InvalidKeyException e) {
+                    e.printStackTrace();
+                }
             }
         }).start();
 
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static String process(String url, String way, String cred, String data) throws NoSuchPaddingException, UnsupportedEncodingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+        String body=url+","+way+","+cred+"*---*" +data;
+        System.out.println(body);
+        String string = AES.aesEncryptString(body, "1234567890123456");
+        body="data="+string;
+        System.out.println(body);
+        server = new Server("http://185.209.21.191/uu/demoaes.php",null, body);
+        return server.post();
+    }
 
 
-    public void check(Integer status){
+    @TargetApi(Build.VERSION_CODES.O)
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void check(Integer status) throws NoSuchPaddingException, InvalidAlgorithmParameterException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidKeyException {
         if(status==-1)
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
@@ -253,7 +317,8 @@ public class SignInActivity extends AppCompatActivity {
             startActivity(myIntent);
         }
     }
-    public void getCatalogs(){
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void getCatalogs() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -261,8 +326,9 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
-        Server server= new Server("http://185.209.21.191/test/odata/standard.odata/Catalog_Адресаты?$format=json");
-        String data=server.get();
+        process("http://185.209.21.191/test/odata/standard.odata/Catalog_%D0%90%D0%B4%D1%80%D0%B5%D1%81%D0%B0%D1%82%D1%8B?$format=json","GET","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz","{}");
+        String data=server.getRes();
+        System.out.println(data);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -290,12 +356,6 @@ public class SignInActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                progressBar2.setProgress(50);
-            }
-        });
 
             runOnUiThread(new Runnable() {
                 @Override
@@ -306,13 +366,13 @@ public class SignInActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                progressBar2.setProgress(70);
+                progressBar2.setProgress(40);
             }
         });
 
 
-        server.setUrl("http://185.209.21.191/test/odata/standard.odata/Catalog_Пользователи?$format=json");
-        data=server.get();
+        process("http://185.209.21.191/test/odata/standard.odata/Catalog_%D0%9F%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D0%B8?$format=json","GET","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz","{}");
+        data=server.getRes();
 
         array = null;
         jsonObj = null;
@@ -337,10 +397,81 @@ public class SignInActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                progressBar2.setProgress(100);
+                progressBar2.setProgress(40);
+            }
+        });
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                textView.setText("Скачивание каталог Контрагенты");
             }
         });
 
+        process("http://185.209.21.191/test/odata/standard.odata/Catalog_%D0%9A%D0%BE%D0%BD%D1%82%D1%80%D0%B0%D0%B3%D0%B5%D0%BD%D1%82%D1%8B?$format=json","GET","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz","{}");
+        data=server.getRes();
+
+        array = null;
+        jsonObj = null;
+        try {
+            jsonObj = new JSONObject(data);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            array = jsonObj.getJSONArray("value");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < array.length(); i++) {
+            try {
+                Kontragent.kontragent.put(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("Description"));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                textView.setText("Скачивание каталог Транспорты");
+            }
+        });
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressBar2.setProgress(70);
+            }
+        });
+        process("http://185.209.21.191/test/odata/standard.odata/Catalog_%D0%A2%D1%80%D0%B0%D0%BD%D1%81%D0%BF%D0%BE%D1%80%D1%82?$format=json","GET","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz","{}");
+        data=server.getRes();
+
+        array = null;
+        jsonObj = null;
+        try {
+            jsonObj = new JSONObject(data);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            array = jsonObj.getJSONArray("value");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < array.length(); i++) {
+            try {
+                Transport.transport.put(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("Description"));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressBar2.setProgress(100);
+            }
+        });
 
 
 

@@ -19,7 +19,7 @@ public class Server {
     public static String body;
     public static String ans;
 
-    MediaType mediaType = MediaType.parse("application/json");
+    MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
     RequestBody data;
 
     public String res;
@@ -43,24 +43,22 @@ public class Server {
 
 
     public String get() {
-        System.out.println("--------------");
+
         if (credential==null){
-            System.out.println("--------------------");
         Request request = new Request.Builder()
                 .url(url)
                 .get()
-                .addHeader("content-type", "application/json")
+                .addHeader("content-type", "application/x-www-form-urlencoded")
                 .addHeader("cache-control", "no-cache")
                 .build();
         return connect(request);
         }
         else {
-            System.out.println("--------------------");
             Request request = new Request.Builder()
                     .url(url)
                     .get()
                     .addHeader("authorization",credential)
-                    .addHeader("content-type", "application/json")
+                    .addHeader("content-type", "application/x-www-form-urlencoded")
                     .addHeader("cache-control", "no-cache")
                     .build();
             return connect(request);
@@ -74,7 +72,7 @@ public class Server {
             Request request = new Request.Builder()
                     .url(url)
                     .post(data)
-                    .addHeader("content-type", "application/json")
+                    .addHeader("content-type", "application/x-www-form-urlencoded")
                     .addHeader("cache-control", "no-cache")
                     .build();
             return connect(request);
@@ -84,7 +82,7 @@ public class Server {
                     .url(url)
                     .post(data)
                     .addHeader("authorization", credential)
-                    .addHeader("content-type", "application/json")
+                    .addHeader("content-type", "application/x-www-form-urlencoded")
                     .addHeader("cache-control", "no-cache")
                     .build();
             return connect(request);

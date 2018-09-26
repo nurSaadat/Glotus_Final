@@ -1,6 +1,5 @@
 package com.example.usk.glotus_final.SuperviserListFiles;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -9,19 +8,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.usk.glotus_final.R;
+import com.example.usk.glotus_final.ReceptionFiles.Reception;
+import com.example.usk.glotus_final.connection.ConnectionServer;
+import com.example.usk.glotus_final.loginFiles.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
-
-
-import com.example.usk.glotus_final.R;
-import com.example.usk.glotus_final.ReceptionFiles.Reception;
-import com.example.usk.glotus_final.connection.ConnectionServer;
-import com.example.usk.glotus_final.loginFiles.User;
 
 public class ZayavkaListAdapter extends ArrayAdapter<Zayavka> {
 
@@ -40,6 +39,7 @@ public class ZayavkaListAdapter extends ArrayAdapter<Zayavka> {
         TextView receptadr;
         TextView senderadr;
         TextView manager;
+        ImageView iv_status;
     }
 
     /**
@@ -67,8 +67,9 @@ public class ZayavkaListAdapter extends ArrayAdapter<Zayavka> {
         String podrazd=getItem(position).getPodrazd();
         String ref_key=getItem(position).getRef_key();
         String zakaz=getItem(position).getZakaz();
+        String status=getItem(position).getStatus();
 
-        final Zayavka zayavka=new Zayavka(number,date,sender,recept,senderadr,receptadr,ref_key,zakaz,manager,podrazd);
+        final Zayavka zayavka=new Zayavka(number,date,sender,recept,senderadr,receptadr,ref_key,zakaz,manager,podrazd,status);
         final View result;
 
         final ViewHolder holder;
@@ -84,6 +85,7 @@ public class ZayavkaListAdapter extends ArrayAdapter<Zayavka> {
             holder.senderadr = (TextView) convertView.findViewById(R.id.tv_otkuda);
             holder.receptadr = (TextView) convertView.findViewById(R.id.tv_kuda);
             holder.manager=(TextView) convertView.findViewById(R.id.tv_manager);
+            holder.iv_status=(ImageView) convertView.findViewById(R.id.iv_status);
 
             result = convertView;
             convertView.setTag(holder);
@@ -95,16 +97,35 @@ public class ZayavkaListAdapter extends ArrayAdapter<Zayavka> {
 
         lastPosion=position;
 
-        holder.date.setText(zayavka.getDate());
+        holder.date.setText("     "+zayavka.getDate().split("T")[0]+"\n     "+zayavka.getDate().split("T")[1]);
         holder.number.setText(zayavka.getNumber());
         holder.sender.setText(zayavka.getSender());
         holder.recept.setText(zayavka.getRecept());
        // holder.senderadr.setText((zayavka.getSenderadr()));
        // holder.receptadr.setText((zayavka.getReceptadr()));
         holder.manager.setText(zayavka.getMenedjer());
-
         holder.senderadr.setText(zayavka.getSenderadr());
         holder.receptadr.setText(zayavka.getReceptadr());
+
+        if(status.equals("ПринятноНаСкладе"))
+            holder.iv_status.setImageResource(R.drawable.green);
+        else
+        if(status.equals("Отгружено"))
+            holder.iv_status.setImageResource(R.drawable.white);
+        else
+        if(status.equals("Новая"))
+            holder.iv_status.setImageResource(R.drawable.red);
+        else
+        if(status.equals("ПринятоВРаботу"))
+            holder.iv_status.setImageResource(R.drawable.vio);
+        else
+        if(status.equals("Доставлено"))
+            holder.iv_status.setImageResource(R.drawable.yellow);
+        else
+            holder.iv_status.setImageResource(R.drawable.grey);
+
+
+
 
 
 

@@ -2,6 +2,7 @@ package com.example.usk.glotus_final.ReceptionFiles;
 
 import android.content.Intent;
 import android.graphics.pdf.PdfDocument;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -121,7 +122,7 @@ public class Etiketka extends AppCompatActivity{
         document.finishPage(page);
         try {
             File mFolder = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
-            File imageFile = new File(mFolder,"Этикетка"+ "_"+ System.currentTimeMillis() + ".pdf");
+            File imageFile = new File(mFolder,"Этикетка.pdf"/*+ "_"+ System.currentTimeMillis() + ".pdf"*/);
             if (!mFolder.exists()) {
                 mFolder.mkdirs();
             }
@@ -133,7 +134,20 @@ public class Etiketka extends AppCompatActivity{
         } catch (IOException e) {
             Toast.makeText(this, "При сохранении возникла ошибка", Toast.LENGTH_LONG).show();
         }
+        print();
     }
+
+    public void print(){
+        Intent intentPrint=new Intent("com.sec.print.mobileprint.action.PRINT");
+        String rootSDCard=Environment.getExternalStorageDirectory().getAbsolutePath();
+        Uri uri =Uri.parse(rootSDCard+"/Этикетка.pdf");
+        intentPrint.putExtra("com.sec.print.mobileprint.extra.CONTENT",uri);
+        intentPrint.putExtra("com.sec.print.mobileprint.extra.CONTENT_TYPE","DOCUMENT");
+        intentPrint.putExtra("com.sec.print.mobileprint.extra.OPTION_TYPE","DOCUMENT_PRINT");
+        intentPrint.putExtra("com.sec.print.mobileprint.extra.JOB_NAME","UNTITLED");
+        startActivity(intentPrint);
+    }
+
     @Override
     public void onBackPressed() {
         Intent myIntent = new Intent(Etiketka.this, Reception.class);

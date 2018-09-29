@@ -12,7 +12,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,8 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class Camera extends AppCompatActivity {
-    private static final String TAG = "CameraActivity";
+public class CameraActivity extends AppCompatActivity {
 
     private Button button;
     private ImageView imageView;
@@ -37,12 +35,12 @@ public class Camera extends AppCompatActivity {
     public static final int REQUEST_IMAGE = 100;
     public static final int REQUEST_PERMISSION = 200;
     private String imageFilePath = "";//путь к файлу
-    private String imgFileName="";//название изображения
+    private String imgFileName="";//ну ты это понял
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_camera);
-        Log.d(TAG, "onCreate: started");
+        setContentView(R.layout.camera_activity);
 
         button = findViewById(R.id.btn);
         imageView = findViewById(R.id.image);
@@ -54,25 +52,26 @@ public class Camera extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_PERMISSION);
         }
-        Log.d(TAG, "onCreate: permission granted");
+
+
         openCameraIntent();
+
     }
 
+
     private void openCameraIntent() {
-
-        Log.d(TAG, "openCameraIntent: started");
-
         Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (pictureIntent.resolveActivity(getPackageManager()) != null) {
+
             File photoFile = null;
             try {
                 photoFile = createImageFile();
             }
             catch (IOException e) {
                 e.printStackTrace();
-
                 return;
             }
+
             Uri photoUri = FileProvider.getUriForFile(this, getPackageName() +".provider", photoFile);
             pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
             startActivityForResult(pictureIntent, REQUEST_IMAGE);
@@ -96,12 +95,19 @@ public class Camera extends AppCompatActivity {
 
         if (requestCode == REQUEST_IMAGE) {
             if (resultCode == RESULT_OK) {
-                Log.d(TAG, "onActivityResult: picture taken successfully");
+               /* Intent myIntent = new Intent(CameraActivity.this, Orders_activity.class);
+                //myIntent.putExtra("key", value); //Optional parameters
+                startActivity(myIntent);*/
+               // imageView.setImageURI(Uri.parse(imageFilePath));//можешь убрать
+                //imageName.setText(imgFileName);
+
                 System.out.println("-----------");
                 imagePath.setText(imageFilePath);
+                //Reception.singledata.add(data);
                 Reception.singleAddress.add(imageFilePath);
-                //Reception.foto.setText("Фото:"+Reception.singleAddress.size());
+             //   Reception.foto.setText("Фото:"+Reception.singleAddress.size());
                 finish();
+
             }
             else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "You cancelled the operation", Toast.LENGTH_SHORT).show();
@@ -110,7 +116,6 @@ public class Camera extends AppCompatActivity {
     }
 
     private File createImageFile() throws IOException {
-        Log.d(TAG, "createImageFile: file's name and format is processed");
 
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         String imageFileName = "IMG_" + timeStamp + "_";
@@ -121,9 +126,4 @@ public class Camera extends AppCompatActivity {
         return image;
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent myIntent = new Intent(Camera.this, Reception.class);
-        startActivity(myIntent);
-    }
 }

@@ -2,6 +2,7 @@ package com.example.usk.glotus_final.ReceptionFiles;
 
 import android.content.Intent;
 import android.graphics.pdf.PdfDocument;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.print.PrintAttributes;
@@ -113,9 +114,12 @@ public class ExpedPage extends AppCompatActivity {
         PdfDocument.Page page = document.startPage(pageInfo);
         scroll.draw(page.getCanvas());
         document.finishPage(page);
+
+        File mFolder;
+        File imageFile;
         try {
-            File mFolder = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
-            File imageFile = new File(mFolder,"filename"+ "_"+ System.currentTimeMillis() + ".pdf");
+            mFolder = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+            imageFile = new File(mFolder,"Exped.pdf"/*+ "_"+ System.currentTimeMillis() + ".pdf"*/);
             if (!mFolder.exists()) {
                 mFolder.mkdirs();
             }
@@ -127,6 +131,20 @@ public class ExpedPage extends AppCompatActivity {
         } catch (IOException e) {
             Toast.makeText(this, "При сохранении возникла ошибка", Toast.LENGTH_LONG).show();
         }
+
+        print();
+
+    }
+
+    public void print(){
+        Intent intentPrint=new Intent("com.sec.print.mobileprint.action.PRINT");
+        String rootSDCard=Environment.getExternalStorageDirectory().getAbsolutePath();
+        Uri uri =Uri.parse(rootSDCard+"/Exped.pdf");
+        intentPrint.putExtra("com.sec.print.mobileprint.extra.CONTENT",uri);
+        intentPrint.putExtra("com.sec.print.mobileprint.extra.CONTENT_TYPE","DOCUMENT");
+        intentPrint.putExtra("com.sec.print.mobileprint.extra.OPTION_TYPE","DOCUMENT_PRINT");
+        intentPrint.putExtra("com.sec.print.mobileprint.extra.JOB_NAME","UNTITLED");
+        startActivity(intentPrint);
     }
 
     @Override

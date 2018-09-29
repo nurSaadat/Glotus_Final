@@ -54,7 +54,7 @@ public class Reception extends AppCompatActivity {
     static PdfData pd;
     static Spinner upakovka;
     LinearLayout layToHide;
-    Spinner docOsnov; //
+    Spinner soprDocument; //
     Spinner transportType;
     TextView numZakaz, date;
     TextView zakazchik, otpravitel, poluchatel;
@@ -126,11 +126,22 @@ public class Reception extends AppCompatActivity {
         podrazdelenie=findViewById(R.id.tv_podrazdel);
         podrazdelenie.setText(Podrazd.podrazd.get(ZayavkaListAdapter.item.getPodrazd()));
 
+        soprDocument=findViewById(R.id.spinner_soprDoc);
+        String[] itemsForSop=new String[]{"Транспортная накладная","Товарно-транспортная накладная",
+                "Универсально-передаточный документ","Счет фактура","Накладная",
+                "Расходная накладная","INVOICE","другое"};
+        ArrayAdapter<String> adapterForSop=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, itemsForSop);
+        adapterForSop.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        soprDocument.setAdapter(adapterForSop);
+
         transportType=findViewById(R.id.spin_transport);
         setTransportSpinner(transportType);
 
         upakovka=findViewById(R.id.spin_upakovka);
-        setUpakovkaSpinner(upakovka);
+        String[] items=new String[]{"Без упаковки","Ящик","Паллет","Короб","Мешок","Другое"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, items);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        upakovka.setAdapter(adapter);
 
         komentToFill=findViewById(R.id.et_message_povrezhden);
         gruz=findViewById(R.id.cb_gruz_povrezhden);
@@ -149,7 +160,7 @@ public class Reception extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Intent myIntent = new Intent(Reception.this, Camera.class);
-                startActivityForResult(myIntent,);
+                startActivityForResult(myIntent,RESULT_OK);
                 ch=true;
 
             }
@@ -202,13 +213,6 @@ public class Reception extends AppCompatActivity {
             }
         });
 
-        soprDoc=findViewById(R.id.sopDoc);
-        soprDoc.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent myIntent=new Intent(Reception.this, ExpedPage.class);
-                startActivity(myIntent);
-            }
-        });
         etiketka=findViewById(R.id.btn_etiketka);
         etiketka.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -295,40 +299,12 @@ public class Reception extends AppCompatActivity {
         List<String> list = new ArrayList<String>();
         final List<String> rlist = new ArrayList<String>();
 
-        /*
-        server=new ConnectionServer("http://185.209.21.191/test/odata/standard.odata/Catalog_Транспорт?$format=json",User.cred);
-        String json = (server.get(User.cred));
-
-        JSONArray array = null;
-        JSONObject jsonObj=null;
-
-        try {
-            jsonObj = new JSONObject(json);
-            array = jsonObj.getJSONArray("value");
-            list.add("Выберите:");
-            array = jsonObj.getJSONArray("value");
-            for(int i = 0; i < array.length(); i++) {
-                try {
-                    list.add(array.getJSONObject(i).getString("Description"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-            transport=array;
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*/
-
-
         list.add("Выберите:");
         for (Map.Entry<String, String> entry : Transport.transport.entrySet()) {
             System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
             list.add(entry.getValue());
             rlist.add(entry.getKey());
         }
-
-
-
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,list);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

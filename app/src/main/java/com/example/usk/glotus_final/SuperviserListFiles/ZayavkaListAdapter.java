@@ -13,12 +13,6 @@ import android.widget.TextView;
 
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.ReceptionFiles.Reception;
-import com.example.usk.glotus_final.connection.ConnectionServer;
-import com.example.usk.glotus_final.loginFiles.User;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
 
@@ -146,71 +140,6 @@ public class ZayavkaListAdapter extends ArrayAdapter<Zayavka> {
 
         return convertView;
     }
-    public String getadr(String mnkey) {
-        ConnectionServer mns = new ConnectionServer("http://185.209.21.191/test/odata/standard.odata/Catalog_Адресаты?$format=json&$filter=Ref_Key%20eq%20guid%27" + mnkey + "%27", User.cred);
-        JSONArray array = null;
-        JSONObject jsonObj = null;
-        try {
-            jsonObj = new JSONObject(mns.get(User.cred));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            array = jsonObj.getJSONArray("value");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            array = jsonObj.getJSONArray("value");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-        for (int i = 0; i < array.length(); i++) {
-            try {
-                return array.getJSONObject(i).getString("Description");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        return "";
-    }
-    public String getmdname(String mnkey){
-
-        ConnectionServer mns= new ConnectionServer("http://185.209.21.191/test/odata/standard.odata/Catalog_Пользователи?$format=json&$filter=Ref_Key%20eq%20guid%27"+mnkey+"%27",User.cred);
-        JSONArray array = null;
-        JSONObject jsonObj=null;
-        try {
-            jsonObj = new JSONObject(mns.get(User.cred));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            array = jsonObj.getJSONArray("value");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            array = jsonObj.getJSONArray("value");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        for(int i = 0; i < array.length(); i++) {
-
-            try {
-                return array.getJSONObject(i).getString("Code");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-        }
-
-
-        return "";
-
-
-
-    }
 
 }

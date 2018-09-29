@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.example.usk.glotus_final.Catalog.Adress;
 import com.example.usk.glotus_final.Catalog.Kontragent;
 import com.example.usk.glotus_final.Catalog.Mdnames;
+import com.example.usk.glotus_final.Catalog.Podrazd;
 import com.example.usk.glotus_final.Catalog.Transport;
 import com.example.usk.glotus_final.Encryption.AES;
 import com.example.usk.glotus_final.R;
@@ -425,7 +426,7 @@ public class SignInActivity extends AppCompatActivity {
         for (int i = 0; i < array.length(); i++) {
             try {
                 Kontragent.kontragent.put(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("Description"));
-
+                Kontragent.kontragentnum.put(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("ТелефонКонтактногоЛица"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -466,14 +467,38 @@ public class SignInActivity extends AppCompatActivity {
             }
         }
 
+        http://185.209.21.191/test/odata/standard.odata/Catalog_%D0%9F%D0%BE%D0%B4%D1%80%D0%B0%D0%B7%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F?$format=json
+
+        process("http://185.209.21.191/test/odata/standard.odata/Catalog_%D0%9F%D0%BE%D0%B4%D1%80%D0%B0%D0%B7%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F?$format=json","GET","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz","{}");
+        data=server.getRes();
+
+        array = null;
+        jsonObj = null;
+        try {
+            jsonObj = new JSONObject(data);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            array = jsonObj.getJSONArray("value");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < array.length(); i++) {
+            try {
+                Podrazd.podrazd.put(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("Description"));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 progressBar2.setProgress(100);
             }
         });
-
-
 
 
 

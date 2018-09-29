@@ -11,7 +11,7 @@ public class Zayavka {
     private String receptadr;
     private String Ref_key;
     private String zakaz;
-    private String menedjer;
+    private String menedjer="";
     private String podrazd;
     private String status;
 

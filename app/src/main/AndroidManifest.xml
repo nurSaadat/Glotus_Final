@@ -28,8 +28,6 @@
         </activity>
         <activity android:name=".SuperviserListFiles.SuperviserListActivity"></activity>
         <activity android:name=".ReceptionFiles.Reception"></activity>
-        <activity android:name=".ReceptionFiles.CameraActivity">
-        </activity>
         <activity android:name=".ReceptionFiles.Camera">
         </activity>
         <activity android:name=".ReceptionFiles.Etiketka">

@@ -27,7 +27,7 @@ public class AES {
         byte[] keyBytes = key.getBytes(charset);
         byte[] encryptedBytes = aesEncryptBytes(contentBytes, keyBytes);
 
-         return Base64.encodeToString(encryptedBytes,Base64.DEFAULT);
+        return Base64.encodeToString(encryptedBytes,Base64.DEFAULT);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

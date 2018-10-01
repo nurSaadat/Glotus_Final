@@ -1,10 +1,14 @@
 package com.example.usk.glotus_final.ReceptionFiles;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.text.LoginFilter;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -23,17 +27,34 @@ import android.widget.TextView;
 import com.example.usk.glotus_final.Catalog.Kontragent;
 import com.example.usk.glotus_final.Catalog.Podrazd;
 import com.example.usk.glotus_final.Catalog.Transport;
+import com.example.usk.glotus_final.Encryption.AES;
 import com.example.usk.glotus_final.R;
+import com.example.usk.glotus_final.SuperviserListFiles.Zayavka;
 import com.example.usk.glotus_final.SuperviserListFiles.ZayavkaListAdapter;
+import com.example.usk.glotus_final.connection.Server;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -56,6 +77,7 @@ public class Reception extends AppCompatActivity {
     LinearLayout layToHide;
     Spinner soprDocument; //
     Spinner transportType;
+    static TextView foto_kol;
     TextView numZakaz, date;
     TextView zakazchik, otpravitel, poluchatel;
     TextView manager,podrazdelenie;
@@ -69,6 +91,7 @@ public class Reception extends AppCompatActivity {
     RelativeLayout relativeLayout;
     TextView tv_zakazchik_nomer;
     LinearLayout hide_lay;
+    static Integer fotokol=0;
 
     boolean ch=false;
 
@@ -76,7 +99,7 @@ public class Reception extends AppCompatActivity {
     String msg= "Уважаемый клиент, обращаем Ваше внимание, что в результате приемки груза были выявлены повреждения упаковки (см. фото),\n" +
             "\n" +
             " по всем вопросам связывайтесь с Вашим менеджером Администратор тел.";
-    private String trkey;
+    private String trkey="00000000-0000-0000-0000-000000000000";
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +116,8 @@ public class Reception extends AppCompatActivity {
 
 
         layToHide=findViewById(R.id.lay_to_hide);
+        foto_kol=findViewById(R.id.foto_kol);
+
 
 
         zakazchik=findViewById(R.id.tv_zakazchic);
@@ -104,8 +129,7 @@ public class Reception extends AppCompatActivity {
         date=findViewById(R.id.tv_data);
         date.setText(ZayavkaListAdapter.item.getDate());
 
-        dateToFill=findViewById(R.id.et_data);
-        //as
+
 
         vesFact=findViewById(R.id.et_ves_fact);
         obiemFact=findViewById(R.id.et_obem_fact);
@@ -160,47 +184,21 @@ public class Reception extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Intent myIntent = new Intent(Reception.this, Camera.class);
-                startActivityForResult(myIntent,RESULT_OK);
-                ch=true;
+                startActivity(myIntent);
+
 
             }
 
         });
-        if(ch==true) {
-            if (singleAddress.get(singleAddress.size() - 1) != null) {
-                System.out.println(singleAddress.get(singleAddress.size() - 1).toString());
-                String path = singleAddress.get(singleAddress.size() - 1).toString();
 
-                File imgFile = new File(path);
-                if (imgFile.exists()) {
-                    System.out.println("+++++++++++++++");
-                    FileInputStream inputStream = null;
-                    try {
-                        inputStream = new FileInputStream(singleAddress.get(singleAddress.size() - 1).toString());
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                    Log.d(TAG, bitmap.toString());
-                    ImageView imageView = new ImageView(Reception.this);
-                    imageView.setImageBitmap(bitmap);
-                    imageView.setMaxWidth(10);
-                    imageView.setMaxHeight(10);
-                    hide_lay.addView(imageView);
-
-                }
-                ch = false;
-            }
-            System.out.println("------------------------------------");
-        }
         //saves the photos
-        save=findViewById(R.id.btn_save);
+      /*  save=findViewById(R.id.btn_save);
         save.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 //network
             }
-        });
+        });*/
 
         //here I will change, this is delete button for gruz;
         delete=findViewById(R.id.del);
@@ -209,26 +207,61 @@ public class Reception extends AppCompatActivity {
             public void onClick(View v) {
                 if(singleAddress.size()>0){
                     singleAddress.remove(singleAddress.size()-1);
+                    foto_kol.setText(String.valueOf(singleAddress.size()));
                 }
             }
         });
 
-        etiketka=findViewById(R.id.btn_etiketka);
+        /*etiketka=findViewById(R.id.btn_etiketka);
         etiketka.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 Intent myIntent=new Intent(Reception.this, Etiketka.class);
                 startActivity(myIntent);
             }
-        });
+        });*/
         saveBtn=findViewById(R.id.btn_otpr);
         saveBtn.setOnClickListener(new View.OnClickListener(){
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view){
-                posting();
+                try {
+                    try {
+                        posting();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } catch (NoSuchPaddingException e) {
+                    e.printStackTrace();
+                } catch (InvalidKeyException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (IllegalBlockSizeException e) {
+                    e.printStackTrace();
+                } catch (BadPaddingException e) {
+                    e.printStackTrace();
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                } catch (InvalidAlgorithmParameterException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static String process(String url, String way, String cred, String data) throws NoSuchPaddingException, UnsupportedEncodingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+        String body=url+","+way+","+cred+"*---*" +data;
+        System.out.println(body);
+        String string = AES.aesEncryptString(body, "1234567890123456");
+        body="data="+string;
+        Log.d("aaa",body);
+        System.out.println(body);
+        Server server;
+        server = new Server("http://185.209.21.191/uu/demoaes.php",null, body);
+        return server.post();
+    }
+
 
     public void uploadingfile(){
         for(int i=0;i<singleAddress.size();i++){
@@ -241,41 +274,21 @@ public class Reception extends AppCompatActivity {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            upload(encodedImage);
+            upload(encodedImage,i+1);
         }
         for (int i=0;i<adress.size();i++){
             System.out.println(adress.get(i).toString());
         }
     }
 
-    public void upload(String encodedImage) {
-        String url=("https://promo.serveo.net/uploaded.php");
-        MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+    public void upload(String encodedImage, int i) {
         encodedImage=encodedImage.replace("/","%2F").replace("+","%2B");
-        RequestBody body = RequestBody.create(mediaType, "image="+encodedImage+"&number=18"+ZayavkaListAdapter.item.getNumber().toString());
+        String body = "image="+encodedImage+"&key="+ZayavkaListAdapter.item.getNumber().toString()+"&iter="+i;
+        Server sr= new Server("http://185.209.21.191/uu/uploaded.php",null,body);
+        sr.post();
+        adress.add(sr.getRes().replace("<","").replace("\\","\\\\").replace("/","\\\\"));
+        System.out.println(sr.getRes());
 
-        Request request = new Request.Builder()
-                .url(url)
-                .post(body)
-                .addHeader("content-type", "application/x-www-form-urlencoded")
-                .addHeader("cache-control", "no-cache")
-                .build();
-
-        OkHttpClient client = new OkHttpClient();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-            }
-
-            @Override
-            public void onResponse(Call call, final Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    adress.add(response.body().string().replace("<","").replace("\\","\\\\").replace("/","\\\\"));
-                } else {
-                    System.out.println(response.body().string());
-                }
-            }
-        });
     }
 
     public String imagetobase64(Bitmap bitmap){
@@ -288,7 +301,72 @@ public class Reception extends AppCompatActivity {
     }
 
     //here some mistakes, look throw
-    public void posting(){
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void posting() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, JSONException {
+        final ProgressDialog progressDialog = new ProgressDialog(Reception.this);
+        progressDialog.setMessage("Loading..."); // Setting Message
+        progressDialog.setTitle("ProgressDialog"); // Setting Title
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
+        progressDialog.show(); // Display Progress Dialog
+        progressDialog.setCancelable(false);
+
+        uploadingfile();
+
+        String images="\"Изображения\" : [";
+        for(int i=0;i<adress.size();i++) {
+            System.out.println(adress.get(i));
+            int c=i+1;
+            images += "{\"LineNumber\":  \"" + c + "\", \"ПутьКИзображению\": \"" + adress.get(i) + "\"}";
+            if (i!=adress.size() - 1)
+                images+=",";
+        }
+        images+="]";
+        System.out.println(images);
+        String timeStamp = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(Calendar.getInstance().getTime()).replace("_","T");
+
+
+       String body="{\n" +
+                "    \"КоличествоФакт\": \""+kolich.getText().toString()+"\",\n" +
+                "    \"ВесФакт\": \""+vesFact.getText().toString()+"\",\n" +
+                "    \"ОбъемФакт\": \""+obiemFact.getText().toString()+"\",\n" +
+                "    \"ГрузПоврежден\": "+damage.toString()+",\n" +
+                "    \"Posted\": true,\n" +
+                "    \"Заказчик_Key\": \""+ZayavkaListAdapter.item.getZakaz()+"\",\n" +
+                "    \"Упаковка\": \""+upakovka.getSelectedItem().toString()+"\",\n" +
+                "    \"Date\": \""+timeStamp+"\"    ,\n" +
+                "    \"Транспорт_Key\": \""+trkey+"\",\n" +
+                "    \"ДокументОснования_Key\": \""+ZayavkaListAdapter.item.getRef_key()+"\",\n" +
+              //      "    \"Менеджер_Key\": \""+ZayavkaListAdapter.item.getMenedjer()+"\",\n" +
+                "    \"Отправитель\": \""+ZayavkaListAdapter.item.getSender()+"\",\n" +
+                "    \"Подразделение_Key\": \""+ZayavkaListAdapter.item.getPodrazd()+"\",\n" +
+             //   "    \"Комментарий\": \""+comment.getText().toString()+"\"\n" +
+                "    \"Фото_Type\": \"application/image/jpeg\",\n" +
+                "    \"Письмо\": \""+komentToFill.getText().toString()+"\",\n" +
+                "    \"ПисьмоОтправлено\": false,\n"+
+                "    \"СопроводительныйДокумент\": \""+soprDocument.getSelectedItem().toString()+"\","+
+                     images+
+                " }";
+       Log.d("aa",body);
+
+            String res=process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%9F%D1%80%D0%B8%D0%B5%D0%BC%D0%9D%D0%B0%D0%A1%D0%BA%D0%BB%D0%B0%D0%B4?$format=json","POST","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz",body);
+        System.out.println(res);
+        JSONArray array = null;
+        JSONObject jsonObj=null;
+        try {
+            jsonObj = new JSONObject(res);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        System.out.println(jsonObj.getString("Ref_Key").toString());
+
+            res=process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7(guid\'"+ZayavkaListAdapter.item.getRef_key()+"\')?$format=json","PATCH","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz",
+                    "{\"ДокументПриемГруза_Key\": \""+jsonObj.getString("Ref_Key").toString()+"\"}");
+
+        System.out.println(res);
+            pd=new PdfData(ZayavkaListAdapter.item.getSenderadr(),ZayavkaListAdapter.item.getReceptadr(),ZayavkaListAdapter.item.getRecept(),ZayavkaListAdapter.item.getSender(),kolich.getText().toString(),vesFact.getText().toString(),
+                    obiemFact.getText().toString(),"AUTO","RASP", ZayavkaListAdapter.item.getNumber().toString(),ZayavkaListAdapter.item.getDate().toString(),
+                    " ");
+
 
             Intent myIntent = new Intent(Reception.this, Etiketka.class);
             startActivity(myIntent);
@@ -370,6 +448,7 @@ public class Reception extends AppCompatActivity {
         }
         System.out.println(damage.toString());
     }
+
 
 
 /*

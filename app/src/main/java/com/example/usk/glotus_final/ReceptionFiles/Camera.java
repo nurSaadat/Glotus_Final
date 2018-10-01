@@ -100,6 +100,7 @@ public class Camera extends AppCompatActivity {
                 System.out.println("-----------");
                 imagePath.setText(imageFilePath);
                 Reception.singleAddress.add(imageFilePath);
+                Reception.foto_kol.setText(String.valueOf(Reception.singleAddress.size()));
                 //Reception.foto.setText("Фото:"+Reception.singleAddress.size());
                 finish();
             }

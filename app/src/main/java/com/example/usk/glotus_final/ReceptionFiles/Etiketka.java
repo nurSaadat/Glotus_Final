@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.usk.glotus_final.R;
+import com.example.usk.glotus_final.SuperviserListFiles.SuperviserListActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -30,6 +31,8 @@ public class Etiketka extends AppCompatActivity{
     private RelativeLayout pdf_contEt;
     private ScrollView scrollViewEt;
     private MenuItem btn_generate;
+    private MenuItem btn_print;
+    private MenuItem btn_ok;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +93,12 @@ public class Etiketka extends AppCompatActivity{
         menuInflater.inflate(R.menu.pdf_menu, menu);
         btn_generate = menu.findItem(R.id.pdf_create);
         btn_generate.setVisible(true);
+
+        btn_print=menu.findItem(R.id.btn_print);
+        btn_print.setVisible(true);
+
+        btn_ok=menu.findItem(R.id.btn_ok);
+        btn_ok.setVisible(true);
         return true;
     }
 
@@ -101,6 +110,14 @@ public class Etiketka extends AppCompatActivity{
         if (id == R.id.pdf_create) {
             save(pdf_contEt);
         }
+        if(id == R.id.btn_print){
+            save(pdf_contEt);
+        }
+        if(id == R.id.btn_ok){
+            Intent myintent = new Intent(Etiketka.this, SuperviserListActivity.class);
+            startActivity(myintent);
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

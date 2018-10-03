@@ -14,4 +14,8 @@
         android:id="@+id/btn_ok"
         android:title="OK"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/btn_next"
+        android:title="Далее"
+        app:showAsAction="always" />
 </menu>

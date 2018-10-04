@@ -33,6 +33,7 @@ public class Etiketka extends AppCompatActivity{
     private MenuItem btn_generate;
     private MenuItem btn_print;
     private MenuItem btn_ok;
+    private MenuItem btn_next;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +42,7 @@ public class Etiketka extends AppCompatActivity{
         scrollViewEt=findViewById(R.id.scrollView3);
         pdf_contEt=findViewById(R.id.relativeLay);
         buildText();
+        save(pdf_contEt);
     }
 
     public void buildText(){
@@ -92,13 +94,16 @@ public class Etiketka extends AppCompatActivity{
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.pdf_menu, menu);
         btn_generate = menu.findItem(R.id.pdf_create);
-        btn_generate.setVisible(true);
+        btn_generate.setVisible(false);
 
         btn_print=menu.findItem(R.id.btn_print);
-        btn_print.setVisible(true);
+        btn_print.setVisible(false);
 
         btn_ok=menu.findItem(R.id.btn_ok);
-        btn_ok.setVisible(true);
+        btn_ok.setVisible(false);
+
+        btn_next=menu.findItem(R.id.btn_next);
+        btn_next.setVisible(true);
         return true;
     }
 
@@ -107,7 +112,12 @@ public class Etiketka extends AppCompatActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.pdf_create) {
+        if(id==R.id.btn_next){
+            Intent myIntent = new Intent(Etiketka.this, ExpedPage.class);
+            startActivity(myIntent);
+        }
+
+        /*if (id == R.id.pdf_create) {
             save(pdf_contEt);
         }
         if(id == R.id.btn_print){
@@ -116,8 +126,7 @@ public class Etiketka extends AppCompatActivity{
         if(id == R.id.btn_ok){
             Intent myintent = new Intent(Etiketka.this, SuperviserListActivity.class);
             startActivity(myintent);
-        }
-
+        }*/
         return super.onOptionsItemSelected(item);
     }
 
@@ -151,10 +160,9 @@ public class Etiketka extends AppCompatActivity{
         } catch (IOException e) {
             Toast.makeText(this, "При сохранении возникла ошибка", Toast.LENGTH_LONG).show();
         }
-        print();
     }
 
-    public void print(){
+    /*public void print(){
         Intent intentPrint=new Intent("com.sec.print.mobileprint.action.PRINT");
         String rootSDCard=Environment.getExternalStorageDirectory().getAbsolutePath();
         Uri uri =Uri.parse(rootSDCard+"/Этикетка.pdf");
@@ -163,7 +171,7 @@ public class Etiketka extends AppCompatActivity{
         intentPrint.putExtra("com.sec.print.mobileprint.extra.OPTION_TYPE","DOCUMENT_PRINT");
         intentPrint.putExtra("com.sec.print.mobileprint.extra.JOB_NAME","UNTITLED");
         startActivity(intentPrint);
-    }
+    }*/
 
     @Override
     public void onBackPressed() {

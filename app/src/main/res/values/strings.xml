@@ -106,4 +106,9 @@
     <string name="dateZakField">дата</string>
     <string name="mesto">Место:</string>
     <string name="mestoField">места</string>
+    <string name="wifiStatus">Wifi ON</string>
+    <string name="discoveryPeer">Поиск</string>
+    <string name="status">Connection status</string>
+    <string name="message">Message</string>
+    <string name="sendBtn">Send</string>
 </resources>

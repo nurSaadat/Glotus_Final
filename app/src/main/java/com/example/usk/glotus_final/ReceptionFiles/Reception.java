@@ -114,11 +114,8 @@ public class Reception extends AppCompatActivity {
 
         hide_lay=findViewById(R.id.hide_lay);
 
-
         layToHide=findViewById(R.id.lay_to_hide);
         foto_kol=findViewById(R.id.foto_kol);
-
-
 
         zakazchik=findViewById(R.id.tv_zakazchic);
         zakazchik.setText(Kontragent.kontragent.get(ZayavkaListAdapter.item.getZakaz()));
@@ -128,8 +125,6 @@ public class Reception extends AppCompatActivity {
 
         date=findViewById(R.id.tv_data);
         date.setText(ZayavkaListAdapter.item.getDate());
-
-
 
         vesFact=findViewById(R.id.et_ves_fact);
         obiemFact=findViewById(R.id.et_obem_fact);
@@ -191,15 +186,6 @@ public class Reception extends AppCompatActivity {
 
         });
 
-        //saves the photos
-      /*  save=findViewById(R.id.btn_save);
-        save.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                //network
-            }
-        });*/
-
         //here I will change, this is delete button for gruz;
         delete=findViewById(R.id.del);
         delete.setOnClickListener(new View.OnClickListener(){
@@ -220,6 +206,7 @@ public class Reception extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });*/
+
         saveBtn=findViewById(R.id.btn_otpr);
         saveBtn.setOnClickListener(new View.OnClickListener(){
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -395,35 +382,6 @@ public class Reception extends AppCompatActivity {
                 System.out.println(spinner.getSelectedItemPosition());
                 if(spinner.getSelectedItemPosition()-1>=0)
                         trkey=rlist.get(spinner.getSelectedItemPosition()-1);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-    }
-
-    public void setUpakovkaSpinner(final Spinner spinner){
-        //you must get the upakovka variables from 1C, and set the spinner
-        //like a setTransportSpinner
-        final List<String> list = new ArrayList<String>();
-        list.add("Выберите:");
-        list.add("Коробка");
-        list.add("Ящик");
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,list);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(arrayAdapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                spinner.setSelection(i);
-                System.out.println(spinner.getSelectedItem());
-                System.out.println(spinner.getSelectedItemPosition());
-                if(spinner.getSelectedItemPosition()-1>=0)
-                    trkey=list.get(spinner.getSelectedItemPosition()-1);
 
             }
 

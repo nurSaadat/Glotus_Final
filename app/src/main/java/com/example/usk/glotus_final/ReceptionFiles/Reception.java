@@ -118,7 +118,7 @@ public class Reception extends AppCompatActivity {
         foto_kol=findViewById(R.id.foto_kol);
 
         zakazchik=findViewById(R.id.tv_zakazchic);
-        zakazchik.setText(Kontragent.kontragent.get(ZayavkaListAdapter.item.getZakaz()));
+        zakazchik.setText((String)Kontragent.preferences.getAll().get(ZayavkaListAdapter.item.getZakaz()));
 
         numZakaz=findViewById(R.id.tv_nomer);
         numZakaz.setText(ZayavkaListAdapter.item.getNumber());
@@ -140,10 +140,10 @@ public class Reception extends AppCompatActivity {
         manager.setText(ZayavkaListAdapter.item.getMenedjer());
 
         tv_zakazchik_nomer=findViewById(R.id.tv_zakazchik_nomer);
-        tv_zakazchik_nomer.setText(Kontragent.kontragentnum.get(ZayavkaListAdapter.item.getZakaz()));
+        tv_zakazchik_nomer.setText((String)Kontragent.preferencesnum.getAll().get(ZayavkaListAdapter.item.getZakaz()));
 
         podrazdelenie=findViewById(R.id.tv_podrazdel);
-        podrazdelenie.setText(Podrazd.podrazd.get(ZayavkaListAdapter.item.getPodrazd()));
+        podrazdelenie.setText((String)Podrazd.preferences.getAll().get(ZayavkaListAdapter.item.getPodrazd()));
 
         soprDocument=findViewById(R.id.spinner_soprDoc);
         String[] itemsForSop=new String[]{"Транспортная накладная","Товарно-транспортная накладная",
@@ -365,9 +365,9 @@ public class Reception extends AppCompatActivity {
         final List<String> rlist = new ArrayList<String>();
 
         list.add("Выберите:");
-        for (Map.Entry<String, String> entry : Transport.transport.entrySet()) {
+        for (Map.Entry<String, ?> entry : Transport.preferences.getAll().entrySet()) {
             System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
-            list.add(entry.getValue());
+            list.add((String) entry.getValue());
             rlist.add(entry.getKey());
         }
 

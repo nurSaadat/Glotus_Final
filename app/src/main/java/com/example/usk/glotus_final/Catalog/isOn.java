@@ -2,9 +2,6 @@ package com.example.usk.glotus_final.Catalog;
 
 import android.content.SharedPreferences;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class Transport{
+public class isOn{
         public static SharedPreferences preferences;
 }

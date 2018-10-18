@@ -1,31 +1,24 @@
-package com.example.usk.glotus_final.SuperviserListFiles;
+package com.example.usk.glotus_final.Catalog;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-
-import com.example.usk.glotus_final.Encryption.AES;
 
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
-public class aa {
+public class Test {
+
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public static void main(String args[]){
-        int m=0;
-        int n=1;
-        for(int i=0;i<=15;i++){
-            System.out.println(m);
-            m=m+n;
-            n=m-n;
-        }
+    public static void aa() throws NoSuchPaddingException, InvalidAlgorithmParameterException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidKeyException {
+        System.out.println("111111111111111111111111111111111");
+        System.out.println(Adress.preferences.getAll().toString());
+
 
     }
 }

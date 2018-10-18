@@ -27,7 +27,10 @@ import com.example.usk.glotus_final.Catalog.Adress;
 import com.example.usk.glotus_final.Catalog.Kontragent;
 import com.example.usk.glotus_final.Catalog.Mdnames;
 import com.example.usk.glotus_final.Catalog.Podrazd;
+import com.example.usk.glotus_final.Catalog.Test;
 import com.example.usk.glotus_final.Catalog.Transport;
+import com.example.usk.glotus_final.Catalog.Update;
+import com.example.usk.glotus_final.Catalog.isOn;
 import com.example.usk.glotus_final.Encryption.AES;
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserListFiles.SuperviserListActivity;
@@ -69,9 +72,9 @@ public class SignInActivity extends AppCompatActivity {
     private String name = "";
     private String password = "";
     ProgressBar progressBar;
-    ProgressBar progressBar2;
+    public static ProgressBar progressBar2;
     ImageView iv_logo_main;
-    TextView textView;
+    public static TextView textView;
     static Server server;
 
     User user;
@@ -312,197 +315,39 @@ public class SignInActivity extends AppCompatActivity {
                     progressBar2.setProgress(20);
                 }
             });
-            getCatalogs();
+
+                Adress.preferences=PreferenceManager.getDefaultSharedPreferences(this);
+                Adress.preferences=    getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+
+                Kontragent.preferences=PreferenceManager.getDefaultSharedPreferences(this);
+                Kontragent.preferences=    getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+
+                Kontragent.preferencesnum=PreferenceManager.getDefaultSharedPreferences(this);
+                Kontragent.preferencesnum=    getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+
+                Mdnames.preferences=PreferenceManager.getDefaultSharedPreferences(this);
+                Mdnames.preferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+
+                Podrazd.preferences=PreferenceManager.getDefaultSharedPreferences(this);
+                Podrazd.preferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+
+                Transport.preferences=PreferenceManager.getDefaultSharedPreferences(this);
+                Transport.preferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+
+                isOn.preferences=PreferenceManager.getDefaultSharedPreferences(this);
+                isOn.preferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+                if(isOn.preferences.getAll()==null){
+                 new Update().getCatalogs();
+                    isOn.preferences.edit().putString("aaa","aaa");
+                }
+
+
             finish();
             Intent myIntent = new Intent(SignInActivity.this, SuperviserListActivity.class);
             startActivity(myIntent);
         }
     }
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void getCatalogs() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                textView.setText("Скачивание каталог Адресаты");
-            }
-        });
 
-        process("http://185.209.21.191/test/odata/standard.odata/Catalog_%D0%90%D0%B4%D1%80%D0%B5%D1%81%D0%B0%D1%82%D1%8B?$format=json","GET","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz","{}");
-        String data=server.getRes();
-        System.out.println(data);
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                progressBar2.setProgress(30);
-            }
-        });
-        JSONArray array = null;
-        JSONObject jsonObj = null;
-        try {
-            jsonObj = new JSONObject(data);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            array = jsonObj.getJSONArray("value");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        for (int i = 0; i < array.length(); i++) {
-            try {
-                Adress.adress.put(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("Description"));
-
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    textView.setText("Скачивание каталог Менеджер");
-                }
-            });
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                progressBar2.setProgress(40);
-            }
-        });
-
-
-        process("http://185.209.21.191/test/odata/standard.odata/Catalog_%D0%9F%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D0%B8?$format=json","GET","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz","{}");
-        data=server.getRes();
-
-        array = null;
-        jsonObj = null;
-        try {
-            jsonObj = new JSONObject(data);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            array = jsonObj.getJSONArray("value");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        for (int i = 0; i < array.length(); i++) {
-            try {
-                Mdnames.mdnames.put(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("Description"));
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                progressBar2.setProgress(40);
-            }
-        });
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                textView.setText("Скачивание каталог Контрагенты");
-            }
-        });
-
-        process("http://185.209.21.191/test/odata/standard.odata/Catalog_%D0%9A%D0%BE%D0%BD%D1%82%D1%80%D0%B0%D0%B3%D0%B5%D0%BD%D1%82%D1%8B?$format=json","GET","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz","{}");
-        data=server.getRes();
-
-        array = null;
-        jsonObj = null;
-        try {
-            jsonObj = new JSONObject(data);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            array = jsonObj.getJSONArray("value");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        for (int i = 0; i < array.length(); i++) {
-            try {
-                Kontragent.kontragent.put(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("Description"));
-                Kontragent.kontragentnum.put(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("ТелефонКонтактногоЛица"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                textView.setText("Скачивание каталог Транспорты");
-            }
-        });
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                progressBar2.setProgress(70);
-            }
-        });
-        process("http://185.209.21.191/test/odata/standard.odata/Catalog_%D0%A2%D1%80%D0%B0%D0%BD%D1%81%D0%BF%D0%BE%D1%80%D1%82?$format=json","GET","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz","{}");
-        data=server.getRes();
-
-        array = null;
-        jsonObj = null;
-        try {
-            jsonObj = new JSONObject(data);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            array = jsonObj.getJSONArray("value");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        for (int i = 0; i < array.length(); i++) {
-            try {
-                Transport.transport.put(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("Description"));
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-
-
-        process("http://185.209.21.191/test/odata/standard.odata/Catalog_%D0%9F%D0%BE%D0%B4%D1%80%D0%B0%D0%B7%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F?$format=json","GET","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz","{}");
-        data=server.getRes();
-
-        array = null;
-        jsonObj = null;
-        try {
-            jsonObj = new JSONObject(data);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            array = jsonObj.getJSONArray("value");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        for (int i = 0; i < array.length(); i++) {
-            try {
-                Podrazd.podrazd.put(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("Description"));
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                progressBar2.setProgress(100);
-            }
-        });
-
-
-
-    }
     private static boolean netIsAvailable() {
         try {
             final URL url = new URL("http://www.google.com");

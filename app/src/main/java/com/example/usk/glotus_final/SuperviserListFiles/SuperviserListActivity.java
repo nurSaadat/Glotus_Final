@@ -164,6 +164,7 @@ public class SuperviserListActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
+
             Zayavka john = null;
             try {
                // String otkuda=getadr(array.getJSONObject(i).getString("Откуда_Key"));
@@ -173,11 +174,11 @@ public class SuperviserListActivity extends AppCompatActivity {
                         array.getJSONObject(i).getString("Date"),
                         array.getJSONObject(i).getString("Отправитель"),
                         array.getJSONObject(i).getString("Получатель"),/**/
-                        Adress.adress.get(array.getJSONObject(i).getString("Откуда_Key")),
-                        Adress.adress.get(array.getJSONObject(i).getString("Куда_Key")),
+                        (String) Adress.preferences.getAll().get(array.getJSONObject(i).getString("Откуда_Key")),
+                        (String) Adress.preferences.getAll().get(array.getJSONObject(i).getString("Куда_Key")),
                         array.getJSONObject(i).getString("Ref_Key"),
                         array.getJSONObject(i).getString("Заказчик_Key"),
-                        Mdnames.mdnames.get(array.getJSONObject(i).getString("Менеджер_Key")),
+                        (String) Mdnames.preferences.getAll().get(array.getJSONObject(i).getString("Менеджер_Key")),
                         array.getJSONObject(i).getString("Подразделение_Key"),array.getJSONObject(i).getString("СтатусЗаказа"));
 
             } catch (JSONException e) {

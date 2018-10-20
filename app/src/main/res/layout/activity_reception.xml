@@ -365,7 +365,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="130dp"
                             android:layout_weight="1"
-                            android:text="Удалить" />
+                            android:background="@color/otpravitelRed"
+                            android:text="Удалить"
+                            android:textColor="@android:color/white"/>
 
 
                     </LinearLayout>
@@ -578,15 +580,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center">
+                android:gravity="center"
+                android:layout_marginTop="8dp">
 
                 <Button
                     android:id="@+id/btn_otpr"
                     android:layout_width="157dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:hint="Отправить"
-                    android:textColor="@android:color/black" />
+                    android:text="Отправить"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/button_main"/>
             </LinearLayout>
         </LinearLayout>
 

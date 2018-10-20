@@ -6,28 +6,32 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:orientation="vertical"
-    android:weightSum="100" >
-    
+    android:weightSum="100"
+    android:clickable="true"
+    android:onClick="onClick"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:id="@+id/ll_pokazatZayavku">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
         android:weightSum="100"
-        android:onClick="showHidden">
-        
+        >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="60"
             android:orientation="vertical">
-    
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="27dp"
                 android:orientation="horizontal"
                 android:weightSum="100">
-    
-    
+
+
                 <ImageView
                     android:id="@+id/iv_status"
                     android:layout_width="wrap_content"
@@ -35,7 +39,7 @@
                     android:layout_weight="60"
                     app:srcCompat="@mipmap/ic_launcher"
                     />
-    
+
                 <TextView
                     android:id="@+id/tv_data"
                     android:layout_width="match_parent"
@@ -44,9 +48,9 @@
                     android:layout_weight="40"
                     android:textColor="@android:color/black"
                     />
-    
+
             </LinearLayout>
-    
+
             <TextView
                 android:id="@+id/tv_code"
                 android:layout_width="match_parent"
@@ -57,27 +61,27 @@
                 android:textColor="@android:color/black"
                 android:textAlignment="center"
                 />
-    
+
         </LinearLayout>
-    
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="40"
             android:orientation="vertical">
-    
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:orientation="horizontal"
                 android:weightSum="100">
-    
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="vertical"
                     android:layout_weight="30">
-    
+
                     <TextView
                         android:id="@+id/tv_otkuda"
                         android:layout_width="match_parent"
@@ -87,7 +91,7 @@
                         android:textAlignment="center"
                         android:textStyle="bold"
                         />
-    
+
                     <TextView
                         android:id="@+id/tv_otpravitel"
                         android:layout_width="match_parent"
@@ -96,15 +100,15 @@
                         android:textColor="@android:color/black"
                         android:textAlignment="center"
                         />
-    
+
                 </LinearLayout>
-    
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="vertical"
                     android:layout_weight="40">
-    
+
                     <ImageView
                         android:id="@+id/iv_strela"
                         android:layout_width="match_parent"
@@ -112,13 +116,13 @@
                         android:src="@drawable/right_arrow"
                         />
                 </LinearLayout>
-    
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="vertical"
                     android:layout_weight="30">
-    
+
                     <TextView
                         android:id="@+id/tv_kuda"
                         android:layout_width="match_parent"
@@ -128,7 +132,7 @@
                         android:textAlignment="center"
                         android:textStyle="bold"
                         />
-    
+
                     <TextView
                         android:id="@+id/tv_poluchatel"
                         android:layout_width="match_parent"
@@ -137,19 +141,19 @@
                         android:textColor="@android:color/black"
                         android:textAlignment="center"
                         />
-    
+
                 </LinearLayout>
-    
+
             </LinearLayout>
-    
+
         </LinearLayout>
-    
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:orientation="horizontal"
             android:layout_weight="70">
-    
+
             <TextView
                 android:id="@+id/tv_d"
                 android:layout_width="30dp"
@@ -161,7 +165,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="24sp"
                 />
-    
+
             <TextView
                 android:id="@+id/tv_z"
                 android:layout_width="30dp"
@@ -173,12 +177,13 @@
                 android:textColor="@android:color/white"
                 android:textSize="24sp"
                 />
-    
+
         </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_moreInf"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:baselineAligned="false"

@@ -41,6 +41,8 @@
         </activity>
         <activity android:name=".SuperviserApp.ReceptionFiles.Etiketka">
         </activity>
+        <activity android:name=".ManagerListFiles.ManagerListActivity">
+        </activity>
 
 
         <provider

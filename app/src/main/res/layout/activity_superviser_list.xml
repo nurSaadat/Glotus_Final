@@ -4,67 +4,76 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SuperviserListFiles.SuperviserListActivity"
+    tools:context=".SuperviserApp.SuperviserListFiles.SuperviserListActivity"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/search_field"
         android:layout_width="wrap_content"
-        android:layout_height="26dp"
+        android:layout_height="36dp"
         android:layout_margin="16dp"
         android:background="@android:color/white"
         android:elevation="12dp">
-
-        <ImageView
-            android:id="@+id/ivSearch"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
-            android:src="@mipmap/search" />
 
         <AutoCompleteTextView
             android:id="@+id/etSearch"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
+            android:layout_toEndOf="@+id/ivSearch"
             android:layout_alignParentTop="true"
             android:layout_marginTop="0dp"
-            android:background="@null"
+            android:background="@drawable/rectangle_white"
             android:hint="Введите номер заявки"
             android:imeOptions="actionSearch"
             android:textColor="#000"
-            android:textSize="15sp"
+            android:textSize="20sp"
+            />
 
+        <ImageView
+            android:id="@+id/ivSearch"
+            android:layout_width="42dp"
+            android:layout_height="32dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="0dp"
+            android:src="@drawable/ic_action_name"
             />
 
     </RelativeLayout>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ListView
-            android:id="@+id/superviser_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp" />
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-    <!--<LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ListView
-            android:id="@+id/superviser_list"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp" />
+            android:layout_height="match_parent">
 
-    </LinearLayout>-->
+            <ListView
+                android:id="@+id/superviser_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp"
+                />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <ImageButton
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:id="@+id/fab"
+            android:background="@drawable/grey"
+            android:elevation="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="65dp"
+            />
+
+    </RelativeLayout>
+
+
+
 
 </LinearLayout>

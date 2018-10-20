@@ -95,6 +95,8 @@ public class Reception extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         relativeLayout=findViewById(R.id.relativeLay);
 

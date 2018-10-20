@@ -83,6 +83,7 @@ public class SignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 

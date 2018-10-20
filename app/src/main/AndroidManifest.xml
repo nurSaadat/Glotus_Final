@@ -14,9 +14,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/auncher_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/auncher_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".loginFiles.SignInActivity">
@@ -31,6 +31,8 @@
         <activity android:name=".ReceptionFiles.Camera">
         </activity>
         <activity android:name=".ReceptionFiles.Etiketka">
+        </activity>
+        <activity android:name=".ManagerListFiles.ManagerListActivity">
         </activity>
 
         <provider

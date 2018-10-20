@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.usk.glotus_final">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
@@ -19,21 +20,30 @@
         android:roundIcon="@mipmap/auncher_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".loginFiles.SignInActivity">
+        <activity android:name=".System.loginFiles.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SuperviserListFiles.SuperviserListActivity"></activity>
-        <activity android:name=".ReceptionFiles.Reception"></activity>
-        <activity android:name=".ReceptionFiles.Camera">
+        <activity android:name=".ManagerApp.ManagerListFiles.ManagerListActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".ReceptionFiles.Etiketka">
+
+        <activity android:name=".SuperviserApp.SuperviserListFiles.SuperviserListActivity"></activity>
+        <activity android:name=".SuperviserApp.ReceptionFiles.Reception"></activity>
+        <activity android:name=".SuperviserApp.ReceptionFiles.Camera">
+        </activity>
+        <activity android:name=".SuperviserApp.ReceptionFiles.Etiketka">
         </activity>
         <activity android:name=".ManagerListFiles.ManagerListActivity">
         </activity>
+
 
         <provider
             android:authorities="${applicationId}.provider"

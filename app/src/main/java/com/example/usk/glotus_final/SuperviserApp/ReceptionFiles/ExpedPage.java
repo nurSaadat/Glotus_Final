@@ -18,11 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.usk.glotus_final.R;
-<<<<<<< HEAD:app/src/main/java/com/example/usk/glotus_final/SuperviserApp/ReceptionFiles/ExpedPage.java
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
-=======
-import com.example.usk.glotus_final.SuperviserListFiles.SuperviserListActivity;
->>>>>>> master:app/src/main/java/com/example/usk/glotus_final/ReceptionFiles/ExpedPage.java
+
+
 
 import java.io.File;
 import java.io.FileOutputStream;

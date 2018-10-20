@@ -7,7 +7,7 @@
     tools:context=".loginFiles.SignInActivity"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@color/colorPrimary">
+    android:background="@android:color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,10 +17,10 @@
 
         <ImageView
             android:id="@+id/iv_logo_main"
-            android:layout_width="319dp"
+            android:layout_width="150dp"
             android:layout_height="102dp"
             android:layout_weight="1"
-            app:srcCompat="@mipmap/ic_launcher"
+            app:srcCompat="@drawable/smaller_logo"
             />
 
     </LinearLayout>
@@ -40,8 +40,9 @@
             android:hint="Введите email"
             android:inputType="textEmailAddress"
             android:textSize="24sp"
+            android:textColor="@color/signInHint"
             android:layout_marginTop="24dp"
-            android:background="@android:color/white"
+            android:background="@drawable/sign_in_field"
             />
 
         <EditText
@@ -52,29 +53,30 @@
             android:hint="Введите пароль"
             android:inputType="textPassword"
             android:textSize="24sp"
+            android:textColor="@color/signInHint"
             android:layout_marginTop="24dp"
-            android:background="@android:color/white"
+            android:background="@drawable/sign_in_field"
             />
+
+        <Button
+            android:id="@+id/btn_sign_in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/button_main"
+            android:capitalize="none"
+            android:text="Войти"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
 
         <CheckBox
             android:id="@+id/cb_remember_me"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Запомнить меня"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="12dp"
             android:textSize="24sp"
-            android:textColor="@android:color/white"
-            />
-
-        <Button
-            android:id="@+id/btn_sign_in"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="Войти"
-            android:layout_marginTop="24dp"
-            android:textSize="20sp"
-            android:background="@color/colorPrimaryDark"
-            android:textColor="@android:color/white"
+            android:textColor="@color/colorAccent"
             />
 
     </LinearLayout>

@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserListFiles.SuperviserListActivity;
-import com.example.usk.glotus_final.SuperviserListFiles.SuperviserListItemActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;

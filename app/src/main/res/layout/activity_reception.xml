@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:weightSum="100"
-    tools:context=".ReceptionFiles.Reception">
+    tools:context=".SuperviserApp.ReceptionFiles.Reception">
 
     <LinearLayout
         android:layout_width="match_parent"

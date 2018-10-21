@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.example.usk.glotus_final.ManagerApp.ManagerListFiles.ManagerListActivity;
 import com.example.usk.glotus_final.System.Catalog.Adress;
 import com.example.usk.glotus_final.System.Catalog.Kontragent;
+import com.example.usk.glotus_final.System.Catalog.KontragentNum;
 import com.example.usk.glotus_final.System.Catalog.Mdnames;
 import com.example.usk.glotus_final.System.Catalog.Podrazd;
 import com.example.usk.glotus_final.System.Catalog.Transport;
@@ -322,8 +323,8 @@ public class SignInActivity extends AppCompatActivity {
                 Kontragent.preferences=PreferenceManager.getDefaultSharedPreferences(this);
                 Kontragent.preferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
 
-                Kontragent.preferencesnum=PreferenceManager.getDefaultSharedPreferences(this);
-                Kontragent.preferencesnum=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+                KontragentNum.preferences=PreferenceManager.getDefaultSharedPreferences(this);
+                KontragentNum.preferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
 
                 Mdnames.preferences=PreferenceManager.getDefaultSharedPreferences(this);
                 Mdnames.preferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
@@ -337,11 +338,11 @@ public class SignInActivity extends AppCompatActivity {
                 isOn.preferences=PreferenceManager.getDefaultSharedPreferences(this);
                 isOn.preferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
 
-                     if(isOn.preferences.getAll().get("refresh")==null) {
+                    // if(isOn.preferences.getAll().get("refresh")==null) {
                          System.out.println("aaa");
                         new Update().getCatalogs();
                         isOn.preferences.edit().putString("refresh", "true").commit();
-                    }
+                    //}
 
             if(name.contains("Saadat")){
                 System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");

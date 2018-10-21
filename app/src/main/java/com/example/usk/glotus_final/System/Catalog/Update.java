@@ -79,8 +79,8 @@ public class Update  {
         }
         for (int i = 0; i < array.length(); i++) {
             try {
-                Kontragent.preferences.edit().putString(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("Description"));
-                Kontragent.preferencesnum.edit().putString(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("ТелефонКонтактногоЛица"));
+                Kontragent.preferences.edit().putString(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("Description")).commit();
+                KontragentNum.preferences.edit().putString(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("ТелефонКонтактногоЛица")).commit();
             } catch (JSONException e) {
                 e.printStackTrace();
             }

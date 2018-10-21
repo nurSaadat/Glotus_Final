@@ -39,7 +39,7 @@ import javax.crypto.NoSuchPaddingException;
 public class ManagerListActivity extends AppCompatActivity {
 
     // Удачи, ребят!
-    private ArrayList<Zayavka> mZayavkas;
+
     private ImageButton dobavitZayavku;
     static Server server;
     SwipeRefreshLayout swipeView;
@@ -137,6 +137,7 @@ public class ManagerListActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void refresh() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
         final ListView list = (ListView) findViewById(R.id.manager_list);
+        ArrayList<Zayavka> mZayavkas;
         mZayavkas = new ArrayList<>();
 
 
@@ -199,7 +200,7 @@ public class ManagerListActivity extends AppCompatActivity {
 
 
     }
-        final ManagerListAdapter adapter = new ManagerListAdapter(this, R.layout.manager_list_item_layout, mZayavkas);
+       final ManagerListAdapter adapter = new ManagerListAdapter(this, R.layout.manager_list_item_layout, mZayavkas);
 
         runOnUiThread(new Runnable() {
             @Override
@@ -208,6 +209,9 @@ public class ManagerListActivity extends AppCompatActivity {
                 swipeView.setRefreshing(false);
             }
         });
+
+
+
 
 }
 

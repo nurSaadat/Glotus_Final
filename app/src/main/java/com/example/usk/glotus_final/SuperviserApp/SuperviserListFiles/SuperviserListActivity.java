@@ -114,17 +114,17 @@ public class SuperviserListActivity extends AppCompatActivity {
 
         /*ZayavkaListAdapter adapter = new ZayavkaListAdapter(this, R.layout.superviser_list_item_layout, mZayavkas);
         list.setAdapter(adapter);*/
-    }
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public static String process(String url, String way, String cred, String data) throws NoSuchPaddingException, UnsupportedEncodingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
-        String body=url+","+way+","+cred+"*---*" +data;
-        System.out.println(body);
-        String string = AES.aesEncryptString(body, "1234567890123456");
-        body="data="+string;
-        System.out.println(body);
-        server = new Server("http://185.209.21.191/uu/demoaes.php",null, body);
-        return server.post();
-    }
+        }
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        public static String process(String url, String way, String cred, String data) throws NoSuchPaddingException, UnsupportedEncodingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+            String body=url+","+way+","+cred+"*---*" +data;
+            System.out.println(body);
+            String string = AES.aesEncryptString(body, "1234567890123456");
+            body="data="+string;
+            System.out.println(body);
+            server = new Server("http://185.209.21.191/uu/demoaes.php",null, body);
+            return server.post();
+        }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void refresh() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {

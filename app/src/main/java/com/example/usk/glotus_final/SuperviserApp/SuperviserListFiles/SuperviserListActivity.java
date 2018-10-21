@@ -180,11 +180,11 @@ public class SuperviserListActivity extends AppCompatActivity {
                         array.getJSONObject(i).getString("Date"),
                         array.getJSONObject(i).getString("Отправитель"),
                         array.getJSONObject(i).getString("Получатель"),/**/
-                        (String) Adress.preferences.getAll().get(array.getJSONObject(i).getString("Откуда_Key")),
-                        (String) Adress.preferences.getAll().get(array.getJSONObject(i).getString("Куда_Key")),
+                        (String) Adress.adresspreferences.getAll().get(array.getJSONObject(i).getString("Откуда_Key")),
+                        (String) Adress.adresspreferences.getAll().get(array.getJSONObject(i).getString("Куда_Key")),
                         array.getJSONObject(i).getString("Ref_Key"),
                         array.getJSONObject(i).getString("Заказчик_Key"),
-                        (String) Mdnames.preferences.getAll().get(array.getJSONObject(i).getString("Менеджер_Key")),
+                        (String) Mdnames.mdpreferences.getAll().get(array.getJSONObject(i).getString("Менеджер_Key")),
                         array.getJSONObject(i).getString("Подразделение_Key"),array.getJSONObject(i).getString("СтатусЗаказа"));
 
             } catch (JSONException e) {

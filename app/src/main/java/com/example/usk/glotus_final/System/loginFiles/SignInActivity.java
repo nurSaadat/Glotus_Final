@@ -317,32 +317,32 @@ public class SignInActivity extends AppCompatActivity {
                 }
             });
 
-                Adress.preferences=PreferenceManager.getDefaultSharedPreferences(this);
-                Adress.preferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+                Adress.adresspreferences=PreferenceManager.getDefaultSharedPreferences(this);
+                Adress.adresspreferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
 
-                Kontragent.preferences=PreferenceManager.getDefaultSharedPreferences(this);
-                Kontragent.preferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+                Kontragent.kontrpreferences=PreferenceManager.getDefaultSharedPreferences(this);
+                Kontragent.kontrpreferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
 
-                KontragentNum.preferences=PreferenceManager.getDefaultSharedPreferences(this);
-                KontragentNum.preferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+                KontragentNum.kontrnumpreferences=PreferenceManager.getDefaultSharedPreferences(this);
+                KontragentNum.kontrnumpreferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
 
-                Mdnames.preferences=PreferenceManager.getDefaultSharedPreferences(this);
-                Mdnames.preferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+                Mdnames.mdpreferences=PreferenceManager.getDefaultSharedPreferences(this);
+                Mdnames.mdpreferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
 
-                Podrazd.preferences=PreferenceManager.getDefaultSharedPreferences(this);
-                Podrazd.preferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+                Podrazd.pdpreferences=PreferenceManager.getDefaultSharedPreferences(this);
+                Podrazd.pdpreferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
 
-                Transport.preferences=PreferenceManager.getDefaultSharedPreferences(this);
-                Transport.preferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+                Transport.trpreferences=PreferenceManager.getDefaultSharedPreferences(this);
+                Transport.trpreferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
 
                 isOn.preferences=PreferenceManager.getDefaultSharedPreferences(this);
                 isOn.preferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
 
-                    // if(isOn.preferences.getAll().get("refresh")==null) {
+                     if(isOn.preferences.getAll().get("refresh")==null) {
                          System.out.println("aaa");
                         new Update().getCatalogs();
                         isOn.preferences.edit().putString("refresh", "true").commit();
-                    //}
+                    }
 
             if(name.contains("Saadat")){
                 System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");

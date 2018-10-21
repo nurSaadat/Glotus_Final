@@ -114,7 +114,7 @@ public class ManagerListAdapter extends ArrayAdapter <Zayavka> {
         holder.receptadr.setText(zayavka.getReceptadr());
         holder.iv_status.setText(zayavka.getStatus());
 
-        holder.zakazname.setText((String) Kontragent.preferences.getAll().get(zayavka.getZakaz()));
+        holder.zakazname.setText((String) Kontragent.kontrpreferences.getAll().get(zayavka.getZakaz()));
         holder.linearLayout.setVisibility(View.GONE);
 
 
@@ -126,8 +126,8 @@ public class ManagerListAdapter extends ArrayAdapter <Zayavka> {
             @Override
             public void onSingleClick(View view) {
                 System.out.println(zayavka.getZakaz());
-                System.out.println(Kontragent.preferences.getAll().get(zayavka.getZakaz()));
-                System.out.println(Kontragent.preferences.getAll().toString());
+                System.out.println(Kontragent.kontrpreferences.getAll().get(zayavka.getZakaz()));
+                System.out.println(Kontragent.kontrpreferences.getAll().toString());
                 if (lastlinear!=null)
                     lastlinear.setVisibility(View.GONE);
                 System.out.println("aaaa");

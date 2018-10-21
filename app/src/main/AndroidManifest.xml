@@ -34,6 +34,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SuperviserApp.ReceptionFiles.ExpedPage">
+
+        </activity>
 
         <activity android:name=".SuperviserApp.SuperviserListFiles.SuperviserListActivity"></activity>
         <activity android:name=".SuperviserApp.ReceptionFiles.Reception"></activity>
@@ -43,6 +46,7 @@
         </activity>
         <activity android:name=".ManagerApp.ManagerListFiles.ReceptionManagerActivity">
         </activity>
+
 
 
         <provider

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".System.loginFiles.SignInActivity"
     android:orientation="vertical"
     android:gravity="center"
@@ -37,12 +38,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Введите email"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:hint="Логин"
             android:inputType="textEmailAddress"
             android:textSize="24sp"
             android:textColor="@color/signInHint"
             android:layout_marginTop="24dp"
-            android:background="@drawable/sign_in_field"
+            android:background="@drawable/vector"
+
             />
 
         <EditText
@@ -55,7 +61,7 @@
             android:textSize="24sp"
             android:textColor="@color/signInHint"
             android:layout_marginTop="24dp"
-            android:background="@drawable/sign_in_field"
+            android:background="@drawable/vector"
             />
 
         <Button
@@ -64,6 +70,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:background="@drawable/button_main"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
             android:capitalize="none"
             android:text="Войти"
             android:textColor="@android:color/white"

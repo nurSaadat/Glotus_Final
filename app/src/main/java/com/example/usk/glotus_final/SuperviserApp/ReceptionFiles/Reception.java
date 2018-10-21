@@ -95,6 +95,8 @@ public class Reception extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         relativeLayout=findViewById(R.id.relativeLay);
 
@@ -336,7 +338,7 @@ public class Reception extends AppCompatActivity {
         System.out.println(jsonObj.getString("Ref_Key").toString());
 
             res=process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7(guid\'"+ZayavkaListAdapter.item.getRef_key()+"\')?$format=json","PATCH","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz",
-                    "{\"ДокументПриемГруза_Key\": \""+jsonObj.getString("Ref_Key").toString()+"\"}");
+                    "{\"ДокументПриемГруза_Key\": \""+jsonObj.getString("Ref_Key").toString()+"\",\"СтатусЗаказа\": \"ПринятноНаСкладе\",\"ВесФакт\":"+vesFact.getText().toString()+",\"ОбъемФакт\": "+obiemFact.getText().toString()+",\"КоличествоФакт\": "+kolich.getText().toString()+"}");
 
         System.out.println(res);
             pd=new PdfData(ZayavkaListAdapter.item.getSenderadr(),ZayavkaListAdapter.item.getReceptadr(),ZayavkaListAdapter.item.getRecept(),ZayavkaListAdapter.item.getSender(),kolich.getText().toString(),vesFact.getText().toString(),

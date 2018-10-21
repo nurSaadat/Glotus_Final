@@ -2,6 +2,7 @@ package com.example.usk.glotus_final.System.loginFiles;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -82,6 +83,9 @@ public class SignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         Log.d(TAG, "onCreate: started");
 
@@ -313,13 +317,13 @@ public class SignInActivity extends AppCompatActivity {
             });
 
                 Adress.preferences=PreferenceManager.getDefaultSharedPreferences(this);
-                Adress.preferences=    getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+                Adress.preferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
 
                 Kontragent.preferences=PreferenceManager.getDefaultSharedPreferences(this);
-                Kontragent.preferences=    getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+                Kontragent.preferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
 
                 Kontragent.preferencesnum=PreferenceManager.getDefaultSharedPreferences(this);
-                Kontragent.preferencesnum=    getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+                Kontragent.preferencesnum=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
 
                 Mdnames.preferences=PreferenceManager.getDefaultSharedPreferences(this);
                 Mdnames.preferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
@@ -332,10 +336,12 @@ public class SignInActivity extends AppCompatActivity {
 
                 isOn.preferences=PreferenceManager.getDefaultSharedPreferences(this);
                 isOn.preferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
-                if(isOn.preferences.getAll()==null){
-                 new Update().getCatalogs();
-                    isOn.preferences.edit().putString("aaa","aaa");
-                }
+
+                     if(isOn.preferences.getAll().get("refresh")==null) {
+                         System.out.println("aaa");
+                        new Update().getCatalogs();
+                        isOn.preferences.edit().putString("refresh", "true").commit();
+                    }
 
             if(name.contains("Saadat")){
                 System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");

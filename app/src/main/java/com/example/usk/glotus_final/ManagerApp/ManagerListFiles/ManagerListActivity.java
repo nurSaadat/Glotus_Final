@@ -17,6 +17,8 @@ import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.Zayavka;
 import com.example.usk.glotus_final.System.Catalog.Adress;
+import com.example.usk.glotus_final.System.Catalog.Kontragent;
+import com.example.usk.glotus_final.System.Catalog.KontragentNum;
 import com.example.usk.glotus_final.System.Catalog.Mdnames;
 import com.example.usk.glotus_final.System.Encryption.AES;
 import com.example.usk.glotus_final.System.connection.Server;
@@ -39,7 +41,7 @@ import javax.crypto.NoSuchPaddingException;
 public class ManagerListActivity extends AppCompatActivity {
 
     // Удачи, ребят!
-    private ArrayList<Zayavka> mZayavkas;
+
     private ImageButton dobavitZayavku;
     static Server server;
     SwipeRefreshLayout swipeView;
@@ -137,6 +139,7 @@ public class ManagerListActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void refresh() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
         final ListView list = (ListView) findViewById(R.id.manager_list);
+        ArrayList<Zayavka> mZayavkas;
         mZayavkas = new ArrayList<>();
 
 
@@ -184,11 +187,11 @@ public class ManagerListActivity extends AppCompatActivity {
                         array.getJSONObject(i).getString("Date"),
                         array.getJSONObject(i).getString("Отправитель"),
                         array.getJSONObject(i).getString("Получатель"),/**/
-                        (String) Adress.preferences.getAll().get(array.getJSONObject(i).getString("Откуда_Key")),
-                        (String) Adress.preferences.getAll().get(array.getJSONObject(i).getString("Куда_Key")),
+                        (String) Adress.adresspreferences.getAll().get(array.getJSONObject(i).getString("Откуда_Key")),
+                        (String) Adress.adresspreferences.getAll().get(array.getJSONObject(i).getString("Куда_Key")),
                         array.getJSONObject(i).getString("Ref_Key"),
-                        array.getJSONObject(i).getString("Заказчик_Key"),
-                        (String) Mdnames.preferences.getAll().get(array.getJSONObject(i).getString("Менеджер_Key")),
+                        (String) KontragentNum.kontrnumpreferences.getAll().get(array.getJSONObject(i).getString("Заказчик_Key")),
+                        (String) Mdnames.mdpreferences.getAll().get(array.getJSONObject(i).getString("Менеджер_Key")),
                         array.getJSONObject(i).getString("Подразделение_Key"),array.getJSONObject(i).getString("СтатусЗаказа"));
 
             } catch (JSONException e) {
@@ -199,7 +202,7 @@ public class ManagerListActivity extends AppCompatActivity {
 
 
     }
-        final ManagerListAdapter adapter = new ManagerListAdapter(this, R.layout.manager_list_item_layout, mZayavkas);
+       final ManagerListAdapter adapter = new ManagerListAdapter(this, R.layout.manager_list_item_layout, mZayavkas);
 
         runOnUiThread(new Runnable() {
             @Override
@@ -208,6 +211,9 @@ public class ManagerListActivity extends AppCompatActivity {
                 swipeView.setRefreshing(false);
             }
         });
+
+
+
 
 }
 

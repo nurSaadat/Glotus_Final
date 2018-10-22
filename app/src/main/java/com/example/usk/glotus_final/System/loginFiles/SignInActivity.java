@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.example.usk.glotus_final.ManagerApp.ManagerListFiles.ManagerListActivity;
 import com.example.usk.glotus_final.System.Catalog.Adress;
 import com.example.usk.glotus_final.System.Catalog.Kontragent;
+import com.example.usk.glotus_final.System.Catalog.KontragentNum;
 import com.example.usk.glotus_final.System.Catalog.Mdnames;
 import com.example.usk.glotus_final.System.Catalog.Podrazd;
 import com.example.usk.glotus_final.System.Catalog.Transport;
@@ -316,23 +317,23 @@ public class SignInActivity extends AppCompatActivity {
                 }
             });
 
-                Adress.preferences=PreferenceManager.getDefaultSharedPreferences(this);
-                Adress.preferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+                Adress.adresspreferences=PreferenceManager.getDefaultSharedPreferences(this);
+                Adress.adresspreferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
 
-                Kontragent.preferences=PreferenceManager.getDefaultSharedPreferences(this);
-                Kontragent.preferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+                Kontragent.kontrpreferences=PreferenceManager.getDefaultSharedPreferences(this);
+                Kontragent.kontrpreferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
 
-                Kontragent.preferencesnum=PreferenceManager.getDefaultSharedPreferences(this);
-                Kontragent.preferencesnum=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+                KontragentNum.kontrnumpreferences=PreferenceManager.getDefaultSharedPreferences(this);
+                KontragentNum.kontrnumpreferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
 
-                Mdnames.preferences=PreferenceManager.getDefaultSharedPreferences(this);
-                Mdnames.preferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+                Mdnames.mdpreferences=PreferenceManager.getDefaultSharedPreferences(this);
+                Mdnames.mdpreferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
 
-                Podrazd.preferences=PreferenceManager.getDefaultSharedPreferences(this);
-                Podrazd.preferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+                Podrazd.pdpreferences=PreferenceManager.getDefaultSharedPreferences(this);
+                Podrazd.pdpreferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
 
-                Transport.preferences=PreferenceManager.getDefaultSharedPreferences(this);
-                Transport.preferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+                Transport.trpreferences=PreferenceManager.getDefaultSharedPreferences(this);
+                Transport.trpreferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
 
                 isOn.preferences=PreferenceManager.getDefaultSharedPreferences(this);
                 isOn.preferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);

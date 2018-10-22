@@ -17,15 +17,21 @@ import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.Reception;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.Zayavka;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.ZayavkaListAdapter;
+import com.example.usk.glotus_final.System.Catalog.Kontragent;
+import com.example.usk.glotus_final.System.DoubleClick;
+import com.example.usk.glotus_final.System.DoubleClickListener;
 
 import java.util.ArrayList;
 
 public class ManagerListAdapter extends ArrayAdapter <Zayavka> {
 
     private Context mContext;
+    public static Zayavka item;
     private int mResource;
     private int lastPosion= -1;
     private boolean b=false;
+    private LinearLayout lastlinear;
+
 
     private static class ViewHolder {
         TextView number;
@@ -35,7 +41,9 @@ public class ManagerListAdapter extends ArrayAdapter <Zayavka> {
         TextView receptadr;
         TextView senderadr;
         TextView manager;
-        ImageView iv_status;
+        TextView iv_status;
+        LinearLayout linearLayout;
+        TextView zakazname;
     }
 
 
@@ -53,7 +61,8 @@ public class ManagerListAdapter extends ArrayAdapter <Zayavka> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        b=false;
 
         String date=getItem(position).getDate();
         String number=getItem(position).getNumber();
@@ -83,9 +92,9 @@ public class ManagerListAdapter extends ArrayAdapter <Zayavka> {
             holder.recept = (TextView) convertView.findViewById(R.id.tv_poluchatel);
             holder.senderadr = (TextView) convertView.findViewById(R.id.tv_otkuda);
             holder.receptadr = (TextView) convertView.findViewById(R.id.tv_kuda);
-
-            holder.iv_status=(ImageView) convertView.findViewById(R.id.iv_status);
-
+            holder.linearLayout=convertView.findViewById(R.id.ll_moreInf);
+            holder.iv_status=(TextView) convertView.findViewById(R.id.tv_status);
+            holder.zakazname=(TextView)convertView.findViewById(R.id.tv_partner);
             result = convertView;
             convertView.setTag(holder);
         }
@@ -94,7 +103,7 @@ public class ManagerListAdapter extends ArrayAdapter <Zayavka> {
             result = convertView;
         }
 
-        lastPosion=position;
+
 
 
         holder.date.setText("     "+zayavka.getDate().split("T")[0]+"\n     "+zayavka.getDate().split("T")[1]);
@@ -103,29 +112,48 @@ public class ManagerListAdapter extends ArrayAdapter <Zayavka> {
         holder.recept.setText(zayavka.getRecept());
         holder.senderadr.setText(zayavka.getSenderadr());
         holder.receptadr.setText(zayavka.getReceptadr());
+        holder.iv_status.setText(zayavka.getStatus());
 
-        final View finalConvertView = convertView;
-        convertView.setOnClickListener(new View.OnClickListener() {
+        holder.zakazname.setText((String) Kontragent.kontrpreferences.getAll().get(zayavka.getZakaz()));
+        holder.linearLayout.setVisibility(View.GONE);
+
+
+
+
+
+        convertView.setOnClickListener(new DoubleClick(new DoubleClickListener() {
+
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View view) {
+                System.out.println(zayavka.getZakaz());
+                System.out.println(Kontragent.kontrpreferences.getAll().get(zayavka.getZakaz()));
+                System.out.println(Kontragent.kontrpreferences.getAll().toString());
+                if (lastlinear!=null)
+                    lastlinear.setVisibility(View.GONE);
                 System.out.println("aaaa");
 
-                if (b==false) {
-                    LinearLayout linearLayout = finalConvertView.findViewById(R.id.ll_moreInf);
-                    linearLayout.setVisibility(View.VISIBLE);
-                    b=true;
+                if (holder.linearLayout.getVisibility()==View.VISIBLE)
+                {
+                    holder.linearLayout.setVisibility(View.GONE);
                 }
                 else
-                {
-                    LinearLayout linearLayout = finalConvertView.findViewById(R.id.ll_moreInf);
-                    linearLayout.setVisibility(View.GONE);
-                    b=false;
+                holder.linearLayout.setVisibility(View.VISIBLE);
+                lastlinear=holder.linearLayout;
 
-                }
 
             }
-        });
 
+            @Override
+            public void onDoubleClick(View view) {
+                Intent myIntent = new Intent(mContext, ReceptionManagerActivity.class);
+                mContext.startActivity(myIntent);
+
+            }
+        }));
+
+
+
+        lastPosion=position;
 
         return convertView;
     }

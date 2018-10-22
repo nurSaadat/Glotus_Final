@@ -48,7 +48,7 @@ public class Update  {
         }
         for (int i = 0; i < array.length(); i++) {
             try {
-                Adress.preferences.edit().putString(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("Description")).commit();
+                Adress.adresspreferences.edit().putString(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("Description")).commit();
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -79,8 +79,8 @@ public class Update  {
         }
         for (int i = 0; i < array.length(); i++) {
             try {
-                Kontragent.preferences.edit().putString(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("Description"));
-                Kontragent.preferencesnum.edit().putString(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("ТелефонКонтактногоЛица"));
+                Kontragent.kontrpreferences.edit().putString(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("Description")).commit();
+                KontragentNum.kontrnumpreferences.edit().putString(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("ТелефонКонтактногоЛица")).commit();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -110,7 +110,7 @@ public class Update  {
         }
         for (int i = 0; i < array.length(); i++) {
             try {
-                Mdnames.preferences.edit().putString(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("Description")).commit();
+                Mdnames.mdpreferences.edit().putString(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("Description")).commit();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -141,7 +141,7 @@ public class Update  {
         }
         for (int i = 0; i < array.length(); i++) {
             try {
-                Podrazd.preferences.edit().putString(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("Description"));
+                Podrazd.pdpreferences.edit().putString(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("Description"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -171,7 +171,7 @@ public class Update  {
         }
         for (int i = 0; i < array.length(); i++) {
             try {
-                Transport.preferences.edit().putString(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("Description")).commit();
+                Transport.trpreferences.edit().putString(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("Description")).commit();
             } catch (JSONException e) {
                 e.printStackTrace();
             }

@@ -24,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.usk.glotus_final.System.Catalog.Kontragent;
+import com.example.usk.glotus_final.System.Catalog.KontragentNum;
 import com.example.usk.glotus_final.System.Catalog.Podrazd;
 import com.example.usk.glotus_final.System.Catalog.Transport;
 import com.example.usk.glotus_final.System.Encryption.AES;
@@ -109,7 +110,7 @@ public class Reception extends AppCompatActivity {
         foto_kol=findViewById(R.id.foto_kol);
 
         zakazchik=findViewById(R.id.tv_zakazchic);
-        zakazchik.setText((String)Kontragent.preferences.getAll().get(ZayavkaListAdapter.item.getZakaz()));
+        zakazchik.setText((String)Kontragent.kontrpreferences.getAll().get(ZayavkaListAdapter.item.getZakaz()));
 
         numZakaz=findViewById(R.id.tv_nomer);
         numZakaz.setText(ZayavkaListAdapter.item.getNumber());
@@ -131,10 +132,10 @@ public class Reception extends AppCompatActivity {
         manager.setText(ZayavkaListAdapter.item.getMenedjer());
 
         tv_zakazchik_nomer=findViewById(R.id.tv_zakazchik_nomer);
-        tv_zakazchik_nomer.setText((String)Kontragent.preferencesnum.getAll().get(ZayavkaListAdapter.item.getZakaz()));
+        tv_zakazchik_nomer.setText((String) KontragentNum.kontrnumpreferences.getAll().get(ZayavkaListAdapter.item.getZakaz()));
 
         podrazdelenie=findViewById(R.id.tv_podrazdel);
-        podrazdelenie.setText((String)Podrazd.preferences.getAll().get(ZayavkaListAdapter.item.getPodrazd()));
+        podrazdelenie.setText((String)Podrazd.pdpreferences.getAll().get(ZayavkaListAdapter.item.getPodrazd()));
 
         soprDocument=findViewById(R.id.spinner_soprDoc);
         String[] itemsForSop=new String[]{"Транспортная накладная","Товарно-транспортная накладная",
@@ -356,7 +357,7 @@ public class Reception extends AppCompatActivity {
         final List<String> rlist = new ArrayList<String>();
 
         list.add("Выберите:");
-        for (Map.Entry<String, ?> entry : Transport.preferences.getAll().entrySet()) {
+        for (Map.Entry<String, ?> entry : Transport.trpreferences.getAll().entrySet()) {
             System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
             list.add((String) entry.getValue());
             rlist.add(entry.getKey());

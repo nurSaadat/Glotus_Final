@@ -28,11 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ManagerApp.ManagerListFiles.ManagerListActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".SuperviserApp.ReceptionFiles.ExpedPage">
 

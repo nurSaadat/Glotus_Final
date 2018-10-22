@@ -15,18 +15,17 @@ import android.widget.TextView;
 
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.Reception;
-import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.Zayavka;
-import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.ZayavkaListAdapter;
+
 import com.example.usk.glotus_final.System.Catalog.Kontragent;
 import com.example.usk.glotus_final.System.DoubleClick;
 import com.example.usk.glotus_final.System.DoubleClickListener;
 
 import java.util.ArrayList;
 
-public class ManagerListAdapter extends ArrayAdapter <Zayavka> {
+public class ManagerListAdapter extends ArrayAdapter <ManagerZayavka> {
 
     private Context mContext;
-    public static Zayavka item;
+    public static ManagerZayavka item;
     private int mResource;
     private int lastPosion= -1;
     private boolean b=false;
@@ -44,6 +43,8 @@ public class ManagerListAdapter extends ArrayAdapter <Zayavka> {
         TextView iv_status;
         LinearLayout linearLayout;
         TextView zakazname;
+        TextView namegruz;
+        TextView soprdoc;
     }
 
 
@@ -53,7 +54,7 @@ public class ManagerListAdapter extends ArrayAdapter <Zayavka> {
      * @param resource
      * @param objects
      */
-    public ManagerListAdapter(@NonNull Context context, int resource, ArrayList<Zayavka> objects) {
+    public ManagerListAdapter(@NonNull Context context, int resource, ArrayList<ManagerZayavka> objects) {
         super(context, resource, objects);
         mContext = context;
         mResource = resource;
@@ -75,8 +76,10 @@ public class ManagerListAdapter extends ArrayAdapter <Zayavka> {
         String ref_key=getItem(position).getRef_key();
         String zakaz=getItem(position).getZakaz();
         String status=getItem(position).getStatus();
+        String namegruz=getItem(position).getNamegruz();
+        String soprdoc=getItem(position).getSoprdocument();
 
-        final Zayavka zayavka=new Zayavka(number,date,sender,recept,senderadr,receptadr,ref_key,zakaz,manager,podrazd,status);
+        final ManagerZayavka ManagerZayavka=new ManagerZayavka(number,date,sender,recept,senderadr,receptadr,ref_key,zakaz,manager,podrazd,status,namegruz,soprdoc);
         final View result;
 
         final ManagerListAdapter.ViewHolder holder;
@@ -95,6 +98,9 @@ public class ManagerListAdapter extends ArrayAdapter <Zayavka> {
             holder.linearLayout=convertView.findViewById(R.id.ll_moreInf);
             holder.iv_status=(TextView) convertView.findViewById(R.id.tv_status);
             holder.zakazname=(TextView)convertView.findViewById(R.id.tv_partner);
+            holder.namegruz=(TextView)convertView.findViewById(R.id.tv_tovar);
+            holder.soprdoc=(TextView)convertView.findViewById(R.id.tv_document);
+
             result = convertView;
             convertView.setTag(holder);
         }
@@ -106,15 +112,17 @@ public class ManagerListAdapter extends ArrayAdapter <Zayavka> {
 
 
 
-        holder.date.setText("     "+zayavka.getDate().split("T")[0]+"\n     "+zayavka.getDate().split("T")[1]);
-        holder.number.setText(zayavka.getNumber());
-        holder.sender.setText(zayavka.getSender());
-        holder.recept.setText(zayavka.getRecept());
-        holder.senderadr.setText(zayavka.getSenderadr());
-        holder.receptadr.setText(zayavka.getReceptadr());
-        holder.iv_status.setText(zayavka.getStatus());
+        holder.date.setText("     "+ManagerZayavka.getDate().split("T")[0]+"\n     "+ManagerZayavka.getDate().split("T")[1]);
+        holder.number.setText(ManagerZayavka.getNumber());
+        holder.sender.setText(ManagerZayavka.getSender());
+        holder.recept.setText(ManagerZayavka.getRecept());
+        holder.senderadr.setText(ManagerZayavka.getSenderadr());
+        holder.receptadr.setText(ManagerZayavka.getReceptadr());
+        holder.iv_status.setText(ManagerZayavka.getStatus());
+        holder.zakazname.setText(ManagerZayavka.getZakaz());
+        holder.namegruz.setText(ManagerZayavka.getNamegruz());
+        holder.soprdoc.setText(ManagerZayavka.getSoprdocument());
 
-        holder.zakazname.setText((String) Kontragent.kontrpreferences.getAll().get(zayavka.getZakaz()));
         holder.linearLayout.setVisibility(View.GONE);
 
 
@@ -125,10 +133,7 @@ public class ManagerListAdapter extends ArrayAdapter <Zayavka> {
 
             @Override
             public void onSingleClick(View view) {
-                System.out.println(zayavka.getZakaz());
-                System.out.println(Kontragent.kontrpreferences.getAll().get(zayavka.getZakaz()));
-                System.out.println(Kontragent.kontrpreferences.getAll().toString());
-                if (lastlinear!=null)
+                   if (lastlinear!=null)
                     lastlinear.setVisibility(View.GONE);
                 System.out.println("aaaa");
 

@@ -44,14 +44,17 @@ public class ReceptionManagerActivity extends AppCompatActivity {
         rlZakazchik = findViewById(R.id.rl_zakazchik);
         rlOtpravitel = findViewById(R.id.rl_otpravitel);
         rlPoluchatel = findViewById(R.id.rl_poluchatel);
+        showOtpravitel = findViewById(R.id.btn_otpravitel);
+        showPoluchatel = findViewById(R.id.btn_poluchatel);
+        showZakazchik = findViewById(R.id.btn_zakazchik);
 
         rlZakazchik.setVisibility(rlZakazchik.INVISIBLE);
         rlOtpravitel.setVisibility(rlOtpravitel.INVISIBLE);
         rlPoluchatel.setVisibility(rlPoluchatel.INVISIBLE);
 
-        rlZakazchik.setOnClickListener(clickZakaz);
-        rlPoluchatel.setOnClickListener(clickPoluch);
-        rlOtpravitel.setOnClickListener(clickOtprav);
+        showZakazchik.setOnClickListener(clickZakaz);
+        showPoluchatel.setOnClickListener(clickPoluch);
+        showOtpravitel.setOnClickListener(clickOtprav);
 
     }
 }

@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:weightSum="100"
-    tools:context=".ManagerApp.ManagerListFiles.ManagerListItemActivity">
+    tools:context=".ManagerApp.ManagerListFiles.ReceptionManagerActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -287,7 +287,8 @@
                 android:id="@+id/rl_poluchatel"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:layout_marginBottom="8dp">
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp">
 
                 <TextView
                     android:id="@+id/tv_p_1"

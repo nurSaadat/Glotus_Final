@@ -13,7 +13,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="70dp"
         android:orientation="horizontal"
         android:visibility="visible"
 
@@ -28,15 +28,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="27dp"
-                android:orientation="horizontal"
-                android:weightSum="100">
+                android:layout_height="36dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tv_data"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="40"
+                    android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="//data"
                     android:textAlignment="center"
@@ -46,14 +44,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="28dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tv_code"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="//code"
                     android:textAlignment="center"
@@ -65,13 +62,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:layout_weight="40"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:weightSum="100">
 
@@ -83,13 +80,13 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="36dp"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/tv_otkuda"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:gravity="center"
                             android:text="//otkuda"
                             android:textAlignment="center"
@@ -99,13 +96,13 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="34dp"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/tv_otpravitel"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:text="//otpravitel"
                             android:textAlignment="center"
                             android:textColor="@android:color/black" />
@@ -123,20 +120,20 @@
                     <ImageView
                         android:id="@+id/iv_strela"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:src="@drawable/ic_gruzovik_blue_24dp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="70dp"
                     android:layout_weight="30"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv_kuda"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="36dp"
                         android:gravity="center"
                         android:text="//kuda"
                         android:textAlignment="center"
@@ -146,7 +143,7 @@
                     <TextView
                         android:id="@+id/tv_poluchatel"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="34dp"
                         android:text="//poluchatel"
                         android:textAlignment="center"
                         android:textColor="@android:color/black" />
@@ -218,7 +215,7 @@
             <TextView
                 android:id="@+id/tv_document"
                 android:layout_width="match_parent"
-                android:layout_height="32dp"
+                android:layout_height="wrap_content"
                 android:text="//document"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
@@ -245,7 +242,7 @@
             <TextView
                 android:id="@+id/tv_tovar"
                 android:layout_width="match_parent"
-                android:layout_height="32dp"
+                android:layout_height="wrap_content"
                 android:text="//tovar"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"

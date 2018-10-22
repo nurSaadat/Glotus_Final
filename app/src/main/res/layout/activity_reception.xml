@@ -8,10 +8,11 @@
     android:weightSum="100"
     tools:context=".SuperviserApp.ReceptionFiles.Reception">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="28dp"
-        android:background="@color/colorPrimaryDark">
+        android:background="@color/colorPrimaryDark"
+        android:weightSum="100">
 
         <TextView
             android:id="@+id/tv_nomer"
@@ -21,8 +22,8 @@
             android:textSize="24sp"
             android:textColor="@android:color/white"
             android:textAlignment="center"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
+            android:layout_marginStart="12dp"
+            android:layout_weight="30"
             />
 
         <TextView
@@ -35,23 +36,21 @@
             android:textSize="24sp"
             android:textColor="@android:color/white"
             android:textAlignment="center"
-            android:layout_toEndOf="@+id/tv_nomer"
+            android:layout_weight="10"
             />
 
         <TextView
             android:id="@+id/tv_data"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="4dp"
             android:text="//дата "
             android:textSize="24sp"
             android:textColor="@android:color/white"
             android:textAlignment="center"
-            android:layout_toEndOf="@+id/tv_1"
-            android:layout_alignParentEnd="true"
+            android:layout_weight="30"
             />
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -299,7 +298,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="gone"
+                    android:background="@drawable/rectangle_field"
+                    android:paddingBottom="12dp">
 
                     <LinearLayout
                         android:id="@+id/hide_lay"
@@ -367,6 +368,7 @@
                             android:layout_marginLeft="130dp"
                             android:layout_weight="1"
                             android:background="@color/otpravitelRed"
+                            android:layout_marginRight="4dp"
                             android:text="Удалить"
                             android:textColor="@android:color/white"/>
 

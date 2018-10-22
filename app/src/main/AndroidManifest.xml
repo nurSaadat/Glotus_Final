@@ -42,6 +42,8 @@
         </activity>
         <activity android:name=".ManagerApp.ManagerListFiles.ReceptionManagerActivity">
         </activity>
+        <activity android:name=".ManagerApp.ManagerListFiles.NewReceptionManagerActivity">
+        </activity>
 
 
 

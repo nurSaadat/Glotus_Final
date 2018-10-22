@@ -64,7 +64,8 @@ public class ManagerListActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),
                         "Добавить заявку работает", Toast.LENGTH_SHORT).show();
-                Intent myIntent = new Intent(ManagerListActivity.this, ReceptionManagerActivity.class);
+                ManagerListAdapter.isnew=true;
+                Intent myIntent = new Intent(ManagerListActivity.this, NewReceptionManagerActivity.class);
                 startActivity(myIntent);
             }
         });

@@ -30,6 +30,7 @@ public class ManagerListAdapter extends ArrayAdapter <ManagerZayavka> {
     private int lastPosion= -1;
     private boolean b=false;
     private LinearLayout lastlinear;
+    public static boolean isnew=false;
 
 
     private static class ViewHolder {
@@ -74,7 +75,7 @@ public class ManagerListAdapter extends ArrayAdapter <ManagerZayavka> {
         String manager=getItem(position).getMenedjer();
         String podrazd=getItem(position).getPodrazd();
         String ref_key=getItem(position).getRef_key();
-        String zakaz=getItem(position).getZakaz();
+        final String zakaz=getItem(position).getZakaz();
         String status=getItem(position).getStatus();
         String namegruz=getItem(position).getNamegruz();
         String soprdoc=getItem(position).getSoprdocument();
@@ -150,6 +151,8 @@ public class ManagerListAdapter extends ArrayAdapter <ManagerZayavka> {
 
             @Override
             public void onDoubleClick(View view) {
+                item=ManagerZayavka;
+                isnew=false;
                 Intent myIntent = new Intent(mContext, ReceptionManagerActivity.class);
                 mContext.startActivity(myIntent);
 

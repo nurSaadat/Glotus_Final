@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 
 import com.example.usk.glotus_final.R;
 
-public class NewReceptionManagerActivity extends AppCompatActivity {
+public class EditReceptionManagerActivity extends AppCompatActivity {
 
     private RelativeLayout rlZakazchik, rlPoluchatel, rlOtpravitel;
     private Button showZakazchik, showPoluchatel, showOtpravitel;
@@ -51,7 +51,7 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_manager_newreception);
+        setContentView(R.layout.activity_manager_edreception);
 
         rlZakazchik = findViewById(R.id.rl_zakazchik);
         rlOtpravitel = findViewById(R.id.rl_otpravitel);
@@ -60,9 +60,7 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
         showPoluchatel = findViewById(R.id.btn_poluchatel);
         showZakazchik = findViewById(R.id.btn_zakazchik);
 
-     /*   rlZakazchik.setVisibility(rlZakazchik.GONE);
-        rlOtpravitel.setVisibility(rlOtpravitel.GONE);
-        rlPoluchatel.setVisibility(rlPoluchatel.GONE);*/
+
 
         showZakazchik.setOnClickListener(clickZakaz);
         showPoluchatel.setOnClickListener(clickPoluch);

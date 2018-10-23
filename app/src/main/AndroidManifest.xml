@@ -45,6 +45,13 @@
         <activity android:name=".ManagerApp.ManagerListFiles.NewReceptionManagerActivity">
         </activity>
 
+        <activity android:name=".ManagerApp.ManagerListFiles.EditReceptionManagerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
 
         <provider

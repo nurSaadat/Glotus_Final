@@ -63,10 +63,10 @@ public class ReceptionManagerActivity extends AppCompatActivity {
         showPoluchatel = findViewById(R.id.btn_poluchatel);
         showZakazchik = findViewById(R.id.btn_zakazchik);
 
-        rlZakazchik.setVisibility(rlZakazchik.GONE);
+        /*rlZakazchik.setVisibility(rlZakazchik.GONE);
         rlOtpravitel.setVisibility(rlOtpravitel.GONE);
         rlPoluchatel.setVisibility(rlPoluchatel.GONE);
-
+*/
         showZakazchik.setOnClickListener(clickZakaz);
         showPoluchatel.setOnClickListener(clickPoluch);
         showOtpravitel.setOnClickListener(clickOtprav);

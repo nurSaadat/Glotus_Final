@@ -24,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.usk.glotus_final.System.Catalog.Kontragent;
+import com.example.usk.glotus_final.System.Catalog.KontragentNum;
 import com.example.usk.glotus_final.System.Catalog.Podrazd;
 import com.example.usk.glotus_final.System.Catalog.Transport;
 import com.example.usk.glotus_final.System.Encryption.AES;
@@ -95,6 +96,8 @@ public class Reception extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         relativeLayout=findViewById(R.id.relativeLay);
 
@@ -107,7 +110,7 @@ public class Reception extends AppCompatActivity {
         foto_kol=findViewById(R.id.foto_kol);
 
         zakazchik=findViewById(R.id.tv_zakazchic);
-        zakazchik.setText((String)Kontragent.preferences.getAll().get(ZayavkaListAdapter.item.getZakaz()));
+        zakazchik.setText((String)Kontragent.kontrpreferences.getAll().get(ZayavkaListAdapter.item.getZakaz()));
 
         numZakaz=findViewById(R.id.tv_nomer);
         numZakaz.setText(ZayavkaListAdapter.item.getNumber());
@@ -129,10 +132,10 @@ public class Reception extends AppCompatActivity {
         manager.setText(ZayavkaListAdapter.item.getMenedjer());
 
         tv_zakazchik_nomer=findViewById(R.id.tv_zakazchik_nomer);
-        tv_zakazchik_nomer.setText((String)Kontragent.preferencesnum.getAll().get(ZayavkaListAdapter.item.getZakaz()));
+        tv_zakazchik_nomer.setText((String) KontragentNum.kontrnumpreferences.getAll().get(ZayavkaListAdapter.item.getZakaz()));
 
         podrazdelenie=findViewById(R.id.tv_podrazdel);
-        podrazdelenie.setText((String)Podrazd.preferences.getAll().get(ZayavkaListAdapter.item.getPodrazd()));
+        podrazdelenie.setText((String)Podrazd.pdpreferences.getAll().get(ZayavkaListAdapter.item.getPodrazd()));
 
         soprDocument=findViewById(R.id.spinner_soprDoc);
         String[] itemsForSop=new String[]{"Транспортная накладная","Товарно-транспортная накладная",
@@ -275,9 +278,6 @@ public class Reception extends AppCompatActivity {
         String encodedImage = Base64.encodeToString(imageBytes,Base64.DEFAULT);
         return encodedImage;
     }
-
-    //here some mistakes, look throw
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public void posting() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, JSONException {
         final ProgressDialog progressDialog = new ProgressDialog(Reception.this);
         progressDialog.setMessage("Loading..."); // Setting Message
@@ -286,8 +286,38 @@ public class Reception extends AppCompatActivity {
         progressDialog.show(); // Display Progress Dialog
         progressDialog.setCancelable(false);
 
-        uploadingfile();
+        new Thread(new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void run() {
+                try {
+                    pposting();
+                } catch (NoSuchPaddingException e) {
+                    e.printStackTrace();
+                } catch (InvalidKeyException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (IllegalBlockSizeException e) {
+                    e.printStackTrace();
+                } catch (BadPaddingException e) {
+                    e.printStackTrace();
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                } catch (InvalidAlgorithmParameterException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
+    }
+
+        //here some mistakes, look throw
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void pposting() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, JSONException {
+        uploadingfile();
         String images="\"Изображения\" : [";
         for(int i=0;i<adress.size();i++) {
             System.out.println(adress.get(i));
@@ -313,7 +343,7 @@ public class Reception extends AppCompatActivity {
                 "    \"Транспорт_Key\": \""+trkey+"\",\n" +
                 "    \"ДокументОснования_Key\": \""+ZayavkaListAdapter.item.getRef_key()+"\",\n" +
               //      "    \"Менеджер_Key\": \""+ZayavkaListAdapter.item.getMenedjer()+"\",\n" +
-                "    \"Отправитель\": \""+ZayavkaListAdapter.item.getSender()+"\",\n" +
+                "    \"Отправитель\": \""+ZayavkaListAdapter.item.getSender().replace("\"","\\\"")+"\",\n" +
                 "    \"Подразделение_Key\": \""+ZayavkaListAdapter.item.getPodrazd()+"\",\n" +
              //   "    \"Комментарий\": \""+comment.getText().toString()+"\"\n" +
                 "    \"Фото_Type\": \"application/image/jpeg\",\n" +
@@ -323,6 +353,7 @@ public class Reception extends AppCompatActivity {
                      images+
                 " }";
        Log.d("aa",body);
+        System.out.println(body);
 
             String res=process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%9F%D1%80%D0%B8%D0%B5%D0%BC%D0%9D%D0%B0%D0%A1%D0%BA%D0%BB%D0%B0%D0%B4?$format=json","POST","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz",body);
         System.out.println(res);
@@ -336,7 +367,7 @@ public class Reception extends AppCompatActivity {
         System.out.println(jsonObj.getString("Ref_Key").toString());
 
             res=process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7(guid\'"+ZayavkaListAdapter.item.getRef_key()+"\')?$format=json","PATCH","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz",
-                    "{\"ДокументПриемГруза_Key\": \""+jsonObj.getString("Ref_Key").toString()+"\"}");
+                    "{\"ДокументПриемГруза_Key\": \""+jsonObj.getString("Ref_Key").toString()+"\",\"СтатусЗаказа\": \"ПринятноНаСкладе\",\"ВесФакт\":"+vesFact.getText().toString()+",\"ОбъемФакт\": "+obiemFact.getText().toString()+",\"КоличествоФакт\": "+kolich.getText().toString()+"}");
 
         System.out.println(res);
             pd=new PdfData(ZayavkaListAdapter.item.getSenderadr(),ZayavkaListAdapter.item.getReceptadr(),ZayavkaListAdapter.item.getRecept(),ZayavkaListAdapter.item.getSender(),kolich.getText().toString(),vesFact.getText().toString(),
@@ -354,7 +385,7 @@ public class Reception extends AppCompatActivity {
         final List<String> rlist = new ArrayList<String>();
 
         list.add("Выберите:");
-        for (Map.Entry<String, ?> entry : Transport.preferences.getAll().entrySet()) {
+        for (Map.Entry<String, ?> entry : Transport.trpreferences.getAll().entrySet()) {
             System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
             list.add((String) entry.getValue());
             rlist.add(entry.getKey());

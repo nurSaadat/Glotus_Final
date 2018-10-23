@@ -1,346 +1,225 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_pokazatZayavku"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+
     android:orientation="vertical"
-    android:weightSum="100" >
-    
+    android:weightSum="100">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
         android:orientation="horizontal"
-        android:weightSum="100"
-        android:onClick="showHidden">
-        
+        android:visibility="visible"
+
+        android:weightSum="100">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="60"
-            android:orientation="vertical">
-    
+            android:orientation="vertical"
+            android:visibility="visible">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="27dp"
-                android:orientation="horizontal"
-                android:weightSum="100">
-    
-    
-                <ImageView
-                    android:id="@+id/iv_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="60"
-                    app:srcCompat="@mipmap/ic_launcher"
-                    />
-    
+                android:layout_height="36dp"
+                android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/tv_data"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:gravity="center"
                     android:text="//data"
-                    android:layout_weight="40"
-                    android:textColor="@android:color/black"
-                    />
-    
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black" />
+
             </LinearLayout>
-    
-            <TextView
-                android:id="@+id/tv_code"
-                android:layout_width="match_parent"
-                android:layout_height="23dp"
-                android:gravity="center"
-                android:text="//code"
-                android:textStyle="bold"
-                android:textColor="@android:color/black"
-                android:textAlignment="center"
-                />
-    
-        </LinearLayout>
-    
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="40"
-            android:orientation="vertical">
-    
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="28dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="//code"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_weight="40"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:weightSum="100">
-    
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="vertical"
-                    android:layout_weight="30">
-    
-                    <TextView
-                        android:id="@+id/tv_otkuda"
+                    android:layout_height="match_parent"
+                    android:layout_weight="30"
+                    android:orientation="vertical">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="25dp"
-                        android:text="//otkuda"
-                        android:textColor="@android:color/black"
-                        android:textAlignment="center"
-                        android:textStyle="bold"
-                        />
-    
-                    <TextView
-                        android:id="@+id/tv_otpravitel"
+                        android:layout_height="36dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_otkuda"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="//otkuda"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="25dp"
-                        android:text="//otpravitel"
-                        android:textColor="@android:color/black"
-                        android:textAlignment="center"
-                        />
-    
+                        android:layout_height="34dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_otpravitel"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="//otpravitel"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/black" />
+                    </LinearLayout>
+
                 </LinearLayout>
-    
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:orientation="vertical"
-                    android:layout_weight="40">
-    
+                    android:layout_weight="40"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
                     <ImageView
                         android:id="@+id/iv_strela"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/right_arrow"
-                        />
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_gruzovik_blue_24dp" />
                 </LinearLayout>
-    
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="vertical"
-                    android:layout_weight="30">
-    
+                    android:layout_height="70dp"
+                    android:layout_weight="30"
+                    android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/tv_kuda"
                         android:layout_width="match_parent"
-                        android:layout_height="25dp"
+                        android:layout_height="36dp"
+                        android:gravity="center"
                         android:text="//kuda"
-                        android:textColor="@android:color/black"
                         android:textAlignment="center"
-                        android:textStyle="bold"
-                        />
-    
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/tv_poluchatel"
                         android:layout_width="match_parent"
-                        android:layout_height="25dp"
+                        android:layout_height="34dp"
                         android:text="//poluchatel"
-                        android:textColor="@android:color/black"
                         android:textAlignment="center"
-                        />
-    
+                        android:textColor="@android:color/black" />
+
                 </LinearLayout>
-    
+
             </LinearLayout>
-    
+
         </LinearLayout>
-    
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:layout_weight="70">
-    
+            android:layout_weight="70"
+            android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/tv_d"
                 android:layout_width="30dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@color/colorAccent"
                 android:text="Д"
                 android:textAlignment="center"
-                android:textStyle="bold"
                 android:textColor="@android:color/white"
                 android:textSize="24sp"
-                />
-    
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/tv_z"
                 android:layout_width="30dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@color/otpravitelRed"
                 android:text="З"
                 android:textAlignment="center"
-                android:textStyle="bold"
                 android:textColor="@android:color/white"
                 android:textSize="24sp"
-                />
-    
+                android:textStyle="bold" />
+
         </LinearLayout>
 
     </LinearLayout>
-    
+
     <LinearLayout
+        android:id="@+id/ll_moreInf"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
         android:orientation="horizontal"
-        android:weightSum="100"
-        android:baselineAligned="false">
+        android:visibility="visible"
+        android:weightSum="100">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="50"
-            android:orientation="vertical"
-            android:background="@drawable/rectangle_field">
+            android:background="@drawable/rectangle_field"
+            android:orientation="vertical">
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/tv_status"
                 android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:background="@drawable/rectangle_field">
+                android:layout_height="28dp"
+                android:gravity="center"
+                android:text="//status"
+                android:textAlignment="center"
+                android:textColor="@color/otpravitelRed"
+                android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/tv_ves_plan"
-                    android:layout_width="90dp"
-                    android:layout_height="25dp"
-                    android:text="//ves plan"
-                    android:textColor="@android:color/black"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_ves_plan_num"
-                    android:layout_width="match_parent"
-                    android:layout_toEndOf="@+id/tv_ves_plan"
-                    android:layout_height="25dp"
-                    android:text="//ves plan"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"
-                    />
-
-            </RelativeLayout>
-
-            <RelativeLayout
+            <TextView
+                android:id="@+id/tv_document"
                 android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:background="@drawable/rectangle_field">
-
-                <TextView
-                    android:id="@+id/tv_ves_fact"
-                    android:layout_width="90dp"
-                    android:layout_height="25dp"
-                    android:text="//ves fact"
-                    android:textColor="@android:color/black"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_ves_fact_num"
-                    android:layout_width="match_parent"
-                    android:layout_toEndOf="@+id/tv_ves_fact"
-                    android:layout_height="25dp"
-                    android:text="//ves fact"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"
-                    />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:background="@drawable/rectangle_field">
-
-                <TextView
-                    android:id="@+id/tv_volume_plan"
-                    android:layout_width="90dp"
-                    android:layout_height="25dp"
-                    android:text="//volume plan"
-                    android:textColor="@android:color/black"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_volume_plan_num"
-                    android:layout_width="match_parent"
-                    android:layout_toEndOf="@+id/tv_volume_plan"
-                    android:layout_height="25dp"
-                    android:text="//volume plan"
-                    android:textSize="16sp"
-                    android:textColor="@android:color/black"
-                    />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:background="@drawable/rectangle_field">
-
-                <TextView
-                    android:id="@+id/tv_volume_fact"
-                    android:layout_width="90dp"
-                    android:layout_height="25dp"
-                    android:text="//volume fact"
-                    android:textColor="@android:color/black"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_volume_fact_num"
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp"
-                    android:layout_toEndOf="@+id/tv_volume_fact"
-                    android:text="//volume fact"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"
-                    />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:background="@drawable/rectangle_field">
-
-                <TextView
-                    android:id="@+id/tv_kolvo_plan"
-                    android:layout_width="90dp"
-                    android:layout_height="25dp"
-                    android:text="//kolvo plan"
-                    android:textColor="@android:color/black"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_kolvo_plan_num"
-                    android:layout_width="match_parent"
-                    android:layout_toEndOf="@+id/tv_kolvo_plan"
-                    android:layout_height="25dp"
-                    android:text="//kolvo plan"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"
-                    />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:background="@drawable/rectangle_field">
-
-                <TextView
-                    android:id="@+id/tv_kolvo_fact"
-                    android:layout_width="90dp"
-                    android:layout_height="25dp"
-                    android:text="//kolvo fact"
-                    android:textColor="@android:color/black"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_kolvo_fact_num"
-                    android:layout_width="match_parent"
-                    android:layout_toEndOf="@id/tv_kolvo_fact"
-                    android:layout_height="25dp"
-                    android:text="//kolvo fact"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"
-                    />
-
-            </RelativeLayout>
+                android:layout_height="wrap_content"
+                android:text="//document"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
@@ -353,42 +232,21 @@
             <TextView
                 android:id="@+id/tv_partner"
                 android:layout_width="match_parent"
-                android:layout_height="36dp"
+                android:layout_height="28dp"
+                android:gravity="center"
                 android:text="//partner"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
-                android:textSize="20sp"
-                />
-
-            <TextView
-                android:id="@+id/tv_status"
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:text="//status"
-                android:textAlignment="center"
-                android:textColor="@color/otpravitelRed"
-                android:textSize="16sp"
-                />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tv_tovar"
                 android:layout_width="match_parent"
-                android:layout_height="41dp"
+                android:layout_height="wrap_content"
                 android:text="//tovar"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
-                android:textSize="16sp"
-                />
-
-            <TextView
-                android:id="@+id/tv_document"
-                android:layout_width="match_parent"
-                android:layout_height="41dp"
-                android:text="//document"
-                android:textAlignment="center"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
-                />
+                android:textSize="16sp" />
 
         </LinearLayout>
 

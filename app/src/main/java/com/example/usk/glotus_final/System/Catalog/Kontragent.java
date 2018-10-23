@@ -4,8 +4,8 @@ import android.content.SharedPreferences;
 
 public class Kontragent {
 
-    public static SharedPreferences preferences;
-    public static SharedPreferences preferencesnum;
+    public static SharedPreferences kontrpreferences;
+
 
 
 }

@@ -46,6 +46,8 @@ public class SuperviserListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_superviser_list);
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         // Declaring listView
         ListView list = (ListView) findViewById(R.id.superviser_list);
@@ -112,17 +114,17 @@ public class SuperviserListActivity extends AppCompatActivity {
 
         /*ZayavkaListAdapter adapter = new ZayavkaListAdapter(this, R.layout.superviser_list_item_layout, mZayavkas);
         list.setAdapter(adapter);*/
-    }
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public static String process(String url, String way, String cred, String data) throws NoSuchPaddingException, UnsupportedEncodingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
-        String body=url+","+way+","+cred+"*---*" +data;
-        System.out.println(body);
-        String string = AES.aesEncryptString(body, "1234567890123456");
-        body="data="+string;
-        System.out.println(body);
-        server = new Server("http://185.209.21.191/uu/demoaes.php",null, body);
-        return server.post();
-    }
+        }
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        public static String process(String url, String way, String cred, String data) throws NoSuchPaddingException, UnsupportedEncodingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+            String body=url+","+way+","+cred+"*---*" +data;
+            System.out.println(body);
+            String string = AES.aesEncryptString(body, "1234567890123456");
+            body="data="+string;
+            System.out.println(body);
+            server = new Server("http://185.209.21.191/uu/demoaes.php",null, body);
+            return server.post();
+        }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void refresh() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
@@ -170,15 +172,19 @@ public class SuperviserListActivity extends AppCompatActivity {
                // String otkuda=getadr(array.getJSONObject(i).getString("Откуда_Key"));
                // String kuda=getadr(array.getJSONObject(i).getString("Куда_Key"));
                 // String mened=getadr(array.getJSONObject(i).getString("Менеджер_Key"));
+                
+
+
+
                 john = new Zayavka(array.getJSONObject(i).getString("Number"),
                         array.getJSONObject(i).getString("Date"),
                         array.getJSONObject(i).getString("Отправитель"),
                         array.getJSONObject(i).getString("Получатель"),/**/
-                        (String) Adress.preferences.getAll().get(array.getJSONObject(i).getString("Откуда_Key")),
-                        (String) Adress.preferences.getAll().get(array.getJSONObject(i).getString("Куда_Key")),
+                        (String) Adress.adresspreferences.getAll().get(array.getJSONObject(i).getString("Откуда_Key")),
+                        (String) Adress.adresspreferences.getAll().get(array.getJSONObject(i).getString("Куда_Key")),
                         array.getJSONObject(i).getString("Ref_Key"),
                         array.getJSONObject(i).getString("Заказчик_Key"),
-                        (String) Mdnames.preferences.getAll().get(array.getJSONObject(i).getString("Менеджер_Key")),
+                        (String) Mdnames.mdpreferences.getAll().get(array.getJSONObject(i).getString("Менеджер_Key")),
                         array.getJSONObject(i).getString("Подразделение_Key"),array.getJSONObject(i).getString("СтатусЗаказа"));
 
             } catch (JSONException e) {
@@ -206,66 +212,5 @@ public class SuperviserListActivity extends AppCompatActivity {
 
 
 
-    public String getadr(String mnkey) {
-        ConnectionServer mns = new ConnectionServer("http://185.209.21.191/test/odata/standard.odata/Catalog_Адресаты?$format=json&$filter=Ref_Key%20eq%20guid%27" + mnkey + "%27", User.cred);
-        JSONArray array = null;
-        JSONObject jsonObj = null;
-        try {
-            jsonObj = new JSONObject(mns.get(User.cred));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            array = jsonObj.getJSONArray("value");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            array = jsonObj.getJSONArray("value");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-        for (int i = 0; i < array.length(); i++) {
-            try {
-                return array.getJSONObject(i).getString("Description");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        return "";
-    }
-    public String getmdname(String mnkey){
-
-        ConnectionServer mns= new ConnectionServer("http://185.209.21.191/test/odata/standard.odata/Catalog_Пользователи?$format=json&$filter=Ref_Key%20eq%20guid%27"+mnkey+"%27",User.cred);
-        JSONArray array = null;
-        JSONObject jsonObj=null;
-        try {
-            jsonObj = new JSONObject(mns.get(User.cred));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            array = jsonObj.getJSONArray("value");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            array = jsonObj.getJSONArray("value");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        for(int i = 0; i < array.length(); i++) {
-
-            try {
-                return array.getJSONObject(i).getString("Code");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-        }
-
-        return "";
-    }
 }

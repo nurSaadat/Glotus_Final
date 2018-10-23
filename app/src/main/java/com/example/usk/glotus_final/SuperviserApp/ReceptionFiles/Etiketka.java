@@ -140,7 +140,7 @@ public class Etiketka extends AppCompatActivity{
                 setMinMargins(PrintAttributes.Margins.NO_MARGINS).
                 build();
         PrintedPdfDocument document = new PrintedPdfDocument(this,printAttrs);
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(xx, yy, 1).create();
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(25, 25, 1).create();
         PdfDocument.Page page = document.startPage(pageInfo);
         scroll.draw(page.getCanvas());
         document.finishPage(page);

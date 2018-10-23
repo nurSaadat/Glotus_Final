@@ -103,8 +103,15 @@ public class ExpedPage extends AppCompatActivity {
         int id = item.getItemId();
 
         if(id==R.id.btn_ok){
-
+            Intent myintent = new Intent(ExpedPage.this, SuperviserListActivity.class);
+            startActivity(myintent);
         }
+        if(id==R.id.btn_next){
+            Intent myintent = new Intent(ExpedPage.this, SuperviserListActivity.class);
+            startActivity(myintent);
+        }
+
+
         if(id==R.id.btn_print){
             Intent myintent = new Intent(ExpedPage.this, SuperviserListActivity.class);
             startActivity(myintent);

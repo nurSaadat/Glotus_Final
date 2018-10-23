@@ -28,11 +28,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".ManagerApp.ManagerListFiles.ManagerListActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </activity>
+        <activity android:name=".SuperviserApp.ReceptionFiles.ExpedPage">
+
         </activity>
 
         <activity android:name=".SuperviserApp.SuperviserListFiles.SuperviserListActivity"></activity>
@@ -41,8 +40,11 @@
         </activity>
         <activity android:name=".SuperviserApp.ReceptionFiles.Etiketka">
         </activity>
-        <activity android:name=".ManagerListFiles.ManagerListActivity">
+        <activity android:name=".ManagerApp.ManagerListFiles.ReceptionManagerActivity">
         </activity>
+        <activity android:name=".ManagerApp.ManagerListFiles.NewReceptionManagerActivity">
+        </activity>
+
 
 
         <provider

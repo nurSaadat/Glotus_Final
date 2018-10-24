@@ -101,15 +101,17 @@
         android:id="@+id/progressBar2"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="211dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="-100dp"
-        android:layout_height="wrap_content" />
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="272dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="-30dp"
-        android:text="Вход в систему" />
+        android:text="Вход в систему"
+        android:visibility="gone" />
 
 
 </LinearLayout>

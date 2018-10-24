@@ -80,8 +80,38 @@ public class Update  {
         for (int i = 0; i < array.length(); i++) {
             try {
                 Kontragent.kontrpreferences.edit().putString(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("Description")).commit();
-                KontragentNum.kontrnumpreferences.edit().putString(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("ТелефонКонтактногоЛица")).commit();
-            } catch (JSONException e) {
+                } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void refreshKontragentnum() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
+        String data;
+        data=process("http://185.209.21.191/test/odata/standard.odata/Catalog_%D0%9A%D0%BE%D0%BD%D1%82%D1%80%D0%B0%D0%B3%D0%B5%D0%BD%D1%82%D1%8B?$format=json","GET","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz","{}");
+        System.out.println(data);
+        JSONArray array = null;
+        JSONObject jsonObj = null;
+
+
+        array = null;
+        jsonObj = null;
+        try {
+            jsonObj = new JSONObject(data);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            array = jsonObj.getJSONArray("value");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < array.length(); i++) {
+            try {
+                KontragentNum.kontrnumpreferences.edit().putString(array.getJSONObject(i).getString("Ref_Key"),array.getJSONObject(i).getString("Description")).commit();
+                } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
@@ -183,6 +213,7 @@ public class Update  {
     public void getCatalogs() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
         refreshAdress();
         refreshKontragent();
+        refreshKontragentnum();
         refreshMdnames();
         refreshPodrazd();
         refreshTransport();

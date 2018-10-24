@@ -160,17 +160,6 @@ public class Etiketka extends AppCompatActivity{
         }
     }
 
-    /*public void print(){
-        Intent intentPrint=new Intent("com.sec.print.mobileprint.action.PRINT");
-        String rootSDCard=Environment.getExternalStorageDirectory().getAbsolutePath();
-        Uri uri =Uri.parse(rootSDCard+"/Этикетка.pdf");
-        intentPrint.putExtra("com.sec.print.mobileprint.extra.CONTENT",uri);
-        intentPrint.putExtra("com.sec.print.mobileprint.extra.CONTENT_TYPE","DOCUMENT");
-        intentPrint.putExtra("com.sec.print.mobileprint.extra.OPTION_TYPE","DOCUMENT_PRINT");
-        intentPrint.putExtra("com.sec.print.mobileprint.extra.JOB_NAME","UNTITLED");
-        startActivity(intentPrint);
-    }*/
-
     @Override
     public void onBackPressed() {
         Intent myIntent = new Intent(Etiketka.this, Reception.class);

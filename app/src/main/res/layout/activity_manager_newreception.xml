@@ -75,11 +75,13 @@
             <Button
                 android:id="@+id/btn_zakazchik"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:hint="Заказчик"
+                android:layout_height="50dp"
+                android:hint="  Заказчик"
                 android:textColorHint="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textAlignment="textStart"/>
+                android:textSize="22sp"
+                android:textAlignment="textStart"
+                android:background="@drawable/rectangle_field"
+                />
 
             <RelativeLayout
                 android:id="@+id/rl_zakazchik"
@@ -159,11 +161,12 @@
             <Button
                 android:id="@+id/btn_otpravitel"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:hint="Отправитель"
+                android:layout_height="50dp"
+                android:hint="  Отправитель"
                 android:textColorHint="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textAlignment="textStart"/>
+                android:textSize="22sp"
+                android:textAlignment="textStart"
+                android:background="@drawable/rectangle_field"/>
 
             <RelativeLayout
                 android:id="@+id/rl_otpravitel"
@@ -285,11 +288,12 @@
             <Button
                 android:id="@+id/btn_poluchatel"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:hint="Получатель"
+                android:layout_height="50dp"
+                android:hint="  Получатель"
                 android:textColorHint="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textAlignment="textStart"/>
+                android:textSize="22sp"
+                android:textAlignment="textStart"
+                android:background="@drawable/rectangle_field"/>
 
             <RelativeLayout
                 android:id="@+id/rl_poluchatel"
@@ -325,7 +329,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginRight="8dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -340,7 +345,8 @@
                         android:layout_marginStart="8dp"
                         android:text="Дата  "
                         android:textColor="@color/colorPrimary"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
 
                     <EditText
                         android:id="@+id/et_date_edit"
@@ -377,7 +383,8 @@
                             android:layout_marginTop="12dp"
                             android:text="Количество:"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -385,7 +392,8 @@
                             android:layout_marginTop="19dp"
                             android:text="Вес:"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -393,7 +401,8 @@
                             android:layout_marginTop="21dp"
                             android:text="Объём:"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold"/>
 
                     </LinearLayout>
 
@@ -535,7 +544,8 @@
                             android:text="Информация о грузе: "
                             android:textAlignment="textStart"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold"/>
 
                         <EditText
                             android:id="@+id/et_info"
@@ -562,7 +572,8 @@
                             android:text="Вид перевозки: "
                             android:textAlignment="textStart"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold"/>
 
                         <EditText
                             android:id="@+id/et_vid"
@@ -589,7 +600,8 @@
                             android:text="Доставка: "
                             android:textAlignment="textStart"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold"/>
 
                         <EditText
                             android:id="@+id/et_dostavka"
@@ -616,7 +628,8 @@
                             android:text="Стоимость: "
                             android:textAlignment="textStart"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold"/>
 
                         <EditText
                             android:id="@+id/et_stoimost"
@@ -643,7 +656,8 @@
                             android:text="Статус заказа: "
                             android:textAlignment="textStart"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold"/>
 
                         <EditText
                             android:id="@+id/et_status"
@@ -661,12 +675,14 @@
 
                 <Button
                     android:id="@+id/btn_dokumenty"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_width="500dp"
+                    android:layout_height="50dp"
                     android:hint="Документы"
                     android:textAlignment="textStart"
                     android:textColorHint="@color/colorPrimary"
-                    android:textSize="18sp" />
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:background="@android:color/white"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -675,7 +691,8 @@
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    />
 
                 <EditText
                     android:id="@+id/et_kommentar"
@@ -693,20 +710,23 @@
                     <Button
                         android:id="@+id/btn_sohranit"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:hint="Сохранить"
+                        android:layout_height="50dp"
+                        android:hint="  Сохранить"
                         android:textAlignment="textStart"
-                        android:textColorHint="@color/colorPrimary"
-                        android:textSize="18sp" />
+                        android:textColorHint="@android:color/white"
+                        android:textSize="22sp"
+                        android:background="@color/colorPrimary" />
 
                     <Button
                         android:id="@+id/btn_otmenit"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:hint="Отменить"
+                        android:layout_marginTop="12dp"
+                        android:hint="  Отменить"
                         android:textAlignment="textStart"
-                        android:textColorHint="@color/colorPrimary"
-                        android:textSize="18sp" />
+                        android:background="@color/otpravitelRed"
+                        android:textColorHint="@android:color/white"
+                        android:textSize="22sp"
+                        android:layout_height="50dp"/>
                 </LinearLayout>
 
             </LinearLayout>

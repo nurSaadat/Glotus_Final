@@ -6,4 +6,6 @@
     <color name="otpravitelRed">#e8352c</color>
     <color name="signInHint">#535d7e</color>
     <color name="greyField">#b4b4b4</color>
+    <color name="buttonSave">#73c05e</color>
+    <color name="btnSaveDark">#508641</color>
 </resources>

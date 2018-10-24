@@ -278,9 +278,6 @@ public class Reception extends AppCompatActivity {
         String encodedImage = Base64.encodeToString(imageBytes,Base64.DEFAULT);
         return encodedImage;
     }
-
-    //here some mistakes, look throw
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public void posting() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, JSONException {
         final ProgressDialog progressDialog = new ProgressDialog(Reception.this);
         progressDialog.setMessage("Loading..."); // Setting Message
@@ -289,8 +286,38 @@ public class Reception extends AppCompatActivity {
         progressDialog.show(); // Display Progress Dialog
         progressDialog.setCancelable(false);
 
-        uploadingfile();
+        new Thread(new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void run() {
+                try {
+                    pposting();
+                } catch (NoSuchPaddingException e) {
+                    e.printStackTrace();
+                } catch (InvalidKeyException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (IllegalBlockSizeException e) {
+                    e.printStackTrace();
+                } catch (BadPaddingException e) {
+                    e.printStackTrace();
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                } catch (InvalidAlgorithmParameterException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
+    }
+
+        //here some mistakes, look throw
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void pposting() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, JSONException {
+        uploadingfile();
         String images="\"Изображения\" : [";
         for(int i=0;i<adress.size();i++) {
             System.out.println(adress.get(i));
@@ -316,7 +343,7 @@ public class Reception extends AppCompatActivity {
                 "    \"Транспорт_Key\": \""+trkey+"\",\n" +
                 "    \"ДокументОснования_Key\": \""+ZayavkaListAdapter.item.getRef_key()+"\",\n" +
               //      "    \"Менеджер_Key\": \""+ZayavkaListAdapter.item.getMenedjer()+"\",\n" +
-                "    \"Отправитель\": \""+ZayavkaListAdapter.item.getSender()+"\",\n" +
+                "    \"Отправитель\": \""+ZayavkaListAdapter.item.getSender().replace("\"","\\\"")+"\",\n" +
                 "    \"Подразделение_Key\": \""+ZayavkaListAdapter.item.getPodrazd()+"\",\n" +
              //   "    \"Комментарий\": \""+comment.getText().toString()+"\"\n" +
                 "    \"Фото_Type\": \"application/image/jpeg\",\n" +
@@ -326,6 +353,7 @@ public class Reception extends AppCompatActivity {
                      images+
                 " }";
        Log.d("aa",body);
+        System.out.println(body);
 
             String res=process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%9F%D1%80%D0%B8%D0%B5%D0%BC%D0%9D%D0%B0%D0%A1%D0%BA%D0%BB%D0%B0%D0%B4?$format=json","POST","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz",body);
         System.out.println(res);

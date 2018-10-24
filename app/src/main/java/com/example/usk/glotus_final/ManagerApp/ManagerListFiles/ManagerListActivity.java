@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
-import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.Zayavka;
+
 import com.example.usk.glotus_final.System.Catalog.Adress;
 import com.example.usk.glotus_final.System.Catalog.Kontragent;
 import com.example.usk.glotus_final.System.Catalog.KontragentNum;
@@ -64,7 +64,8 @@ public class ManagerListActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),
                         "Добавить заявку работает", Toast.LENGTH_SHORT).show();
-                Intent myIntent = new Intent(ManagerListActivity.this, ReceptionManagerActivity.class);
+                ManagerListAdapter.isnew=true;
+                Intent myIntent = new Intent(ManagerListActivity.this, NewReceptionManagerActivity.class);
                 startActivity(myIntent);
             }
         });
@@ -139,8 +140,8 @@ public class ManagerListActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void refresh() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
         final ListView list = (ListView) findViewById(R.id.manager_list);
-        ArrayList<Zayavka> mZayavkas;
-        mZayavkas = new ArrayList<>();
+        ArrayList<ManagerZayavka> mManagerZayavkas;
+        mManagerZayavkas = new ArrayList<>();
 
 
         process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json&$orderby=Date%20desc","GET","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz","{}");
@@ -169,12 +170,13 @@ public class ManagerListActivity extends AppCompatActivity {
                         array.getJSONObject(i).getString("Получатель")+
                         array.getJSONObject(i).getString("АдресОтправителя")+
                         array.getJSONObject(i).getString("АдресПолучателя")));
+                System.out.println((String) Kontragent.kontrpreferences.getString(array.getJSONObject(i).getString("Заказчик_Key"),""));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
 
-            Zayavka john = null;
+            ManagerZayavka john = null;
             try {
                 // String otkuda=getadr(array.getJSONObject(i).getString("Откуда_Key"));
                 // String kuda=getadr(array.getJSONObject(i).getString("Куда_Key"));
@@ -183,26 +185,28 @@ public class ManagerListActivity extends AppCompatActivity {
 
 
 
-                john = new Zayavka(array.getJSONObject(i).getString("Number"),
+                john = new ManagerZayavka(array.getJSONObject(i).getString("Number"),
                         array.getJSONObject(i).getString("Date"),
                         array.getJSONObject(i).getString("Отправитель"),
                         array.getJSONObject(i).getString("Получатель"),/**/
                         (String) Adress.adresspreferences.getAll().get(array.getJSONObject(i).getString("Откуда_Key")),
                         (String) Adress.adresspreferences.getAll().get(array.getJSONObject(i).getString("Куда_Key")),
                         array.getJSONObject(i).getString("Ref_Key"),
-                        (String) KontragentNum.kontrnumpreferences.getAll().get(array.getJSONObject(i).getString("Заказчик_Key")),
+                        (String) Kontragent.kontrpreferences.getString(array.getJSONObject(i).getString("Заказчик_Key"),""),
                         (String) Mdnames.mdpreferences.getAll().get(array.getJSONObject(i).getString("Менеджер_Key")),
-                        array.getJSONObject(i).getString("Подразделение_Key"),array.getJSONObject(i).getString("СтатусЗаказа"));
+                        array.getJSONObject(i).getString("Подразделение_Key"),array.getJSONObject(i).getString("СтатусЗаказа"),
+                        array.getJSONObject(i).getString("НаименованиеГруза"),
+                        array.getJSONObject(i).getString("СопроводительныйДокумент"));
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            mZayavkas.add(john);
+            mManagerZayavkas.add(john);
 
 
 
     }
-       final ManagerListAdapter adapter = new ManagerListAdapter(this, R.layout.manager_list_item_layout, mZayavkas);
+       final ManagerListAdapter adapter = new ManagerListAdapter(this, R.layout.manager_list_item_layout, mManagerZayavkas);
 
         runOnUiThread(new Runnable() {
             @Override

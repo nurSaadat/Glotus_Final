@@ -78,11 +78,11 @@
     <string name="transport">Транспорт:</string>
     <string name="eticet_button">Этикетка</string>
     <string name="form_button">Форма</string>
-    <string name="take_photo">Take photo</string>
+    <string name="take_photo">Сделать фото</string>
     <string name="pathText">Path of photo:</string>
     <string name="nameText">Name of picture:</string>
-    <string name="name">Name of picture</string>
-    <string name="path">Path of picture:</string>
+    <string name="name">Name </string>
+    <string name="path">Path </string>
     <string name="sop">Сопр док:</string>
     <string name="fromCity">Город откуда</string>
     <string name="toCity">Город куда</string>

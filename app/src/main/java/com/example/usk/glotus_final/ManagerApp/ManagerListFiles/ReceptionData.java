@@ -15,6 +15,7 @@ public class ReceptionData implements Serializable {
     private String telefon;
     private String poluchatel;
     private String dateEdit;
+    private String kuda;
     private String planKolich;
     private String planVes;
     private String planObiem;
@@ -33,7 +34,7 @@ public class ReceptionData implements Serializable {
 
     public ReceptionData(String code, String date, String zakazchik, String pochta, String dogovor,
                          String otpavitel, String otkuda, String address, String kontakt, String telefon,
-                         String poluchatel, String dateEdit, String planKolich, String planVes, String planObiem,
+                         String poluchatel, String dateEdit, String kuda, String planKolich, String planVes, String planObiem,
                          String factKolich, String factVes, String factObiem, String info, String vid, String dostavka,
                          String stoimost, String status, String komment) {
         this.code = code;
@@ -48,6 +49,8 @@ public class ReceptionData implements Serializable {
         this.telefon = telefon;
         this.poluchatel = poluchatel;
         this.dateEdit = dateEdit;
+        this.kuda=kuda;
+
         this.planKolich = planKolich;
         this.planVes = planVes;
         this.planObiem = planObiem;
@@ -156,6 +159,14 @@ public class ReceptionData implements Serializable {
 
     public void setDateEdit(String dateEdit) {
         this.dateEdit = dateEdit;
+    }
+
+    public String getKuda() {
+        return kuda;
+    }
+
+    public void setKuda(String kuda) {
+        this.kuda = kuda;
     }
 
     public String getPlanKolich() {

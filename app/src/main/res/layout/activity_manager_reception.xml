@@ -483,11 +483,14 @@
                     android:orientation="horizontal"
                     android:weightSum="100">
 
-                    <Spinner
-                        android:id="@+id/spinner_otkuda"
+                    <TextView
+                        android:id="@+id/tv_otkuda"
                         android:layout_width="0dp"
                         android:layout_height="32dp"
                         android:layout_weight="40"
+                        android:text="otkuda"
+                        android:textSize="20sp"
+                        android:paddingLeft="35dp"
                         android:elevation="10dp"/>
 
                     <ImageView
@@ -496,11 +499,14 @@
                         android:layout_weight="20"
                         android:src="@drawable/ic_gruzovik_blue_24dp" />
 
-                    <Spinner
-                        android:id="@+id/spinner_kuda"
+                    <TextView
+                        android:id="@+id/tv_kuda"
                         android:layout_width="0dp"
                         android:layout_height="32dp"
                         android:layout_weight="40"
+                        android:text="kuda"
+                        android:textSize="20sp"
+                        android:paddingLeft="35dp"
                         android:elevation="10dp"/>
 
                 </LinearLayout>
@@ -673,12 +679,11 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/et_kommentar"
+                <TextView
+                    android:id="@+id/tv_kommentar"
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
-                    android:ems="10"
-                    android:inputType="textMultiLine" />
+                    android:ems="10" />
 
                 <Button
                     android:id="@+id/btn_izmenit"

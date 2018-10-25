@@ -47,6 +47,8 @@ public class ReceptionManagerActivity extends AppCompatActivity {
                 onIzmenitButtonClick();
             }
         });
+
+        saveDataToDB();
     }
 
     //передает данные в EditReceptionManagerActivity
@@ -142,8 +144,12 @@ public class ReceptionManagerActivity extends AppCompatActivity {
         tv_kommentar.setText("komment");
     }
 
-    public void takeFromDB(){
-        //флгоритм который берет данные с базы
+    public void saveDataToDB(){
+        if(recData.toString()!=returnedData.toString()){
+            //сохраняем весь объект на базу
+        }else{
+            //ниче не надо сохранять
+        }
     }
 
     public void findView(){

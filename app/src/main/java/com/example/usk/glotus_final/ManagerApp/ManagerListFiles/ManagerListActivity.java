@@ -20,6 +20,7 @@ import com.example.usk.glotus_final.System.Catalog.Adress;
 import com.example.usk.glotus_final.System.Catalog.Kontragent;
 import com.example.usk.glotus_final.System.Catalog.KontragentNum;
 import com.example.usk.glotus_final.System.Catalog.Mdnames;
+import com.example.usk.glotus_final.System.Catalog.Pochta;
 import com.example.usk.glotus_final.System.Encryption.AES;
 import com.example.usk.glotus_final.System.connection.Server;
 import com.example.usk.glotus_final.System.loginFiles.SignInActivity;
@@ -196,7 +197,36 @@ public class ManagerListActivity extends AppCompatActivity {
                         (String) Mdnames.mdpreferences.getAll().get(array.getJSONObject(i).getString("Менеджер_Key")),
                         array.getJSONObject(i).getString("Подразделение_Key"),array.getJSONObject(i).getString("СтатусЗаказа"),
                         array.getJSONObject(i).getString("НаименованиеГруза"),
-                        array.getJSONObject(i).getString("СопроводительныйДокумент"));
+                        array.getJSONObject(i).getString("СопроводительныйДокумент"),
+
+                        (String) Pochta.pochtakontr.getAll().get("Заказчик_Key"),
+                        array.getJSONObject(i).getString("КонтактноеЛицоОтправителя"),
+                        array.getJSONObject(i).getString("КонтактноеЛицоПолучатель"),
+                        array.getJSONObject(i).getString("ТелефонКонтактногоЛицоОтправителя"),
+                        array.getJSONObject(i).getString("ТелефонКонтактногоЛицаПолучателя"),
+                        array.getJSONObject(i).getString("АдресОтправителя"),
+                        array.getJSONObject(i).getString("АдресПолучателя"),
+
+                        array.getJSONObject(i).getString("ОбъемПлан"),
+                        array.getJSONObject(i).getString("ОбъемФакт"),
+                        array.getJSONObject(i).getString("ВесПлан"),
+                        array.getJSONObject(i).getString("ВесФакт"),
+                        array.getJSONObject(i).getString("КоличествоПлан"),
+                        array.getJSONObject(i).getString("КоличествоФакт"),
+                        array.getJSONObject(i).getString("ВидПеревозки"),
+                        array.getJSONObject(i).getString("СтоимостьЗаказа"),
+                        array.getJSONObject(i).getString("СтатусЗаказа"),
+                        array.getJSONObject(i).getString("Комментарий")
+
+
+
+
+
+                );
+
+
+
+
 
             } catch (JSONException e) {
                 e.printStackTrace();

@@ -201,13 +201,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/tv_6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Откуда: "
-                        android:textSize="18sp"
-                        android:textColor="@android:color/black"/>
+                        android:text="Куда: "
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
 
                     <MultiAutoCompleteTextView
                         android:id="@+id/mactv_z_otkuda"
@@ -304,21 +305,110 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/tv_p_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Получатель: "
-                        android:textSize="18sp"
-                        android:textColor="@android:color/black"/>
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
 
                     <MultiAutoCompleteTextView
                         android:id="@+id/mactv_p_poluch"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="//получатель"
-                        android:textSize="18sp"
-                        android:textColor="@android:color/black"/>
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Откуда: "
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                    <MultiAutoCompleteTextView
+                        android:id="@+id/mactv_p_otkuda"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="//откуда"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Адрес: "
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                    <MultiAutoCompleteTextView
+                        android:id="@+id/mactv_p_adres"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="//адрес"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Контактное лицо: "
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                    <MultiAutoCompleteTextView
+                        android:id="@+id/mactv_p_kontakt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="//контактное лицо"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Телефон: "
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                    <MultiAutoCompleteTextView
+                        android:id="@+id/mactv_p_telefon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="//телефон"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -494,12 +584,12 @@
                     android:orientation="horizontal"
                     android:weightSum="100">
 
-                    <MultiAutoCompleteTextView
+                    <Spinner
                         android:id="@+id/mactv_otkuda"
                         android:layout_width="0dp"
-                        android:layout_height="32dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="40"
-                        android:elevation="10dp"/>
+                        android:elevation="10dp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -507,12 +597,12 @@
                         android:layout_weight="20"
                         android:src="@drawable/ic_gruzovik_blue_24dp" />
 
-                    <MultiAutoCompleteTextView
+                    <Spinner
                         android:id="@+id/mactv_kuda"
                         android:layout_width="0dp"
-                        android:layout_height="32dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="40"
-                        android:elevation="10dp"/>
+                        android:elevation="10dp" />
 
                 </LinearLayout>
 

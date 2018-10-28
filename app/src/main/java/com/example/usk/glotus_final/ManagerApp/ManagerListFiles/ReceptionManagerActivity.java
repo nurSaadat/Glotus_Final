@@ -22,7 +22,8 @@ public class ReceptionManagerActivity extends AppCompatActivity {
     private TextView tv_code, tv_date, tv_z_zakazchik, tv_z_pochta, tv_z_dogovor, tv_z_otprav,
                     tv_z_otkuda, tv_z_adres, tv_z_kontakt, tv_z_telefon, tv_p_poluch, tv_date_edit,
                     tv_p_kolich, tv_p_ves, tv_p_obiem, tv_f_kolich, tv_f_ves, tv_f_obiem, tv_info,
-                    tv_vid, tv_dostavka, tv_stoimost, tv_status,tv_kuda,tv_otkuda,tv_kommentar;
+                    tv_vid, tv_dostavka, tv_stoimost, tv_status,tv_kuda,tv_otkuda,tv_kommentar,
+                    tv_p_kuda,tv_p_adres,tv_p_kontakt,tv_p_telefon;
     private ReceptionData recData;
     private ReceptionData returnedData;
 
@@ -48,8 +49,13 @@ public class ReceptionManagerActivity extends AppCompatActivity {
             }
         });
 
-        saveDataToDB();
+
     }
+
+
+
+
+
 
     //передает данные в EditReceptionManagerActivity
     public void onIzmenitButtonClick(){
@@ -62,7 +68,9 @@ public class ReceptionManagerActivity extends AppCompatActivity {
                 tv_p_obiem.getText().toString(),tv_f_kolich.getText().toString(),tv_f_ves.getText().toString(),
                 tv_f_obiem.getText().toString(),tv_info.getText().toString(),tv_vid.getText().toString(),
                 tv_dostavka.getText().toString(), tv_stoimost.getText().toString(),tv_status.getText().toString(),
-                tv_kommentar.getText().toString());
+                tv_kommentar.getText().toString(),
+                tv_p_kuda.getText().toString(),tv_p_adres.getText().toString(),tv_p_kontakt.getText().toString(),
+                tv_p_telefon.getText().toString());
 
         //передает объект в EditReceptionManagerActivity через Intent
         Intent intent=new Intent(ReceptionManagerActivity.this, EditReceptionManagerActivity.class);
@@ -76,6 +84,7 @@ public class ReceptionManagerActivity extends AppCompatActivity {
             if(resultCode==RESULT_OK){
                 returnedData=(ReceptionData) data.getExtras().getSerializable("changedData");
                 setReturnedData(returnedData);
+                saveDataToDB();
             }
         }
     }
@@ -108,6 +117,16 @@ public class ReceptionManagerActivity extends AppCompatActivity {
         tv_stoimost.setText(returnedData.getStoimost());
         tv_status.setText(returnedData.getStatus());
         tv_kommentar.setText(returnedData.getKomment());
+        tv_p_poluch.setText(returnedData.getPoluchatel());
+        tv_p_adres.setText(returnedData.getTv_p_adres());
+        tv_p_kuda.setText(returnedData.getKuda());
+        tv_p_telefon.setText(returnedData.getTv_p_telefon());
+        tv_p_kontakt.setText(returnedData.getTv_p_kontakt());
+
+
+
+
+
     }
 
     public void setData(){
@@ -119,37 +138,50 @@ public class ReceptionManagerActivity extends AppCompatActivity {
         tv_code.setText(zayavka.getNumber());
         tv_date.setText(zayavka.getDate());
         tv_z_zakazchik.setText(zayavka.getZakaz());
-        tv_z_pochta.setText("//Nado dobavit'");
+        tv_z_pochta.setText(zayavka.getPochta());
         tv_z_dogovor.setText(zayavka.getNumber()+" ss");
         tv_z_otprav.setText(zayavka.getSender());
         tv_z_otkuda.setText(zayavka.getSenderadr());
-        tv_z_adres.setText("//kakoi adress?");
-        tv_z_kontakt.setText("//kontaktnoe liso");
-        tv_z_telefon.setText("//nomer otpravitelya");
+        tv_z_adres.setText(zayavka.getAdresotp());
+        tv_z_kontakt.setText(zayavka.getLisootprav());
+        tv_z_telefon.setText(zayavka.getTelefonOtprav());
         tv_p_poluch.setText(zayavka.getRecept());
-        tv_date_edit.setText("date edit");
-        tv_otkuda.setText("otkuda");
-        tv_kuda.setText("kuda");
-        tv_p_kolich.setText("plan kolich");
-        tv_p_ves.setText("plan ves");
-        tv_p_obiem.setText("plan obiem");
-        tv_f_kolich.setText("fact kolich");
-        tv_f_ves.setText("fact ves");
-        tv_f_obiem.setText("fact obiem");
-        tv_info.setText("info");
-        tv_vid.setText("vid");
+        tv_date_edit.setText(zayavka.getDate());
+        tv_otkuda.setText(zayavka.getSenderadr());
+        tv_kuda.setText(zayavka.getReceptadr());
+
+        tv_p_kolich.setText(zayavka.getKolplan());
+        tv_p_ves.setText(zayavka.getVesplan());
+        tv_p_obiem.setText(zayavka.getObiemplan());
+        tv_f_kolich.setText(zayavka.getKolfact());
+        tv_f_ves.setText(zayavka.getVesfact());
+        tv_f_obiem.setText(zayavka.getObiemfact());
+        tv_info.setText(zayavka.getNamegruz());
+        tv_vid.setText(zayavka.getVidpere());
         tv_dostavka.setText("dostavka");
-        tv_stoimost.setText("stoimost");
-        tv_status.setText("status");
-        tv_kommentar.setText("komment");
-    }
+        tv_stoimost.setText(zayavka.getPriceorder());
+        tv_status.setText(zayavka.getStatusorder());
+        tv_kommentar.setText(zayavka.getComment());
+
+        tv_p_kuda.setText(zayavka.getReceptadr());
+        tv_p_adres.setText(zayavka.getAdrespol());
+        tv_p_kontakt.setText(zayavka.getLisoplouch());
+        tv_p_telefon.setText(zayavka.getTelefonOtprav());
+
+
+
+
+        }
 
     public void saveDataToDB(){
+        if (returnedData!=null)
         if(recData.toString()!=returnedData.toString()){
+            System.out.println("123213");
             //сохраняем весь объект на базу
-        }else{
+    }else{
+            System.out.println("11111");
             //ниче не надо сохранять
-        }
+    }
     }
 
     public void findView(){
@@ -187,7 +219,13 @@ public class ReceptionManagerActivity extends AppCompatActivity {
         tv_stoimost=findViewById(R.id.tv_stoimost);
         tv_status=findViewById(R.id.tv_status);
         tv_kommentar=findViewById(R.id.tv_kommentar);
-    }
+        tv_p_kuda=findViewById(R.id.tv_p_kuda);
+        tv_p_adres=findViewById(R.id.tv_p_adres);
+        tv_p_kontakt=findViewById(R.id.tv_p_kontakt);
+
+        tv_p_telefon=findViewById(R.id.tv_p_telefon);
+
+        }
 
     private View.OnClickListener clickZakaz = new View.OnClickListener() {
         @Override

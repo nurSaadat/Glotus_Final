@@ -15,8 +15,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.usk.glotus_final.R;
+import com.example.usk.glotus_final.System.Catalog.Adress;
+import com.example.usk.glotus_final.System.Catalog.Transport;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class EditReceptionManagerActivity extends AppCompatActivity {
 
@@ -25,11 +29,12 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
     private TextView tv_code,tv_date;
     private MultiAutoCompleteTextView mactv_z_zakazchik, mactv_z_pochta, mactv_z_dogovor, mactv_z_otprav,
             mactv_z_otkuda, mactv_z_adres, mactv_z_kontakt, mactv_z_telefon, mactv_p_poluch, mactv_date_edit,
-            mactv_kuda,mactv_otkuda, mactv_info,
-            mactv_vid, mactv_dostavka, mactv_stoimost, mactv_status;
+            mactv_info,
+            mactv_vid, mactv_dostavka, mactv_stoimost, mactv_status,mactv_p_otkuda,mactv_p_adres,mactv_p_kontakt,mactv_p_telefon;
     private EditText et_p_kolich, et_p_ves, et_p_obiem, et_f_kolich, et_f_ves, et_f_obiem,et_kommentar;
     private ReceptionData returnData;
     private ReceptionData recpData;
+    private Spinner mactv_kuda,mactv_otkuda;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,16 +56,24 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
         btn_otmenit.setOnClickListener(clickOtmena);
 
         //для "куда", надо брать данные с базы, и сохранить в лист
-        String[] kudaFromDB=new String[10];
-        ArrayAdapter<String> kudaAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,kudaFromDB);
+
+        List<String> list = new ArrayList<String>();
+        final List<String> rlist = new ArrayList<String>();
+
+        for (Map.Entry<String, ?> entry : Adress.adresspreferences.getAll().entrySet()) {
+            System.out.println((String) entry.getValue());
+            list.add((String) entry.getValue());
+            rlist.add(entry.getKey());
+        }
+        ArrayAdapter<String> kudaAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,list);
         mactv_kuda.setAdapter(kudaAdapter);
-        mactv_kuda.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+
 
         //для "откуда", надо брать данные с базы, и сохранить в лист
-        String[] otkudaFromDB=new String[10];
-        ArrayAdapter<String> otkudaAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,otkudaFromDB);
+
+        ArrayAdapter<String> otkudaAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,list);
         mactv_otkuda.setAdapter(otkudaAdapter);
-        mactv_otkuda.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+
 
         btn_sohranit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,13 +87,15 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
     public void onSohranitButtonClick(){
         returnData=new ReceptionData(tv_code.getText().toString(),tv_date.getText().toString(),
                 mactv_z_zakazchik.getText().toString(),mactv_z_pochta.getText().toString(),mactv_z_dogovor.getText().toString(),
-                mactv_z_otprav.getText().toString(),mactv_z_otkuda.getText().toString(),mactv_z_adres.getText().toString(),
+                mactv_z_otprav.getText().toString(),mactv_otkuda.getSelectedItem().toString(),mactv_z_adres.getText().toString(),
                 mactv_z_kontakt.getText().toString(),mactv_z_telefon.getText().toString(),mactv_p_poluch.getText().toString(),
-                mactv_date_edit.getText().toString(),mactv_kuda.getText().toString(),et_p_kolich.getText().toString(),et_p_ves.getText().toString(),
+                mactv_date_edit.getText().toString(),mactv_kuda.getSelectedItem().toString(),et_p_kolich.getText().toString(),et_p_ves.getText().toString(),
                 et_p_obiem.getText().toString(),et_f_kolich.getText().toString(),et_f_ves.getText().toString(),
                 et_f_obiem.getText().toString(),mactv_info.getText().toString(),mactv_vid.getText().toString(),
                 mactv_dostavka.getText().toString(), mactv_stoimost.getText().toString(),mactv_status.getText().toString(),
-                et_kommentar.getText().toString());
+                et_kommentar.getText().toString(),
+                mactv_p_otkuda.getText().toString(),mactv_p_adres.getText().toString(),mactv_p_kontakt.getText().toString(),
+                mactv_p_telefon.getText().toString());
         Intent returnIntent=new Intent();
         returnIntent.putExtra("changedData", returnData);
         setResult(RESULT_OK,returnIntent);
@@ -100,8 +115,8 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
         mactv_z_telefon.setText(recpData.getTelefon());
         mactv_p_poluch.setText(recpData.getPoluchatel());
         mactv_date_edit.setText(recpData.getDateEdit());
-        mactv_otkuda.setText(recpData.getOtkuda());
-        mactv_kuda.setText(recpData.getKuda());
+        mactv_otkuda.setPrompt(recpData.getOtkuda());
+        mactv_kuda.setPrompt(recpData.getKuda());
         et_p_kolich.setText(recpData.getPlanKolich());
         et_p_ves.setText(recpData.getPlanVes());
         et_p_obiem.setText(recpData.getPlanObiem());
@@ -114,6 +129,12 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
         mactv_stoimost.setText(recpData.getStoimost());
         mactv_status.setText(recpData.getStatus());
         et_kommentar.setText(recpData.getKomment());
+
+
+        mactv_p_otkuda.setText(recpData.getOtkuda());
+        mactv_p_adres.setText(recpData.getTv_p_adres());
+        mactv_p_kontakt.setText(recpData.getTv_p_kontakt());
+        mactv_p_telefon.setText(recpData.getTv_p_telefon());
     }
 
     public void findView(){
@@ -153,6 +174,11 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
         mactv_stoimost=findViewById(R.id.mactv_stoimost);
         mactv_status=findViewById(R.id.mactv_status);
         et_kommentar=findViewById(R.id.et_kommentar);
+
+        mactv_p_otkuda=findViewById(R.id.mactv_p_otkuda);
+        mactv_p_adres=findViewById(R.id.mactv_p_adres);
+        mactv_p_kontakt=findViewById(R.id.mactv_p_kontakt);
+        mactv_p_telefon=findViewById(R.id.mactv_p_telefon);
     }
 
     private View.OnClickListener clickZakaz = new View.OnClickListener() {

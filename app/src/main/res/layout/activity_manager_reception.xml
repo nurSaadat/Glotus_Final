@@ -75,13 +75,12 @@
             <Button
                 android:id="@+id/btn_zakazchik"
                 android:layout_width="match_parent"
-                android:hint="  Заказчик"
-                android:textColorHint="@color/colorPrimary"
-                android:textAlignment="textStart"
-                android:textSize="22sp"
                 android:layout_height="50dp"
                 android:background="@drawable/rectangle_field"
-                />
+                android:hint="  Заказчик"
+                android:textAlignment="textStart"
+                android:textColorHint="@color/colorPrimary"
+                android:textSize="22sp" />
 
             <RelativeLayout
                 android:id="@+id/rl_zakazchik"
@@ -158,12 +157,12 @@
             <Button
                 android:id="@+id/btn_otpravitel"
                 android:layout_width="match_parent"
-                android:hint="  Отправитель"
-                android:textColorHint="@color/colorPrimary"
-                android:textSize="22sp"
                 android:layout_height="50dp"
+                android:background="@drawable/rectangle_field"
+                android:hint="  Отправитель"
                 android:textAlignment="textStart"
-                android:background="@drawable/rectangle_field"/>
+                android:textColorHint="@color/colorPrimary"
+                android:textSize="22sp" />
 
             <RelativeLayout
                 android:id="@+id/rl_otpravitel"
@@ -178,18 +177,18 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:text="Отправитель: "
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"/>
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tv_z_otprav"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/tv_5"
                     android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@+id/tv_5"
                     android:text="//отправитель"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"/>
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tv_6"
@@ -198,19 +197,19 @@
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/tv_5"
                     android:text="Откуда: "
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"/>
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tv_z_otkuda"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/tv_6"
-                    android:layout_below="@+id/tv_z_otprav"
                     android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/tv_z_otprav"
+                    android:layout_toEndOf="@+id/tv_6"
                     android:text="//откуда"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"/>
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tv_7"
@@ -219,19 +218,19 @@
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/tv_6"
                     android:text="Адрес: "
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"/>
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tv_z_adres"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/tv_7"
                     android:layout_alignParentEnd="true"
                     android:layout_below="@+id/tv_z_otkuda"
+                    android:layout_toEndOf="@+id/tv_7"
                     android:text="//адрес"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"/>
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tv_8"
@@ -240,19 +239,19 @@
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/tv_7"
                     android:text="Контактное лицо: "
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"/>
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tv_z_kontakt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/tv_8"
                     android:layout_alignParentEnd="true"
                     android:layout_below="@+id/tv_z_adres"
+                    android:layout_toEndOf="@+id/tv_8"
                     android:text="//контактное лицо"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"/>
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tv_9"
@@ -261,57 +260,194 @@
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/tv_8"
                     android:text="Телефон: "
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"/>
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tv_z_telefon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/tv_9"
                     android:layout_alignParentEnd="true"
                     android:layout_below="@+id/tv_z_kontakt"
+                    android:layout_toEndOf="@+id/tv_9"
                     android:text="//телефон"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"/>
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
 
             </RelativeLayout>
 
             <Button
                 android:id="@+id/btn_poluchatel"
                 android:layout_width="match_parent"
-                android:hint="  Получатель"
-                android:textColorHint="@color/colorPrimary"
-                android:textSize="22sp"
                 android:layout_height="50dp"
+                android:background="@drawable/rectangle_field"
+                android:hint="  Получатель"
                 android:textAlignment="textStart"
-                android:background="@drawable/rectangle_field"/>
+                android:textColorHint="@color/colorPrimary"
+                android:textSize="22sp" />
 
             <RelativeLayout
                 android:id="@+id/rl_poluchatel"
                 android:layout_width="match_parent"
-                android:layout_height="26dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginStart="8dp">
 
-                <TextView
-                    android:id="@+id/tv_p_1"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@id/l1"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:text="Получатель: "
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"/>
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_p_poluch"
-                    android:layout_width="wrap_content"
+
+                    <TextView
+                        android:id="@+id/tv_p_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_weight="1"
+                        android:text="Получатель: "
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tv_p_poluch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/tv_p_1"
+                        android:layout_weight="1"
+                        android:text="//получатель"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/l2"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/tv_p_1"
-                    android:text="//получатель"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"/>
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/l1"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/tv_5"
+                        android:layout_weight="1"
+                        android:text="Откуда: "
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tv_p_kuda"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_below="@+id/l1"
+
+                        android:layout_weight="1"
+                        android:text="//откуда"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/l4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/l3"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/tv_7"
+                        android:layout_weight="1"
+                        android:text="Контактное лицо: "
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tv_p_kontakt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_weight="1"
+                        android:text="//контактное лицо"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/l3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/l2"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_weight="1"
+                        android:text="Адрес: "
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tv_p_adres"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_weight="1"
+                        android:text="//адрес"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/l4"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/tv_8"
+                        android:layout_weight="1"
+                        android:text="Телефон: "
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tv_p_telefon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_weight="1"
+                        android:text="//телефон"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
             </RelativeLayout>
 
@@ -320,6 +456,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_below="@+id/l3"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -336,7 +473,7 @@
                         android:text="Дата  "
                         android:textColor="@color/colorPrimary"
                         android:textSize="18sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tv_date_edit"
@@ -373,7 +510,7 @@
                             android:text="Количество:"
                             android:textColor="@color/colorPrimary"
                             android:textSize="18sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -486,12 +623,12 @@
                     <TextView
                         android:id="@+id/tv_otkuda"
                         android:layout_width="0dp"
-                        android:layout_height="32dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="40"
-                        android:text="otkuda"
-                        android:textSize="20sp"
+                        android:elevation="10dp"
                         android:paddingLeft="35dp"
-                        android:elevation="10dp"/>
+                        android:text="otkuda"
+                        android:textSize="20sp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -502,12 +639,12 @@
                     <TextView
                         android:id="@+id/tv_kuda"
                         android:layout_width="0dp"
-                        android:layout_height="32dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="40"
-                        android:text="kuda"
-                        android:textSize="20sp"
+                        android:elevation="10dp"
                         android:paddingLeft="35dp"
-                        android:elevation="10dp"/>
+                        android:text="kuda"
+                        android:textSize="20sp" />
 
                 </LinearLayout>
 
@@ -663,12 +800,12 @@
                 <Button
                     android:id="@+id/btn_dokumenty"
                     android:layout_width="match_parent"
+                    android:layout_height="50dp"
                     android:background="@android:color/white"
                     android:hint="Документы"
                     android:textAlignment="textStart"
                     android:textColorHint="@color/colorPrimary"
-                    android:textSize="22sp"
-                    android:layout_height="50dp" />
+                    android:textSize="22sp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -688,12 +825,12 @@
                 <Button
                     android:id="@+id/btn_izmenit"
                     android:layout_width="match_parent"
-                    android:hint="Изменить"
-                    android:layout_marginBottom="10dp"
-                    android:textColorHint="@android:color/white"
-                    android:textSize="22sp"
                     android:layout_height="50dp"
-                    android:background="@color/colorPrimary"/>
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/colorPrimary"
+                    android:hint="Изменить"
+                    android:textColorHint="@android:color/white"
+                    android:textSize="22sp" />
 
             </LinearLayout>
 

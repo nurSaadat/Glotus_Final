@@ -80,7 +80,8 @@ public class ManagerListAdapter extends ArrayAdapter <ManagerZayavka> {
         String namegruz=getItem(position).getNamegruz();
         String soprdoc=getItem(position).getSoprdocument();
 
-        final ManagerZayavka ManagerZayavka=new ManagerZayavka(number,date,sender,recept,senderadr,receptadr,ref_key,zakaz,manager,podrazd,status,namegruz,soprdoc);
+
+        final ManagerZayavka ManagerZayavka=getItem(position);
         final View result;
 
         final ManagerListAdapter.ViewHolder holder;

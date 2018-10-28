@@ -38,7 +38,7 @@ public class ManagerZayavka {
     private String priceorder;
     private String statusorder;
     private String comment;
-
+    private String nomerdogovor;
 
 
 
@@ -49,7 +49,7 @@ public class ManagerZayavka {
                           String pochta,String lisootprav,String lisoplouch,String telefonOtprav,String telefonPoluch,
                           String adresotp,String adrespol,
                           String obiemplan,String obiemfact,String vesplan,String vesfact,String kolplan,String kolfact,String vidpere,
-                          String priceorder,String statusorder,String comment
+                          String priceorder,String statusorder,String comment,String nomerdogovor
                           ) {
         this.soprdocument=soprdocument;
         this.number = number;
@@ -86,8 +86,15 @@ public class ManagerZayavka {
 
         this.comment=comment;
 
+        this.nomerdogovor=nomerdogovor;
 
 
+
+
+    }
+
+    public String getNomerdogovor() {
+        return nomerdogovor;
     }
 
     public String getComment() {

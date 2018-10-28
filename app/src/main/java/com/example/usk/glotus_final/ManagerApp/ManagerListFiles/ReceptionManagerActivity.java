@@ -139,7 +139,7 @@ public class ReceptionManagerActivity extends AppCompatActivity {
         tv_date.setText(zayavka.getDate());
         tv_z_zakazchik.setText(zayavka.getZakaz());
         tv_z_pochta.setText(zayavka.getPochta());
-        tv_z_dogovor.setText(zayavka.getNumber()+" ss");
+        tv_z_dogovor.setText(zayavka.getNomerdogovor());
         tv_z_otprav.setText(zayavka.getSender());
         tv_z_otkuda.setText(zayavka.getSenderadr());
         tv_z_adres.setText(zayavka.getAdresotp());

@@ -16,7 +16,9 @@ import android.widget.TextView;
 
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.System.Catalog.Adress;
+import com.example.usk.glotus_final.System.Catalog.Status;
 import com.example.usk.glotus_final.System.Catalog.Transport;
+import com.example.usk.glotus_final.System.Catalog.Vidperevoz;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +31,11 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
     private TextView tv_code,tv_date;
     private MultiAutoCompleteTextView mactv_z_zakazchik, mactv_z_pochta, mactv_z_dogovor, mactv_z_otprav,
             mactv_z_otkuda, mactv_z_adres, mactv_z_kontakt, mactv_z_telefon, mactv_p_poluch, mactv_date_edit,
-            mactv_info,
-            mactv_vid, mactv_dostavka, mactv_stoimost, mactv_status,mactv_p_otkuda,mactv_p_adres,mactv_p_kontakt,mactv_p_telefon;
+            mactv_info, mactv_dostavka, mactv_stoimost, mactv_p_otkuda,mactv_p_adres,mactv_p_kontakt,mactv_p_telefon;
     private EditText et_p_kolich, et_p_ves, et_p_obiem, et_f_kolich, et_f_ves, et_f_obiem,et_kommentar;
     private ReceptionData returnData;
     private ReceptionData recpData;
-    private Spinner mactv_kuda,mactv_otkuda;
+    private Spinner mactv_kuda,mactv_otkuda,mactv_status,mactv_vid;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,12 +59,15 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
         //для "куда", надо брать данные с базы, и сохранить в лист
 
         List<String> list = new ArrayList<String>();
-        final List<String> rlist = new ArrayList<String>();
+        list.add(recpData.getKuda());
+        list.add(recpData.getOtkuda());
+
+
 
         for (Map.Entry<String, ?> entry : Adress.adresspreferences.getAll().entrySet()) {
             System.out.println((String) entry.getValue());
             list.add((String) entry.getValue());
-            rlist.add(entry.getKey());
+
         }
         ArrayAdapter<String> kudaAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,list);
         mactv_kuda.setAdapter(kudaAdapter);
@@ -73,8 +77,19 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
 
         ArrayAdapter<String> otkudaAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,list);
         mactv_otkuda.setAdapter(otkudaAdapter);
+        mactv_kuda.setSelection(0);
+        mactv_otkuda.setSelection(1);
+        mactv_status.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, Status.statusy));
 
-
+        mactv_vid.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, Vidperevoz.vidy));
+        for (int i=0;i<Vidperevoz.vidy.length;i++)
+        {
+            if (Vidperevoz.vidy[i]==recpData.getVid()){
+                mactv_vid.setSelection(i);
+                break;
+            }
+        }
+        mactv_vid.setSelection(0);
         btn_sohranit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,8 +106,8 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
                 mactv_z_kontakt.getText().toString(),mactv_z_telefon.getText().toString(),mactv_p_poluch.getText().toString(),
                 mactv_date_edit.getText().toString(),mactv_kuda.getSelectedItem().toString(),et_p_kolich.getText().toString(),et_p_ves.getText().toString(),
                 et_p_obiem.getText().toString(),et_f_kolich.getText().toString(),et_f_ves.getText().toString(),
-                et_f_obiem.getText().toString(),mactv_info.getText().toString(),mactv_vid.getText().toString(),
-                mactv_dostavka.getText().toString(), mactv_stoimost.getText().toString(),mactv_status.getText().toString(),
+                et_f_obiem.getText().toString(),mactv_info.getText().toString(),mactv_vid.getSelectedItem().toString(),
+                mactv_dostavka.getText().toString(), mactv_stoimost.getText().toString(),mactv_status.getSelectedItem().toString(),
                 et_kommentar.getText().toString(),
                 mactv_p_otkuda.getText().toString(),mactv_p_adres.getText().toString(),mactv_p_kontakt.getText().toString(),
                 mactv_p_telefon.getText().toString());
@@ -124,10 +139,10 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
         et_f_ves.setText(recpData.getFactVes());
         et_f_obiem.setText(recpData.getFactObiem());
         mactv_info.setText(recpData.getInfo());
-        mactv_vid.setText(recpData.getVid());
+
         mactv_dostavka.setText(recpData.getDostavka());
         mactv_stoimost.setText(recpData.getStoimost());
-        mactv_status.setText(recpData.getStatus());
+
         et_kommentar.setText(recpData.getKomment());
 
 

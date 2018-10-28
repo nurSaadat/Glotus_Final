@@ -190,12 +190,13 @@ public class ManagerListActivity extends AppCompatActivity {
                         array.getJSONObject(i).getString("Date"),
                         array.getJSONObject(i).getString("Отправитель"),
                         array.getJSONObject(i).getString("Получатель"),/**/
-                        (String) Adress.adresspreferences.getAll().get(array.getJSONObject(i).getString("Откуда_Key")),
-                        (String) Adress.adresspreferences.getAll().get(array.getJSONObject(i).getString("Куда_Key")),
+                        array.getJSONObject(i).getString("Откуда_Key"),
+                        array.getJSONObject(i).getString("Куда_Key"),
                         array.getJSONObject(i).getString("Ref_Key"),
-                        (String) Kontragent.kontrpreferences.getString(array.getJSONObject(i).getString("Заказчик_Key"),""),
-                        (String) Mdnames.mdpreferences.getAll().get(array.getJSONObject(i).getString("Менеджер_Key")),
-                        array.getJSONObject(i).getString("Подразделение_Key"),array.getJSONObject(i).getString("СтатусЗаказа"),
+                        array.getJSONObject(i).getString("Заказчик_Key"),
+                        array.getJSONObject(i).getString("Менеджер_Key"),
+                        array.getJSONObject(i).getString("Подразделение_Key"),
+                        array.getJSONObject(i).getString("СтатусЗаказа"),
                         array.getJSONObject(i).getString("НаименованиеГруза"),
                         array.getJSONObject(i).getString("СопроводительныйДокумент"),
 

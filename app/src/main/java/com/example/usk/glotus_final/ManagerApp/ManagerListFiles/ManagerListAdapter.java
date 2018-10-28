@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.Reception;
 
+import com.example.usk.glotus_final.System.Catalog.Adress;
 import com.example.usk.glotus_final.System.Catalog.Kontragent;
 import com.example.usk.glotus_final.System.DoubleClick;
 import com.example.usk.glotus_final.System.DoubleClickListener;
@@ -118,10 +119,10 @@ public class ManagerListAdapter extends ArrayAdapter <ManagerZayavka> {
         holder.number.setText(ManagerZayavka.getNumber());
         holder.sender.setText(ManagerZayavka.getSender());
         holder.recept.setText(ManagerZayavka.getRecept());
-        holder.senderadr.setText(ManagerZayavka.getSenderadr());
-        holder.receptadr.setText(ManagerZayavka.getReceptadr());
+        holder.senderadr.setText((String) Adress.adresspreferences.getAll().get(ManagerZayavka.getSenderadr()));
+        holder.receptadr.setText((String) Adress.adresspreferences.getAll().get(ManagerZayavka.getReceptadr()));
         holder.iv_status.setText(ManagerZayavka.getStatus());
-        holder.zakazname.setText(ManagerZayavka.getZakaz());
+        holder.zakazname.setText((String)Kontragent.kontrpreferences.getAll().get(ManagerZayavka.getZakaz()));
         holder.namegruz.setText(ManagerZayavka.getNamegruz());
         holder.soprdoc.setText(ManagerZayavka.getSoprdocument());
 

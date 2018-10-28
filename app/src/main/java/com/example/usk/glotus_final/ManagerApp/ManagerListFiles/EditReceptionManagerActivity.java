@@ -1,9 +1,13 @@
 package com.example.usk.glotus_final.ManagerApp.ManagerListFiles;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,27 +19,40 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.usk.glotus_final.R;
+import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.ZayavkaListAdapter;
 import com.example.usk.glotus_final.System.Catalog.Adress;
+import com.example.usk.glotus_final.System.Catalog.Kontragent;
 import com.example.usk.glotus_final.System.Catalog.Status;
 import com.example.usk.glotus_final.System.Catalog.Transport;
 import com.example.usk.glotus_final.System.Catalog.Vidperevoz;
+import com.example.usk.glotus_final.System.Encryption.AES;
+import com.example.usk.glotus_final.System.connection.Server;
 
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 public class EditReceptionManagerActivity extends AppCompatActivity {
 
     private LinearLayout rlZakazchik, rlPoluchatel, rlOtpravitel;
     private Button showZakazchik, showPoluchatel, showOtpravitel, btn_dokumenty, btn_sohranit, btn_otmenit;
-    private TextView tv_code,tv_date;
-    private MultiAutoCompleteTextView mactv_z_zakazchik, mactv_z_pochta, mactv_z_dogovor, mactv_z_otprav,
+    private TextView tv_code,tv_date,mactv_z_pochta;
+    private MultiAutoCompleteTextView   mactv_z_dogovor, mactv_z_otprav,
             mactv_z_otkuda, mactv_z_adres, mactv_z_kontakt, mactv_z_telefon, mactv_p_poluch, mactv_date_edit,
             mactv_info, mactv_dostavka, mactv_stoimost, mactv_p_otkuda,mactv_p_adres,mactv_p_kontakt,mactv_p_telefon;
     private EditText et_p_kolich, et_p_ves, et_p_obiem, et_f_kolich, et_f_ves, et_f_obiem,et_kommentar;
     private ReceptionData returnData;
     private ReceptionData recpData;
-    private Spinner mactv_kuda,mactv_otkuda,mactv_status,mactv_vid;
+    private Spinner mactv_kuda,mactv_otkuda,mactv_status,mactv_vid,mactv_z_zakazchik;
+    private String KeyZakaz="00000000-0000-0000-0000-000000000000",KeyOtkuda="00000000-0000-0000-0000-000000000000",KeyOtprav="00000000-0000-0000-0000-000000000000";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,24 +75,40 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
 
         //для "куда", надо брать данные с базы, и сохранить в лист
 
-        List<String> list = new ArrayList<String>();
-        list.add(recpData.getKuda());
-        list.add(recpData.getOtkuda());
+        List<String> listkuda = new ArrayList<String>();
+        List<String> rlistkuda = new ArrayList<String>();
+        listkuda.add(recpData.getKuda());
+        rlistkuda.add(RefKeys.KudaKey);
 
+        listkuda.add(recpData.getOtkuda());
+        rlistkuda.add(RefKeys.OkudaKey);
 
 
         for (Map.Entry<String, ?> entry : Adress.adresspreferences.getAll().entrySet()) {
             System.out.println((String) entry.getValue());
-            list.add((String) entry.getValue());
-
+            listkuda.add((String) entry.getValue());
+            rlistkuda.add((String)entry.getKey());
         }
-        ArrayAdapter<String> kudaAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,list);
+        ArrayAdapter<String> kudaAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,listkuda);
         mactv_kuda.setAdapter(kudaAdapter);
 
 
         //для "откуда", надо брать данные с базы, и сохранить в лист
 
-        ArrayAdapter<String> otkudaAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,list);
+        List<String> kontr = new ArrayList<String>();
+        List<String> rkontr = new ArrayList<String>();
+
+        kontr.add(recpData.getZakazchik());
+        rkontr.add(RefKeys.ZakazKey);
+        for (Map.Entry<String, ?> entry :Kontragent.kontrpreferences.getAll().entrySet()){
+            kontr.add((String) entry.getValue());
+            rkontr.add((String) entry.getKey());
+        }
+
+        mactv_z_zakazchik.setAdapter( new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,kontr) );
+        mactv_z_zakazchik.setSelection(0);
+
+        ArrayAdapter<String> otkudaAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,listkuda);
         mactv_otkuda.setAdapter(otkudaAdapter);
         mactv_kuda.setSelection(0);
         mactv_otkuda.setSelection(1);
@@ -91,17 +124,60 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
         }
         mactv_vid.setSelection(0);
         btn_sohranit.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                onSohranitButtonClick();
+                try {
+                    onSohranitButtonClick();
+                } catch (NoSuchPaddingException e) {
+                    e.printStackTrace();
+                } catch (InvalidKeyException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (IllegalBlockSizeException e) {
+                    e.printStackTrace();
+                } catch (BadPaddingException e) {
+                    e.printStackTrace();
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                } catch (InvalidAlgorithmParameterException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
 
     //возвращает измененные данные в ReceptionManager
-    public void onSohranitButtonClick(){
+    @TargetApi(Build.VERSION_CODES.O)
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void onSohranitButtonClick() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
+        String data="{\"АдресПолучателя\":\""+mactv_p_adres.getText().toString()+"\"," +
+                    "\"ВидПеревозки\":\""+mactv_vid.getSelectedItem().toString()+"\","+
+                    "\"ВесФакт\":\""+et_f_ves.getText().toString()+"\"," +
+                    "\"Date\":\""+ mactv_date_edit.getText().toString()+"\"," +
+                            "\"АдресОтправителя\":\""+mactv_z_adres.getText().toString()+"\"" +
+
+                "}";
+        System.out.println(data);
+
+        String res = process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7(guid\'" + RefKeys.Ref_Key + "\')?$format=json", "PATCH", "Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz",
+                data);
+        System.out.println(res);
+
+
+
+
+
+
+
+
+
+
+
+
         returnData=new ReceptionData(tv_code.getText().toString(),tv_date.getText().toString(),
-                mactv_z_zakazchik.getText().toString(),mactv_z_pochta.getText().toString(),mactv_z_dogovor.getText().toString(),
+                mactv_z_zakazchik.getSelectedItem().toString(),mactv_z_pochta.getText().toString(),mactv_z_dogovor.getText().toString(),
                 mactv_z_otprav.getText().toString(),mactv_otkuda.getSelectedItem().toString(),mactv_z_adres.getText().toString(),
                 mactv_z_kontakt.getText().toString(),mactv_z_telefon.getText().toString(),mactv_p_poluch.getText().toString(),
                 mactv_date_edit.getText().toString(),mactv_kuda.getSelectedItem().toString(),et_p_kolich.getText().toString(),et_p_ves.getText().toString(),
@@ -120,7 +196,6 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
     public void setData(){
         tv_code.setText(recpData.getCode());
         tv_date.setText(recpData.getDate());
-        mactv_z_zakazchik.setText(recpData.getZakazchik());
         mactv_z_pochta.setText(recpData.getPochta());
         mactv_z_dogovor.setText(recpData.getDogovor());
         mactv_z_otprav.setText(recpData.getOtpavitel());
@@ -242,4 +317,20 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
             startActivity(intent);
         }
     };
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static String process(String url, String way, String cred, String data) throws NoSuchPaddingException, UnsupportedEncodingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+        String body=url+","+way+","+cred+"*---*" +data;
+        System.out.println(body);
+        String string = AES.aesEncryptString(body, "1234567890123456");
+        body="data="+string;
+        Log.d("aaa",body);
+        System.out.println(body);
+        Server server;
+        server = new Server("http://185.209.21.191/uu/demoaes.php",null, body);
+        return server.post();
+    }
+
+
+
 }

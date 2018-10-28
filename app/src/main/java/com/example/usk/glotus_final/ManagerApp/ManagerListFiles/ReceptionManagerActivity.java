@@ -13,8 +13,12 @@ import android.widget.TextView;
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.Reception;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.Zayavka;
+import com.example.usk.glotus_final.System.Catalog.Adress;
+import com.example.usk.glotus_final.System.Catalog.Kontragent;
 
 public class ReceptionManagerActivity extends AppCompatActivity {
+    private String KeyZakaz="00000000-0000-0000-0000-000000000000",KeyOtkuda="00000000-0000-0000-0000-000000000000",KeyKuda="00000000-0000-0000-0000-000000000000";
+
 
     private static final int REQUEST_CODE=1;
     private RelativeLayout rlZakazchik, rlPoluchatel, rlOtpravitel;
@@ -59,6 +63,9 @@ public class ReceptionManagerActivity extends AppCompatActivity {
 
     //передает данные в EditReceptionManagerActivity
     public void onIzmenitButtonClick(){
+        RefKeys.ZakazKey=KeyZakaz;
+        RefKeys.KudaKey=KeyKuda;
+        RefKeys.OkudaKey=KeyOtkuda;
         //сохраняет данные в объект
         recData=new ReceptionData(tv_code.getText().toString(),tv_date.getText().toString(),
                 tv_z_zakazchik.getText().toString(),tv_z_pochta.getText().toString(),tv_z_dogovor.getText().toString(),
@@ -134,21 +141,25 @@ public class ReceptionManagerActivity extends AppCompatActivity {
         //
 
         ManagerZayavka zayavka=ManagerListAdapter.item;
+        KeyZakaz=zayavka.getZakaz();
+        KeyOtkuda=zayavka.getSenderadr();
+        KeyKuda=zayavka.getReceptadr();
+        RefKeys.Ref_Key=zayavka.getRef_key();
 
         tv_code.setText(zayavka.getNumber());
         tv_date.setText(zayavka.getDate());
-        tv_z_zakazchik.setText(zayavka.getZakaz());
+        tv_z_zakazchik.setText((CharSequence) Kontragent.kontrpreferences.getAll().get(zayavka.getZakaz()));
         tv_z_pochta.setText(zayavka.getPochta());
         tv_z_dogovor.setText(zayavka.getNomerdogovor());
         tv_z_otprav.setText(zayavka.getSender());
-        tv_z_otkuda.setText(zayavka.getSenderadr());
+        tv_z_otkuda.setText((CharSequence) Adress.adresspreferences.getAll().get(zayavka.getSenderadr()));
         tv_z_adres.setText(zayavka.getAdresotp());
         tv_z_kontakt.setText(zayavka.getLisootprav());
         tv_z_telefon.setText(zayavka.getTelefonOtprav());
         tv_p_poluch.setText(zayavka.getRecept());
         tv_date_edit.setText(zayavka.getDate());
-        tv_otkuda.setText(zayavka.getSenderadr());
-        tv_kuda.setText(zayavka.getReceptadr());
+        tv_otkuda.setText((CharSequence) Adress.adresspreferences.getAll().get(zayavka.getSenderadr()));
+        tv_kuda.setText((CharSequence) Adress.adresspreferences.getAll().get(zayavka.getReceptadr()));
 
         tv_p_kolich.setText(zayavka.getKolplan());
         tv_p_ves.setText(zayavka.getVesplan());
@@ -163,7 +174,7 @@ public class ReceptionManagerActivity extends AppCompatActivity {
         tv_status.setText(zayavka.getStatusorder());
         tv_kommentar.setText(zayavka.getComment());
 
-        tv_p_kuda.setText(zayavka.getReceptadr());
+        tv_p_kuda.setText((CharSequence) Adress.adresspreferences.getAll().get(zayavka.getReceptadr()));
         tv_p_adres.setText(zayavka.getAdrespol());
         tv_p_kontakt.setText(zayavka.getLisoplouch());
         tv_p_telefon.setText(zayavka.getTelefonOtprav());

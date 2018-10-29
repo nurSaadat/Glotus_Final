@@ -215,7 +215,7 @@ public class ManagerListActivity extends AppCompatActivity {
                         array.getJSONObject(i).getString("КоличествоПлан"),
                         array.getJSONObject(i).getString("КоличествоФакт"),
                         array.getJSONObject(i).getString("ВидПеревозки"),
-                        array.getJSONObject(i).getString("СтоимостьЗаказа"),
+                        array.getJSONObject(i).getString("ЦенаПеревозки"),
                         array.getJSONObject(i).getString("СтатусЗаказа"),
                         array.getJSONObject(i).getString("Комментарий"),
                         array.getJSONObject(i).getString("НомерДоговора")

@@ -98,6 +98,7 @@ public class ReceptionManagerActivity extends AppCompatActivity {
 
     //поменяет данные фронта по returnedData, и ты должен поменять данные базы с этими
     public void setReturnedData(ReceptionData returnedData){
+        KeyZakaz=RefKeys.ZakazKey;
         tv_code.setText(returnedData.getCode());
         tv_date.setText(returnedData.getDate());
         tv_z_zakazchik.setText(returnedData.getZakazchik());
@@ -145,6 +146,8 @@ public class ReceptionManagerActivity extends AppCompatActivity {
         KeyOtkuda=zayavka.getSenderadr();
         KeyKuda=zayavka.getReceptadr();
         RefKeys.Ref_Key=zayavka.getRef_key();
+        RefKeys.Status=tv_status.getText().toString();
+        RefKeys.vidpr=tv_vid.getText().toString();
 
         tv_code.setText(zayavka.getNumber());
         tv_date.setText(zayavka.getDate());

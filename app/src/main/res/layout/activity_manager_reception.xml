@@ -198,7 +198,8 @@
                     android:layout_below="@+id/tv_5"
                     android:text="Откуда: "
                     android:textColor="@android:color/black"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/tv_z_otkuda"
@@ -209,7 +210,8 @@
                     android:layout_toEndOf="@+id/tv_6"
                     android:text="//откуда"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/tv_7"
@@ -332,7 +334,8 @@
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/l1"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_"
@@ -819,7 +822,7 @@
                 <TextView
                     android:id="@+id/tv_kommentar"
                     android:layout_width="match_parent"
-                    android:layout_height="44dp"
+                    android:layout_height="80dp"
                     android:ems="10" />
 
                 <Button

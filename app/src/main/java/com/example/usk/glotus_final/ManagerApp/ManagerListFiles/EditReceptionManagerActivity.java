@@ -32,6 +32,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -51,8 +52,10 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
     private EditText et_p_kolich, et_p_ves, et_p_obiem, et_f_kolich, et_f_ves, et_f_obiem,et_kommentar;
     private ReceptionData returnData;
     private ReceptionData recpData;
+    private List<String> rlistkuda = new ArrayList<String>();
+    private List<String> rkontr = new ArrayList<String>();
     private Spinner mactv_kuda,mactv_otkuda,mactv_status,mactv_vid,mactv_z_zakazchik;
-    private String KeyZakaz="00000000-0000-0000-0000-000000000000",KeyOtkuda="00000000-0000-0000-0000-000000000000",KeyOtprav="00000000-0000-0000-0000-000000000000";
+    private String KeyZakaz="00000000-0000-0000-0000-000000000000",KeyOtkuda="00000000-0000-0000-0000-000000000000",KeyKuda="00000000-0000-0000-0000-000000000000";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,18 +79,17 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
         //для "куда", надо брать данные с базы, и сохранить в лист
 
         List<String> listkuda = new ArrayList<String>();
-        List<String> rlistkuda = new ArrayList<String>();
-        listkuda.add(recpData.getKuda());
-        rlistkuda.add(RefKeys.KudaKey);
-
-        listkuda.add(recpData.getOtkuda());
-        rlistkuda.add(RefKeys.OkudaKey);
-
-
+        int kda=0,oda=0;
+        int i=0;
         for (Map.Entry<String, ?> entry : Adress.adresspreferences.getAll().entrySet()) {
             System.out.println((String) entry.getValue());
             listkuda.add((String) entry.getValue());
             rlistkuda.add((String)entry.getKey());
+            if (((String)entry.getKey()).equals(RefKeys.KudaKey))
+                kda=i;
+            if (((String)entry.getKey()).equals(RefKeys.OkudaKey))
+                oda=i;
+            i++;
         }
         ArrayAdapter<String> kudaAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,listkuda);
         mactv_kuda.setAdapter(kudaAdapter);
@@ -96,33 +98,42 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
         //для "откуда", надо брать данные с базы, и сохранить в лист
 
         List<String> kontr = new ArrayList<String>();
-        List<String> rkontr = new ArrayList<String>();
 
-        kontr.add(recpData.getZakazchik());
-        rkontr.add(RefKeys.ZakazKey);
+
+       i=0;
+       int zk=0;
         for (Map.Entry<String, ?> entry :Kontragent.kontrpreferences.getAll().entrySet()){
             kontr.add((String) entry.getValue());
             rkontr.add((String) entry.getKey());
+            if (RefKeys.ZakazKey.equals((String) entry.getKey()))
+                zk=i;
+            i++;
         }
 
         mactv_z_zakazchik.setAdapter( new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,kontr) );
-        mactv_z_zakazchik.setSelection(0);
+        mactv_z_zakazchik.setSelection(zk);
 
         ArrayAdapter<String> otkudaAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,listkuda);
         mactv_otkuda.setAdapter(otkudaAdapter);
-        mactv_kuda.setSelection(0);
-        mactv_otkuda.setSelection(1);
-        mactv_status.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, Status.statusy));
 
+        mactv_kuda.setSelection(kda);
+        mactv_otkuda.setSelection(oda);
+        mactv_status.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, Status.statusy));
+        for (i=0;i<Status.statusy.length;i++){
+            if (Status.statusy[i].equals(recpData.getStatus()))
+            {
+                mactv_status.setSelection(i);
+                break;
+            }
+        }
         mactv_vid.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, Vidperevoz.vidy));
-        for (int i=0;i<Vidperevoz.vidy.length;i++)
+        for (i=0;i<Vidperevoz.vidy.length;i++)
         {
-            if (Vidperevoz.vidy[i]==recpData.getVid()){
+            if (Vidperevoz.vidy[i].equals(recpData.getVid())){
                 mactv_vid.setSelection(i);
                 break;
             }
         }
-        mactv_vid.setSelection(0);
         btn_sohranit.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
@@ -156,10 +167,35 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
                     "\"ВидПеревозки\":\""+mactv_vid.getSelectedItem().toString()+"\","+
                     "\"ВесФакт\":\""+et_f_ves.getText().toString()+"\"," +
                     "\"Date\":\""+ mactv_date_edit.getText().toString()+"\"," +
-                            "\"АдресОтправителя\":\""+mactv_z_adres.getText().toString()+"\"" +
-
-                "}";
+                    "\"АдресОтправителя\":\""+mactv_z_adres.getText().toString()+"\"," +
+                    "\"ВесПлан\":\""+et_p_ves.getText().toString()+"\","+
+                    "\"КоличествоПлан\":\""+et_p_kolich.getText().toString()+"\","+
+                    "\"КоличествоФакт\":\""+et_f_kolich.getText().toString()+"\","+
+                    "\"Комментарий\":\""+et_kommentar.getText().toString()+"\","+
+                    "\"КонтактноеЛицоОтправителя\":\""+mactv_z_kontakt.getText().toString()+"\","+
+                    "\"КонтактноеЛицоПолучатель\":\""+mactv_p_kontakt.getText().toString()+"\","+
+                    "\"Куда_Key\":\""+rlistkuda.get(mactv_kuda.getSelectedItemPosition())+"\","+
+                    "\"НаименованиеГруза\":\""+mactv_info.getText().toString()+"\","+
+                    "\"ОбъемПлан\":\""+et_p_obiem.getText().toString()+"\","+
+                    "\"ОбъемФакт\":\""+et_f_obiem.getText().toString()+"\","+
+                    "\"Откуда_Key\":\""+rlistkuda.get(mactv_otkuda.getSelectedItemPosition())+"\","+
+                    "\"Отправитель\":\""+mactv_z_otprav.getText().toString()+"\","+
+                    "\"Получатель\":\""+mactv_p_poluch.getText().toString()+"\","+
+                    "\"ТелефонКонтактногоЛицаПолучателя\":\""+mactv_p_telefon.getText().toString()+"\","+
+                    "\"ТелефонКонтактногоЛицоОтправителя\":\""+mactv_z_telefon.getText().toString()+"\","+
+                    "\"СтатусЗаказа\":\""+Status.statusy[mactv_status.getSelectedItemPosition()]+"\","+
+                    "\"НомерДоговора\":\""+mactv_z_dogovor.getText().toString()+"\""+
+                    "\"Заказчик_Key\":\""+rkontr.get(mactv_z_zakazchik.getSelectedItemPosition())+"\","+
+                    "\"ЦенаПеревозки\":\""+mactv_stoimost.getText().toString()+"\""+
+                    "}";
         System.out.println(data);
+        RefKeys.Status=Status.statusy[mactv_status.getSelectedItemPosition()];
+        RefKeys.ZakazKey=rkontr.get(mactv_z_zakazchik.getSelectedItemPosition());
+        RefKeys.KudaKey=rlistkuda.get(mactv_kuda.getSelectedItemPosition());
+        RefKeys.OkudaKey=rlistkuda.get(mactv_otkuda.getSelectedItemPosition());
+        RefKeys.vidpr=mactv_vid.getSelectedItem().toString();
+
+
 
         String res = process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7(guid\'" + RefKeys.Ref_Key + "\')?$format=json", "PATCH", "Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz",
                 data);

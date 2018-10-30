@@ -29,6 +29,7 @@ import com.example.usk.glotus_final.System.Catalog.Adress;
 import com.example.usk.glotus_final.System.Catalog.Kontragent;
 import com.example.usk.glotus_final.System.Catalog.KontragentNum;
 import com.example.usk.glotus_final.System.Catalog.Mdnames;
+import com.example.usk.glotus_final.System.Catalog.Pochta;
 import com.example.usk.glotus_final.System.Catalog.Podrazd;
 import com.example.usk.glotus_final.System.Catalog.Transport;
 import com.example.usk.glotus_final.System.Catalog.Update;
@@ -318,31 +319,35 @@ public class SignInActivity extends AppCompatActivity {
             });
 
                 Adress.adresspreferences=PreferenceManager.getDefaultSharedPreferences(this);
-                Adress.adresspreferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+                Adress.adresspreferences=getSharedPreferences("adres", Context.MODE_PRIVATE);
 
                 Kontragent.kontrpreferences=PreferenceManager.getDefaultSharedPreferences(this);
-                Kontragent.kontrpreferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+                Kontragent.kontrpreferences=getSharedPreferences("kontr", Context.MODE_PRIVATE);
 
                 KontragentNum.kontrnumpreferences=PreferenceManager.getDefaultSharedPreferences(this);
-                KontragentNum.kontrnumpreferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+                KontragentNum.kontrnumpreferences=getSharedPreferences("kontnum", Context.MODE_PRIVATE);
 
                 Mdnames.mdpreferences=PreferenceManager.getDefaultSharedPreferences(this);
-                Mdnames.mdpreferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+                Mdnames.mdpreferences=getSharedPreferences("mdnames", Context.MODE_PRIVATE);
 
                 Podrazd.pdpreferences=PreferenceManager.getDefaultSharedPreferences(this);
-                Podrazd.pdpreferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+                Podrazd.pdpreferences=getSharedPreferences("podrazd", Context.MODE_PRIVATE);
 
                 Transport.trpreferences=PreferenceManager.getDefaultSharedPreferences(this);
-                Transport.trpreferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+                Transport.trpreferences=getSharedPreferences("transport", Context.MODE_PRIVATE);
+
+                Pochta.pochtakontr=PreferenceManager.getDefaultSharedPreferences(this);
+                Pochta.pochtakontr=getSharedPreferences("pochta", Context.MODE_PRIVATE);
 
                 isOn.preferences=PreferenceManager.getDefaultSharedPreferences(this);
-                isOn.preferences=getSharedPreferences("mydatabase", Context.MODE_PRIVATE);
+                isOn.preferences=getSharedPreferences("ison", Context.MODE_PRIVATE);
 
-                     if(isOn.preferences.getAll().get("refresh")==null) {
+
+                    if(isOn.preferences.getAll().get("refresh")==null) {
                          System.out.println("aaa");
                         new Update().getCatalogs();
                         isOn.preferences.edit().putString("refresh", "true").commit();
-                    }
+                   }
 
             if(name.contains("Saadat")){
                 System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");

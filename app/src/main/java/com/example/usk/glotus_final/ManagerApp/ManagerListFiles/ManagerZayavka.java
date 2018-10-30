@@ -2,6 +2,8 @@ package com.example.usk.glotus_final.ManagerApp.ManagerListFiles;
 
 // Объект - заявка. Спокойно можешь менять поля и их названия. Только вот смотри код
 
+import android.widget.Spinner;
+
 public class ManagerZayavka {
     private String number;
     private String date;
@@ -17,11 +19,38 @@ public class ManagerZayavka {
     private String namegruz;
     private String soprdocument;
 
+    private String pochta;
+    private String lisootprav;
+    private String lisoplouch;
+    private String telefonOtprav;
+    private String telefonPoluch;
+
+    private String adresotp;
+    private String adrespol;
+
+    private String obiemplan;
+    private String obiemfact;
+    private String vesplan;
+    private String vesfact;
+    private String kolplan;
+    private String kolfact;
+    private String vidpere;
+    private String priceorder;
+    private String statusorder;
+    private String comment;
+    private String nomerdogovor;
+
+
+
     public ManagerZayavka(){
 
     }
-
-    public ManagerZayavka(String number, String date, String sender, String recept, String senderadr, String receptadr, String Ref_key, String zakaz, String menedjer, String podrazd, String status, String namegruz, String soprdocument ) {
+    public ManagerZayavka(String number, String date, String sender, String recept, String senderadr, String receptadr, String Ref_key, String zakaz, String menedjer, String podrazd, String status, String namegruz, String soprdocument,
+                          String pochta,String lisootprav,String lisoplouch,String telefonOtprav,String telefonPoluch,
+                          String adresotp,String adrespol,
+                          String obiemplan,String obiemfact,String vesplan,String vesfact,String kolplan,String kolfact,String vidpere,
+                          String priceorder,String statusorder,String comment,String nomerdogovor
+                          ) {
         this.soprdocument=soprdocument;
         this.number = number;
         this.date = date;
@@ -35,7 +64,109 @@ public class ManagerZayavka {
         this.menedjer=menedjer;
         this.podrazd=podrazd;
         this.status=status;
+
+        this.pochta=pochta;
+        this.lisootprav=lisootprav;
+        this.lisoplouch=lisoplouch;
+        this.telefonOtprav=telefonOtprav;
+        this.telefonPoluch=telefonPoluch;
+
+        this.adresotp=adresotp;
+        this.adrespol=adrespol;
+
+        this.obiemplan=obiemplan;
+        this.obiemfact=obiemfact;
+        this.vesplan=vesplan;
+        this.vesfact=vesfact;
+        this.kolplan=kolplan;
+        this.kolfact=kolfact;
+        this.vidpere=vidpere;
+        this.priceorder=priceorder;
+        this.statusorder=statusorder;
+
+        this.comment=comment;
+
+        this.nomerdogovor=nomerdogovor;
+
+
+
+
     }
+
+    public String getNomerdogovor() {
+        return nomerdogovor;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public String getKolfact() {
+        return kolfact;
+    }
+
+    public String getKolplan() {
+        return kolplan;
+    }
+
+    public String getObiemfact() {
+        return obiemfact;
+    }
+
+    public String getObiemplan() {
+        return obiemplan;
+    }
+
+    public String getPriceorder() {
+        return priceorder;
+    }
+
+    public String getStatusorder() {
+        return statusorder;
+    }
+
+    public String getVesfact() {
+        return vesfact;
+    }
+
+    public String getVesplan() {
+        return vesplan;
+    }
+
+    public String getVidpere() {
+        return vidpere;
+    }
+
+
+    public String getAdresotp() {
+        return adresotp;
+    }
+    public String getAdrespol() {
+        return adrespol;
+    }
+
+
+
+    public String getLisootprav() {
+        return lisootprav;
+    }
+
+    public String getLisoplouch() {
+        return lisoplouch;
+    }
+
+    public String getPochta() {
+        return pochta;
+    }
+
+    public String getTelefonOtprav() {
+        return telefonOtprav;
+    }
+
+    public String getTelefonPoluch() {
+        return telefonPoluch;
+    }
+
 
     public String getDate() {
         return date;

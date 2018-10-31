@@ -27,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.usk.glotus_final.System.Catalog.Kontragent;
 import com.example.usk.glotus_final.System.Catalog.KontragentNum;
@@ -94,10 +95,10 @@ public class Reception extends AppCompatActivity {
             " по всем вопросам связывайтесь с Вашим менеджером Администратор тел.";
     private String trkey="00000000-0000-0000-0000-000000000000";
 
-    private Image image;
-    private String imagePath;
-    private String imageName;
-    private static ArrayList<Image> arr=new ArrayList<>();
+    //новые переменные для фоток
+    private String imagePath; //путь к фоткам
+    private String imageName; //название фоток
+    private static ArrayList<Image> arr=new ArrayList<>(); //arraylist для фоток
     private static final int REQUEST_CODE=1;
     static final int REQUEST_TAKE_PHOTO = 1;
 
@@ -177,12 +178,9 @@ public class Reception extends AppCompatActivity {
         //it it takes a photo of gruz
         img=findViewById(R.id.iw_camera_icon);
         img.setOnClickListener(new View.OnClickListener(){
-            public String TAG;
-
             @Override
             public void onClick(View v){
-                /*Intent myIntent = new Intent(Reception.this, Camera.class);
-                startActivity(myIntent);*/
+                //когда нажимаешь сразу открывает камеру
                 Intent pictureIntent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if(pictureIntent.resolveActivity(getPackageManager())!=null){
                     File photoFile=null;
@@ -191,7 +189,6 @@ public class Reception extends AppCompatActivity {
                     }catch (IOException ex){
 
                     }
-
                     if(photoFile!=null){
                         Uri photoUri= FileProvider.getUriForFile(Reception.this,getPackageName() +".provider",photoFile);
                         pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,photoUri);
@@ -199,7 +196,6 @@ public class Reception extends AppCompatActivity {
                     }
                 }
             }
-
         });
 
         //here I will change, this is delete button for gruz;
@@ -207,9 +203,9 @@ public class Reception extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(singleAddress.size()>0){
-                    singleAddress.remove(singleAddress.size()-1);
-                    foto_kol.setText(String.valueOf(singleAddress.size()));
+                if (arr.size()>0){
+                    arr.remove(arr.size()-1);
+                    foto_kol.setText(String.valueOf(arr.size()));
                 }
             }
         });
@@ -252,17 +248,33 @@ public class Reception extends AppCompatActivity {
             }
         });
 
+        //когда нажимаешь он передает объекты картинок на ImageViewer
         kolichFotok.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                //image=new Image(imageName,imagePath);
-                Intent intent=new Intent(Reception.this,ImageViewer.class);
-                intent.putExtra("imageData",arr);
-                startActivityForResult(intent,REQUEST_CODE);
+                Intent intent = new Intent(Reception.this, ImageViewer.class);
+                intent.putExtra("imageData", arr);
+                startActivityForResult(intent, REQUEST_CODE);
             }
         });
     }
 
+    // берет данные с intent камеры
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_TAKE_PHOTO) {
+            if (resultCode == RESULT_OK) {
+                Log.d(TAG, "onActivityResult: picture taken successfully");
+                arr.add(new Image(imageName,imagePath));
+                foto_kol.setText(String.valueOf(arr.size()));
+            }
+            else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(this, "You cancelled the operation", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    //создает фотку и сохраняет ее на телефон
     private File createImageFile() throws IOException{
         String timeStamp=new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName="JPEG_"+timeStamp+"_";
@@ -270,10 +282,6 @@ public class Reception extends AppCompatActivity {
         File image =File.createTempFile(imageFileName,".jpg",storageDir);
         imagePath=image.getAbsolutePath();
         imageName=imageFileName+".jpg";
-        //arr=new ArrayList<>();
-        arr.add(new Image(imageName,imagePath));
-        System.out.println("IMAGE PATH: "+imagePath);
-        System.out.println("IMAGE NAME: "+imageName);
         return image;
     }
 
@@ -402,9 +410,9 @@ public class Reception extends AppCompatActivity {
                      images+
                 " }";
        Log.d("aa",body);
-        System.out.println(body);
+       System.out.println(body);
 
-            String res=process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%9F%D1%80%D0%B8%D0%B5%D0%BC%D0%9D%D0%B0%D0%A1%D0%BA%D0%BB%D0%B0%D0%B4?$format=json","POST","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz",body);
+        String res=process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%9F%D1%80%D0%B8%D0%B5%D0%BC%D0%9D%D0%B0%D0%A1%D0%BA%D0%BB%D0%B0%D0%B4?$format=json","POST","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz",body);
         System.out.println(res);
         JSONArray array = null;
         JSONObject jsonObj=null;
@@ -415,7 +423,7 @@ public class Reception extends AppCompatActivity {
         }
         System.out.println(jsonObj.getString("Ref_Key").toString());
 
-            res=process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7(guid\'"+ZayavkaListAdapter.item.getRef_key()+"\')?$format=json","PATCH","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz",
+        res=process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7(guid\'"+ZayavkaListAdapter.item.getRef_key()+"\')?$format=json","PATCH","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz",
                     "{\"ДокументПриемГруза_Key\": \""+jsonObj.getString("Ref_Key").toString()+"\",\"СтатусЗаказа\": \"ПринятноНаСкладе\",\"ВесФакт\":"+vesFact.getText().toString()+",\"ОбъемФакт\": "+obiemFact.getText().toString()+",\"КоличествоФакт\": "+kolich.getText().toString()+"}");
 
         System.out.println(res);
@@ -475,14 +483,4 @@ public class Reception extends AppCompatActivity {
         }
         System.out.println(damage.toString());
     }
-
-
-
-/*
-    @Override
-    public void onBackPressed() {
-        finish();
-        Intent myIntent = new Intent(Reception.this, SuperviserListItemActivity.class);
-        startActivity(myIntent);
-    }*/
 }

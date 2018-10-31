@@ -18,11 +18,11 @@ public class ImageViewer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.image_viewer);
-
         viewPager=findViewById(R.id.viewPager);
 
         ArrayList<Fragment> fragments=new ArrayList<>();
 
+        //принимает объекты с Reception
         Intent intent=getIntent();
         arr=new ArrayList<>();
         arr= (ArrayList<Image>) intent.getExtras().getSerializable("imageData");

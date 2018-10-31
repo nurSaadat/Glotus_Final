@@ -111,4 +111,7 @@
     <string name="status">Connection status</string>
     <string name="message">Message</string>
     <string name="sendBtn">Send</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

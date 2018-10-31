@@ -4,9 +4,14 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.FileProvider;
+import android.support.v4.os.EnvironmentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
@@ -37,8 +42,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -46,6 +53,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -64,33 +72,34 @@ public class Reception extends AppCompatActivity {
     public static ArrayList<String> adress = new ArrayList<String>();
     static PdfData pd;
     static Spinner upakovka;
-    LinearLayout layToHide;
-    Spinner soprDocument; //
-    Spinner transportType;
+    private LinearLayout layToHide;
+    private Spinner soprDocument,transportType;
     static TextView foto_kol;
-    TextView numZakaz, date;
-    TextView zakazchik, otpravitel, poluchatel;
-    TextView manager,podrazdelenie;
-    TextView soprDoc;
-    EditText dateToFill;
-    EditText vesFact, obiemFact, kolich, komentToFill;
-    CheckBox gruz;
-    Button save,delete;
-    Button etiketka,saveBtn;
-    ImageView img,img1,img2;
-    RelativeLayout relativeLayout;
-    TextView tv_zakazchik_nomer;
-    LinearLayout hide_lay;
+    private TextView numZakaz, date, zakazchik, otpravitel, poluchatel, manager,podrazdelenie, soprDoc;
+    private EditText dateToFill, vesFact, obiemFact, kolich, komentToFill;
+    private CheckBox gruz;
+    private Button save,delete,etiketka,saveBtn;
+    private ImageView img,img1,img2;
+    private RelativeLayout relativeLayout;
+    private TextView tv_zakazchik_nomer;
+    private LinearLayout hide_lay;
     static Integer fotokol=0;
+    private TextView kolichFotok;
 
     boolean ch=false;
 
     Boolean damage=false;
-    String msg= "Уважаемый клиент, обращаем Ваше внимание, что в результате приемки груза были выявлены повреждения упаковки (см. фото),\n" +
+    private String msg= "Уважаемый клиент, обращаем Ваше внимание, что в результате приемки груза были выявлены повреждения упаковки (см. фото),\n" +
             "\n" +
             " по всем вопросам связывайтесь с Вашим менеджером Администратор тел.";
     private String trkey="00000000-0000-0000-0000-000000000000";
 
+    private Image image;
+    private String imagePath;
+    private String imageName;
+    private static ArrayList<Image> arr=new ArrayList<>();
+    private static final int REQUEST_CODE=1;
+    static final int REQUEST_TAKE_PHOTO = 1;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,6 +146,8 @@ public class Reception extends AppCompatActivity {
         podrazdelenie=findViewById(R.id.tv_podrazdel);
         podrazdelenie.setText((String)Podrazd.pdpreferences.getAll().get(ZayavkaListAdapter.item.getPodrazd()));
 
+        kolichFotok=findViewById(R.id.kolich_fotok);
+
         soprDocument=findViewById(R.id.spinner_soprDoc);
         String[] itemsForSop=new String[]{"Транспортная накладная","Товарно-транспортная накладная",
                 "Универсально-передаточный документ","Счет фактура","Накладная",
@@ -170,10 +181,23 @@ public class Reception extends AppCompatActivity {
 
             @Override
             public void onClick(View v){
-                Intent myIntent = new Intent(Reception.this, Camera.class);
-                startActivity(myIntent);
+                /*Intent myIntent = new Intent(Reception.this, Camera.class);
+                startActivity(myIntent);*/
+                Intent pictureIntent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if(pictureIntent.resolveActivity(getPackageManager())!=null){
+                    File photoFile=null;
+                    try{
+                        photoFile=createImageFile();
+                    }catch (IOException ex){
 
+                    }
 
+                    if(photoFile!=null){
+                        Uri photoUri= FileProvider.getUriForFile(Reception.this,getPackageName() +".provider",photoFile);
+                        pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,photoUri);
+                        startActivityForResult(pictureIntent,REQUEST_TAKE_PHOTO);
+                    }
+                }
             }
 
         });
@@ -227,7 +251,32 @@ public class Reception extends AppCompatActivity {
                 }
             }
         });
+
+        kolichFotok.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                //image=new Image(imageName,imagePath);
+                Intent intent=new Intent(Reception.this,ImageViewer.class);
+                intent.putExtra("imageData",arr);
+                startActivityForResult(intent,REQUEST_CODE);
+            }
+        });
     }
+
+    private File createImageFile() throws IOException{
+        String timeStamp=new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName="JPEG_"+timeStamp+"_";
+        File storageDir=getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image =File.createTempFile(imageFileName,".jpg",storageDir);
+        imagePath=image.getAbsolutePath();
+        imageName=imageFileName+".jpg";
+        //arr=new ArrayList<>();
+        arr.add(new Image(imageName,imagePath));
+        System.out.println("IMAGE PATH: "+imagePath);
+        System.out.println("IMAGE NAME: "+imageName);
+        return image;
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static String process(String url, String way, String cred, String data) throws NoSuchPaddingException, UnsupportedEncodingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
         String body=url+","+way+","+cred+"*---*" +data;

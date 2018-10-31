@@ -59,7 +59,6 @@ public class Camera extends AppCompatActivity {
     }
 
     private void openCameraIntent() {
-
         Log.d(TAG, "openCameraIntent: started");
 
         Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);

@@ -345,7 +345,7 @@
                         android:layout_height="38dp">
 
                         <TextView
-                            android:id="@+id/textView9"
+                            android:id="@+id/kolich_fotok"
                             android:layout_width="172dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"

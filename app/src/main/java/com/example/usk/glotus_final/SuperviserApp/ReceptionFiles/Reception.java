@@ -37,6 +37,7 @@ import com.example.usk.glotus_final.System.Encryption.AES;
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.ZayavkaListAdapter;
 import com.example.usk.glotus_final.System.connection.Server;
+import com.example.usk.glotus_final.System.loginFiles.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -412,7 +413,7 @@ public class Reception extends AppCompatActivity {
        Log.d("aa",body);
        System.out.println(body);
 
-        String res=process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%9F%D1%80%D0%B8%D0%B5%D0%BC%D0%9D%D0%B0%D0%A1%D0%BA%D0%BB%D0%B0%D0%B4?$format=json","POST","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz",body);
+        String res=process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%9F%D1%80%D0%B8%D0%B5%D0%BC%D0%9D%D0%B0%D0%A1%D0%BA%D0%BB%D0%B0%D0%B4?$format=json","POST", User.getCredential(),body);
         System.out.println(res);
         JSONArray array = null;
         JSONObject jsonObj=null;

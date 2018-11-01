@@ -1,7 +1,19 @@
 package com.example.usk.glotus_final.System.connection;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
+import com.example.usk.glotus_final.System.Encryption.AES;
+
 import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.CountDownLatch;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -100,11 +112,28 @@ public class Server {
                 countDownLatch.countDown();
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
 
                 if (response.isSuccessful()) {
-                    res=response.body().string();
+
+                    try {
+                        res= AES.aesDecryptString(response.body().string(),"1234567890123456");
+                    } catch (InvalidKeyException e) {
+                        e.printStackTrace();
+                    } catch (NoSuchAlgorithmException e) {
+                        e.printStackTrace();
+                    } catch (NoSuchPaddingException e) {
+                        e.printStackTrace();
+                    } catch (InvalidAlgorithmParameterException e) {
+                        e.printStackTrace();
+                    } catch (IllegalBlockSizeException e) {
+                        e.printStackTrace();
+                    } catch (BadPaddingException e) {
+                        e.printStackTrace();
+                    }
+
                     status=1;
                     countDownLatch.countDown();
                 } else {

@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.usk.glotus_final.System.Catalog.Adress;
 import com.example.usk.glotus_final.System.Catalog.Mdnames;
@@ -26,6 +29,7 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -41,6 +45,10 @@ public class SuperviserListActivity extends AppCompatActivity {
 
     SwipeRefreshLayout swipeView;
     static Server server;
+    TextView etSearch;
+    ListView mListView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +56,8 @@ public class SuperviserListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_superviser_list);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-
+        etSearch=findViewById(R.id.etSearch);
+        mListView = (ListView) findViewById(R.id.superviser_list);
         // Declaring listView
         ListView list = (ListView) findViewById(R.id.superviser_list);
         swipeView = (SwipeRefreshLayout) findViewById(R.id.swipe_view);
@@ -114,8 +123,43 @@ public class SuperviserListActivity extends AppCompatActivity {
 
         /*ZayavkaListAdapter adapter = new ZayavkaListAdapter(this, R.layout.superviser_list_item_layout, mZayavkas);
         list.setAdapter(adapter);*/
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                searchItem(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         }
-        @RequiresApi(api = Build.VERSION_CODES.O)
+    public void searchItem(String textToSearch){
+        ArrayList<Zayavka> newww = new ArrayList<>();
+        System.out.println(textToSearch);
+        for(int i=0;i<mZayavkas.size();i++){
+
+            if(mZayavkas.get(i).getSender().contains(textToSearch) || mZayavkas.get(i).getNumber().contains(textToSearch) || mZayavkas.get(i).getRecept().contains(textToSearch)){
+
+                newww.add(mZayavkas.get(i));
+
+            }
+
+        }
+
+       initlist(newww);
+
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
         public static String process(String url, String way, String cred, String data) throws NoSuchPaddingException, UnsupportedEncodingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
             String body=url+","+way+","+cred+"*---*" +data;
             System.out.println(body);
@@ -132,11 +176,9 @@ public class SuperviserListActivity extends AppCompatActivity {
         mZayavkas = new ArrayList<>();
         //ArrayList<Orders> peopleList = new ArrayList<>();
 
-        final ListView mListView = (ListView) findViewById(R.id.superviser_list);
-
 
         System.out.println(User.cred);
-        process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json&$orderby=Date%20desc","GET","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz","{}");
+        process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json&$orderby=Date%20desc","GET",User.getCredential(),"{}");
         String json = server.getRes();
 
 
@@ -172,6 +214,7 @@ public class SuperviserListActivity extends AppCompatActivity {
                // String otkuda=getadr(array.getJSONObject(i).getString("Откуда_Key"));
                // String kuda=getadr(array.getJSONObject(i).getString("Куда_Key"));
                 // String mened=getadr(array.getJSONObject(i).getString("Менеджер_Key"));
+
                 
 
 
@@ -197,7 +240,14 @@ public class SuperviserListActivity extends AppCompatActivity {
            mZayavkas.add(a);
        }*/
 
-        final ZayavkaListAdapter adapter = new ZayavkaListAdapter(this, R.layout.superviser_list_item_layout, mZayavkas);
+        initlist(mZayavkas);
+
+
+    }
+    String s="";
+
+    public void initlist(ArrayList<Zayavka> ppp){
+        final ZayavkaListAdapter adapter = new ZayavkaListAdapter(this, R.layout.superviser_list_item_layout, ppp);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -205,12 +255,7 @@ public class SuperviserListActivity extends AppCompatActivity {
                 swipeView.setRefreshing(false);
             }
         });
-
-
     }
-    String s="";
-
-
 
 
 }

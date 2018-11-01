@@ -4,9 +4,14 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.FileProvider;
+import android.support.v4.os.EnvironmentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
@@ -22,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.usk.glotus_final.System.Catalog.Kontragent;
 import com.example.usk.glotus_final.System.Catalog.KontragentNum;
@@ -37,8 +43,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -46,6 +54,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -64,33 +73,34 @@ public class Reception extends AppCompatActivity {
     public static ArrayList<String> adress = new ArrayList<String>();
     static PdfData pd;
     static Spinner upakovka;
-    LinearLayout layToHide;
-    Spinner soprDocument; //
-    Spinner transportType;
+    private LinearLayout layToHide;
+    private Spinner soprDocument,transportType;
     static TextView foto_kol;
-    TextView numZakaz, date;
-    TextView zakazchik, otpravitel, poluchatel;
-    TextView manager,podrazdelenie;
-    TextView soprDoc;
-    EditText dateToFill;
-    EditText vesFact, obiemFact, kolich, komentToFill;
-    CheckBox gruz;
-    Button save,delete;
-    Button etiketka,saveBtn;
-    ImageView img,img1,img2;
-    RelativeLayout relativeLayout;
-    TextView tv_zakazchik_nomer;
-    LinearLayout hide_lay;
+    private TextView numZakaz, date, zakazchik, otpravitel, poluchatel, manager,podrazdelenie, soprDoc;
+    private EditText dateToFill, vesFact, obiemFact, kolich, komentToFill;
+    private CheckBox gruz;
+    private Button save,delete,etiketka,saveBtn;
+    private ImageView img,img1,img2;
+    private RelativeLayout relativeLayout;
+    private TextView tv_zakazchik_nomer;
+    private LinearLayout hide_lay;
     static Integer fotokol=0;
+    private TextView kolichFotok;
 
     boolean ch=false;
 
     Boolean damage=false;
-    String msg= "Уважаемый клиент, обращаем Ваше внимание, что в результате приемки груза были выявлены повреждения упаковки (см. фото),\n" +
+    private String msg= "Уважаемый клиент, обращаем Ваше внимание, что в результате приемки груза были выявлены повреждения упаковки (см. фото),\n" +
             "\n" +
             " по всем вопросам связывайтесь с Вашим менеджером Администратор тел.";
     private String trkey="00000000-0000-0000-0000-000000000000";
 
+    //новые переменные для фоток
+    private String imagePath; //путь к фоткам
+    private String imageName; //название фоток
+    private static ArrayList<Image> arr=new ArrayList<>(); //arraylist для фоток
+    private static final int REQUEST_CODE=1;
+    static final int REQUEST_TAKE_PHOTO = 1;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,6 +147,8 @@ public class Reception extends AppCompatActivity {
         podrazdelenie=findViewById(R.id.tv_podrazdel);
         podrazdelenie.setText((String)Podrazd.pdpreferences.getAll().get(ZayavkaListAdapter.item.getPodrazd()));
 
+        kolichFotok=findViewById(R.id.kolich_fotok);
+
         soprDocument=findViewById(R.id.spinner_soprDoc);
         String[] itemsForSop=new String[]{"Транспортная накладная","Товарно-транспортная накладная",
                 "Универсально-передаточный документ","Счет фактура","Накладная",
@@ -166,16 +178,24 @@ public class Reception extends AppCompatActivity {
         //it it takes a photo of gruz
         img=findViewById(R.id.iw_camera_icon);
         img.setOnClickListener(new View.OnClickListener(){
-            public String TAG;
-
             @Override
             public void onClick(View v){
-                Intent myIntent = new Intent(Reception.this, Camera.class);
-                startActivity(myIntent);
+                //когда нажимаешь сразу открывает камеру
+                Intent pictureIntent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if(pictureIntent.resolveActivity(getPackageManager())!=null){
+                    File photoFile=null;
+                    try{
+                        photoFile=createImageFile();
+                    }catch (IOException ex){
 
-
+                    }
+                    if(photoFile!=null){
+                        Uri photoUri= FileProvider.getUriForFile(Reception.this,getPackageName() +".provider",photoFile);
+                        pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,photoUri);
+                        startActivityForResult(pictureIntent,REQUEST_TAKE_PHOTO);
+                    }
+                }
             }
-
         });
 
         //here I will change, this is delete button for gruz;
@@ -183,9 +203,9 @@ public class Reception extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(singleAddress.size()>0){
-                    singleAddress.remove(singleAddress.size()-1);
-                    foto_kol.setText(String.valueOf(singleAddress.size()));
+                if (arr.size()>0){
+                    arr.remove(arr.size()-1);
+                    foto_kol.setText(String.valueOf(arr.size()));
                 }
             }
         });
@@ -227,7 +247,44 @@ public class Reception extends AppCompatActivity {
                 }
             }
         });
+
+        //когда нажимаешь он передает объекты картинок на ImageViewer
+        kolichFotok.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Reception.this, ImageViewer.class);
+                intent.putExtra("imageData", arr);
+                startActivityForResult(intent, REQUEST_CODE);
+            }
+        });
     }
+
+    // берет данные с intent камеры
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_TAKE_PHOTO) {
+            if (resultCode == RESULT_OK) {
+                Log.d(TAG, "onActivityResult: picture taken successfully");
+                arr.add(new Image(imageName,imagePath));
+                foto_kol.setText(String.valueOf(arr.size()));
+            }
+            else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(this, "You cancelled the operation", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    //создает фотку и сохраняет ее на телефон
+    private File createImageFile() throws IOException{
+        String timeStamp=new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName="JPEG_"+timeStamp+"_";
+        File storageDir=getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image =File.createTempFile(imageFileName,".jpg",storageDir);
+        imagePath=image.getAbsolutePath();
+        imageName=imageFileName+".jpg";
+        return image;
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static String process(String url, String way, String cred, String data) throws NoSuchPaddingException, UnsupportedEncodingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
         String body=url+","+way+","+cred+"*---*" +data;
@@ -353,9 +410,9 @@ public class Reception extends AppCompatActivity {
                      images+
                 " }";
        Log.d("aa",body);
-        System.out.println(body);
+       System.out.println(body);
 
-            String res=process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%9F%D1%80%D0%B8%D0%B5%D0%BC%D0%9D%D0%B0%D0%A1%D0%BA%D0%BB%D0%B0%D0%B4?$format=json","POST","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz",body);
+        String res=process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%9F%D1%80%D0%B8%D0%B5%D0%BC%D0%9D%D0%B0%D0%A1%D0%BA%D0%BB%D0%B0%D0%B4?$format=json","POST","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz",body);
         System.out.println(res);
         JSONArray array = null;
         JSONObject jsonObj=null;
@@ -366,7 +423,7 @@ public class Reception extends AppCompatActivity {
         }
         System.out.println(jsonObj.getString("Ref_Key").toString());
 
-            res=process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7(guid\'"+ZayavkaListAdapter.item.getRef_key()+"\')?$format=json","PATCH","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz",
+        res=process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7(guid\'"+ZayavkaListAdapter.item.getRef_key()+"\')?$format=json","PATCH","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz",
                     "{\"ДокументПриемГруза_Key\": \""+jsonObj.getString("Ref_Key").toString()+"\",\"СтатусЗаказа\": \"ПринятноНаСкладе\",\"ВесФакт\":"+vesFact.getText().toString()+",\"ОбъемФакт\": "+obiemFact.getText().toString()+",\"КоличествоФакт\": "+kolich.getText().toString()+"}");
 
         System.out.println(res);
@@ -426,14 +483,4 @@ public class Reception extends AppCompatActivity {
         }
         System.out.println(damage.toString());
     }
-
-
-
-/*
-    @Override
-    public void onBackPressed() {
-        finish();
-        Intent myIntent = new Intent(Reception.this, SuperviserListItemActivity.class);
-        startActivity(myIntent);
-    }*/
 }

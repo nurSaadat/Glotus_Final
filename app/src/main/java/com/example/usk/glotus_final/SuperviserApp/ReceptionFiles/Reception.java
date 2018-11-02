@@ -78,7 +78,7 @@ public class Reception extends AppCompatActivity {
     private Spinner soprDocument,transportType;
     static TextView foto_kol;
     private TextView numZakaz, date, zakazchik, otpravitel, poluchatel, manager,podrazdelenie, soprDoc;
-    private EditText dateToFill, vesFact, obiemFact, kolich, komentToFill;
+    private EditText dateToFill, vesFact, obiemFact, kolich, komentToFill,comment;
     private CheckBox gruz;
     private Button save,delete,etiketka,saveBtn;
     private ImageView img,img1,img2;
@@ -120,6 +120,7 @@ public class Reception extends AppCompatActivity {
         layToHide=findViewById(R.id.lay_to_hide);
         foto_kol=findViewById(R.id.foto_kol);
 
+        comment=findViewById(R.id.tv_comment);
         zakazchik=findViewById(R.id.tv_zakazchic);
         zakazchik.setText((String)Kontragent.kontrpreferences.getAll().get(ZayavkaListAdapter.item.getZakaz()));
 
@@ -403,7 +404,7 @@ public class Reception extends AppCompatActivity {
               //      "    \"Менеджер_Key\": \""+ZayavkaListAdapter.item.getMenedjer()+"\",\n" +
                 "    \"Отправитель\": \""+ZayavkaListAdapter.item.getSender().replace("\"","\\\"")+"\",\n" +
                 "    \"Подразделение_Key\": \""+ZayavkaListAdapter.item.getPodrazd()+"\",\n" +
-             //   "    \"Комментарий\": \""+comment.getText().toString()+"\"\n" +
+                "    \"Комментарий\": \""+comment.getText().toString()+"\",\n" +
                 "    \"Фото_Type\": \"application/image/jpeg\",\n" +
                 "    \"Письмо\": \""+komentToFill.getText().toString()+"\",\n" +
                 "    \"ПисьмоОтправлено\": false,\n"+
@@ -425,7 +426,7 @@ public class Reception extends AppCompatActivity {
         System.out.println(jsonObj.getString("Ref_Key").toString());
 
         res=process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7(guid\'"+ZayavkaListAdapter.item.getRef_key()+"\')?$format=json","PATCH","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz",
-                    "{\"ДокументПриемГруза_Key\": \""+jsonObj.getString("Ref_Key").toString()+"\",\"СтатусЗаказа\": \"ПринятноНаСкладе\",\"ВесФакт\":"+vesFact.getText().toString()+",\"ОбъемФакт\": "+obiemFact.getText().toString()+",\"КоличествоФакт\": "+kolich.getText().toString()+"}");
+                    "{\"ДокументПриемГруза_Key\": \""+jsonObj.getString("Ref_Key").toString()+"\",\"СтатусЗаказа\": \"ПринятноНаСкладе\",\"ВесФакт\":\""+vesFact.getText().toString()+"\",\"ОбъемФакт\": \""+obiemFact.getText().toString()+"\",\"КоличествоФакт\": \""+kolich.getText().toString()+"\"}");
 
         System.out.println(res);
             pd=new PdfData(ZayavkaListAdapter.item.getSenderadr(),ZayavkaListAdapter.item.getReceptadr(),ZayavkaListAdapter.item.getRecept(),ZayavkaListAdapter.item.getSender(),kolich.getText().toString(),vesFact.getText().toString(),

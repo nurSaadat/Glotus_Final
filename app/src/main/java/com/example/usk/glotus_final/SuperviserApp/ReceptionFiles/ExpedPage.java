@@ -1,12 +1,15 @@
 package com.example.usk.glotus_final.SuperviserApp.ReceptionFiles;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.print.PrintAttributes;
 import android.print.pdf.PrintedPdfDocument;
+import android.provider.SyncStateContract;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,7 +29,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class ExpedPage extends AppCompatActivity {
+public class ExpedPage extends AppCompatActivity  {
     private RelativeLayout pdf_cont;
     private ScrollView scrollView2;
     private MenuItem btn_generate;
@@ -46,8 +49,13 @@ public class ExpedPage extends AppCompatActivity {
 
         scrollView2=findViewById(R.id.scrollview);
         pdf_cont=findViewById(R.id.relLay);
+<<<<<<< HEAD
         buildText(data);
         save(pdf_cont);
+=======
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder(); StrictMode.setVmPolicy(builder.build());
+        buildText();
+>>>>>>> 61ea9f3588d7e79964ac87b47257ead1d85cc332
     }
 
     public void buildText(PdfData item){
@@ -92,7 +100,6 @@ public class ExpedPage extends AppCompatActivity {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.pdf_menu, menu);
         btn_generate = menu.findItem(R.id.pdf_create);
-        btn_generate.setVisible(false);
 
         btn_next=menu.findItem(R.id.btn_next);
         btn_next.setVisible(false);
@@ -101,7 +108,6 @@ public class ExpedPage extends AppCompatActivity {
         btn_ok.setVisible(true);
 
         btn_print=menu.findItem(R.id.btn_print);
-        btn_print.setVisible(true);
         return true;
     }
 
@@ -110,8 +116,8 @@ public class ExpedPage extends AppCompatActivity {
         int id = item.getItemId();
 
         if(id==R.id.btn_ok){
-            Intent myintent = new Intent(ExpedPage.this, SuperviserListActivity.class);
-            startActivity(myintent);
+            save(pdf_cont);
+
         }
         /*if(id==R.id.btn_next){
             Intent myintent = new Intent(ExpedPage.this, SuperviserListActivity.class);
@@ -146,9 +152,9 @@ public class ExpedPage extends AppCompatActivity {
         document.finishPage(page);
 
         File mFolder;
-        File imageFile;
+        File imageFile = null;
         try {
-            mFolder = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+            mFolder = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);;
             imageFile = new File(mFolder,"Exped.pdf"/*+ "_"+ System.currentTimeMillis() + ".pdf"*/);
             if (!mFolder.exists()) {
                 mFolder.mkdirs();
@@ -161,6 +167,29 @@ public class ExpedPage extends AppCompatActivity {
         } catch (IOException e) {
             Toast.makeText(this, "При сохранении возникла ошибка", Toast.LENGTH_LONG).show();
         }
+<<<<<<< HEAD
+=======
+        String rootSDCard=Environment.getExternalStorageDirectory().getAbsolutePath();
+
+        System.out.println(imageFile.toURI().toString());
+        String uri=imageFile.toURI().toString();
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.parse(uri), "application/pdf");
+        startActivity(intent);
+
+    }
+
+    public void print(){
+        Intent intentPrint=new Intent("com.sec.print.mobileprint.action.PRINT");
+        String rootSDCard=Environment.getExternalStorageDirectory().getAbsolutePath();
+        Uri uri =Uri.parse(rootSDCard+"/Exped.pdf");
+
+        intentPrint.putExtra("com.sec.print.mobileprint.extra.CONTENT",uri);
+        intentPrint.putExtra("com.sec.print.mobileprint.extra.CONTENT_TYPE","DOCUMENT");
+        intentPrint.putExtra("com.sec.print.mobileprint.extra.OPTION_TYPE","DOCUMENT_PRINT");
+        intentPrint.putExtra("com.sec.print.mobileprint.extra.JOB_NAME","UNTITLED");
+        startActivity(intentPrint);
+>>>>>>> 61ea9f3588d7e79964ac87b47257ead1d85cc332
     }
 
     @Override

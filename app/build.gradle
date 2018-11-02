@@ -5,7 +5,11 @@ android {
     defaultConfig {
         applicationId "com.example.usk.glotus_final"
         minSdkVersion 20
+<<<<<<< HEAD
         targetSdkVersion <=25
+=======
+        targetSdkVersion 24
+>>>>>>> 61ea9f3588d7e79964ac87b47257ead1d85cc332
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

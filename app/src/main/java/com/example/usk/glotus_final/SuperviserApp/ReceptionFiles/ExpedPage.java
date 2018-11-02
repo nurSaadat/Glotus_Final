@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
-
+import com.example.usk.glotus_final.SuperviserApp.WifiManagerService.WifiManagerClass;
 
 
 import java.io.File;
@@ -32,21 +32,25 @@ public class ExpedPage extends AppCompatActivity {
     private MenuItem btn_generate;
     private MenuItem btn_ok;
     private MenuItem btn_print;
-    private PdfData item=Reception.pd;
+    private MenuItem btn_next;
     private String upak=Reception.upakovka.getSelectedItem().toString();
-
+    private PdfData data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exped);
 
+        Intent intent=getIntent();
+        data=(PdfData) intent.getExtras().getSerializable("pdfExped");
+
         scrollView2=findViewById(R.id.scrollview);
         pdf_cont=findViewById(R.id.relLay);
-        buildText();
+        buildText(data);
+        save(pdf_cont);
     }
 
-    public void buildText(){
+    public void buildText(PdfData item){
         TextView expedNum=findViewById(R.id.expedNum);
         TextView date=findViewById(R.id.vremyaFill);
         TextView otkuda=findViewById(R.id.marshrutFill);
@@ -90,6 +94,9 @@ public class ExpedPage extends AppCompatActivity {
         btn_generate = menu.findItem(R.id.pdf_create);
         btn_generate.setVisible(false);
 
+        btn_next=menu.findItem(R.id.btn_next);
+        btn_next.setVisible(false);
+
         btn_ok=menu.findItem(R.id.btn_ok);
         btn_ok.setVisible(true);
 
@@ -106,14 +113,13 @@ public class ExpedPage extends AppCompatActivity {
             Intent myintent = new Intent(ExpedPage.this, SuperviserListActivity.class);
             startActivity(myintent);
         }
-        if(id==R.id.btn_next){
+        /*if(id==R.id.btn_next){
             Intent myintent = new Intent(ExpedPage.this, SuperviserListActivity.class);
             startActivity(myintent);
-        }
-
+        }*/
 
         if(id==R.id.btn_print){
-            Intent myintent = new Intent(ExpedPage.this, SuperviserListActivity.class);
+            Intent myintent = new Intent(ExpedPage.this, WifiManagerClass.class);
             startActivity(myintent);
         }
 
@@ -125,7 +131,7 @@ public class ExpedPage extends AppCompatActivity {
 
     public void save (View v){
         RelativeLayout scroll = (RelativeLayout) findViewById(R.id.relLay);
-        int yy = scroll.getScrollY()+scroll.getHeight();
+        int yy = scroll.getScrollY()+v.getHeight();
         int xx = scroll.getWidth();
 
         PrintAttributes printAttrs = new PrintAttributes.Builder().
@@ -134,7 +140,7 @@ public class ExpedPage extends AppCompatActivity {
                 setMinMargins(PrintAttributes.Margins.NO_MARGINS).
                 build();
         PrintedPdfDocument document = new PrintedPdfDocument(this,printAttrs);
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(xx, yy, 1).create();
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(25, 25, 1).create();
         PdfDocument.Page page = document.startPage(pageInfo);
         scroll.draw(page.getCanvas());
         document.finishPage(page);
@@ -155,20 +161,6 @@ public class ExpedPage extends AppCompatActivity {
         } catch (IOException e) {
             Toast.makeText(this, "При сохранении возникла ошибка", Toast.LENGTH_LONG).show();
         }
-
-        print();
-
-    }
-
-    public void print(){
-        Intent intentPrint=new Intent("com.sec.print.mobileprint.action.PRINT");
-        String rootSDCard=Environment.getExternalStorageDirectory().getAbsolutePath();
-        Uri uri =Uri.parse(rootSDCard+"/Exped.pdf");
-        intentPrint.putExtra("com.sec.print.mobileprint.extra.CONTENT",uri);
-        intentPrint.putExtra("com.sec.print.mobileprint.extra.CONTENT_TYPE","DOCUMENT");
-        intentPrint.putExtra("com.sec.print.mobileprint.extra.OPTION_TYPE","DOCUMENT_PRINT");
-        intentPrint.putExtra("com.sec.print.mobileprint.extra.JOB_NAME","UNTITLED");
-        startActivity(intentPrint);
     }
 
     @Override

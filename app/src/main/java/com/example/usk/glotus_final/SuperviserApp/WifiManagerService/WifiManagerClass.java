@@ -2,6 +2,7 @@ package com.example.usk.glotus_final.SuperviserApp.WifiManagerService;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.WifiManager;
 import android.net.wifi.p2p.WifiP2pConfig;
@@ -9,10 +10,14 @@ import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pDeviceList;
 import android.net.wifi.p2p.WifiP2pInfo;
 import android.net.wifi.p2p.WifiP2pManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,6 +28,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.usk.glotus_final.R;
+import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.ExpedPage;
+import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,27 +47,33 @@ import static android.net.wifi.p2p.WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION;
 import static android.net.wifi.p2p.WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION;
 
 public class WifiManagerClass extends AppCompatActivity {
-    Button btnStatusWifi, btnSearchWifi, btnSendWifi;
-    ListView listView;
-    TextView messageWifi, connectStatus;
-    EditText sendData;
+    private Button btnStatusWifi, btnSearchWifi, btnSendWifi;
+    private ListView listView;
+    private TextView messageWifi;
+    TextView connectStatus;
+    private EditText sendData;
+    private MenuItem btn_generate;
+    private MenuItem btn_ok;
+    private MenuItem btn_print;
+    private MenuItem btn_next;
 
-    WifiManager wifiManager;
-    WifiP2pManager mManager;
-    WifiP2pManager.Channel mChannel;
+    private WifiManager wifiManager;
+    private WifiP2pManager mManager;
+    private WifiP2pManager.Channel mChannel;
 
-    BroadcastReceiver mReceiver;
-    IntentFilter mIntentFilter;
+    private BroadcastReceiver mReceiver;
+    private IntentFilter mIntentFilter;
 
-    List<WifiP2pDevice> peers=new ArrayList<WifiP2pDevice>();
-    String[] deviceNameArray;
-    WifiP2pDevice[] deviceArray;
+    private List<WifiP2pDevice> peers=new ArrayList<WifiP2pDevice>();
+    private String[] deviceNameArray;
+    private WifiP2pDevice[] deviceArray;
 
     static final int MESSAGE_READ=1;
 
-    ServerClass serverClass;
-    ClientClass clientClass;
-    SendReceive sendReceive;
+    private ServerClass serverClass;
+    private ClientClass clientClass;
+    private SendReceive sendReceive;
+    private writeOnStream wrt;
 
 
     @Override
@@ -73,6 +86,35 @@ public class WifiManagerClass extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.pdf_menu, menu);
+        btn_generate = menu.findItem(R.id.pdf_create);
+        btn_generate.setVisible(false);
+
+        btn_next=menu.findItem(R.id.btn_next);
+        btn_next.setVisible(false);
+
+        btn_ok=menu.findItem(R.id.btn_ok);
+        btn_ok.setVisible(true);
+
+        btn_print=menu.findItem(R.id.btn_print);
+        btn_print.setVisible(false);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id==R.id.btn_ok){
+            Intent myintent = new Intent(WifiManagerClass.this, SuperviserListActivity.class);
+            startActivity(myintent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     Handler handler=new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message message) {
@@ -80,7 +122,7 @@ public class WifiManagerClass extends AppCompatActivity {
                 case MESSAGE_READ:
                     byte[] readBuffer=(byte[]) message.obj;
                     String tempMessage=new String(readBuffer,0,message.arg1);
-                    sendData.setText(tempMessage);
+                    messageWifi.setText(tempMessage);
                     break;
             }
             return true;
@@ -142,8 +184,9 @@ public class WifiManagerClass extends AppCompatActivity {
         btnSendWifi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String message=messageWifi.getText().toString();
-                sendReceive.write(message.getBytes());
+                String message=sendData.getText().toString();
+                wrt=new writeOnStream(message,sendReceive.getOutputStream());
+                wrt.start();
             }
         });
     }
@@ -251,6 +294,14 @@ public class WifiManagerClass extends AppCompatActivity {
         private InputStream inputStream;
         private OutputStream outputStream;
 
+        public OutputStream getOutputStream() {
+            return outputStream;
+        }
+
+        public void setOutputStream(OutputStream outputStream) {
+            this.outputStream = outputStream;
+        }
+
         public SendReceive(Socket skt){
             socket=skt;
 
@@ -278,11 +329,22 @@ public class WifiManagerClass extends AppCompatActivity {
                 }
             }
         }
+    }
 
-        public void write(byte[] bytes){
+    private class writeOnStream extends Thread{
+        OutputStream outputStream;
+        String message;
+
+        public writeOnStream(String message,OutputStream outputStr){
+            this.message=message;
+            this.outputStream=outputStr;
+        }
+
+        public void run(){
             try {
-                outputStream.write(bytes);
-            } catch (IOException e) {
+                outputStream.write(message.getBytes());
+                sendReceive.setOutputStream(outputStream);
+            }catch (IOException e){
                 e.printStackTrace();
             }
         }
@@ -308,6 +370,4 @@ public class WifiManagerClass extends AppCompatActivity {
             }
         }
     }
-
-
 }

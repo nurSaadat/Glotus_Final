@@ -32,6 +32,7 @@ public class Etiketka extends AppCompatActivity{
     private MenuItem btn_print;
     private MenuItem btn_ok;
     private MenuItem btn_next;
+    private PdfData data;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,12 +40,16 @@ public class Etiketka extends AppCompatActivity{
 
         scrollViewEt=findViewById(R.id.scrollView3);
         pdf_contEt=findViewById(R.id.relativeLay);
-        buildText();
-        save(pdf_contEt);
+
+        Intent intent=getIntent();
+        data=(PdfData) intent.getExtras().getSerializable("pdfData");
+
+        buildText(data);
+        save();
     }
 
-    public void buildText(){
-        PdfData pd=Reception.pd;
+    public void buildText(PdfData pd){
+        //PdfData pd=Reception.pd;
 
         TextView fromCity=findViewById(R.id.otkudaField);
         TextView toCity=findViewById(R.id.kudaField);
@@ -112,6 +117,8 @@ public class Etiketka extends AppCompatActivity{
 
         if(id==R.id.btn_next){
             Intent myIntent = new Intent(Etiketka.this, ExpedPage.class);
+            myIntent.putExtra("pdfExped",data);
+            System.out.println(data.toString());
             startActivity(myIntent);
         }
 
@@ -129,7 +136,7 @@ public class Etiketka extends AppCompatActivity{
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void save (View v){
+    public void save (){
         RelativeLayout scroll = (RelativeLayout) findViewById(R.id.relativeLay);
         int yy = scroll.getScrollY()+scroll.getHeight();
         int xx = scroll.getWidth();
@@ -140,7 +147,7 @@ public class Etiketka extends AppCompatActivity{
                 setMinMargins(PrintAttributes.Margins.NO_MARGINS).
                 build();
         PrintedPdfDocument document = new PrintedPdfDocument(this,printAttrs);
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(25, 25, 1).create();
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(xx, yy, 1).create();
         PdfDocument.Page page = document.startPage(pageInfo);
         scroll.draw(page.getCanvas());
         document.finishPage(page);

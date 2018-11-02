@@ -72,7 +72,7 @@ public class Reception extends AppCompatActivity {
     static int cm=0;
     public static ArrayList<String> singleAddress = new ArrayList<String>();
     public static ArrayList<String> adress = new ArrayList<String>();
-    static PdfData pd;
+    private PdfData pd;
     static Spinner upakovka;
     private LinearLayout layToHide;
     private Spinner soprDocument,transportType;
@@ -434,6 +434,7 @@ public class Reception extends AppCompatActivity {
 
 
             Intent myIntent = new Intent(Reception.this, Etiketka.class);
+            myIntent.putExtra("pdfData",pd);
             startActivity(myIntent);
 
     }

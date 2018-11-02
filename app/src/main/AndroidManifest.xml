@@ -50,6 +50,8 @@
         </activity>
         <activity android:name=".SuperviserApp.ReceptionFiles.ImageViewer">
         </activity>
+        <activity android:name=".SuperviserApp.WifiManagerService.WifiManagerClass">
+        </activity>
 
         <activity android:name=".ManagerApp.ManagerListFiles.EditReceptionManagerActivity">
             <intent-filter>

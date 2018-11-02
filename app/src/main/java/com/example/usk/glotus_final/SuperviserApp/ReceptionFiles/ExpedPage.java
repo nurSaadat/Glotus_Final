@@ -22,21 +22,23 @@ import android.widget.Toast;
 
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
-
+import com.example.usk.glotus_final.SuperviserApp.WifiManagerService.WifiManagerClass;
 
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import static com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.Etiketka.imgFile;
+
 public class ExpedPage extends AppCompatActivity  {
     private RelativeLayout pdf_cont;
     private ScrollView scrollView2;
-    private MenuItem btn_generate;
-    private MenuItem btn_ok;
     private MenuItem btn_print;
-    private PdfData item=Reception.pd;
+    private MenuItem btn_open;
     private String upak=Reception.upakovka.getSelectedItem().toString();
+    private PdfData item;
+    private File imageFile;
 
 
     @Override
@@ -44,13 +46,16 @@ public class ExpedPage extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exped);
 
+        Intent intent=getIntent();
+        item=(PdfData) intent.getExtras().getSerializable("pdfExped");
+
         scrollView2=findViewById(R.id.scrollview);
         pdf_cont=findViewById(R.id.relLay);
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder(); StrictMode.setVmPolicy(builder.build());
-        buildText();
+        buildText(item);
     }
 
-    public void buildText(){
+    public void buildText(PdfData item){
         TextView expedNum=findViewById(R.id.expedNum);
         TextView date=findViewById(R.id.vremyaFill);
         TextView otkuda=findViewById(R.id.marshrutFill);
@@ -91,12 +96,12 @@ public class ExpedPage extends AppCompatActivity  {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.pdf_menu, menu);
-        btn_generate = menu.findItem(R.id.pdf_create);
 
-        btn_ok=menu.findItem(R.id.btn_ok);
-        btn_ok.setVisible(true);
+        btn_open=menu.findItem(R.id.btn_open);
+        btn_open.setVisible(true);
 
         btn_print=menu.findItem(R.id.btn_print);
+        btn_print.setVisible(true);
         return true;
     }
 
@@ -104,24 +109,17 @@ public class ExpedPage extends AppCompatActivity  {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if(id==R.id.btn_ok){
+        if(id==R.id.btn_open){
             save(pdf_cont);
-
+            open(imageFile);
         }
-        if(id==R.id.btn_next){
-            Intent myintent = new Intent(ExpedPage.this, SuperviserListActivity.class);
-            startActivity(myintent);
-        }
-
 
         if(id==R.id.btn_print){
-            Intent myintent = new Intent(ExpedPage.this, SuperviserListActivity.class);
+            save(pdf_cont);
+            Intent myintent = new Intent(ExpedPage.this, WifiManagerClass.class);
             startActivity(myintent);
         }
 
-        /*if (id == R.id.pdf_create) {
-            save(pdf_cont);
-        }*/
         return super.onOptionsItemSelected(item);
     }
 
@@ -142,9 +140,9 @@ public class ExpedPage extends AppCompatActivity  {
         document.finishPage(page);
 
         File mFolder;
-        File imageFile = null;
+        imageFile = null;
         try {
-            mFolder = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);;
+            mFolder = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
             imageFile = new File(mFolder,"Exped.pdf"/*+ "_"+ System.currentTimeMillis() + ".pdf"*/);
             if (!mFolder.exists()) {
                 mFolder.mkdirs();
@@ -157,6 +155,10 @@ public class ExpedPage extends AppCompatActivity  {
         } catch (IOException e) {
             Toast.makeText(this, "При сохранении возникла ошибка", Toast.LENGTH_LONG).show();
         }
+        imgFile.add(imageFile);
+    }
+
+    public void open(File imageFile){
         String rootSDCard=Environment.getExternalStorageDirectory().getAbsolutePath();
 
         System.out.println(imageFile.toURI().toString());
@@ -164,7 +166,6 @@ public class ExpedPage extends AppCompatActivity  {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(Uri.parse(uri), "application/pdf");
         startActivity(intent);
-
     }
 
     public void print(){

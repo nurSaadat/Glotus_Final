@@ -1,9 +1,11 @@
 package com.example.usk.glotus_final.SuperviserApp.WifiManagerService;
 
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
@@ -12,6 +14,7 @@ import android.net.wifi.p2p.WifiP2pInfo;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -28,9 +31,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.usk.glotus_final.R;
+import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.Etiketka;
 import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.ExpedPage;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -74,6 +81,9 @@ public class WifiManagerClass extends AppCompatActivity {
     private ClientClass clientClass;
     private SendReceive sendReceive;
     private writeOnStream wrt;
+
+    private ArrayList<File> imgFile=Etiketka.imgFile;
+    private ArrayList<File> imgS;
 
 
     @Override
@@ -185,8 +195,10 @@ public class WifiManagerClass extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String message=sendData.getText().toString();
-                wrt=new writeOnStream(message,sendReceive.getOutputStream());
-                wrt.start();
+                for(File imgFiles:imgFile) {
+                    wrt = new writeOnStream(imgFiles, sendReceive.getOutputStream());
+                    wrt.start();
+                }
             }
         });
     }
@@ -318,31 +330,49 @@ public class WifiManagerClass extends AppCompatActivity {
             byte[] buffer=new byte[1024];
             int bytes;
 
+            File mFolder;
+            File pdf=null;
             while (socket!=null){
                 try {
+                    mFolder = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+                    pdf=new File(mFolder,"Exped"+ "_"+ System.currentTimeMillis() + ".pdf");
+                    if (!mFolder.exists()) {
+                        mFolder.mkdirs();
+                    }
+                    FileOutputStream out = new FileOutputStream(pdf);
                     bytes=inputStream.read(buffer);
-                    if(bytes>0){
+                    while(bytes!=-1){
                         handler.obtainMessage(MESSAGE_READ,bytes,-1,buffer).sendToTarget();
+                        out.write(buffer,0,bytes);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
+           imgS.add(pdf);
         }
     }
 
     private class writeOnStream extends Thread{
         OutputStream outputStream;
-        String message;
+        File imageFile;
 
-        public writeOnStream(String message,OutputStream outputStr){
-            this.message=message;
+        public writeOnStream(File file,OutputStream outputStr){
+            this.imageFile=file;
             this.outputStream=outputStr;
         }
 
         public void run(){
+            byte[] bytes=new byte[1024];
+            int count=0;
             try {
-                outputStream.write(message.getBytes());
+                String uri=imageFile.toURI().toString();
+                File file=new File(uri);
+                InputStream in=new FileInputStream(file);
+
+                while ((count=in.read(bytes))>0){
+                    outputStream.write(bytes,0,count);
+                }
                 sendReceive.setOutputStream(outputStream);
             }catch (IOException e){
                 e.printStackTrace();

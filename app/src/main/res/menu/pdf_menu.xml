@@ -14,10 +14,17 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/btn_ok"
+        android:title="ОК"
+        android:visible="false"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/btn_open"
         android:title="Открыть"
+        android:visible="false"
         app:showAsAction="always" />
     <item
         android:id="@+id/btn_next"
         android:title="Далее"
+        android:visible="false"
         app:showAsAction="always" />
 </menu>

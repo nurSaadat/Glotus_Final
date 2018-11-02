@@ -73,20 +73,20 @@
         android:layout_marginTop="50dp"
         android:orientation="horizontal">
 
-        <EditText
+        <!--<EditText
             android:id="@+id/editText"
             android:layout_width="243dp"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name" />
+            android:text="Name" />-->
 
         <Button
             android:id="@+id/btn_sendWifi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/sendBtn" />
+            android:text="Print" />
     </LinearLayout>
 
 </LinearLayout>

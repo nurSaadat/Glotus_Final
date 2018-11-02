@@ -72,7 +72,7 @@ public class Reception extends AppCompatActivity {
     static int cm=0;
     public static ArrayList<String> singleAddress = new ArrayList<String>();
     public static ArrayList<String> adress = new ArrayList<String>();
-    private PdfData pd;
+    static PdfData pd;
     static Spinner upakovka;
     private LinearLayout layToHide;
     private Spinner soprDocument,transportType;
@@ -211,15 +211,6 @@ public class Reception extends AppCompatActivity {
                 }
             }
         });
-
-        /*etiketka=findViewById(R.id.btn_etiketka);
-        etiketka.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Intent myIntent=new Intent(Reception.this, Etiketka.class);
-                startActivity(myIntent);
-            }
-        });*/
 
         saveBtn=findViewById(R.id.btn_otpr);
         saveBtn.setOnClickListener(new View.OnClickListener(){
@@ -433,11 +424,9 @@ public class Reception extends AppCompatActivity {
                     obiemFact.getText().toString(),"AUTO","RASP", ZayavkaListAdapter.item.getNumber().toString(),ZayavkaListAdapter.item.getDate().toString(),
                     " ");
 
-
             Intent myIntent = new Intent(Reception.this, Etiketka.class);
             myIntent.putExtra("pdfData",pd);
             startActivity(myIntent);
-
     }
 
     public void setTransportSpinner(final Spinner spinner){

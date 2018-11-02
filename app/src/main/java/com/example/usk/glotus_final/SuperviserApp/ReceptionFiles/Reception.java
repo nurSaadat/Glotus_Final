@@ -37,6 +37,7 @@ import com.example.usk.glotus_final.System.Encryption.AES;
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.ZayavkaListAdapter;
 import com.example.usk.glotus_final.System.connection.Server;
+import com.example.usk.glotus_final.System.connection.ServerPhoto;
 import com.example.usk.glotus_final.System.loginFiles.User;
 
 import org.json.JSONArray;
@@ -302,16 +303,17 @@ public class Reception extends AppCompatActivity {
 
 
     public void uploadingfile(){
-        for(int i=0;i<singleAddress.size();i++){
-            System.out.println(singleAddress.get(i).toString());
+
+        for(int i=0;i<arr.size();i++){
             String encodedImage="";
             try {
-                FileInputStream inputStream = new FileInputStream(singleAddress.get(i).toString());
+                FileInputStream inputStream = new FileInputStream(arr.get(i).getImagePath().toString());
                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                 encodedImage=imagetobase64(bitmap);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+            System.out.println(encodedImage);
             upload(encodedImage,i+1);
         }
         for (int i=0;i<adress.size();i++){
@@ -322,10 +324,11 @@ public class Reception extends AppCompatActivity {
     public void upload(String encodedImage, int i) {
         encodedImage=encodedImage.replace("/","%2F").replace("+","%2B");
         String body = "image="+encodedImage+"&key="+ZayavkaListAdapter.item.getNumber().toString()+"&iter="+i;
-        Server sr= new Server("http://185.209.21.191/uu/uploaded.php",null,body);
-        sr.post();
-        adress.add(sr.getRes().replace("<","").replace("\\","\\\\").replace("/","\\\\"));
+        ServerPhoto sr= new ServerPhoto("http://185.209.21.191/uu/uploaded.php",null,body);
+
+        adress.add(sr.post().replace("<","").replace("\\","\\\\").replace("/","\\\\"));
         System.out.println(sr.getRes());
+        System.out.println("7887");
 
     }
 
@@ -413,6 +416,7 @@ public class Reception extends AppCompatActivity {
                 " }";
        Log.d("aa",body);
        System.out.println(body);
+        System.out.println(body);
 
         String res=process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%9F%D1%80%D0%B8%D0%B5%D0%BC%D0%9D%D0%B0%D0%A1%D0%BA%D0%BB%D0%B0%D0%B4?$format=json","POST", User.getCredential(),body);
         System.out.println(res);

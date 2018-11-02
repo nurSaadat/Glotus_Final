@@ -194,7 +194,7 @@ public class WifiManagerClass extends AppCompatActivity {
         btnSendWifi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String message=sendData.getText().toString();
+                //String message=sendData.getText().toString();
                 for(File imgFiles:imgFile) {
                     wrt = new writeOnStream(imgFiles, sendReceive.getOutputStream());
                     wrt.start();
@@ -210,7 +210,7 @@ public class WifiManagerClass extends AppCompatActivity {
         listView=findViewById(R.id.wifiPeerList);
         messageWifi=findViewById(R.id.tv_message);
         connectStatus=findViewById(R.id.status);
-        sendData=findViewById(R.id.editText);
+        //sendData=findViewById(R.id.editText);
 
         wifiManager= (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         mManager= (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);

@@ -96,7 +96,6 @@ public class ExpedPage extends AppCompatActivity  {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.pdf_menu, menu);
-
         btn_open=menu.findItem(R.id.btn_open);
         btn_open.setVisible(true);
 
@@ -108,7 +107,10 @@ public class ExpedPage extends AppCompatActivity  {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
+        if(id==R.id.btn_next){
+            Intent myintent = new Intent(ExpedPage.this, SuperviserListActivity.class);
+            startActivity(myintent);
+        }
         if(id==R.id.btn_open){
             save(pdf_cont);
             open(imageFile);

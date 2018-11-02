@@ -212,15 +212,6 @@ public class Reception extends AppCompatActivity {
             }
         });
 
-        /*etiketka=findViewById(R.id.btn_etiketka);
-        etiketka.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Intent myIntent=new Intent(Reception.this, Etiketka.class);
-                startActivity(myIntent);
-            }
-        });*/
-
         saveBtn=findViewById(R.id.btn_otpr);
         saveBtn.setOnClickListener(new View.OnClickListener(){
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -433,10 +424,9 @@ public class Reception extends AppCompatActivity {
                     obiemFact.getText().toString(),"AUTO","RASP", ZayavkaListAdapter.item.getNumber().toString(),ZayavkaListAdapter.item.getDate().toString(),
                     " ");
 
-
             Intent myIntent = new Intent(Reception.this, Etiketka.class);
+            myIntent.putExtra("pdfData",pd);
             startActivity(myIntent);
-
     }
 
     public void setTransportSpinner(final Spinner spinner){

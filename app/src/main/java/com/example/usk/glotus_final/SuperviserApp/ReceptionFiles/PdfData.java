@@ -1,6 +1,8 @@
 package com.example.usk.glotus_final.SuperviserApp.ReceptionFiles;
 
-public class PdfData {
+import java.io.Serializable;
+
+public class PdfData implements Serializable {
     String fromCity;
     String toCity;
     String otpravitel;

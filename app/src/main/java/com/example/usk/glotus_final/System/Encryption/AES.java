@@ -4,6 +4,8 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.util.Base64;
 
+import org.apache.commons.codec.Decoder;
+
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -31,14 +33,14 @@ public class AES {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
- /*  public static String aesDecryptString(String content, String key) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException {
-        Decoder decoder = Base64.getDecoder();
-        byte[] encryptedBytes = decoder.decode(content);
+   public static String aesDecryptString(String content, String key) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException {
+
+        byte[] encryptedBytes = Base64.decode(content,Base64.DEFAULT);
         byte[] keyBytes = key.getBytes(charset);
         byte[] decryptedBytes = aesDecryptBytes(encryptedBytes, keyBytes);
         return new String(decryptedBytes, charset);
     }
-*/
+
     public static byte[] aesEncryptBytes(byte[] contentBytes, byte[] keyBytes) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException {
         return cipherOperation(contentBytes, keyBytes, Cipher.ENCRYPT_MODE);
     }

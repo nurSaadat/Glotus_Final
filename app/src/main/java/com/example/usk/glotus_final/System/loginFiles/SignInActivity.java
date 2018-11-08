@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.usk.glotus_final.ManagerApp.ManagerListFiles.ManagerListActivity;
+import com.example.usk.glotus_final.ManagerApp.ManagerListFiles.RefKeys;
 import com.example.usk.glotus_final.System.Catalog.Adress;
 import com.example.usk.glotus_final.System.Catalog.Kontragent;
 import com.example.usk.glotus_final.System.Catalog.KontragentNum;
@@ -47,6 +48,7 @@ import java.net.URLConnection;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Map;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -228,10 +230,12 @@ public class SignInActivity extends AppCompatActivity {
                 System.out.println(server.get());
                 System.out.println(server.getAns());
                 user.setCred(getCredential(name,password));*/
+                User.username=name;
+                User.password=password;
 
 
                 try {
-                    process("http://185.209.21.191/test/odata/standard.odata?$format=json","GET","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz","{}");
+                    process("http://185.209.21.191/test/odata/standard.odata?$format=json","GET",User.getCredential(),"{}");
                 } catch (NoSuchPaddingException e) {
                     e.printStackTrace();
                 } catch (UnsupportedEncodingException e) {
@@ -343,15 +347,18 @@ public class SignInActivity extends AppCompatActivity {
                 isOn.preferences=getSharedPreferences("ison", Context.MODE_PRIVATE);
 
 
-                    if(isOn.preferences.getAll().get("refresh")==null) {
+                   if(isOn.preferences.getAll().get("refresh")==null) {
                          System.out.println("aaa");
                         new Update().getCatalogs();
                         isOn.preferences.edit().putString("refresh", "true").commit();
                    }
 
+
             if(name.contains("Saadat")){
                 System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-                    finish();
+                System.out.println(User.getCredential());
+                System.out.println(server.getRes());
+                finish();
                 Intent myIntent = new Intent(SignInActivity.this, ManagerListActivity.class);
                 startActivity(myIntent);
             }
@@ -399,8 +406,8 @@ public class SignInActivity extends AppCompatActivity {
             btnLogin.setVisibility(View.INVISIBLE);
             mCheckbox.setVisibility(View.INVISIBLE);
 
-            textView.setVisibility(View.VISIBLE);
-            progressBar2.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.INVISIBLE);
+            progressBar2.setVisibility(View.INVISIBLE);
             progressBar.setVisibility(View.VISIBLE);
         }
         //in set True will login form

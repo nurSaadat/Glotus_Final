@@ -23,7 +23,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class Server {
+public class ServerPhoto {
     public static String credential;
     public static int status;
     public static String url;
@@ -35,17 +35,17 @@ public class Server {
     RequestBody data;
 
     public String res;
-    public Server(){
+    public ServerPhoto(){
     }
 
-    public Server(String url){
+    public ServerPhoto(String url){
         this.url=url;
     }
-    public Server(String url, String credential){
+    public ServerPhoto(String url, String credential){
         this.url=url;
         this.credential=credential;
     }
-    public Server(String url, String credential, String body){
+    public ServerPhoto(String url, String credential, String body){
         this.url=url;
         this.credential=credential;
         this.body=body;
@@ -118,21 +118,9 @@ public class Server {
 
                 if (response.isSuccessful()) {
 
-                    try {
-                        res= AES.aesDecryptString(response.body().string(),"1234567890123456");
-                    } catch (InvalidKeyException e) {
-                        e.printStackTrace();
-                    } catch (NoSuchAlgorithmException e) {
-                        e.printStackTrace();
-                    } catch (NoSuchPaddingException e) {
-                        e.printStackTrace();
-                    } catch (InvalidAlgorithmParameterException e) {
-                        e.printStackTrace();
-                    } catch (IllegalBlockSizeException e) {
-                        e.printStackTrace();
-                    } catch (BadPaddingException e) {
-                        e.printStackTrace();
-                    }
+
+                        res= response.body().string();
+
 
                     status=1;
                     countDownLatch.countDown();
@@ -166,19 +154,19 @@ public class Server {
         return way;
     }
     public static void setBody(String body) {
-        Server.body = body;
+        ServerPhoto.body = body;
     }
     public static void setCredential(String credential) {
-        Server.credential = credential;
+        ServerPhoto.credential = credential;
     }
     public static void setStatus(int status) {
-        Server.status = status;
+        ServerPhoto.status = status;
     }
     public static void setUrl(String url) {
-        Server.url = url;
+        ServerPhoto.url = url;
     }
     public static void setWay(String way) {
-        Server.way = way;
+        ServerPhoto.way = way;
     }
     public String getRes() {
         return res;

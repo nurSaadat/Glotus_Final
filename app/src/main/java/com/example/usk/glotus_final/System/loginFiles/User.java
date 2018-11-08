@@ -26,7 +26,7 @@ public class User {
     }
 
     //Шифрование на Base64 для авторизации в сайт
-    public String getCredential(){
+    public static String getCredential(){
         try {
             String usernameAndPassword =  username+ ":" + password;
             byte[] bytes = usernameAndPassword.getBytes("UTF-8");

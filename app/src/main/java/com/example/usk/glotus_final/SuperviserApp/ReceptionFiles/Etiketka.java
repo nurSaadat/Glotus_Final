@@ -23,28 +23,31 @@ import com.example.usk.glotus_final.R;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class Etiketka extends AppCompatActivity{
     private RelativeLayout pdf_contEt;
     private ScrollView scrollViewEt;
-    private MenuItem btn_generate;
-    private MenuItem btn_print;
-    private MenuItem btn_ok;
     private MenuItem btn_next;
+    private PdfData data;
+    public static ArrayList<File> imgFile=new ArrayList<>();
+    private File imageFile;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_etiketka);
 
+        Intent intent=getIntent();
+        data=(PdfData) intent.getExtras().getSerializable("pdfData");
+
         scrollViewEt=findViewById(R.id.scrollView3);
         pdf_contEt=findViewById(R.id.relativeLay);
-        buildText();
-        save(pdf_contEt);
+        buildText(data);
     }
 
-    public void buildText(){
-        PdfData pd=Reception.pd;
+    public void buildText(PdfData pd){
+        //PdfData pd=Reception.pd;
 
         TextView fromCity=findViewById(R.id.otkudaField);
         TextView toCity=findViewById(R.id.kudaField);
@@ -91,14 +94,6 @@ public class Etiketka extends AppCompatActivity{
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.pdf_menu, menu);
-        btn_generate = menu.findItem(R.id.pdf_create);
-        btn_generate.setVisible(false);
-
-        btn_print=menu.findItem(R.id.btn_print);
-        btn_print.setVisible(false);
-
-        btn_ok=menu.findItem(R.id.btn_ok);
-        btn_ok.setVisible(false);
 
         btn_next=menu.findItem(R.id.btn_next);
         btn_next.setVisible(true);
@@ -111,20 +106,12 @@ public class Etiketka extends AppCompatActivity{
         int id = item.getItemId();
 
         if(id==R.id.btn_next){
+            save(pdf_contEt);
             Intent myIntent = new Intent(Etiketka.this, ExpedPage.class);
+            myIntent.putExtra("pdfExped",data);
             startActivity(myIntent);
         }
 
-        /*if (id == R.id.pdf_create) {
-            save(pdf_contEt);
-        }
-        if(id == R.id.btn_print){
-            save(pdf_contEt);
-        }
-        if(id == R.id.btn_ok){
-            Intent myintent = new Intent(Etiketka.this, SuperviserListActivity.class);
-            startActivity(myintent);
-        }*/
         return super.onOptionsItemSelected(item);
     }
 
@@ -140,13 +127,13 @@ public class Etiketka extends AppCompatActivity{
                 setMinMargins(PrintAttributes.Margins.NO_MARGINS).
                 build();
         PrintedPdfDocument document = new PrintedPdfDocument(this,printAttrs);
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(25, 25, 1).create();
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(xx, yy, 1).create();
         PdfDocument.Page page = document.startPage(pageInfo);
         scroll.draw(page.getCanvas());
         document.finishPage(page);
         try {
             File mFolder = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
-            File imageFile = new File(mFolder,"Этикетка.pdf"/*+ "_"+ System.currentTimeMillis() + ".pdf"*/);
+            imageFile = new File(mFolder,"Этикетка.pdf"/*+ "_"+ System.currentTimeMillis() + ".pdf"*/);
             if (!mFolder.exists()) {
                 mFolder.mkdirs();
             }
@@ -158,6 +145,8 @@ public class Etiketka extends AppCompatActivity{
         } catch (IOException e) {
             Toast.makeText(this, "При сохранении возникла ошибка", Toast.LENGTH_LONG).show();
         }
+
+        imgFile.add(imageFile);
     }
 
     @Override

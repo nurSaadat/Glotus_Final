@@ -24,6 +24,7 @@ import com.example.usk.glotus_final.System.Catalog.Pochta;
 import com.example.usk.glotus_final.System.Encryption.AES;
 import com.example.usk.glotus_final.System.connection.Server;
 import com.example.usk.glotus_final.System.loginFiles.SignInActivity;
+import com.example.usk.glotus_final.System.loginFiles.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -145,7 +146,7 @@ public class ManagerListActivity extends AppCompatActivity {
         mManagerZayavkas = new ArrayList<>();
 
 
-        process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json&$orderby=Date%20desc","GET","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz","{}");
+        process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json&$orderby=Date%20desc","GET", User.getCredential(),"{}");
         String json = server.getRes();
 
 

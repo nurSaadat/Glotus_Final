@@ -21,12 +21,9 @@
             android:layout_height="match_parent"
             android:layout_toEndOf="@+id/ivSearch"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="0dp"
-            android:background="@drawable/rectangle_white"
+            style="@style/TextSearchList"
             android:hint="Введите номер заявки"
             android:imeOptions="actionSearch"
-            android:textColor="#000"
-            android:textSize="20sp"
             />
 
         <ImageView

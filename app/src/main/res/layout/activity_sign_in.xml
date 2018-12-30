@@ -31,11 +31,7 @@
             android:ems="10"
             android:hint="Логин"
             android:inputType="textEmailAddress"
-            android:textSize="24sp"
-            android:textColor="@color/signInHint"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/vector"
-            android:paddingStart="8dp"
+            style="@style/HintStyle"
 
             />
 
@@ -46,31 +42,23 @@
             android:ems="10"
             android:hint="Введите пароль"
             android:inputType="textPassword"
-            android:textSize="24sp"
-            android:textColor="@color/signInHint"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/vector"
-            android:paddingStart="8dp"
+            style="@style/HintStyle"
             />
 
         <Button
             android:id="@+id/btn_sign_in"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/button_main"
             android:text="Войти"
-            android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:layout_marginTop="24dp"
+            style="@style/ButtonWhiteStyle" />
 
         <CheckBox
             android:id="@+id/cb_remember_me"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Запомнить меня"
-            android:layout_marginTop="12dp"
-            android:textSize="24sp"
-            android:textColor="@color/colorAccent"
+            style="@style/TextBlueStyle"
             />
 
     </LinearLayout>

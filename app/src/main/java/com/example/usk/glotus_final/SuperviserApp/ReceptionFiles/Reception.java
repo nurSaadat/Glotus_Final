@@ -156,7 +156,7 @@ public class Reception extends AppCompatActivity {
         String[] itemsForSop=new String[]{"Транспортная накладная","Товарно-транспортная накладная",
                 "Универсально-передаточный документ","Счет фактура","Накладная",
                 "Расходная накладная","INVOICE","другое"};
-        ArrayAdapter<String> adapterForSop=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, itemsForSop);
+        ArrayAdapter<String> adapterForSop=new ArrayAdapter<String>(this,R.layout.spinner_item, itemsForSop);
         adapterForSop.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         soprDocument.setAdapter(adapterForSop);
 
@@ -165,7 +165,7 @@ public class Reception extends AppCompatActivity {
 
         upakovka=findViewById(R.id.spin_upakovka);
         String[] items=new String[]{"Без упаковки","Ящик","Паллет","Короб","Мешок","Другое"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, items);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.spinner_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         upakovka.setAdapter(adapter);
 
@@ -444,7 +444,7 @@ public class Reception extends AppCompatActivity {
             rlist.add(entry.getKey());
         }
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,list);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,R.layout.spinner_item,list);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

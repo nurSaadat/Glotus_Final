@@ -199,7 +199,7 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
 
 
 
-        String res = process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7(guid\'" + RefKeys.Ref_Key + "\')?$format=json", "PATCH", User.getCredential(),
+        String res = process("http://185.209.23.53/InfoBase/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7(guid\'" + RefKeys.Ref_Key + "\')?$format=json", "PATCH", User.getCredential(),
                 data);
         System.out.println(res);
 
@@ -365,7 +365,7 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
         Log.d("aaa",body);
         System.out.println(body);
         Server server;
-        server = new Server("http://185.209.21.191/uu/demoaes.php",null, body);
+        server = new Server("http://185.209.23.53/odata/demoaes.php",null, body);
         return server.post();
     }
 

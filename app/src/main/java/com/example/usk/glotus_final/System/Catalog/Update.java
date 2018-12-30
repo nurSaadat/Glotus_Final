@@ -33,7 +33,7 @@ public class Update  {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void refreshAdress() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
         String data;
-        data=process("http://185.209.21.191/test/odata/standard.odata/Catalog_%D0%90%D0%B4%D1%80%D0%B5%D1%81%D0%B0%D1%82%D1%8B?$format=json","GET",User.getCredential(),"{}");
+        data=process("http://185.209.23.53/InfoBase/odata/standard.odata/Catalog_%D0%90%D0%B4%D1%80%D0%B5%D1%81%D0%B0%D1%82%D1%8B?$format=json","GET",User.getCredential(),"{}");
         System.out.println(data);
         JSONArray array = null;
         JSONObject jsonObj = null;
@@ -60,7 +60,7 @@ public class Update  {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void refreshKontragent() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
         String data;
-        data=process("http://185.209.21.191/test/odata/standard.odata/Catalog_%D0%9A%D0%BE%D0%BD%D1%82%D1%80%D0%B0%D0%B3%D0%B5%D0%BD%D1%82%D1%8B?$format=json","GET",User.getCredential(),"{}");
+        data=process("http://185.209.23.53/InfoBase/odata/standard.odata/Catalog_%D0%9A%D0%BE%D0%BD%D1%82%D1%80%D0%B0%D0%B3%D0%B5%D0%BD%D1%82%D1%8B?$format=json","GET",User.getCredential(),"{}");
         System.out.println(data);
         JSONArray array = null;
         JSONObject jsonObj = null;
@@ -91,7 +91,7 @@ public class Update  {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void refreshKontragentnum() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
         String data;
-        data=process("http://185.209.21.191/test/odata/standard.odata/Catalog_%D0%9A%D0%BE%D0%BD%D1%82%D1%80%D0%B0%D0%B3%D0%B5%D0%BD%D1%82%D1%8B?$format=json","GET",User.getCredential(),"{}");
+        data=process("http://185.209.23.53/InfoBase/odata/standard.odata/Catalog_%D0%9A%D0%BE%D0%BD%D1%82%D1%80%D0%B0%D0%B3%D0%B5%D0%BD%D1%82%D1%8B?$format=json","GET",User.getCredential(),"{}");
         System.out.println(data);
         JSONArray array = null;
         JSONObject jsonObj = null;
@@ -121,7 +121,7 @@ public class Update  {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void refreshMdnames() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
         String data;
-        data=process("http://185.209.21.191/test/odata/standard.odata/Catalog_%D0%9F%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D0%B8?$format=json","GET",User.getCredential(),"{}");
+        data=process("http://185.209.23.53/InfoBase/odata/standard.odata/Catalog_%D0%9F%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D0%B8?$format=json","GET",User.getCredential(),"{}");
         System.out.println(data);
         JSONArray array = null;
         JSONObject jsonObj = null;
@@ -151,7 +151,7 @@ public class Update  {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void refreshPodrazd() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
         String data;
-        data=process("http://185.209.21.191/test/odata/standard.odata/Catalog_%D0%9F%D0%BE%D0%B4%D1%80%D0%B0%D0%B7%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F?$format=json","GET",User.getCredential(),"{}");
+        data=process("http://185.209.23.53/InfoBase/odata/standard.odata/Catalog_%D0%9F%D0%BE%D0%B4%D1%80%D0%B0%D0%B7%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F?$format=json","GET",User.getCredential(),"{}");
 
         System.out.println(data);
         JSONArray array = null;
@@ -182,7 +182,7 @@ public class Update  {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void refreshPochtaKontr() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
         String data;
-        data=process("http://185.209.21.191/test/odata/standard.odata/Catalog_%D0%9A%D0%BE%D0%BD%D1%82%D1%80%D0%B0%D0%B3%D0%B5%D0%BD%D1%82%D1%8B?$format=json","GET",User.getCredential(),"{}");
+        data=process("http://185.209.23.53/InfoBase/odata/standard.odata/Catalog_%D0%9A%D0%BE%D0%BD%D1%82%D1%80%D0%B0%D0%B3%D0%B5%D0%BD%D1%82%D1%8B?$format=json","GET",User.getCredential(),"{}");
         System.out.println(data);
         JSONArray array = null;
         JSONObject jsonObj = null;
@@ -213,7 +213,7 @@ public class Update  {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void refreshTransport() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
         String data;
-        data=process("http://185.209.21.191/test/odata/standard.odata/Catalog_%D0%A2%D1%80%D0%B0%D0%BD%D1%81%D0%BF%D0%BE%D1%80%D1%82?$format=json","GET", User.getCredential(),"{}");
+        data=process("http://185.209.23.53/InfoBase/odata/standard.odata/Catalog_%D0%A2%D1%80%D0%B0%D0%BD%D1%81%D0%BF%D0%BE%D1%80%D1%82?$format=json","GET", User.getCredential(),"{}");
         System.out.println(data);
         JSONArray array = null;
         JSONObject jsonObj = null;
@@ -447,7 +447,7 @@ public class Update  {
         String string = AES.aesEncryptString(body, "1234567890123456");
         body="data="+string;
         System.out.println(body);
-        server = new Server("http://185.209.21.191/uu/demoaes.php",null, body);
+        server = new Server("http://185.209.23.53/odata/demoaes.php",null, body);
         return server.post().toString();
     }
 

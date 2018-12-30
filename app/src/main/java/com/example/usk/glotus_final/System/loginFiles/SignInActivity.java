@@ -211,8 +211,8 @@ public class SignInActivity extends AppCompatActivity {
         }).start();
 */
 /*
-       // server=new Server("http://185.209.21.191/test/odata/standard.odata",getCredential(name,password));
-        server.setUrl("http://185.209.21.191/test/odata/standard.odata?$format=json");
+       // server=new Server("http://185.209.23.53/InfoBase/odata/standard.odata",getCredential(name,password));
+        server.setUrl("http://185.209.23.53/InfoBase/odata/standard.odata?$format=json");
         server.setCredential(getCredential(name,password));
         System.out.println(server.get());
         System.out.println(server.getAns());
@@ -225,7 +225,7 @@ public class SignInActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void run() {
-                /*server.setUrl("http://185.209.21.191/test/odata/standard.odata?$format=json");
+                /*server.setUrl("http://185.209.23.53/InfoBase/odata/standard.odata?$format=json");
                 server.setCredential(getCredential(name,password));
                 System.out.println(server.get());
                 System.out.println(server.getAns());
@@ -235,7 +235,7 @@ public class SignInActivity extends AppCompatActivity {
 
 
                 try {
-                    process("http://185.209.21.191/test/odata/standard.odata?$format=json","GET",User.getCredential(),"{}");
+                    process("http://185.209.23.53/InfoBase/odata/standard.odata?$format=json","GET",User.getCredential(),"{}");
                 } catch (NoSuchPaddingException e) {
                     e.printStackTrace();
                 } catch (UnsupportedEncodingException e) {
@@ -281,7 +281,7 @@ public class SignInActivity extends AppCompatActivity {
         String string = AES.aesEncryptString(body, "1234567890123456");
         body="data="+string;
         System.out.println(body);
-        server = new Server("http://185.209.21.191/uu/demoaes.php",null, body);
+        server = new Server("http://185.209.23.53/odata/demoaes.php",null, body);
         return server.post();
     }
 

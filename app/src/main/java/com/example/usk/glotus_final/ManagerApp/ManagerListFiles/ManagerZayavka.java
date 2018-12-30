@@ -49,7 +49,7 @@ public class ManagerZayavka {
                           String pochta,String lisootprav,String lisoplouch,String telefonOtprav,String telefonPoluch,
                           String adresotp,String adrespol,
                           String obiemplan,String obiemfact,String vesplan,String vesfact,String kolplan,String kolfact,String vidpere,
-                          String priceorder,String statusorder,String comment,String nomerdogovor
+                          String priceorder,String statusorder,String comment
                           ) {
         this.soprdocument=soprdocument;
         this.number = number;

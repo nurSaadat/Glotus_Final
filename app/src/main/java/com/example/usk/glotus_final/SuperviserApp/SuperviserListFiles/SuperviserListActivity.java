@@ -166,7 +166,7 @@ public class SuperviserListActivity extends AppCompatActivity {
             String string = AES.aesEncryptString(body, "1234567890123456");
             body="data="+string;
             System.out.println(body);
-            server = new Server("http://185.209.21.191/uu/demoaes.php",null, body);
+            server = new Server("http://185.209.23.53/odata/demoaes.php",null, body);
             return server.post();
         }
 
@@ -178,9 +178,9 @@ public class SuperviserListActivity extends AppCompatActivity {
 
 
         System.out.println(User.cred);
-        process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json&$orderby=Date%20desc","GET",User.getCredential(),"{}");
+        process("http://185.209.23.53/InfoBase/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json&$orderby=Date%20desc","GET",User.getCredential(),"{}");
         String json = server.getRes();
-
+        System.out.println(json);
 
         System.out.println(json);
 

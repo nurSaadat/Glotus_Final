@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="28dp"
+        android:layout_height="52dp"
         android:background="@color/colorPrimaryDark"
         android:weightSum="100">
 
@@ -223,13 +223,14 @@
 
                     <Spinner
                         android:id="@+id/spin_upakovka"
-                        style="@style/TextPlainBlack"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="47dp"
                         android:layout_weight="20"
                         android:ems="10"
-                        android:inputType="textPersonName" />
+                        android:inputType="textPersonName"
+                        style="@style/TextPlainBlack"
+                        />
 
                 </LinearLayout>
 
@@ -250,7 +251,9 @@
                         android:id="@+id/cb_gruz_povrezhden"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="60" />
+                        android:scaleX="2"
+                        android:scaleY="2"
+                        android:layout_gravity="center"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -387,11 +390,11 @@
 
                             <Spinner
                                 android:id="@+id/spinner_soprDoc"
-                                style="@style/TextPlainBlack"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginBottom="8dp"
-                                android:layout_weight="1" />
+                                android:layout_weight="1"
+                                style="@style/TextPlainBlack"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -499,7 +502,7 @@
                 android:layout_marginTop="8dp">
                 <Button
                     android:id="@+id/btn_otpr"
-                    android:layout_width="157dp"
+                    android:layout_width="314dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="Отправить"

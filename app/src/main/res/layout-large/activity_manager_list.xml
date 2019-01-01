@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/search_field"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_margin="16dp"
+        android:background="@android:color/white"
+        android:elevation="12dp">
+
+        <AutoCompleteTextView
+            android:id="@+id/etSearch"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/ivSearch"
+            android:layout_alignParentTop="true"
+            android:hint="Введите номер заявки"
+            android:imeOptions="actionSearch"
+            style="@style/TextSearchList"
+            />
+
+        <ImageView
+            android:id="@+id/ivSearch"
+            android:layout_width="42dp"
+            android:layout_height="32dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="0dp"
+            android:src="@drawable/ic_action_name"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/manager_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp"
+                />
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <ImageButton
+            android:id="@+id/btn_dobavit_zayavku"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/white"
+            android:elevation="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="32dp"
+            android:layout_marginRight="32dp"
+            android:src="@drawable/ic_fab_blue_24dp"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>

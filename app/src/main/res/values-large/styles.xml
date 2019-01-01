@@ -12,65 +12,65 @@
 
     <style name = "HintStyle" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/signInHint</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">36sp</item>
         <item name="android:paddingStart">8dp</item>
-        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:layout_marginTop">36dp</item>
         <item name="android:background">@drawable/vector</item>
     </style>
 
     <style name="ButtonWhiteStyle" parent="Base.Widget.AppCompat.Button">
         <item name="android:background">@drawable/button_main</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">30sp</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="TextBlueStyle" parent="TextAppearance.AppCompat">
-        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:layout_marginTop">18dp</item>
         <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">36sp</item>
     </style>
 
     <style name="TextPlainBlack" parent="TextAppearance.AppCompat">
         <item name="android:paddingBottom">4dp</item>
         <item name="android:paddingTop">4dp</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">27sp</item>
         <item name="android:textColor">@android:color/black</item>
     </style>
 
     <style name="TextBoldBlack" parent="TextAppearance.AppCompat">
-        <item name="android:paddingBottom">4dp</item>
-        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingTop">8dp</item>
         <item name="android:textAlignment">textStart</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">27sp</item>
         <item name="android:textColor">@android:color/black</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextTopBarWhite" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">36sp</item>
         <item name="android:textAlignment">center</item>
     </style>
 
     <style name="TextBlueBold" parent="TextAppearance.AppCompat">
-        <item name="android:paddingBottom">4dp</item>
-        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingTop">8dp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">27sp</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textAlignment">textStart</item>
     </style>
 
     <style name="TextTopBarRed" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/otpravitelRed</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">36sp</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_marginStart">4dp</item>
     </style>
 
     <style name="TextButtonHint" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">33sp</item>
         <item name="android:textColorHint">@color/colorPrimary</item>
         <item name="android:background">@drawable/rectangle_field</item>
         <item name="android:textAlignment">textStart</item>
@@ -79,22 +79,22 @@
 
     <style name="TextBlueReception" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">27sp</item>
     </style>
 
     <style name="TextBlueRecBold" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">27sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextBlackReception" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@android:color/black</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">27sp</item>
     </style>
 
     <style name="TextGreyRec" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">30sp</item>
         <item name="android:textColor">#757575</item>
         <item name="android:paddingLeft">35dp</item>
     </style>
@@ -102,49 +102,49 @@
     <style name="TextDarkBlueBold" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">27sp</item>
     </style>
 
     <style name="ButtonBlueReception">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">27sp</item>
         <item name="android:textColorHint">@android:color/white</item>
-        <item name="android:layout_height">50dp</item>
-        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_height">75dp</item>
+        <item name="android:layout_marginBottom">15dp</item>
         <item name="android:background">@drawable/button_main</item>
     </style>
 
     <style name="TextSearchList" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@android:color/black</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">30sp</item>
         <item name="android:background">@drawable/rectangle_white</item>
     </style>
 
     <style name="TextBlackEtiketka" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@android:color/black</item>
-        <item name="android:textSize">10sp</item>
+        <item name="android:textSize">15sp</item>
     </style>
 
     <style name="TextBlackEtikBig" parent="TextAppearance.AppCompat">
-    <item name="android:textColor">@android:color/black</item>
-    <item name="android:textSize">12sp</item>
-</style>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">18sp</item>
+    </style>
 
     <style name="TextBlackEtik13" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@android:color/black</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="TextBlackEtikSmall" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@android:color/black</item>
-        <item name="android:textSize">9sp</item>
-    </style>
-
-    <style name="TextBlackList">
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="TextBlackList">
+        <item name="android:textSize">21sp</item>
+    </style>
+
     <style name="TextBlack16">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">24sp</item>
         <item name="android:textColor">@android:color/black</item>
     </style>
 

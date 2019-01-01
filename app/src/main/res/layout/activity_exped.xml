@@ -27,8 +27,7 @@
                 android:layout_marginStart="11dp"
                 android:layout_marginTop="80dp"
                 android:text="@string/constant"
-                android:textColor="@android:color/black"
-                android:textSize="10sp" />
+                style="@style/TextBlackEtiketka"/>
 
             <TextView
                 android:id="@+id/expedRaspis"
@@ -40,8 +39,7 @@
                 android:layout_marginTop="138dp"
                 android:padding="3dp"
                 android:text="@string/qwer"
-                android:textColor="@android:color/black"
-                android:textSize="12sp"
+                style="@style/TextBlackEtikBig"
                 android:textStyle="bold" />
 
             <TextView
@@ -53,8 +51,7 @@
                 android:layout_marginEnd="75dp"
                 android:padding="3dp"
                 android:text="@string/expedNumber"
-                android:textColor="@android:color/black"
-                android:textSize="12sp" />
+                style="@style/TextBlackEtikBig" />
 
             <View
                 android:layout_width="match_parent"
@@ -78,8 +75,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/date"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        style="@style/TextBlackEtiketka"
                         android:textStyle="bold" />
 
                     <TextView
@@ -88,8 +84,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/dateFill"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        style="@style/TextBlackEtiketka"/>
 
                     <TextView
                         android:id="@+id/marshrut"
@@ -97,8 +92,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/marshrut"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        style="@style/TextBlackEtiketka"
                         android:textStyle="bold" />
 
                     <TextView
@@ -107,8 +101,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/marshFill1"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        style="@style/TextBlackEtiketka"/>
 
                     <TextView
                         android:id="@+id/tere"
@@ -116,8 +109,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/tere"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        style="@style/TextBlackEtiketka"/>
 
                     <TextView
                         android:id="@+id/marshrutFill2"
@@ -125,8 +117,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/marshFill2"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        style="@style/TextBlackEtiketka"/>
                 </TableRow>
             </TableLayout>
 
@@ -146,8 +137,7 @@
                         android:gravity="center"
                         android:padding="3dp"
                         android:text="@string/gruzootpravitel"
-                        android:textColor="@android:color/black"
-                        android:textSize="12sp"
+                        style="@style/TextBlackEtikBig"
                         android:textStyle="bold" />
                 </TableRow>
             </TableLayout>
@@ -167,8 +157,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/naimenovanie"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        style="@style/TextBlackEtiketka"
                         android:textStyle="bold" />
 
                     <TextView
@@ -177,8 +166,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/naimenovanieаFill"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        style="@style/TextBlackEtiketka"/>
                 </TableRow>
             </TableLayout>
 
@@ -197,8 +185,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/adres"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        style="@style/TextBlackEtiketka"
                         android:textStyle="bold" />
 
                     <TextView
@@ -207,8 +194,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/adresFill"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        style="@style/TextBlackEtiketka"/>
                 </TableRow>
             </TableLayout>
 
@@ -227,8 +213,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/contact"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        style="@style/TextBlackEtiketka"
                         android:textStyle="bold" />
 
                     <TextView
@@ -237,8 +222,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/contactFill"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        style="@style/TextBlackEtiketka"/>
                 </TableRow>
             </TableLayout>
 
@@ -258,8 +242,7 @@
                         android:gravity="center"
                         android:padding="3dp"
                         android:text="@string/gruzopoluchatel"
-                        android:textColor="@android:color/black"
-                        android:textSize="12sp"
+                        style="@style/TextBlackEtikBig"
                         android:textStyle="bold" />
                 </TableRow>
             </TableLayout>
@@ -279,8 +262,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/naimenPoluch"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        style="@style/TextBlackEtiketka"
                         android:textStyle="bold" />
 
                     <TextView
@@ -289,8 +271,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/naimenPoluchFill"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        style="@style/TextBlackEtiketka"/>
                 </TableRow>
             </TableLayout>
 
@@ -308,8 +289,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/adressPolusch"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        style="@style/TextBlackEtiketka"
                         android:textStyle="bold" />
 
                     <TextView
@@ -318,8 +298,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/adressPoluchFill"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        style="@style/TextBlackEtiketka"/>
                 </TableRow>
             </TableLayout>
 
@@ -337,8 +316,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/contactPoluch"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        style="@style/TextBlackEtiketka"
                         android:textStyle="bold" />
 
                     <TextView
@@ -347,8 +325,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/contactPoluchFill"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        style="@style/TextBlackEtiketka"/>
                 </TableRow>
             </TableLayout>
             <TableLayout
@@ -365,8 +342,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/platelshik"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        style="@style/TextBlackEtiketka"
                         android:textStyle="bold" />
 
                     <TextView
@@ -375,8 +351,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/platelshikFill"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        style="@style/TextBlackEtiketka"/>
                 </TableRow>
             </TableLayout>
             <TableLayout
@@ -394,8 +369,7 @@
                         android:gravity="center"
                         android:text="@string/datagruz"
                         android:padding="3dp"
-                        android:textColor="@android:color/black"
-                        android:textSize="12sp"
+                        style="@style/TextBlackEtikBig"
                         android:textStyle="bold" />
                 </TableRow>
             </TableLayout>
@@ -413,8 +387,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/naimenGruz"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        style="@style/TextBlackEtiketka"
                         android:textStyle="bold" />
 
                     <TextView
@@ -423,8 +396,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/naimenGruzFill"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        style="@style/TextBlackEtiketka"/>
                 </TableRow>
             </TableLayout>
             <TableLayout
@@ -441,8 +413,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/characterGruz"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        style="@style/TextBlackEtiketka"
                         android:textStyle="bold" />
 
                     <TextView
@@ -451,8 +422,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/characterGruzFill"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        style="@style/TextBlackEtiketka"/>
                 </TableRow>
             </TableLayout>
             <TableLayout
@@ -469,8 +439,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/kolvoMest"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        style="@style/TextBlackEtiketka"
                         android:textStyle="bold" />
 
                     <TextView
@@ -479,8 +448,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/kolvoMestFill"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        style="@style/TextBlackEtiketka"/>
 
                     <TextView
                         android:id="@+id/upakovka"
@@ -488,8 +456,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/upakovka"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        style="@style/TextBlackEtiketka"/>
                 </TableRow>
             </TableLayout>
             <TableLayout
@@ -506,8 +473,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/vesObiem"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        style="@style/TextBlackEtiketka"
                         android:textStyle="bold" />
 
                     <TextView
@@ -516,8 +482,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/ves"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        style="@style/TextBlackEtiketka"/>
 
                     <TextView
                         android:id="@+id/vesFill"
@@ -525,8 +490,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/vesFill"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        style="@style/TextBlackEtiketka" />
 
                     <TextView
                         android:id="@+id/obiem"
@@ -534,8 +498,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/obiem"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        style="@style/TextBlackEtiketka" />
 
                     <TextView
                         android:id="@+id/obiemFill"
@@ -543,8 +506,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/obiemFill"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        style="@style/TextBlackEtiketka" />
                 </TableRow>
             </TableLayout>
             <TableLayout
@@ -561,8 +523,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/dopUslugi"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        style="@style/TextBlackEtiketka"
                         android:textStyle="bold" />
 
                     <TextView
@@ -571,8 +532,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="something"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        style="@style/TextBlackEtiketka" />
                 </TableRow>
             </TableLayout>
             <TableLayout
@@ -589,8 +549,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/osobOtmExp"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        style="@style/TextBlackEtiketka"
                         android:textStyle="bold" />
 
                     <TextView
@@ -599,8 +558,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="something"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        style="@style/TextBlackEtiketka" />
                 </TableRow>
             </TableLayout>
             <TableLayout
@@ -617,8 +575,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/soprDoc"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        style="@style/TextBlackEtiketka"
                         android:textStyle="bold" />
 
                     <TextView
@@ -627,8 +584,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="something"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp" />
+                        style="@style/TextBlackEtiketka" />
                 </TableRow>
             </TableLayout>
             <TableLayout
@@ -646,8 +602,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/longText"
-                        android:textColor="@android:color/black"
-                        android:textSize="9sp" />
+                        style="@style/TextBlackEtikSmall" />
                 </TableRow>
             </TableLayout>
             <TableLayout
@@ -665,8 +620,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/longText1"
-                        android:textColor="@android:color/black"
-                        android:textSize="9sp" />
+                        style="@style/TextBlackEtikSmall" />
                 </TableRow>
             </TableLayout>
             <TableLayout
@@ -684,8 +638,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/longText2"
-                        android:textColor="@android:color/black"
-                        android:textSize="9sp" />
+                        style="@style/TextBlackEtikSmall" />
                 </TableRow>
             </TableLayout>
             <TableLayout
@@ -703,8 +656,7 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/longText3"
-                        android:textColor="@android:color/black"
-                        android:textSize="9sp" />
+                        style="@style/TextBlackEtikSmall" />
                 </TableRow>
             </TableLayout>
 

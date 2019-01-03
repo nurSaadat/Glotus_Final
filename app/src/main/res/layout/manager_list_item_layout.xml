@@ -36,7 +36,8 @@
                     android:gravity="center"
                     android:text="//data"
                     android:textAlignment="center"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    style="@style/TextBlackList"/>
 
             </LinearLayout>
 
@@ -53,7 +54,8 @@
                     android:text="//code"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    style="@style/TextBlackList"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -89,7 +91,8 @@
                             android:text="//otkuda"
                             android:textAlignment="center"
                             android:textColor="@android:color/black"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            style="@style/TextBlackList"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -103,7 +106,8 @@
                             android:layout_height="match_parent"
                             android:text="//otpravitel"
                             android:textAlignment="center"
-                            android:textColor="@android:color/black" />
+                            android:textColor="@android:color/black"
+                            style="@style/TextBlackList"/>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -119,7 +123,7 @@
                         android:id="@+id/iv_strela"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:src="@drawable/ic_gruzovik_blue_24dp" />
+                        app:srcCompat="@drawable/ic_gruzovik_blue_24dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -136,7 +140,8 @@
                         android:text="//kuda"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        style="@style/TextBlackList"/>
 
                     <TextView
                         android:id="@+id/tv_poluchatel"
@@ -144,7 +149,8 @@
                         android:layout_height="34dp"
                         android:text="//poluchatel"
                         android:textAlignment="center"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@android:color/black"
+                        style="@style/TextBlackList"/>
 
                 </LinearLayout>
 
@@ -164,10 +170,8 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorAccent"
                 android:text="Д"
-                android:textAlignment="center"
                 android:textColor="@android:color/white"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                style="@style/TextTopBarRed"/>
 
             <TextView
                 android:id="@+id/tv_z"
@@ -175,10 +179,8 @@
                 android:layout_height="wrap_content"
                 android:background="@color/otpravitelRed"
                 android:text="З"
-                android:textAlignment="center"
                 android:textColor="@android:color/white"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                style="@style/TextTopBarRed"/>
 
         </LinearLayout>
 
@@ -208,7 +210,7 @@
                 android:text="//status"
                 android:textAlignment="center"
                 android:textColor="@color/otpravitelRed"
-                android:textSize="16sp" />
+                style="@style/TextBlack16" />
 
             <TextView
                 android:id="@+id/tv_document"
@@ -216,8 +218,7 @@
                 android:layout_height="wrap_content"
                 android:text="//document"
                 android:textAlignment="center"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
+                style="@style/TextBlackReception"/>
 
         </LinearLayout>
 
@@ -234,8 +235,7 @@
                 android:gravity="center"
                 android:text="//partner"
                 android:textAlignment="center"
-                android:textColor="@android:color/black"
-                android:textSize="20sp" />
+                style="@style/TextBlackReception"/>
 
             <TextView
                 android:id="@+id/tv_tovar"
@@ -243,8 +243,7 @@
                 android:layout_height="wrap_content"
                 android:text="//tovar"
                 android:textAlignment="center"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                style="@style/TextBlack16"/>
 
         </LinearLayout>
 

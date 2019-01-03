@@ -32,7 +32,8 @@
                 android:layout_marginTop="56dp"
                 android:text="@string/fromCity"
                 android:textAlignment="center"
-                style="@style/TextBlackReception"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -45,7 +46,8 @@
                 android:layout_marginRight="30dp"
                 android:text="@string/toCity"
                 android:textAlignment="center"
-                style="@style/TextBlackReception"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -55,7 +57,8 @@
                 android:layout_alignEnd="@+id/poluchatel"
                 android:layout_below="@+id/otkudaField"
                 android:text="@string/otkuda"
-                style="@style/TextBlackEtikBig"/>
+                android:textColor="@android:color/black"
+                android:textSize="11sp" />
 
             <TextView
                 android:id="@+id/kuda"
@@ -66,7 +69,8 @@
                 android:layout_marginEnd="60dp"
                 android:layout_marginRight="60dp"
                 android:text="@string/kuda"
-                style="@style/TextBlackEtikBig"/>
+                android:textColor="@android:color/black"
+                android:textSize="11sp" />
 
             <TextView
                 android:id="@+id/otpravitel"
@@ -128,7 +132,8 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="220dp"
                 android:text="@string/kolvoMestEt"
-                style="@style/TextBlackEtik13"
+                android:textColor="@android:color/black"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -139,7 +144,8 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="245dp"
                 android:text="@string/vesEt"
-                style="@style/TextBlackEtik13"
+                android:textColor="@android:color/black"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -150,7 +156,8 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="270dp"
                 android:text="@string/obiemEt"
-                style="@style/TextBlackEtik13"
+                android:textColor="@android:color/black"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -161,7 +168,8 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="295dp"
                 android:text="@string/typeTrans"
-                style="@style/TextBlackEtik13"
+                android:textColor="@android:color/black"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -172,7 +180,8 @@
                 android:layout_alignStart="@+id/kudaField"
                 android:layout_alignTop="@+id/kolvoMest"
                 android:text="@string/kolvoField"
-                style="@style/TextBlackEtik13"/>
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/vesField"
@@ -182,7 +191,8 @@
                 android:layout_alignStart="@+id/kudaField"
                 android:layout_alignTop="@+id/ves"
                 android:text="@string/vesField"
-                style="@style/TextBlackEtik13"/>
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/obiemField"
@@ -192,7 +202,8 @@
                 android:layout_alignStart="@+id/kudaField"
                 android:layout_alignTop="@+id/obiem"
                 android:text="@string/obiemField"
-                style="@style/TextBlackEtik13"/>
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/transportTypeField"
@@ -202,7 +213,8 @@
                 android:layout_alignStart="@+id/kudaField"
                 android:layout_alignTop="@+id/transportType"
                 android:text="@string/transField"
-                style="@style/TextBlackEtik13"/>
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/raspechatal"
@@ -253,7 +265,8 @@
                 android:text="@string/fromCity"
                 android:textAlignment="center"
                 android:layout_marginTop="360dp"
-                style="@style/TextBlackReception"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -264,7 +277,8 @@
                 android:layout_marginTop="360dp"
                 android:text="@string/toCity"
                 android:textAlignment="center"
-                style="@style/TextBlackReception"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -295,7 +309,8 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="420dp"
                 android:text="@string/mesto"
-                style="@style/TextBlack16"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -306,7 +321,8 @@
                 android:layout_alignStart="@+id/kudaField"
                 android:layout_alignTop="@+id/mestoBottom"
                 android:text="@string/mestoField"
-                style="@style/TextBlack16"/>
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/otpravitelBottom"

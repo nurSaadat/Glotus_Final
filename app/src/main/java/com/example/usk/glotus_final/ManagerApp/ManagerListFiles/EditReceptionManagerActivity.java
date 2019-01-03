@@ -49,7 +49,7 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
     private EditText et_p_kolich, et_p_ves, et_p_obiem, et_f_kolich, et_f_ves, et_f_obiem,et_kommentar;
     private ReceptionData returnData;
     private ReceptionData recpData;
-    private List<String> rlistkuda = new ArrayList<String>();
+        private List<String> rlistkuda = new ArrayList<String>();
     private List<String> rkontr = new ArrayList<String>();
     private Spinner mactv_kuda,mactv_otkuda,mactv_status,mactv_vid,mactv_z_zakazchik;
     private String KeyZakaz="00000000-0000-0000-0000-000000000000",KeyOtkuda="00000000-0000-0000-0000-000000000000",KeyKuda="00000000-0000-0000-0000-000000000000";

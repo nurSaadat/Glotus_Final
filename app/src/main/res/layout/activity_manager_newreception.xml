@@ -100,7 +100,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp" />
 
-                <EditText
+                <Spinner
                     android:id="@+id/et_z_zakazchik"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

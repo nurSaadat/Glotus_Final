@@ -38,6 +38,7 @@ public class Update {
         System.out.println(data);
         JSONArray array = null;
         JSONObject jsonObj = null;
+        Adress.adresspreferences.edit().putString("00000000-0000-0000-0000-000000000000", "").commit();
         try {
             jsonObj = new JSONObject(data);
         } catch (JSONException e) {
@@ -67,7 +68,7 @@ public class Update {
         JSONArray array = null;
         JSONObject jsonObj = null;
 
-
+        Kontragent.kontrpreferences.edit().putString("00000000-0000-0000-0000-000000000000","").commit();
         array = null;
         jsonObj = null;
         try {
@@ -111,6 +112,7 @@ public class Update {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        KontragentNum.kontrnumpreferences.edit().putString("00000000-0000-0000-0000-000000000000","").commit();
         for (int i = 0; i < array.length(); i++) {
             try {
                 KontragentNum.kontrnumpreferences.edit().putString(array.getJSONObject(i).getString("Ref_Key"), array.getJSONObject(i).getString("Description")).commit();
@@ -142,6 +144,8 @@ public class Update {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        Mdnames.mdpreferences.edit().putString("00000000-0000-0000-0000-000000000000","").commit();
+
         for (int i = 0; i < array.length(); i++) {
             try {
                 Mdnames.mdpreferences.edit().putString(array.getJSONObject(i).getString("Ref_Key"), array.getJSONObject(i).getString("Description")).commit();
@@ -174,6 +178,7 @@ public class Update {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        Podrazd.pdpreferences.edit().putString("00000000-0000-0000-0000-000000000000","").commit();
         for (int i = 0; i < array.length(); i++) {
             try {
                 Podrazd.pdpreferences.edit().putString(array.getJSONObject(i).getString("Ref_Key"), array.getJSONObject(i).getString("Description"));
@@ -205,6 +210,7 @@ public class Update {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        Pochta.pochtakontr.edit().putString("00000000-0000-0000-0000-000000000000","").commit();
         for (int i = 0; i < array.length(); i++) {
             try {
                 Pochta.pochtakontr.edit().putString(array.getJSONObject(i).getString("Ref_Key"), array.getJSONObject(i).getString("Почта")).commit();
@@ -236,6 +242,7 @@ public class Update {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        Transport.trpreferences.edit().putString("00000000-0000-0000-0000-000000000000","").commit();
         for (int i = 0; i < array.length(); i++) {
             try {
                 Transport.trpreferences.edit().putString(array.getJSONObject(i).getString("Ref_Key"), array.getJSONObject(i).getString("Description")).commit();

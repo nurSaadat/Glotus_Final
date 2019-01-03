@@ -2,7 +2,6 @@ package com.example.usk.glotus_final.System.loginFiles;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,7 +24,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.usk.glotus_final.ManagerApp.ManagerListFiles.ManagerListActivity;
-import com.example.usk.glotus_final.ManagerApp.ManagerListFiles.RefKeys;
+import com.example.usk.glotus_final.R;
+import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
 import com.example.usk.glotus_final.System.Catalog.Adress;
 import com.example.usk.glotus_final.System.Catalog.Kontragent;
 import com.example.usk.glotus_final.System.Catalog.KontragentNum;
@@ -36,8 +36,6 @@ import com.example.usk.glotus_final.System.Catalog.Transport;
 import com.example.usk.glotus_final.System.Catalog.Update;
 import com.example.usk.glotus_final.System.Catalog.isOn;
 import com.example.usk.glotus_final.System.Encryption.AES;
-import com.example.usk.glotus_final.R;
-import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
 import com.example.usk.glotus_final.System.connection.Server;
 
 import java.io.IOException;
@@ -48,7 +46,6 @@ import java.net.URLConnection;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Map;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -432,6 +429,9 @@ public class SignInActivity extends AppCompatActivity {
             return "Basic " + encoded;
         } catch (UnsupportedEncodingException e) {
             throw new AssertionError();
+
+
+
         }
-    }
+    }   
 }

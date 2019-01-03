@@ -14,16 +14,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.usk.glotus_final.R;
-import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
-
-import com.example.usk.glotus_final.System.Catalog.Adress;
 import com.example.usk.glotus_final.System.Catalog.Kontragent;
-import com.example.usk.glotus_final.System.Catalog.KontragentNum;
-import com.example.usk.glotus_final.System.Catalog.Mdnames;
 import com.example.usk.glotus_final.System.Catalog.Pochta;
 import com.example.usk.glotus_final.System.Encryption.AES;
 import com.example.usk.glotus_final.System.connection.Server;
-import com.example.usk.glotus_final.System.loginFiles.SignInActivity;
 import com.example.usk.glotus_final.System.loginFiles.User;
 
 import org.json.JSONArray;

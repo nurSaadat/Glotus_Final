@@ -12,12 +12,11 @@ import android.view.WindowManager;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.System.Catalog.Adress;
 import com.example.usk.glotus_final.System.Catalog.Mdnames;
-import com.example.usk.glotus_final.R;
-import com.example.usk.glotus_final.System.connection.ConnectionServer;
-import com.example.usk.glotus_final.System.connection.Server;
 import com.example.usk.glotus_final.System.Encryption.AES;
+import com.example.usk.glotus_final.System.connection.Server;
 import com.example.usk.glotus_final.System.loginFiles.User;
 
 import org.json.JSONArray;
@@ -29,7 +28,6 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;

@@ -2,8 +2,6 @@ package com.example.usk.glotus_final.ManagerApp.ManagerListFiles;
 
 // Объект - заявка. Спокойно можешь менять поля и их названия. Только вот смотри код
 
-import android.widget.Spinner;
-
 public class ManagerZayavka {
     private String number;
     private String date;

@@ -56,8 +56,7 @@
             android:configChanges="orientation|screenSize"/>
         <activity android:name=".ManagerApp.ManagerListFiles.EditReceptionManagerActivity"
             android:configChanges="orientation|screenSize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+
 
 
         </activity>

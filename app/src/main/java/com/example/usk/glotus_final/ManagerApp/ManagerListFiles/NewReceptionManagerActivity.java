@@ -124,10 +124,6 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
         btn_sohranit = findViewById(R.id.btn_sohranit);
         btn_otmenit = findViewById(R.id.btn_otmenit);
 
-        rkuda = findViewById(R.id.spinner_kuda);
-        rotkuda = findViewById(R.id.spinner_otkuda);
-        spin_valuta = findViewById(R.id.spin_valuta);
-        spin_vidoplaty=findViewById(R.id.spin_vidopltaty);
 
         tv_code=findViewById(R.id.tv_code);
         tv_date=findViewById(R.id.tv_date);
@@ -139,7 +135,7 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
         tv_stavkands=findViewById(R.id.tv_stavkands);
         et_z_zakazchik=findViewById(R.id.et_z_zakazchik);
         et_z_pochta=findViewById(R.id.et_z_pochta);
-        et_z_dogovor=findViewById(R.id.et_z_dogovor);
+
         et_z_otprav=findViewById(R.id.et_z_otprav);
         et_z_otkuda=findViewById(R.id.et_z_otkuda);
         et_z_adres=findViewById(R.id.et_z_adres);

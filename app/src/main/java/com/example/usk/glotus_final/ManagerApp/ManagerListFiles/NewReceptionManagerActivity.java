@@ -131,6 +131,10 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
 
         tv_code=findViewById(R.id.tv_code);
         tv_date=findViewById(R.id.tv_date);
+        tv_poryadok=findViewById(R.id.tv_poryadok);
+        tv_costtranp=findViewById(R.id.tv_costtranp);
+        tv_sebestoimost=findViewById(R.id.tv_sebestoimost);
+        tv_obshcost=findViewById(R.id.tv_obshcost);
         tv_s_kurs=findViewById(R.id.tv_s_kurs);
         tv_stavkands=findViewById(R.id.tv_stavkands);
         et_z_zakazchik=findViewById(R.id.et_z_zakazchik);

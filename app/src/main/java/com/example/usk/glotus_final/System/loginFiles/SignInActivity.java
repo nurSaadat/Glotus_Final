@@ -28,6 +28,7 @@ import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.Zayavka;
 import com.example.usk.glotus_final.System.Catalog.Adress;
+import com.example.usk.glotus_final.System.Catalog.AutoUpdate;
 import com.example.usk.glotus_final.System.Catalog.Kontragent;
 import com.example.usk.glotus_final.System.Catalog.KontragentNum;
 import com.example.usk.glotus_final.System.Catalog.Mdnames;
@@ -355,6 +356,10 @@ public class SignInActivity extends AppCompatActivity {
                          System.out.println("aaa");
                         new Update().getCatalogs();
                         isOn.preferences.edit().putString("refresh", "true").commit();
+
+                   }
+                   else {
+                       new AutoUpdate().update();
                    }
 
             String role=getrole();

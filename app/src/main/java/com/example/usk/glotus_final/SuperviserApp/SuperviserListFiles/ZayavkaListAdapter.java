@@ -101,7 +101,7 @@ public class ZayavkaListAdapter extends ArrayAdapter<Zayavka> {
         holder.senderadr.setText(zayavka.getSenderadr());
         holder.receptadr.setText(zayavka.getReceptadr());
 
-        if(status.equals("ПринятноНаСкладе"))
+       /* if(status.equals("ПринятноНаСкладе"))
             holder.iv_status.setImageResource(R.drawable.green);
         else
         if(status.equals("Отгружено"))
@@ -116,7 +116,7 @@ public class ZayavkaListAdapter extends ArrayAdapter<Zayavka> {
         if(status.equals("Доставлено"))
             holder.iv_status.setImageResource(R.drawable.yellow);
         else
-            holder.iv_status.setImageResource(R.drawable.grey);
+            holder.iv_status.setImageResource(R.drawable.grey);*/
 
 
 

@@ -143,8 +143,7 @@ public class Reception extends AppCompatActivity {
         manager=(TextView)findViewById(R.id.tv_menedzher);
         manager.setText(ZayavkaListAdapter.item.getMenedjer());
 
-        tv_zakazchik_nomer=findViewById(R.id.tv_zakazchik_nomer);
-        tv_zakazchik_nomer.setText((String) KontragentNum.kontrnumpreferences.getAll().get(ZayavkaListAdapter.item.getZakaz()));
+
 
         podrazdelenie=findViewById(R.id.tv_podrazdel);
         podrazdelenie.setText((String)Podrazd.pdpreferences.getAll().get(ZayavkaListAdapter.item.getPodrazd()));

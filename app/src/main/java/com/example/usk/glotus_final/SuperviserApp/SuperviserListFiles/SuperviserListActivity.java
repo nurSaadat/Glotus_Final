@@ -1,5 +1,6 @@
 package com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -15,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.usk.glotus_final.R;
+import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.ExpedPage;
 import com.example.usk.glotus_final.System.Catalog.Adress;
 import com.example.usk.glotus_final.System.Catalog.Mdnames;
 import com.example.usk.glotus_final.System.Encryption.AES;
@@ -384,6 +386,10 @@ public class SuperviserListActivity extends AppCompatActivity {
 
 
 
+
+    }
+    public void onBackPressed() {
+        moveTaskToBack(true);
 
     }
 

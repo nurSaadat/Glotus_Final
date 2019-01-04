@@ -49,6 +49,8 @@ public class SuperviserListActivity extends AppCompatActivity {
     ListView mListView;
     int skip=0;
     int top=20;
+    boolean but=false;
+    Button btnLoadExtra;
 
 
 
@@ -65,6 +67,7 @@ public class SuperviserListActivity extends AppCompatActivity {
         swipeView = (SwipeRefreshLayout) findViewById(R.id.swipe_view);
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        btnLoadExtra = new Button(this);
         swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -133,17 +136,27 @@ public class SuperviserListActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                System.out.println("/"+s.toString()+"/");
+                if (s.toString().equals(""))
+                    btnLoadExtra.setVisibility(View.VISIBLE);
+                else
+                    btnLoadExtra.setVisibility(View.INVISIBLE);
                 searchItem(s.toString());
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                if (s.toString().equals(""))
+                    btnLoadExtra.setVisibility(View.VISIBLE);
+                else
+                    btnLoadExtra.setVisibility(View.INVISIBLE);
 
             }
         });
 
         }
     public void searchItem(String textToSearch){
+ 
         ArrayList<Zayavka> newww = new ArrayList<>();
         System.out.println(textToSearch);
         for(int i=0;i<mZayavkas.size();i++){
@@ -250,8 +263,9 @@ public class SuperviserListActivity extends AppCompatActivity {
     String s="";
 
     public void initlist(final ArrayList<Zayavka> ppp){
-        final Button btnLoadExtra = new Button(this);
+
         btnLoadExtra.setText("Load More...");
+
 
 // Adding Load More button to lisview at bottom
 
@@ -261,7 +275,9 @@ public class SuperviserListActivity extends AppCompatActivity {
             @Override
             public void run() {
                 mListView.setAdapter(adapter);
+                if (but==false){
                 mListView.addFooterView(btnLoadExtra);
+                but=true;}
 
                 btnLoadExtra.setOnClickListener(new View.OnClickListener() {
                     @RequiresApi(api = Build.VERSION_CODES.O)

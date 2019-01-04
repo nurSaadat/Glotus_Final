@@ -8,7 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -245,11 +247,24 @@ public class SuperviserListActivity extends AppCompatActivity {
     String s="";
 
     public void initlist(ArrayList<Zayavka> ppp){
+        final Button btnLoadExtra = new Button(this);
+        btnLoadExtra.setText("Load More...");
+
+// Adding Load More button to lisview at bottom
+
         final ZayavkaListAdapter adapter = new ZayavkaListAdapter(this, R.layout.superviser_list_item_layout, ppp);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 mListView.setAdapter(adapter);
+                mListView.addFooterView(btnLoadExtra);
+
+                btnLoadExtra.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View arg0) {
+
+                    }
+                });
                 swipeView.setRefreshing(false);
             }
         });

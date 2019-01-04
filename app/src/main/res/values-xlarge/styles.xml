@@ -118,7 +118,6 @@
     <style name="TextSearchList" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@android:color/black</item>
         <item name="android:textSize">40sp</item>
-        <item name="android:background">@drawable/rectangle_white</item>
     </style>
 
     <style name="TextBlackEtiketka" parent="TextAppearance.AppCompat">

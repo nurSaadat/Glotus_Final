@@ -531,7 +531,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="20"
-                        app:srcCompat="@drawable/ic_gruzovik_blue_24dp" />
+                        app:srcCompat="@drawable/gruzovik_blue" />
 
                     <Spinner
                         android:id="@+id/mactv_kuda"
@@ -667,13 +667,6 @@
 
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/btn_dokumenty"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:hint="Документы"
-                    style="@style/TextButtonHint"/>
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -684,7 +677,7 @@
                 <EditText
                     android:id="@+id/et_kommentar"
                     android:layout_width="match_parent"
-                    android:layout_height="44dp"
+                    android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textMultiLine"
                     android:background="@drawable/rectangle_field"
@@ -717,18 +710,6 @@
                             android:hint="Экспедиторская расписка"
                             style="@style/ButtonBlueReception"/>
 
-                        <Button
-                            android:id="@+id/btn_posmotret"
-                            android:layout_width="match_parent"
-                            android:hint="Посмотреть"
-                            style="@style/ButtonBlueReception"/>
-
-                        <Button
-                            android:id="@+id/btn_akt"
-                            android:layout_width="match_parent"
-                            android:hint="Сформировать Акт"
-                            style="@style/ButtonBlueReception"/>
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -737,24 +718,6 @@
                         android:orientation="vertical"
                         android:layout_weight="50"
                         android:padding="20dp">
-
-                        <Button
-                            android:id="@+id/btn_schet"
-                            android:layout_width="match_parent"
-                            android:hint="Счет на оплату"
-                            style="@style/ButtonBlueReception"/>
-
-                        <Button
-                            android:id="@+id/btn_zagruzit"
-                            android:layout_width="match_parent"
-                            android:hint="Загрузить"
-                            style="@style/ButtonBlueReception"/>
-
-                        <Button
-                            android:id="@+id/btn_etiketka_klient"
-                            android:layout_width="match_parent"
-                            android:hint="Этикетка для клиента"
-                            style="@style/ButtonBlueReception" />
 
                         <Button
                             android:id="@+id/btn_foto_gruza"
@@ -768,7 +731,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
 

@@ -4,8 +4,6 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.util.Base64;
 
-import org.apache.commons.codec.Decoder;
-
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;

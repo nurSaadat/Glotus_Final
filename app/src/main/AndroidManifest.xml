@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.usk.glotus_final">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
@@ -12,6 +11,12 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <supports-screens
+        android:normalScreens="true"
+        android:largeScreens="true"
+        android:xlargeScreens="true"
+        />
+
 
     <application
         android:allowBackup="true"
@@ -19,48 +24,43 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/auncher_icon_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/AppTheme">
 
-
-        >
-
-        <activity android:name=".System.loginFiles.SignInActivity">
+        <activity android:name=".System.loginFiles.SignInActivity"
+            android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ManagerApp.ManagerListFiles.ManagerListActivity">
-
-        </activity>
-        <activity android:name=".SuperviserApp.ReceptionFiles.ExpedPage">
-
-        </activity>
-
-        <activity android:name=".SuperviserApp.SuperviserListFiles.SuperviserListActivity"></activity>
-        <activity android:name=".SuperviserApp.ReceptionFiles.Reception"></activity>
-        <activity android:name=".SuperviserApp.ReceptionFiles.Camera">
-        </activity>
-        <activity android:name=".SuperviserApp.ReceptionFiles.Etiketka">
-        </activity>
-        <activity android:name=".ManagerApp.ManagerListFiles.ReceptionManagerActivity">
-        </activity>
-        <activity android:name=".ManagerApp.ManagerListFiles.NewReceptionManagerActivity">
-        </activity>
-        <activity android:name=".SuperviserApp.ReceptionFiles.ImageViewer">
-        </activity>
-        <activity android:name=".SuperviserApp.WifiManagerService.WifiManagerClass">
-        </activity>
-
-        <activity android:name=".ManagerApp.ManagerListFiles.EditReceptionManagerActivity">
+        <activity android:name=".ManagerApp.ManagerListFiles.ManagerListActivity"
+            android:configChanges="orientation|screenSize"/>
+        <activity android:name=".SuperviserApp.ReceptionFiles.ExpedPage"
+            android:configChanges="orientation|screenSize"/>
+        <activity android:name=".SuperviserApp.SuperviserListFiles.SuperviserListActivity"
+            android:configChanges="orientation|screenSize"/>
+        <activity android:name=".SuperviserApp.ReceptionFiles.Reception"
+            android:configChanges="orientation|screenSize"/>
+        <activity android:name=".SuperviserApp.ReceptionFiles.Camera"
+            android:configChanges="orientation|screenSize"/>
+        <activity android:name=".SuperviserApp.ReceptionFiles.Etiketka"
+            android:configChanges="orientation|screenSize"/>
+        <activity android:name=".ManagerApp.ManagerListFiles.ReceptionManagerActivity"
+            android:configChanges="orientation|screenSize"/>
+        <activity android:name=".ManagerApp.ManagerListFiles.NewReceptionManagerActivity"
+            android:configChanges="orientation|screenSize"/>
+        <activity android:name=".SuperviserApp.ReceptionFiles.ImageViewer"
+            android:configChanges="orientation|screenSize"/>
+        <activity android:name=".SuperviserApp.WifiManagerService.WifiManagerClass"
+            android:configChanges="orientation|screenSize"/>
+        <activity android:name=".ManagerApp.ManagerListFiles.EditReceptionManagerActivity"
+            android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
+        </activity>
 
         <provider
             android:authorities="${applicationId}.provider"
@@ -80,9 +80,5 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"/>
         </provider>
-
-
     </application>
-
-
 </manifest>

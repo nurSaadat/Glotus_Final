@@ -1,6 +1,5 @@
 package com.example.usk.glotus_final.SuperviserApp.ReceptionFiles;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
@@ -9,7 +8,6 @@ import android.os.Environment;
 import android.os.StrictMode;
 import android.print.PrintAttributes;
 import android.print.pdf.PrintedPdfDocument;
-import android.provider.SyncStateContract;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,7 +21,6 @@ import android.widget.Toast;
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
 import com.example.usk.glotus_final.SuperviserApp.WifiManagerService.WifiManagerClass;
-
 
 import java.io.File;
 import java.io.FileOutputStream;

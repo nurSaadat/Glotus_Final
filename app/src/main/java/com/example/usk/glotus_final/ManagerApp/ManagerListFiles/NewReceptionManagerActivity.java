@@ -4,24 +4,37 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.usk.glotus_final.R;
+import com.example.usk.glotus_final.System.Catalog.Adress;
+import com.example.usk.glotus_final.System.Catalog.Kontragent;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class NewReceptionManagerActivity extends AppCompatActivity {
 
     private RelativeLayout rlZakazchik, rlPoluchatel, rlOtpravitel;
     private Button showZakazchik, showPoluchatel, showOtpravitel,btn_dokumenty, btn_sohranit, btn_otmenit;
     private TextView tv_code,tv_date;
-    private EditText et_z_zakazchik, et_z_pochta, et_z_dogovor, et_z_otprav,
+    private EditText  et_z_pochta, et_z_dogovor, et_z_otprav,
             et_z_otkuda, et_z_adres, et_z_kontakt, et_z_telefon, et_p_poluch, et_date_edit,
             et_p_kolich, et_p_ves, et_p_obiem, et_f_kolich, et_f_ves, et_f_obiem, et_info,
             et_vid, et_dostavka, et_stoimost, et_status,et_kommentar;
+    private List<String> rkontr = new ArrayList<String>();
+    private Spinner et_z_zakazchik, rkuda, rotkuda;
+    private List<String> rlistkuda = new ArrayList<String>();
+
 
     @Override
+
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_newreception);
@@ -39,28 +52,60 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
     public void setData(){
         tv_code.setText("code");
         tv_date.setText("date");
-        et_z_zakazchik.setText("zakazchik");
-        et_z_pochta.setText("//Nado dobavit'");
-        et_z_dogovor.setText("dogovor");
-        et_z_otprav.setText("otpravitel");
-        et_z_otkuda.setText("otkuda");
-        et_z_adres.setText("//kakoi adress?");
-        et_z_kontakt.setText("//kontaktnoe liso");
-        et_z_telefon.setText("//nomer otpravitelya");
-        et_p_poluch.setText("poluchatel");
-        et_date_edit.setText("date edit");
-        et_p_kolich.setText("plan kolich");
-        et_p_ves.setText("plan ves");
-        et_p_obiem.setText("plan obiem");
-        et_f_kolich.setText("fact kolich");
-        et_f_ves.setText("fact ves");
-        et_f_obiem.setText("fact obiem");
-        et_info.setText("info");
-        et_vid.setText("vid");
-        et_dostavka.setText("dostavka");
-        et_stoimost.setText("stoimost");
-        et_status.setText("status");
-        et_kommentar.setText("komment");
+        List<String> kontr = new ArrayList<String>();
+
+
+        int i=0;
+        int zk=0;
+        for (Map.Entry<String, ?> entry :Kontragent.kontrpreferences.getAll().entrySet()){
+            kontr.add((String) entry.getValue());
+            rkontr.add((String) entry.getKey());
+            if (RefKeys.ZakazKey.equals((String) entry.getKey()))
+                zk=i;
+            i++;
+        }
+        et_z_zakazchik.setAdapter( new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,kontr) );
+        et_z_zakazchik.setSelection(zk);
+        List<String> listkuda = new ArrayList<String>();
+
+        int kda=0,oda=0;
+        i=0;
+        for (Map.Entry<String, ?> entry : Adress.adresspreferences.getAll().entrySet()) {
+            System.out.println((String) entry.getValue());
+            listkuda.add((String) entry.getValue());
+            rlistkuda.add((String)entry.getKey());
+            if (((String)entry.getKey()).equals(RefKeys.KudaKey))
+                kda=i;
+            if (((String)entry.getKey()).equals(RefKeys.OkudaKey))
+                oda=i;
+            i++;
+        }
+
+        ArrayAdapter<String> kudaAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,listkuda);
+        rkuda.setAdapter(kudaAdapter);
+        rotkuda.setAdapter(kudaAdapter);
+
+        et_z_pochta.setText("");
+        et_z_dogovor.setText("");
+        et_z_otprav.setText("");
+        et_z_otkuda.setText("");
+        et_z_adres.setText("");
+        et_z_kontakt.setText("");
+        et_z_telefon.setText("");
+        et_p_poluch.setText("");
+        et_date_edit.setText("");
+        et_p_kolich.setText("");
+        et_p_ves.setText("");
+        et_p_obiem.setText("");
+        et_f_kolich.setText("");
+        et_f_ves.setText("");
+        et_f_obiem.setText("");
+        et_info.setText("");
+        et_vid.setText("");
+        et_dostavka.setText("");
+        et_stoimost.setText("");
+        et_status.setText("");
+        et_kommentar.setText("");
     }
 
     public void findView(){
@@ -73,6 +118,10 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
         btn_dokumenty = findViewById(R.id.btn_dokumenty);
         btn_sohranit = findViewById(R.id.btn_sohranit);
         btn_otmenit = findViewById(R.id.btn_otmenit);
+
+        rkuda = findViewById(R.id.spinner_kuda);
+        rotkuda = findViewById(R.id.spinner_otkuda);
+
 
         tv_code=findViewById(R.id.tv_code);
         tv_date=findViewById(R.id.tv_date);
@@ -135,6 +184,7 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
     private View.OnClickListener clickDocumenty = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+
 
         }
     };

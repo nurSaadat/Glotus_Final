@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_pokazatZayavku"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -16,7 +15,6 @@
         android:layout_height="70dp"
         android:orientation="horizontal"
         android:visibility="visible"
-
         android:weightSum="100">
 
         <LinearLayout
@@ -38,7 +36,8 @@
                     android:gravity="center"
                     android:text="//data"
                     android:textAlignment="center"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    style="@style/TextBlackList"/>
 
             </LinearLayout>
 
@@ -55,7 +54,8 @@
                     android:text="//code"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    style="@style/TextBlackList"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -91,7 +91,8 @@
                             android:text="//otkuda"
                             android:textAlignment="center"
                             android:textColor="@android:color/black"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            style="@style/TextBlackList"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -105,7 +106,8 @@
                             android:layout_height="match_parent"
                             android:text="//otpravitel"
                             android:textAlignment="center"
-                            android:textColor="@android:color/black" />
+                            android:textColor="@android:color/black"
+                            style="@style/TextBlackList"/>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -121,7 +123,7 @@
                         android:id="@+id/iv_strela"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:src="@drawable/ic_gruzovik_blue_24dp" />
+                        app:srcCompat="@drawable/gruzovik_blue" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -138,7 +140,8 @@
                         android:text="//kuda"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        style="@style/TextBlackList"/>
 
                     <TextView
                         android:id="@+id/tv_poluchatel"
@@ -146,7 +149,8 @@
                         android:layout_height="34dp"
                         android:text="//poluchatel"
                         android:textAlignment="center"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@android:color/black"
+                        style="@style/TextBlackList"/>
 
                 </LinearLayout>
 
@@ -166,10 +170,8 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorAccent"
                 android:text="Д"
-                android:textAlignment="center"
                 android:textColor="@android:color/white"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                style="@style/TextTopBarRed"/>
 
             <TextView
                 android:id="@+id/tv_z"
@@ -177,10 +179,8 @@
                 android:layout_height="wrap_content"
                 android:background="@color/otpravitelRed"
                 android:text="З"
-                android:textAlignment="center"
                 android:textColor="@android:color/white"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                style="@style/TextTopBarRed"/>
 
         </LinearLayout>
 
@@ -207,8 +207,7 @@
                 android:layout_weight="50"
                 android:text="//partner"
                 android:textAlignment="center"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                style="@style/TextBlack16"/>
 
             <TextView
                 android:id="@+id/tv_tovar"
@@ -217,8 +216,7 @@
                 android:layout_weight="50"
                 android:text="//tovar"
                 android:textAlignment="center"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                style="@style/TextBlack16"/>
 
         </LinearLayout>
 
@@ -233,7 +231,7 @@
                 android:text="//vygruzka"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
-                android:textSize="14sp" />
+                style="@style/TextBlackList" />
 
         </LinearLayout>
 
@@ -261,7 +259,7 @@
                         android:layout_height="25dp"
                         android:text="//ves plan"
                         android:textColor="@android:color/black"
-                        android:textSize="14sp"/>
+                        style="@style/TextBlackList"/>
 
                     <TextView
                         android:id="@+id/tv_ves_plan_num"
@@ -270,7 +268,7 @@
                         android:layout_toEndOf="@+id/tv_ves_plan"
                         android:text="//ves plan"
                         android:textColor="@android:color/black"
-                        android:textSize="14sp" />
+                        style="@style/TextBlackList" />
 
                 </RelativeLayout>
 
@@ -285,7 +283,7 @@
                         android:layout_height="25dp"
                         android:text="//volume plan"
                         android:textColor="@android:color/black"
-                        android:textSize="14sp"/>
+                        style="@style/TextBlackList"/>
 
                     <TextView
                         android:id="@+id/tv_volume_plan_num"
@@ -294,7 +292,7 @@
                         android:layout_toEndOf="@+id/tv_volume_plan"
                         android:text="//volume plan"
                         android:textColor="@android:color/black"
-                        android:textSize="14sp" />
+                        style="@style/TextBlackList" />
 
                 </RelativeLayout>
 
@@ -309,7 +307,7 @@
                         android:layout_height="25dp"
                         android:text="//kolvo plan"
                         android:textColor="@android:color/black"
-                        android:textSize="14sp"/>
+                        style="@style/TextBlackList"/>
 
                     <TextView
                         android:id="@+id/tv_kolvo_plan_num"
@@ -318,7 +316,7 @@
                         android:layout_toEndOf="@+id/tv_kolvo_plan"
                         android:text="//kolvo plan"
                         android:textColor="@android:color/black"
-                        android:textSize="14sp" />
+                        style="@style/TextBlackList" />
 
                 </RelativeLayout>
 
@@ -347,7 +345,7 @@
                         android:layout_height="25dp"
                         android:text="//ves fact"
                         android:textColor="@android:color/black"
-                        android:textSize="14sp"/>
+                        style="@style/TextBlackList"/>
 
                     <TextView
                         android:id="@+id/tv_ves_fact_num"
@@ -356,7 +354,7 @@
                         android:layout_toEndOf="@+id/tv_ves_fact"
                         android:text="//ves fact"
                         android:textColor="@android:color/black"
-                        android:textSize="14sp" />
+                        style="@style/TextBlackList" />
 
                 </RelativeLayout>
 
@@ -371,7 +369,7 @@
                         android:layout_height="25dp"
                         android:text="//volume fact"
                         android:textColor="@android:color/black"
-                        android:textSize="14sp"/>
+                        style="@style/TextBlackList"/>
 
                     <TextView
                         android:id="@+id/tv_volume_fact_num"
@@ -380,7 +378,7 @@
                         android:layout_toEndOf="@+id/tv_volume_fact"
                         android:text="//volume fact"
                         android:textColor="@android:color/black"
-                        android:textSize="14sp" />
+                        style="@style/TextBlackList" />
 
                 </RelativeLayout>
 
@@ -395,7 +393,7 @@
                         android:layout_height="25dp"
                         android:text="//kolvo fact"
                         android:textColor="@android:color/black"
-                        android:textSize="14sp"/>
+                        style="@style/TextBlackList"/>
 
                     <TextView
                         android:id="@+id/tv_kolvo_fact_num"
@@ -404,7 +402,7 @@
                         android:layout_toEndOf="@id/tv_kolvo_fact"
                         android:text="//kolvo fact"
                         android:textColor="@android:color/black"
-                        android:textSize="14sp" />
+                        style="@style/TextBlackList" />
 
                 </RelativeLayout>
 

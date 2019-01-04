@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_pokazatZayavku"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+
+    android:orientation="vertical"
+    android:weightSum="100">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        android:weightSum="100">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="60"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="//data"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    style="@style/TextBlackList"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="//code"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    style="@style/TextBlackList"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_weight="40"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="30"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_otkuda"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="//otkuda"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold"
+                            style="@style/TextBlackList"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="34dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_otpravitel"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="//otpravitel"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/black"
+                            style="@style/TextBlackList"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="40"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv_strela"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        app:srcCompat="@drawable/gruzovik_blue" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_weight="30"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_kuda"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:gravity="center"
+                        android:text="//kuda"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"
+                        style="@style/TextBlackList"/>
+
+                    <TextView
+                        android:id="@+id/tv_poluchatel"
+                        android:layout_width="match_parent"
+                        android:layout_height="34dp"
+                        android:text="//poluchatel"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        style="@style/TextBlackList"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="70"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_d"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:text="Д"
+                android:textColor="@android:color/white"
+                style="@style/TextTopBarRed"/>
+
+            <TextView
+                android:id="@+id/tv_z"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:background="@color/otpravitelRed"
+                android:text="З"
+                android:textColor="@android:color/white"
+                style="@style/TextTopBarRed"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_moreInf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        android:weightSum="100">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_status"
+                style="@style/TextBlack16"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:gravity="center"
+                android:text="//status"
+                android:textAlignment="center"
+                android:textColor="@color/otpravitelRed" />
+
+            <TextView
+                android:id="@+id/tv_document"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="//document"
+                android:textAlignment="center"
+                style="@style/TextBlackReception"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_partner"
+                style="@style/TextBlackReception"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="//partner"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/tv_tovar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="//tovar"
+                android:textAlignment="center"
+                style="@style/TextBlack16"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

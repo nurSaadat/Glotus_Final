@@ -14,16 +14,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.usk.glotus_final.R;
-import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
-
-import com.example.usk.glotus_final.System.Catalog.Adress;
 import com.example.usk.glotus_final.System.Catalog.Kontragent;
-import com.example.usk.glotus_final.System.Catalog.KontragentNum;
-import com.example.usk.glotus_final.System.Catalog.Mdnames;
 import com.example.usk.glotus_final.System.Catalog.Pochta;
 import com.example.usk.glotus_final.System.Encryption.AES;
 import com.example.usk.glotus_final.System.connection.Server;
-import com.example.usk.glotus_final.System.loginFiles.SignInActivity;
 import com.example.usk.glotus_final.System.loginFiles.User;
 
 import org.json.JSONArray;
@@ -135,7 +129,7 @@ public class ManagerListActivity extends AppCompatActivity {
         String string = AES.aesEncryptString(body, "1234567890123456");
         body="data="+string;
         System.out.println(body);
-        server = new Server("http://185.209.21.191/uu/demoaes.php",null, body);
+        server = new Server("http://185.209.23.53/odata/demoaes.php",null, body);
         return server.post();
     }
 
@@ -146,7 +140,7 @@ public class ManagerListActivity extends AppCompatActivity {
         mManagerZayavkas = new ArrayList<>();
 
 
-        process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json&$orderby=Date%20desc","GET", User.getCredential(),"{}");
+        process("http://185.209.23.53/InfoBase/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json&$orderby=Date%20desc","GET", User.getCredential(),"{}");
         String json = server.getRes();
 
 
@@ -218,8 +212,7 @@ public class ManagerListActivity extends AppCompatActivity {
                         array.getJSONObject(i).getString("ВидПеревозки"),
                         array.getJSONObject(i).getString("ЦенаПеревозки"),
                         array.getJSONObject(i).getString("СтатусЗаказа"),
-                        array.getJSONObject(i).getString("Комментарий"),
-                        array.getJSONObject(i).getString("НомерДоговора")
+                        array.getJSONObject(i).getString("Комментарий")
 
 
 

@@ -6,13 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.usk.glotus_final.R;
-import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.Reception;
-import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.Zayavka;
 import com.example.usk.glotus_final.System.Catalog.Adress;
 import com.example.usk.glotus_final.System.Catalog.Kontragent;
 
@@ -131,9 +128,12 @@ public class ReceptionManagerActivity extends AppCompatActivity {
         tv_p_telefon.setText(returnedData.getTv_p_telefon());
         tv_p_kontakt.setText(returnedData.getTv_p_kontakt());
 
-
-
-
+        CharSequence hint = showZakazchik.getHint();
+        showZakazchik.setHint(hint + returnedData.getZakazchik());
+        hint = showOtpravitel.getHint();
+        showOtpravitel.setHint(hint + returnedData.getOtpavitel());
+        hint = showPoluchatel.getHint();
+        showPoluchatel.setHint(hint + returnedData.getPoluchatel());
 
     }
 
@@ -229,8 +229,6 @@ public class ReceptionManagerActivity extends AppCompatActivity {
         tv_f_obiem=findViewById(R.id.tv_f_obiem);
         tv_info=findViewById(R.id.tv_info);
         tv_vid=findViewById(R.id.tv_vid);
-        tv_dostavka=findViewById(R.id.tv_dostavka);
-        tv_stoimost=findViewById(R.id.tv_stoimost);
         tv_status=findViewById(R.id.tv_status);
         tv_kommentar=findViewById(R.id.tv_kommentar);
         tv_p_kuda=findViewById(R.id.tv_p_kuda);

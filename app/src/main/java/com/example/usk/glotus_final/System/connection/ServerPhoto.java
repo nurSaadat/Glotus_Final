@@ -3,17 +3,8 @@ package com.example.usk.glotus_final.System.connection;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
-import com.example.usk.glotus_final.System.Encryption.AES;
-
 import java.io.IOException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.CountDownLatch;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 
 import okhttp3.Call;
 import okhttp3.Callback;

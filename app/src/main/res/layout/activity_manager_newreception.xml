@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
@@ -26,12 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="//code"
-            android:textSize="24sp"
-            android:textColor="@color/otpravitelRed"
-            android:textStyle="bold"
             android:layout_toEndOf="@+id/iv_status"
-            android:textAlignment="center"
-            android:layout_marginStart="4dp"
+            style="@style/TextTopBarRed"
             />
 
         <TextView
@@ -40,11 +35,7 @@
             android:layout_height="match_parent"
             android:text=" от "
             android:layout_toEndOf="@+id/tv_code"
-            android:textAlignment="center"
-            android:layout_marginStart="4dp"
-            android:textSize="24sp"
-            android:textColor="@color/otpravitelRed"
-            android:textStyle="bold"
+            style="@style/TextTopBarRed"
             />
 
         <TextView
@@ -53,12 +44,8 @@
             android:layout_height="match_parent"
             android:layout_toEndOf="@+id/tv_1"
             android:layout_alignParentEnd="true"
-            android:textSize="24sp"
-            android:textColor="@color/otpravitelRed"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:layout_marginStart="4dp"
             android:text="//date"
+            style="@style/TextTopBarRed"
             />
 
     </RelativeLayout>
@@ -77,10 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="  Заказчик"
-                android:textColorHint="@color/colorPrimary"
-                android:textSize="22sp"
-                android:textAlignment="textStart"
-                android:background="@drawable/rectangle_field"
+                style="@style/TextButtonHint"
                 />
 
             <RelativeLayout
@@ -95,21 +79,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
                     android:text="Заказчик: "
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18sp" />
+                    style="@style/TextBlueReception" />
 
-                <EditText
+                <Spinner
                     android:id="@+id/et_z_zakazchik"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_toEndOf="@+id/tv_2"
                     android:text="//заказчик"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18sp" />
+                    style="@style/TextBlueReception" />
 
                 <TextView
                     android:id="@+id/tv_3"
@@ -119,8 +99,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/tv_2"
                     android:text="Почта: "
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18sp" />
+                    style="@style/TextBlueReception" />
 
                 <EditText
                     android:id="@+id/et_z_pochta"
@@ -130,31 +109,7 @@
                     android:layout_below="@+id/et_z_zakazchik"
                     android:layout_toEndOf="@+id/tv_3"
                     android:text="//почта"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/tv_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/tv_3"
-                    android:text="Договор №: "
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/et_z_dogovor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_below="@+id/et_z_pochta"
-                    android:layout_toEndOf="@+id/tv_4"
-                    android:text="//договор"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18sp" />
+                    style="@style/TextBlueReception"/>
 
             </RelativeLayout>
 
@@ -163,10 +118,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="  Отправитель"
-                android:textColorHint="@color/colorPrimary"
-                android:textSize="22sp"
-                android:textAlignment="textStart"
-                android:background="@drawable/rectangle_field"/>
+                style="@style/TextButtonHint"/>
 
             <RelativeLayout
                 android:id="@+id/rl_otpravitel"
@@ -182,8 +134,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:text="Отправитель: "
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"/>
+                    style="@style/TextBlackReception"/>
 
                 <EditText
                     android:id="@+id/et_z_otprav"
@@ -192,8 +143,7 @@
                     android:layout_toEndOf="@+id/tv_5"
                     android:layout_alignParentEnd="true"
                     android:text="//отправитель"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"/>
+                    style="@style/TextBlackReception"/>
 
                 <TextView
                     android:id="@+id/tv_6"
@@ -203,8 +153,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/tv_5"
                     android:text="Откуда: "
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"/>
+                    style="@style/TextBlackReception"/>
 
                 <EditText
                     android:id="@+id/et_z_otkuda"
@@ -214,8 +163,7 @@
                     android:layout_below="@+id/et_z_otprav"
                     android:layout_alignParentEnd="true"
                     android:text="//откуда"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"/>
+                    style="@style/TextBlackReception"/>
 
                 <TextView
                     android:id="@+id/tv_7"
@@ -225,8 +173,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/tv_6"
                     android:text="Адрес: "
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"/>
+                    style="@style/TextBlackReception"/>
 
                 <EditText
                     android:id="@+id/et_z_adres"
@@ -236,8 +183,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_below="@+id/et_z_otkuda"
                     android:text="//адрес"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"/>
+                    style="@style/TextBlackReception"/>
 
                 <TextView
                     android:id="@+id/tv_8"
@@ -247,8 +193,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/tv_7"
                     android:text="Контактное лицо: "
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"/>
+                    style="@style/TextBlackReception"/>
 
                 <EditText
                     android:id="@+id/et_z_kontakt"
@@ -258,8 +203,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_below="@+id/et_z_adres"
                     android:text="//контактное лицо"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"/>
+                    style="@style/TextBlackReception"/>
 
                 <TextView
                     android:id="@+id/tv_9"
@@ -269,8 +213,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/tv_8"
                     android:text="Телефон: "
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"/>
+                    style="@style/TextBlackReception"/>
 
                 <EditText
                     android:id="@+id/et_z_telefon"
@@ -280,8 +223,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_below="@+id/et_z_kontakt"
                     android:text="//телефон"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"/>
+                    style="@style/TextBlackReception"/>
 
             </RelativeLayout>
 
@@ -290,10 +232,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="  Получатель"
-                android:textColorHint="@color/colorPrimary"
-                android:textSize="22sp"
-                android:textAlignment="textStart"
-                android:background="@drawable/rectangle_field"/>
+                style="@style/TextButtonHint"/>
 
             <RelativeLayout
                 android:id="@+id/rl_poluchatel"
@@ -310,8 +249,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:text="Получатель: "
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"/>
+                    style="@style/TextBlackReception"/>
 
                 <EditText
                     android:id="@+id/et_p_poluch"
@@ -319,8 +257,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/tv_p_1"
                     android:text="//получатель"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"/>
+                    style="@style/TextBlackReception"/>
 
             </RelativeLayout>
 
@@ -344,17 +281,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:text="Дата  "
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp"
-                        android:textStyle="bold"/>
+                        style="@style/TextBlueRecBold"/>
 
                     <EditText
                         android:id="@+id/et_date_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="//date"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp" />
+                        style="@style/TextBlueReception" />
 
                 </LinearLayout>
 
@@ -375,34 +309,28 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=" "
-                            android:textSize="18sp" />
+                            style="@style/TextBlueRecBold"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
                             android:text="Количество:"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp"
-                            android:textStyle="bold"/>
+                            style="@style/TextBlueRecBold"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="19dp"
                             android:text="Вес:"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp"
-                            android:textStyle="bold"/>
+                            style="@style/TextBlueRecBold"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="21dp"
                             android:text="Объём:"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp"
-                            android:textStyle="bold"/>
+                            style="@style/TextBlueRecBold"/>
 
                     </LinearLayout>
 
@@ -417,9 +345,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="план:"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            style="@style/TextBlueRecBold" />
 
                         <EditText
                             android:id="@+id/et_p_kolich"
@@ -427,8 +353,7 @@
                             android:layout_height="wrap_content"
                             android:text="//num"
                             android:inputType="numberDecimal"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp" />
+                            style="@style/TextBlueReception" />
 
                         <EditText
                             android:id="@+id/et_p_ves"
@@ -436,8 +361,7 @@
                             android:layout_height="wrap_content"
                             android:text="//num"
                             android:inputType="numberDecimal"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp" />
+                            style="@style/TextBlueReception" />
 
                         <EditText
                             android:id="@+id/et_p_obiem"
@@ -445,8 +369,7 @@
                             android:layout_height="wrap_content"
                             android:text="//num"
                             android:inputType="numberDecimal"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp" />
+                            style="@style/TextBlueReception" />
 
                     </LinearLayout>
 
@@ -460,9 +383,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="факт:"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            style="@style/TextBlueRecBold" />
 
                         <EditText
                             android:id="@+id/et_f_kolich"
@@ -470,8 +391,7 @@
                             android:layout_height="wrap_content"
                             android:text="//num"
                             android:inputType="numberDecimal"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp" />
+                            style="@style/TextBlueReception" />
 
                         <EditText
                             android:id="@+id/et_f_ves"
@@ -479,8 +399,7 @@
                             android:layout_height="wrap_content"
                             android:text="//num"
                             android:inputType="numberDecimal"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp" />
+                            style="@style/TextBlueReception" />
 
                         <EditText
                             android:id="@+id/et_f_obiem"
@@ -488,8 +407,7 @@
                             android:layout_height="wrap_content"
                             android:text="//num"
                             android:inputType="numberDecimal"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp" />
+                            style="@style/TextBlueReception" />
 
                     </LinearLayout>
 
@@ -502,25 +420,25 @@
                     android:orientation="horizontal"
                     android:weightSum="100">
 
-                    <Spinner
+                    <EditText
                         android:id="@+id/spinner_otkuda"
                         android:layout_width="0dp"
                         android:layout_height="32dp"
-                        android:layout_weight="40"
-                        android:elevation="10dp"></Spinner>
+                        android:layout_weight="45"
+                        style="@style/TextGreyRec"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="20"
-                        android:src="@drawable/ic_gruzovik_blue_24dp" />
+                        android:layout_weight="10"
+                        app:srcCompat="@drawable/gruzovik_blue" />
 
-                    <Spinner
+                    <EditText
                         android:id="@+id/spinner_kuda"
                         android:layout_width="0dp"
                         android:layout_height="32dp"
-                        android:layout_weight="40"
-                        android:elevation="10dp"></Spinner>
+                        android:layout_weight="45"
+                        style="@style/TextGreyRec"/>
 
                 </LinearLayout>
 
@@ -543,9 +461,7 @@
                             android:layout_weight="1"
                             android:text="Информация о грузе: "
                             android:textAlignment="textStart"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp"
-                            android:textStyle="bold"/>
+                            style="@style/TextBlueRecBold"/>
 
                         <EditText
                             android:id="@+id/et_info"
@@ -553,9 +469,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="100"
                             android:text="//инфо"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            style="@style/TextBlueRecBold" />
 
                     </LinearLayout>
 
@@ -571,9 +485,7 @@
                             android:layout_weight="1"
                             android:text="Вид перевозки: "
                             android:textAlignment="textStart"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp"
-                            android:textStyle="bold"/>
+                            style="@style/TextBlueRecBold"/>
 
                         <EditText
                             android:id="@+id/et_vid"
@@ -581,9 +493,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="100"
                             android:text="//вид"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            style="@style/TextBlueRecBold"/>
 
                     </LinearLayout>
 
@@ -599,9 +509,7 @@
                             android:layout_weight="1"
                             android:text="Доставка: "
                             android:textAlignment="textStart"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp"
-                            android:textStyle="bold"/>
+                            style="@style/TextBlueRecBold"/>
 
                         <EditText
                             android:id="@+id/et_dostavka"
@@ -609,37 +517,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="100"
                             android:text="//доставка"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="8dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Стоимость: "
-                            android:textAlignment="textStart"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp"
-                            android:textStyle="bold"/>
-
-                        <EditText
-                            android:id="@+id/et_stoimost"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="100"
-                            android:text="//стоимость"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            style="@style/TextBlueRecBold" />
 
                     </LinearLayout>
 
@@ -655,9 +533,7 @@
                             android:layout_weight="1"
                             android:text="Статус заказа: "
                             android:textAlignment="textStart"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp"
-                            android:textStyle="bold"/>
+                            style="@style/TextBlueRecBold"/>
 
                         <EditText
                             android:id="@+id/et_status"
@@ -665,42 +541,256 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="100"
                             android:text="//статус"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            style="@style/TextBlueRecBold" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/btn_dokumenty"
-                    android:layout_width="500dp"
+                    android:id="@+id/btn_stoimost"
+                    style="@style/TextButtonHint"
+                    android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:hint="Документы"
-                    android:textAlignment="textStart"
-                    android:textColorHint="@color/colorPrimary"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:background="@android:color/white"/>
+                    android:hint="  Стоимость"
+                    />
+
+                <RelativeLayout
+                    android:id="@+id/rl_stoimost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp">
+
+                    <LinearLayout
+                        android:id="@+id/l5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:id="@+id/tv_s_1"
+                            style="@style/TextBlackReception"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Валюта: " />
+
+                        <Spinner
+                            android:id="@+id/spin_valuta"
+                            style="@style/TextPlainBlack"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="47dp"
+                            android:layout_weight="20"
+                            android:ems="10" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/s16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/l5"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/tv_s_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Курс: "
+                            android:textColor="@android:color/black"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tv_s_kurs"
+                            style="@style/TextBlackReception"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="//kurs" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/l7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/s16"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_s_3"
+                            style="@style/TextBlackReception"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Вид оплаты: " />
+
+                        <Spinner
+                            android:id="@+id/spin_vidopltaty"
+                            style="@style/TextPlainBlack"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="47dp"
+                            android:layout_weight="20"
+                            android:ems="10" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/s20"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/l7"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/tv_s_4"
+                            style="@style/TextBlackReception"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Ставка НДС: " />
+
+                        <TextView
+                            android:id="@+id/tv_stavkands"
+                            style="@style/TextBlackReception"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="//stavka" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/s19"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/s20"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_s_5"
+                            style="@style/TextBlackReception"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Порядок оп.: " />
+
+                        <TextView
+                            android:id="@+id/tv_poryadok"
+                            style="@style/TextBlackReception"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="//poryadok" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/s21"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/s19"
+                        android:orientation="horizontal"
+                        android:weightSum="100">
+
+                        <Button
+                            android:id="@+id/btn_"
+                            android:layout_weight="40"
+                            style="@style/ButtonBlueReception"
+                            android:layout_width="0dp"
+                            android:hint="тоимость доствки обр." />
+
+                        <CheckBox
+                            android:id="@+id/cb_nbd"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/TextDarkBlueBold"
+                            android:text="НБД"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/s21"
+                        android:id="@+id/tv_s_6"
+                        android:text="Цена перевозки в валюте документа"
+                        style="@style/TextBlackReception"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_s_6"
+                        android:id="@+id/tv_costtranp"
+                        android:text=""
+                        style="@style/TextBlackReception"
+                        />
+
+                    <TextView
+                        android:layout_alignParentStart="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_costtranp"
+                        android:id="@+id/tv_s_7"
+                        android:text="Себестоимость перевозки в тенге"
+                        style="@style/TextBlackReception"/>
+
+                    <TextView
+                        android:layout_alignParentEnd="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_s_7"
+                        android:id="@+id/tv_sebestoimost"
+                        android:text=""
+                        style="@style/TextBlackReception"/>
+
+                    <TextView
+                        android:layout_alignParentStart="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_sebestoimost"
+                        android:id="@+id/tv_s_8"
+                        android:text="Общая стоимость в тенге"
+                        style="@style/TextBlackReception"/>
+
+                    <TextView
+                        android:layout_alignParentEnd="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_s_7"
+                        android:id="@+id/tv_obshcost"
+                        android:text=""
+                        style="@style/TextBlackReception"/>
+
+                </RelativeLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Комментарий"
                     android:textAlignment="center"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
+                    style="@style/TextBlueRecBold"
                     />
 
                 <EditText
                     android:id="@+id/et_kommentar"
                     android:layout_width="match_parent"
-                    android:layout_height="44dp"
+                    android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textMultiLine"
                     android:background="@drawable/rectangle_field"
+                    style="@style/TextBlackReception"
                     android:padding="8dp"/>
 
                 <LinearLayout
@@ -720,42 +810,14 @@
                         <Button
                             android:id="@+id/btn_etiketka"
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/button_main"
                             android:hint="Этикетка"
-                            android:textColorHint="@android:color/white"
-                            android:textSize="18sp" />
+                            style="@style/ButtonBlueReception"/>
 
                         <Button
                             android:id="@+id/btn_ekspeditor"
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/button_main"
-                            android:hint="Экспедиторская расписка"
-                            android:textColorHint="@android:color/white"
-                            android:textSize="18sp" />
-
-                        <Button
-                            android:id="@+id/btn_posmotret"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/button_main"
-                            android:hint="Посмотреть"
-                            android:textColorHint="@android:color/white"
-                            android:textSize="18sp" />
-
-                        <Button
-                            android:id="@+id/btn_akt"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/button_main"
-                            android:hint="Сформировать Акт"
-                            android:textColorHint="@android:color/white"
-                            android:textSize="18sp" />
+                            style="@style/ButtonBlueReception"
+                            android:hint="Экспедиторская расписка" />
 
                     </LinearLayout>
 
@@ -767,44 +829,10 @@
                         android:padding="20dp">
 
                         <Button
-                            android:id="@+id/btn_schet"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/button_main"
-                            android:hint="Счет на оплату"
-                            android:textColorHint="@android:color/white"
-                            android:textSize="18sp" />
-
-                        <Button
-                            android:id="@+id/btn_zagruzit"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/button_main"
-                            android:hint="Загрузить"
-                            android:textColorHint="@android:color/white"
-                            android:textSize="18sp" />
-
-                        <Button
-                            android:id="@+id/btn_etiketka_klient"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/button_main"
-                            android:hint="Этикетка для клиента"
-                            android:textColorHint="@android:color/white"
-                            android:textSize="18sp" />
-
-                        <Button
                             android:id="@+id/btn_foto_gruza"
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/button_main"
                             android:hint="Фото груза"
-                            android:textColorHint="@android:color/white"
-                            android:textSize="18sp" />
+                            style="@style/ButtonBlueReception"/>
 
                     </LinearLayout>
 
@@ -813,29 +841,20 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="8dp"
                     android:orientation="vertical">
 
                     <Button
                         android:id="@+id/btn_sohranit"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
                         android:hint="  Сохранить"
-                        android:textAlignment="textStart"
-                        android:textColorHint="@android:color/white"
-                        android:textSize="22sp"
-                        android:background="@color/colorPrimary" />
+                        style="@style/ButtonBlueReception"/>
 
                     <Button
                         android:id="@+id/btn_otmenit"
                         android:layout_width="match_parent"
-                        android:layout_marginTop="12dp"
                         android:hint="  Отменить"
-                        android:textAlignment="textStart"
                         android:background="@color/otpravitelRed"
-                        android:textColorHint="@android:color/white"
-                        android:textSize="22sp"
-                        android:layout_height="50dp"/>
+                        style="@style/ButtonBlueReception"/>
                 </LinearLayout>
 
             </LinearLayout>

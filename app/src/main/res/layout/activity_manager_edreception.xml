@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:weightSum="100"
     tools:context=".ManagerApp.ManagerListFiles.ReceptionManagerActivity">
@@ -26,12 +26,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="//code"
-            android:textSize="24sp"
-            android:textColor="@color/otpravitelRed"
-            android:textStyle="bold"
             android:layout_toEndOf="@+id/iv_status"
-            android:textAlignment="center"
-            android:layout_marginStart="4dp"
+            style="@style/TextTopBarRed"
             />
 
         <TextView
@@ -40,11 +36,7 @@
             android:layout_height="match_parent"
             android:text=" от "
             android:layout_toEndOf="@+id/tv_code"
-            android:textAlignment="center"
-            android:layout_marginStart="4dp"
-            android:textSize="24sp"
-            android:textColor="@color/otpravitelRed"
-            android:textStyle="bold"
+            style="@style/TextTopBarRed"
             />
 
         <TextView
@@ -53,12 +45,8 @@
             android:layout_height="match_parent"
             android:layout_toEndOf="@+id/tv_1"
             android:layout_alignParentEnd="true"
-            android:textSize="24sp"
-            android:textColor="@color/otpravitelRed"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:layout_marginStart="4dp"
             android:text="//date"
+            style="@style/TextTopBarRed"
             />
 
     </RelativeLayout>
@@ -77,10 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="  Заказчик"
-                android:textColorHint="@color/colorPrimary"
-                android:textSize="22sp"
-                android:background="@android:color/white"
-                android:textAlignment="textStart"/>
+                style="@style/TextButtonHint"/>
 
             <LinearLayout
                 android:id="@+id/rl_zakazchik"
@@ -98,19 +83,15 @@
                         android:id="@+id/tv_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
                         android:text="Заказчик: "
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp" />
+                        style="@style/TextBlueReception"/>
 
                     <Spinner
                         android:id="@+id/mactv_z_zakazchik"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="//заказчик"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp"/>
+                        style="@style/TextBlueReception"/>
 
                 </LinearLayout>
 
@@ -123,16 +104,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Почта: "
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp" />
+                        style="@style/TextBlueReception"/>
 
                     <TextView
                         android:id="@+id/mactv_z_pochta"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="//почта"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp" />
+                        style="@style/TextBlueReception"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -144,17 +123,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Договор №: "
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        style="@style/TextBlueRecBold"/>
 
                     <MultiAutoCompleteTextView
                         android:id="@+id/mactv_z_dogovor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="//договор"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp" />
+                        style="@style/TextBlueReception"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -164,10 +140,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="  Отправитель"
-                android:textColorHint="@color/colorPrimary"
-                android:textSize="22sp"
-                android:background="@android:color/white"
-                android:textAlignment="textStart"/>
+                style="@style/TextButtonHint"/>
 
             <LinearLayout
                 android:id="@+id/rl_otpravitel"
@@ -185,16 +158,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Отправитель: "
-                        android:textSize="18sp"
-                        android:textColor="@android:color/black"/>
+                        style="@style/TextBlackReception"/>
 
                     <MultiAutoCompleteTextView
                         android:id="@+id/mactv_z_otprav"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="//отправитель"
-                        android:textSize="18sp"
-                        android:textColor="@android:color/black"/>
+                        style="@style/TextBlackReception"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -203,12 +174,11 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tv_6"
+                        android:id="@+id/tv_12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Куда: "
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp"
+                        style="@style/TextBlackReception"
                         android:visibility="gone" />
 
                     <MultiAutoCompleteTextView
@@ -216,8 +186,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="//откуда"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp"
+                        style="@style/TextBlackReception"
                         android:visibility="gone" />
                 </LinearLayout>
 
@@ -226,20 +195,18 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
-                        android:id="@+id/tv_7"
+                        android:id="@+id/tv_13"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Адрес: "
-                        android:textSize="18sp"
-                        android:textColor="@android:color/black"/>
+                        style="@style/TextBlackReception"/>
 
                     <MultiAutoCompleteTextView
                         android:id="@+id/mactv_z_adres"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="//адрес"
-                        android:textSize="18sp"
-                        android:textColor="@android:color/black"/>
+                        style="@style/TextBlackReception"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -247,20 +214,18 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
-                        android:id="@+id/tv_8"
+                        android:id="@+id/tv_14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Контактное лицо: "
-                        android:textSize="18sp"
-                        android:textColor="@android:color/black"/>
+                        style="@style/TextBlackReception"/>
 
                     <MultiAutoCompleteTextView
                         android:id="@+id/mactv_z_kontakt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="//контактное лицо"
-                        android:textSize="18sp"
-                        android:textColor="@android:color/black"/>
+                        style="@style/TextBlackReception"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -268,20 +233,18 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
-                        android:id="@+id/tv_9"
+                        android:id="@+id/tv_15"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Телефон: "
-                        android:textSize="18sp"
-                        android:textColor="@android:color/black"/>
+                        style="@style/TextBlackReception"/>
 
                     <MultiAutoCompleteTextView
                         android:id="@+id/mactv_z_telefon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="//телефон"
-                        android:textSize="18sp"
-                        android:textColor="@android:color/black"/>
+                        style="@style/TextBlackReception"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -290,10 +253,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="  Получатель"
-                android:textColorHint="@color/colorPrimary"
-                android:textSize="22sp"
-                android:background="@android:color/white"
-                android:textAlignment="textStart"/>
+                style="@style/TextButtonHint"/>
 
             <LinearLayout
                 android:id="@+id/rl_poluchatel"
@@ -313,16 +273,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Получатель: "
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
+                        style="@style/TextBlackReception"/>
 
                     <MultiAutoCompleteTextView
                         android:id="@+id/mactv_p_poluch"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="//получатель"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
+                        style="@style/TextBlackReception"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -335,8 +293,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Откуда: "
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp"
+                        style="@style/TextBlackReception"
                         android:visibility="gone" />
 
                     <MultiAutoCompleteTextView
@@ -344,8 +301,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="//откуда"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp"
+                        style="@style/TextBlackReception"
                         android:visibility="gone" />
                 </LinearLayout>
 
@@ -359,16 +315,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Адрес: "
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
+                        style="@style/TextBlackReception"/>
 
                     <MultiAutoCompleteTextView
                         android:id="@+id/mactv_p_adres"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="//адрес"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
+                        style="@style/TextBlackReception"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -381,16 +335,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Контактное лицо: "
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
+                        style="@style/TextBlackReception"/>
 
                     <MultiAutoCompleteTextView
                         android:id="@+id/mactv_p_kontakt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="//контактное лицо"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
+                        style="@style/TextBlackReception"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -403,16 +355,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Телефон: "
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
+                        style="@style/TextBlackReception"/>
 
                     <MultiAutoCompleteTextView
                         android:id="@+id/mactv_p_telefon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="//телефон"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
+                        style="@style/TextBlackReception"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -436,17 +386,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:text="Дата  "
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp"
-                        android:textStyle="bold"/>
+                        style="@style/TextBlueRecBold"/>
 
                     <MultiAutoCompleteTextView
                         android:id="@+id/mactv_date_edit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="//date"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp" />
+                        style="@style/TextBlueReception"/>
 
                 </LinearLayout>
 
@@ -467,34 +414,28 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=" "
-                            android:textSize="18sp" />
+                            style="@style/TextBlueRecBold"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
                             android:text="Количество:"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp"
-                            android:textStyle="bold"/>
+                            style="@style/TextBlueRecBold"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="19dp"
                             android:text="Вес:"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp"
-                            android:textStyle="bold"/>
+                            style="@style/TextBlueRecBold"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="21dp"
                             android:text="Объём:"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp"
-                            android:textStyle="bold"/>
+                            style="@style/TextBlueRecBold"/>
 
                     </LinearLayout>
 
@@ -509,33 +450,28 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="план:"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            style="@style/TextBlueRecBold"/>
 
                         <EditText
                             android:id="@+id/et_p_kolich"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="//num"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp" />
+                            style="@style/TextBlueReception"/>
 
                         <EditText
                             android:id="@+id/et_p_ves"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="//num"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp" />
+                            style="@style/TextBlueReception"/>
 
                         <EditText
                             android:id="@+id/et_p_obiem"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="//num"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp" />
+                            style="@style/TextBlueReception"/>
 
                     </LinearLayout>
 
@@ -549,33 +485,28 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="факт:"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            style="@style/TextBlueRecBold"/>
 
                         <EditText
                             android:id="@+id/et_f_kolich"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="//num"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp" />
+                            style="@style/TextBlueReception"/>
 
                         <EditText
                             android:id="@+id/et_f_ves"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="//num"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp" />
+                            style="@style/TextBlueReception"/>
 
                         <EditText
                             android:id="@+id/et_f_obiem"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="//num"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp" />
+                            style="@style/TextBlueReception"/>
 
                     </LinearLayout>
 
@@ -593,20 +524,22 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="40"
-                        android:elevation="10dp" />
+                        android:elevation="10dp"
+                        style="@style/TextGreyRec"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="20"
-                        android:src="@drawable/ic_gruzovik_blue_24dp" />
+                        app:srcCompat="@drawable/gruzovik_blue" />
 
                     <Spinner
                         android:id="@+id/mactv_kuda"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="40"
-                        android:elevation="10dp" />
+                        android:elevation="10dp"
+                        style="@style/TextGreyRec"/>
 
                 </LinearLayout>
 
@@ -628,10 +561,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Информация о грузе: "
-                            android:textAlignment="textStart"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp"
-                            android:textStyle="bold"/>
+                            style="@style/TextBlueRecBold"/>
 
                         <MultiAutoCompleteTextView
                             android:id="@+id/mactv_info"
@@ -639,9 +569,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="100"
                             android:text="//инфо"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            style="@style/TextDarkBlueBold"/>
 
                     </LinearLayout>
 
@@ -656,10 +584,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Вид перевозки: "
-                            android:textAlignment="textStart"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp"
-                            android:textStyle="bold"/>
+                            style="@style/TextBlueRecBold"/>
 
                         <Spinner
                             android:id="@+id/mactv_vid"
@@ -667,9 +592,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="100"
                             android:text="//вид"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            style="@style/TextDarkBlueBold"/>
 
                     </LinearLayout>
 
@@ -684,10 +607,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Доставка: "
-                            android:textAlignment="textStart"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp"
-                            android:textStyle="bold"/>
+                            style="@style/TextBlueRecBold"/>
 
                         <MultiAutoCompleteTextView
                             android:id="@+id/mactv_dostavka"
@@ -695,9 +615,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="100"
                             android:text="//доставка"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            style="@style/TextDarkBlueBold"/>
 
                     </LinearLayout>
 
@@ -712,10 +630,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Стоимость: "
-                            android:textAlignment="textStart"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp"
-                            android:textStyle="bold"/>
+                            style="@style/TextBlueRecBold"/>
 
                         <MultiAutoCompleteTextView
                             android:id="@+id/mactv_stoimost"
@@ -723,9 +638,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="100"
                             android:text="//стоимость"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            style="@style/TextDarkBlueBold"/>
 
                     </LinearLayout>
 
@@ -740,10 +653,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Статус заказа: "
-                            android:textAlignment="textStart"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="18sp"
-                            android:textStyle="bold"/>
+                            style="@style/TextBlueRecBold"/>
 
                         <Spinner
                             android:id="@+id/mactv_status"
@@ -751,42 +661,28 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="100"
                             android:text="//статус"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            style="@style/TextDarkBlueBold"/>
 
                     </LinearLayout>
 
                 </LinearLayout>
-
-                <Button
-                    android:id="@+id/btn_dokumenty"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:hint="Документы"
-                    android:textAlignment="textStart"
-                    android:textColorHint="@color/colorPrimary"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:background="@android:color/white"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Комментарий"
                     android:textAlignment="center"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    style="@style/TextBlueRecBold"/>
 
                 <EditText
                     android:id="@+id/et_kommentar"
                     android:layout_width="match_parent"
-                    android:layout_height="44dp"
+                    android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textMultiLine"
                     android:background="@drawable/rectangle_field"
-                    android:padding="8dp"/>
+                    android:padding="8dp"
+                    style="@style/TextBlackReception"/>
 
                 <LinearLayout
                     android:weightSum="100"
@@ -805,42 +701,14 @@
                         <Button
                             android:id="@+id/btn_etiketka"
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/button_main"
                             android:hint="Этикетка"
-                            android:textColorHint="@android:color/white"
-                            android:textSize="18sp" />
+                            style="@style/ButtonBlueReception"/>
 
                         <Button
                             android:id="@+id/btn_ekspeditor"
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/button_main"
                             android:hint="Экспедиторская расписка"
-                            android:textColorHint="@android:color/white"
-                            android:textSize="18sp" />
-
-                        <Button
-                            android:id="@+id/btn_posmotret"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/button_main"
-                            android:hint="Посмотреть"
-                            android:textColorHint="@android:color/white"
-                            android:textSize="18sp" />
-
-                        <Button
-                            android:id="@+id/btn_akt"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/button_main"
-                            android:hint="Сформировать Акт"
-                            android:textColorHint="@android:color/white"
-                            android:textSize="18sp" />
+                            style="@style/ButtonBlueReception"/>
 
                     </LinearLayout>
 
@@ -852,44 +720,10 @@
                         android:padding="20dp">
 
                         <Button
-                            android:id="@+id/btn_schet"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/button_main"
-                            android:hint="Счет на оплату"
-                            android:textColorHint="@android:color/white"
-                            android:textSize="18sp" />
-
-                        <Button
-                            android:id="@+id/btn_zagruzit"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/button_main"
-                            android:hint="Загрузить"
-                            android:textColorHint="@android:color/white"
-                            android:textSize="18sp" />
-
-                        <Button
-                            android:id="@+id/btn_etiketka_klient"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/button_main"
-                            android:hint="Этикетка для клиента"
-                            android:textColorHint="@android:color/white"
-                            android:textSize="18sp" />
-
-                        <Button
                             android:id="@+id/btn_foto_gruza"
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/button_main"
                             android:hint="Фото груза"
-                            android:textColorHint="@android:color/white"
-                            android:textSize="18sp" />
+                            style="@style/ButtonBlueReception"/>
 
                     </LinearLayout>
 
@@ -897,29 +731,22 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
 
                     <Button
                         android:id="@+id/btn_sohranit"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
                         android:hint="  Сохранить"
-                        android:textAlignment="textStart"
-                        android:textColorHint="@android:color/white"
-                        android:textSize="22sp"
-                        android:background="@color/colorPrimary" />
+                        style="@style/ButtonBlueReception"/>
 
                     <Button
                         android:id="@+id/btn_otmenit"
                         android:layout_width="match_parent"
                         android:hint="  Отменить"
-                        android:textAlignment="textStart"
                         android:background="@color/otpravitelRed"
-                        android:textColorHint="@android:color/white"
-                        android:textSize="22sp"
-                        android:layout_height="50dp" />
+                        style="@style/ButtonBlueReception"/>
                 </LinearLayout>
 
             </LinearLayout>

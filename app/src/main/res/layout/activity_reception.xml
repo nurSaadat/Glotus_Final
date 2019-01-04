@@ -133,80 +133,80 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="100">
+                    android:layout_height="wrap_content">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:id="@+id/tv_ves"
+                        style="@style/TextBoldBlack"
+                        android:layout_marginBottom="8dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:layout_weight="100"
-                        android:text="Вес факт"
-                        style="@style/TextBoldBlack" />
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:ems="6"
+                        android:text="Вес факт" />
 
                     <EditText
                         android:id="@+id/et_ves_fact"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="20"
-                        android:ems="10"
                         android:inputType="numberDecimal"
-                        style="@style/TextPlainBlack"/>
+                        android:ems="10"
+                        style="@style/TextPlainBlack"
+                        android:layout_toEndOf="@+id/tv_ves"/>
 
-                </LinearLayout>
+                </RelativeLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="100">
+                    android:layout_height="wrap_content">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:id="@+id/tv_obem"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:layout_weight="100"
+                        android:layout_marginBottom="8dp"
                         android:text="Объем факт"
+                        android:ems="6"
                         style="@style/TextBoldBlack" />
 
                     <EditText
                         android:id="@+id/et_obem_fact"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="20"
                         android:ems="10"
                         android:inputType="numberDecimal"
-                        style="@style/TextPlainBlack"/>
+                        style="@style/TextPlainBlack"
+                        android:layout_toEndOf="@+id/tv_obem"/>
 
-                </LinearLayout>
+                </RelativeLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="100">
+                    >
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:id="@+id/tv_kol"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:layout_weight="100"
+                        android:layout_marginBottom="8dp"
                         android:text="Количество"
-                        style="@style/TextBoldBlack" />
+                        style="@style/TextBoldBlack"
+                        android:ems="6"/>
 
                     <EditText
                         android:id="@+id/et_kolich"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="20"
                         android:ems="10"
+                        android:layout_toEndOf="@+id/tv_kol"
                         android:inputType="numberDecimal"
                         style="@style/TextPlainBlack"/>
 
-                </LinearLayout>
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -217,7 +217,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
+                        android:layout_marginBottom="8dp"
                         android:text="Упаковка"
                         style="@style/TextBoldBlack" />
 
@@ -395,30 +395,6 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/tv_10"
-                                android:layout_width="176dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Номер заказчика: "
-                                style="@style/TextBoldBlack" />
-
-                            <TextView
-                                android:id="@+id/tv_zakazchik_nomer"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="24dp"
-                                android:layout_weight="1"
-                                android:text="Номер заказчика "
-                                style="@style/TextPlainBlack" />
-                        </LinearLayout>
-
-                        <LinearLayout
                             android:id="@+id/l1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -485,7 +461,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:inputType="textMultiLine"
-                                android:text="Комментарий"
+                                android:hint="Комментарий"
+                                android:textAlignment="textStart"
                                 style="@style/TextPlainBlack" />
                         </LinearLayout>
                     </LinearLayout>

@@ -9,9 +9,9 @@
     <RelativeLayout
         android:id="@+id/search_field"
         android:layout_width="wrap_content"
-        android:layout_height="36dp"
+        android:layout_height="54dp"
         android:layout_margin="16dp"
-        android:background="@android:color/white"
+        android:background="@drawable/search_field"
         android:elevation="12dp">
 
         <AutoCompleteTextView
@@ -57,16 +57,23 @@
 
         <ImageButton
             android:id="@+id/btn_dobavit_zayavku"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
             android:background="@drawable/white"
             android:elevation="10dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_marginBottom="32dp"
             android:layout_marginRight="32dp"
-            android:src="@drawable/ic_fab_blue_24dp"
+            app:srcCompat="@drawable/ic_add"
             />
+
+        <Button
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Показать ещё"
+            style="@style/ButtonBlueReception"/>
 
     </RelativeLayout>
 

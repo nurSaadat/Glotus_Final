@@ -204,13 +204,13 @@
 
             <TextView
                 android:id="@+id/tv_status"
+                style="@style/TextBlack16"
                 android:layout_width="match_parent"
-                android:layout_height="28dp"
+                android:layout_height="42dp"
                 android:gravity="center"
                 android:text="//status"
                 android:textAlignment="center"
-                android:textColor="@color/otpravitelRed"
-                style="@style/TextBlack16" />
+                android:textColor="@color/otpravitelRed" />
 
             <TextView
                 android:id="@+id/tv_document"
@@ -230,12 +230,12 @@
 
             <TextView
                 android:id="@+id/tv_partner"
+                style="@style/TextBlackReception"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="//partner"
-                android:textAlignment="center"
-                style="@style/TextBlackReception"/>
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/tv_tovar"

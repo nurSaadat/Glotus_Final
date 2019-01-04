@@ -10,12 +10,12 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="80dp">
 
         <ImageView
             android:id="@+id/iv_status"
-            android:layout_width="32dp"
-            android:layout_height="40dp"
+            android:layout_width="64dp"
+            android:layout_height="80dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:background="@color/otpravitelRed"
@@ -65,7 +65,7 @@
                 style="@style/TextButtonHint"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="  Заказчик:  " />
+                android:hint="  Заказчик" />
 
             <RelativeLayout
                 android:id="@+id/rl_zakazchik"
@@ -137,7 +137,7 @@
                 style="@style/TextButtonHint"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="  Отправитель:  " />
+                android:hint="  Отправитель" />
 
             <RelativeLayout
                 android:id="@+id/rl_otpravitel"
@@ -227,7 +227,7 @@
                 style="@style/TextButtonHint"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="  Получатель:  " />
+                android:hint="  Получатель" />
 
             <RelativeLayout
                 android:id="@+id/rl_poluchatel"
@@ -631,8 +631,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Стоимость: "
-                            style="@style/TextBlueRecBold"
-                            />
+                            style="@style/TextBlueRecBold"/>
 
                         <EditText
                             android:id="@+id/et_stoimost"

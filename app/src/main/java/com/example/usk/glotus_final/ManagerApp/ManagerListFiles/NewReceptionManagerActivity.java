@@ -23,13 +23,18 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
 
     private RelativeLayout rlZakazchik, rlPoluchatel, rlOtpravitel;
     private Button showZakazchik, showPoluchatel, showOtpravitel,btn_dokumenty, btn_sohranit, btn_otmenit;
-    private TextView tv_code,tv_date;
+    private TextView tv_code,tv_date,
+            //новые поля стоимости
+            tv_s_kurs, tv_stavkands, tv_poryadok, tv_costtranp, tv_sebestoimost,
+            tv_obshcost;
     private EditText  et_z_pochta, et_z_dogovor, et_z_otprav,
             et_z_otkuda, et_z_adres, et_z_kontakt, et_z_telefon, et_p_poluch, et_date_edit,
             et_p_kolich, et_p_ves, et_p_obiem, et_f_kolich, et_f_ves, et_f_obiem, et_info,
-            et_vid, et_dostavka, et_stoimost, et_status,et_kommentar;
+            et_vid, et_dostavka, et_stoimost, et_status,et_kommentar,  rkuda, rotkuda;
     private List<String> rkontr = new ArrayList<String>();
-    private Spinner et_z_zakazchik, rkuda, rotkuda;
+    private Spinner et_z_zakazchik,
+            // новые поля стоимости
+            spin_valuta, spin_vidoplaty;
     private List<String> rlistkuda = new ArrayList<String>();
 
 
@@ -81,9 +86,9 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
             i++;
         }
 
-        ArrayAdapter<String> kudaAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,listkuda);
-        rkuda.setAdapter(kudaAdapter);
-        rotkuda.setAdapter(kudaAdapter);
+
+        rkuda.setText("");
+        rotkuda.setText("");
 
         et_z_pochta.setText("");
         et_z_dogovor.setText("");
@@ -120,9 +125,14 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
         btn_otmenit = findViewById(R.id.btn_otmenit);
 
 
-
         tv_code=findViewById(R.id.tv_code);
         tv_date=findViewById(R.id.tv_date);
+        tv_poryadok=findViewById(R.id.tv_poryadok);
+        tv_costtranp=findViewById(R.id.tv_costtranp);
+        tv_sebestoimost=findViewById(R.id.tv_sebestoimost);
+        tv_obshcost=findViewById(R.id.tv_obshcost);
+        tv_s_kurs=findViewById(R.id.tv_s_kurs);
+        tv_stavkands=findViewById(R.id.tv_stavkands);
         et_z_zakazchik=findViewById(R.id.et_z_zakazchik);
         et_z_pochta=findViewById(R.id.et_z_pochta);
 

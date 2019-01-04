@@ -14,16 +14,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.MultiAutoCompleteTextView;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.usk.glotus_final.R;
-import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.ZayavkaListAdapter;
 import com.example.usk.glotus_final.System.Catalog.Adress;
 import com.example.usk.glotus_final.System.Catalog.Kontragent;
 import com.example.usk.glotus_final.System.Catalog.Status;
-import com.example.usk.glotus_final.System.Catalog.Transport;
 import com.example.usk.glotus_final.System.Catalog.Vidperevoz;
 import com.example.usk.glotus_final.System.Encryption.AES;
 import com.example.usk.glotus_final.System.connection.Server;
@@ -33,7 +30,6 @@ import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +49,7 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
     private EditText et_p_kolich, et_p_ves, et_p_obiem, et_f_kolich, et_f_ves, et_f_obiem,et_kommentar;
     private ReceptionData returnData;
     private ReceptionData recpData;
-    private List<String> rlistkuda = new ArrayList<String>();
+        private List<String> rlistkuda = new ArrayList<String>();
     private List<String> rkontr = new ArrayList<String>();
     private Spinner mactv_kuda,mactv_otkuda,mactv_status,mactv_vid,mactv_z_zakazchik;
     private String KeyZakaz="00000000-0000-0000-0000-000000000000",KeyOtkuda="00000000-0000-0000-0000-000000000000",KeyKuda="00000000-0000-0000-0000-000000000000";
@@ -199,7 +195,7 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
 
 
 
-        String res = process("http://185.209.21.191/test/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7(guid\'" + RefKeys.Ref_Key + "\')?$format=json", "PATCH", User.getCredential(),
+        String res = process("http://185.209.23.53/InfoBase/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7(guid\'" + RefKeys.Ref_Key + "\')?$format=json", "PATCH", User.getCredential(),
                 data);
         System.out.println(res);
 
@@ -365,7 +361,7 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
         Log.d("aaa",body);
         System.out.println(body);
         Server server;
-        server = new Server("http://185.209.21.191/uu/demoaes.php",null, body);
+        server = new Server("http://185.209.23.53/odata/demoaes.php",null, body);
         return server.post();
     }
 

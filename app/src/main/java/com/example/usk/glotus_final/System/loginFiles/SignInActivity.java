@@ -26,7 +26,9 @@ import android.widget.Toast;
 import com.example.usk.glotus_final.ManagerApp.ManagerListFiles.ManagerListActivity;
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
+import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.Zayavka;
 import com.example.usk.glotus_final.System.Catalog.Adress;
+import com.example.usk.glotus_final.System.Catalog.AutoUpdate;
 import com.example.usk.glotus_final.System.Catalog.Kontragent;
 import com.example.usk.glotus_final.System.Catalog.KontragentNum;
 import com.example.usk.glotus_final.System.Catalog.Mdnames;
@@ -38,11 +40,16 @@ import com.example.usk.glotus_final.System.Catalog.isOn;
 import com.example.usk.glotus_final.System.Encryption.AES;
 import com.example.usk.glotus_final.System.connection.Server;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -232,7 +239,8 @@ public class SignInActivity extends AppCompatActivity {
 
 
                 try {
-                    process("http://185.209.23.53/InfoBase/odata/standard.odata?$format=json","GET",User.getCredential(),"{}");
+                    process("http://185.209.23.53/InfoBase/odata/standard.odata/Catalog_%D0%9F%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D0%B8?$format=json&$filter=Code%20eq%20%27"+
+                            URLEncoder.encode(name, java.nio.charset.StandardCharsets.UTF_8.toString())+"%27&$select=%D0%A0%D0%BE%D0%BB%D1%8C%D0%92%D0%A1%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B5","GET",User.getCredential(),"{}");
                 } catch (NoSuchPaddingException e) {
                     e.printStackTrace();
                 } catch (UnsupportedEncodingException e) {
@@ -348,9 +356,15 @@ public class SignInActivity extends AppCompatActivity {
                          System.out.println("aaa");
                         new Update().getCatalogs();
                         isOn.preferences.edit().putString("refresh", "true").commit();
+
+                   }
+                   else {
+                       new AutoUpdate().update();
                    }
 
-
+            String role=getrole();
+            ///problema 1c нету Данные Роль в Системе
+            // Роль в системе нету данные
             if(name.contains("Saadat")){
                 System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                 System.out.println(User.getCredential());
@@ -364,6 +378,11 @@ public class SignInActivity extends AppCompatActivity {
                 Intent myIntent = new Intent(SignInActivity.this, SuperviserListActivity.class);
                 startActivity(myIntent);}
         }
+    }
+    public String getrole(){
+        ///problema 1c нету Данные Роль в Системе
+
+        return  "";
     }
 
     private static boolean netIsAvailable() {

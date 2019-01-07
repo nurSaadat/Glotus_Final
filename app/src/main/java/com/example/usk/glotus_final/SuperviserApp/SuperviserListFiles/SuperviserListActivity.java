@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.ExpedPage;
 import com.example.usk.glotus_final.System.Catalog.Adress;
+import com.example.usk.glotus_final.System.Catalog.AutoUpdate;
 import com.example.usk.glotus_final.System.Catalog.Mdnames;
 import com.example.usk.glotus_final.System.Encryption.AES;
 import com.example.usk.glotus_final.System.connection.Server;
@@ -189,6 +190,7 @@ public class SuperviserListActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void refresh() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
+        new AutoUpdate().update();
         // Declaring new array. Сам потом добавь туда заявки. Посмотри сам класс. Сделай констракторы еще.
         mZayavkas = new ArrayList<>();
         //ArrayList<Orders> peopleList = new ArrayList<>();

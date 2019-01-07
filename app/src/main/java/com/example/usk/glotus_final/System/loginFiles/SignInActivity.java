@@ -36,6 +36,7 @@ import com.example.usk.glotus_final.System.Catalog.Pochta;
 import com.example.usk.glotus_final.System.Catalog.Podrazd;
 import com.example.usk.glotus_final.System.Catalog.Transport;
 import com.example.usk.glotus_final.System.Catalog.Update;
+import com.example.usk.glotus_final.System.Catalog.UpdateInf;
 import com.example.usk.glotus_final.System.Catalog.isOn;
 import com.example.usk.glotus_final.System.Encryption.AES;
 import com.example.usk.glotus_final.System.connection.Server;
@@ -351,11 +352,15 @@ public class SignInActivity extends AppCompatActivity {
                 isOn.preferences=PreferenceManager.getDefaultSharedPreferences(this);
                 isOn.preferences=getSharedPreferences("ison", Context.MODE_PRIVATE);
 
+                UpdateInf.lastupdate =PreferenceManager.getDefaultSharedPreferences(this);
+                UpdateInf.lastupdate =getSharedPreferences("lastupdate", Context.MODE_PRIVATE);
 
-                   if(isOn.preferences.getAll().get("refresh")==null) {
-                         System.out.println("aaa");
+
+                  if(isOn.preferences.getAll().get("refresh")==null) {
+                            System.out.println("aaa");
                         new Update().getCatalogs();
                         isOn.preferences.edit().putString("refresh", "true").commit();
+                        new AutoUpdate().fupdate();
 
                    }
                    else {

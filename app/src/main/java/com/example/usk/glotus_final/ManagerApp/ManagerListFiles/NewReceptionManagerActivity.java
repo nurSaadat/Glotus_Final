@@ -1,5 +1,6 @@
 package com.example.usk.glotus_final.ManagerApp.ManagerListFiles;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +37,8 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
             // новые поля стоимости
             spin_valuta, spin_vidoplaty;
     private List<String> rlistkuda = new ArrayList<String>();
+
+    private ReceptionData toReception;
 
 
     @Override
@@ -200,6 +203,27 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
     private View.OnClickListener clickSohranit = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            /*String code, String date, String zakazchik, String pochta, String dogovor,
+                    String otpavitel, String otkuda, String address, String kontakt, String telefon,
+                    String poluchatel, String dateEdit, String kuda, String planKolich, String planVes, String planObiem,
+                    String factKolich, String factVes, String factObiem, String info, String vid, String dostavka,
+                    String stoimost, String status, String komment,String tv_p_kuda,
+                    String tv_p_adres,String tv_p_kontakt,String tv_p_telefon*/
+
+            /*toReception=new ReceptionData(tv_code.getText().toString(),tv_date.getText().toString(),
+                    et_z_zakazchik.getSelectedItem().toString(),et_z_pochta.getText().toString(),et_z_dogovor.getText().toString(),
+                    mactv_z_otprav.getText().toString(),mactv_otkuda.getSelectedItem().toString(),mactv_z_adres.getText().toString(),
+                    mactv_z_kontakt.getText().toString(),mactv_z_telefon.getText().toString(),mactv_p_poluch.getText().toString(),
+                    mactv_date_edit.getText().toString(),mactv_kuda.getSelectedItem().toString(),et_p_kolich.getText().toString(),et_p_ves.getText().toString(),
+                    et_p_obiem.getText().toString(),et_f_kolich.getText().toString(),et_f_ves.getText().toString(),
+                    et_f_obiem.getText().toString(),mactv_info.getText().toString(),mactv_vid.getSelectedItem().toString(),
+                    mactv_dostavka.getText().toString(), mactv_stoimost.getText().toString(),mactv_status.getSelectedItem().toString(),
+                    et_kommentar.getText().toString(),
+                    mactv_p_otkuda.getText().toString(),mactv_p_adres.getText().toString(),mactv_p_kontakt.getText().toString(),
+                    mactv_p_telefon.getText().toString());*/
+
+            Intent intent=new Intent(NewReceptionManagerActivity.this, ReceptionManagerActivity.class);
+            intent.putExtra("toReceptionData",toReception);
 
         }
     };

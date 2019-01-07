@@ -53,11 +53,6 @@ public class ReceptionManagerActivity extends AppCompatActivity {
 
     }
 
-
-
-
-
-
     //передает данные в EditReceptionManagerActivity
     public void onIzmenitButtonClick(){
         RefKeys.ZakazKey=KeyZakaz;
@@ -181,8 +176,6 @@ public class ReceptionManagerActivity extends AppCompatActivity {
         tv_p_adres.setText(zayavka.getAdrespol());
         tv_p_kontakt.setText(zayavka.getLisoplouch());
         tv_p_telefon.setText(zayavka.getTelefonOtprav());
-
-
 
 
         }

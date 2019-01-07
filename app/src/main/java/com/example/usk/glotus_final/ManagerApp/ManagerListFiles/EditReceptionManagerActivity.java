@@ -200,16 +200,6 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
         System.out.println(res);
 
 
-
-
-
-
-
-
-
-
-
-
         returnData=new ReceptionData(tv_code.getText().toString(),tv_date.getText().toString(),
                 mactv_z_zakazchik.getSelectedItem().toString(),mactv_z_pochta.getText().toString(),mactv_z_dogovor.getText().toString(),
                 mactv_z_otprav.getText().toString(),mactv_otkuda.getSelectedItem().toString(),mactv_z_adres.getText().toString(),

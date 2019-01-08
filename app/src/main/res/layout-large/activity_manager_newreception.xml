@@ -83,23 +83,14 @@
                     android:text="Заказчик: "
                     style="@style/TextBlueReception" />
 
-                <!--<EditText
+                <EditText
                     android:id="@+id/et_z_zakazchik"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_toEndOf="@+id/tv_2"
                     android:text="//заказчик"
-                    style="@style/TextBlueReception" />-->
-
-                <AutoCompleteTextView
-                    android:id="@+id/autoComplete_zakazchik"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_toEndOf="@+id/tv_2"
-                    android:completionHint="Введите заказчика"
-                    android:completionThreshold="3"/>
+                    style="@style/TextBlueReception" />
 
                 <TextView
                     android:id="@+id/tv_3"
@@ -116,7 +107,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_below="@+id/autoComplete_zakazchik"
+                    android:layout_below="@+id/et_z_zakazchik"
                     android:layout_toEndOf="@+id/tv_3"
                     android:text="//почта"
                     style="@style/TextBlueReception"/>
@@ -430,21 +421,12 @@
                     android:orientation="horizontal"
                     android:weightSum="100">
 
-                    <!--<EditText
+                    <EditText
                         android:id="@+id/spinner_otkuda"
                         android:layout_width="0dp"
                         android:layout_height="32dp"
                         android:layout_weight="45"
-                        style="@style/TextGreyRec"/>-->
-
-                    <AutoCompleteTextView
-                        android:id="@+id/autoComplete_otkuda"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="40"
-                        android:elevation="10dp"
-                        android:completionHint="Введите город"
-                        android:completionThreshold="3"/>
+                        style="@style/TextGreyRec"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -452,21 +434,12 @@
                         android:layout_weight="10"
                         app:srcCompat="@drawable/gruzovik_blue" />
 
-                    <!--<EditText
+                    <EditText
                         android:id="@+id/spinner_kuda"
                         android:layout_width="0dp"
                         android:layout_height="32dp"
                         android:layout_weight="45"
-                        style="@style/TextGreyRec"/>-->
-
-                    <AutoCompleteTextView
-                        android:id="@+id/autoComplete_kuda"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="40"
-                        android:elevation="10dp"
-                        android:completionHint="Введите город"
-                        android:completionThreshold="3"/>
+                        style="@style/TextGreyRec"/>
 
                 </LinearLayout>
 

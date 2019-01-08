@@ -1,12 +1,10 @@
 package com.example.usk.glotus_final.ManagerApp.ManagerListFiles;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -33,15 +31,11 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
             et_z_otkuda, et_z_adres, et_z_kontakt, et_z_telefon, et_p_poluch, et_date_edit,
             et_p_kolich, et_p_ves, et_p_obiem, et_f_kolich, et_f_ves, et_f_obiem, et_info,
             et_vid, et_dostavka, et_stoimost, et_status,et_kommentar,  rkuda, rotkuda;
-
-    private AutoCompleteTextView autoComplete_zakazchik, autoComplete_otkuda, autoComplete_kuda;
-    // новые поля стоимости
-    private Spinner spin_valuta, spin_vidoplaty;
-
     private List<String> rkontr = new ArrayList<String>();
+    private Spinner et_z_zakazchik,
+            // новые поля стоимости
+            spin_valuta, spin_vidoplaty;
     private List<String> rlistkuda = new ArrayList<String>();
-
-    private ReceptionData toReception;
 
 
     @Override
@@ -63,8 +57,9 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
     public void setData(){
         tv_code.setText("code");
         tv_date.setText("date");
-
         List<String> kontr = new ArrayList<String>();
+
+
         int i=0;
         int zk=0;
         for (Map.Entry<String, ?> entry :Kontragent.kontrpreferences.getAll().entrySet()){
@@ -74,10 +69,10 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
                 zk=i;
             i++;
         }
-        autoComplete_zakazchik.setAdapter( new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,kontr) );
-        autoComplete_zakazchik.setSelection(zk);
-
+        et_z_zakazchik.setAdapter( new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,kontr) );
+        et_z_zakazchik.setSelection(zk);
         List<String> listkuda = new ArrayList<String>();
+
         int kda=0,oda=0;
         i=0;
         for (Map.Entry<String, ?> entry : Adress.adresspreferences.getAll().entrySet()) {
@@ -90,14 +85,6 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
                 oda=i;
             i++;
         }
-        ArrayAdapter<String> kudaAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,listkuda);
-        autoComplete_kuda.setAdapter(kudaAdapter);
-
-        ArrayAdapter<String> otkudaAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,listkuda);
-        autoComplete_otkuda.setAdapter(otkudaAdapter);
-
-        autoComplete_kuda.setSelection(kda);
-        autoComplete_otkuda.setSelection(oda);
 
 
         rkuda.setText("");
@@ -146,9 +133,7 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
         tv_obshcost=findViewById(R.id.tv_obshcost);
         tv_s_kurs=findViewById(R.id.tv_s_kurs);
         tv_stavkands=findViewById(R.id.tv_stavkands);
-        autoComplete_zakazchik=findViewById(R.id.autoComplete_zakazchik);
-        autoComplete_otkuda=findViewById(R.id.autoComplete_otkuda);
-        autoComplete_kuda=findViewById(R.id.autoComplete_kuda);
+        et_z_zakazchik=findViewById(R.id.et_z_zakazchik);
         et_z_pochta=findViewById(R.id.et_z_pochta);
 
         et_z_otprav=findViewById(R.id.et_z_otprav);
@@ -215,21 +200,6 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
     private View.OnClickListener clickSohranit = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            toReception=new ReceptionData(tv_code.getText().toString(),tv_date.getText().toString(),
-                    autoComplete_zakazchik.getText().toString(),et_z_pochta.getText().toString(),et_z_dogovor.getText().toString(),
-                    et_z_otprav.getText().toString(),autoComplete_otkuda.getText().toString(),et_z_adres.getText().toString(),
-                    et_z_kontakt.getText().toString(),et_z_telefon.getText().toString(),et_p_poluch.getText().toString(),
-                    et_date_edit.getText().toString(),autoComplete_kuda.getText().toString(),et_p_kolich.getText().toString(),et_p_ves.getText().toString(),
-                    et_p_obiem.getText().toString(),et_f_kolich.getText().toString(),et_f_ves.getText().toString(),
-                    et_f_obiem.getText().toString(),et_info.getText().toString(),et_vid.getText().toString(),
-                    et_dostavka.getText().toString(), et_stoimost.getText().toString(),et_status.getText().toString(),
-                    et_kommentar.getText().toString(),
-                    et_z_otkuda.getText().toString(),et_z_adres.getText().toString(),et_z_kontakt.getText().toString(),
-                    et_z_telefon.getText().toString());
-
-
-            Intent intent=new Intent(NewReceptionManagerActivity.this, ReceptionManagerActivity.class);
-            intent.putExtra("toReceptionData",toReception);
 
         }
     };

@@ -90,12 +90,9 @@ public class ZayavkaListAdapter extends ArrayAdapter<Zayavka> {
         }
 
         lastPosion=position;
-        try {
-            holder.date.setText("     "+zayavka.getDate().split("T")[0]+"\n     "+zayavka.getDate().split("T")[1]);
 
-        }
-        catch (Exception e){}
-         holder.number.setText(zayavka.getNumber());
+        holder.date.setText("     "+zayavka.getDate().split("T")[0]+"\n     "+zayavka.getDate().split("T")[1]);
+        holder.number.setText(zayavka.getNumber());
         holder.sender.setText(zayavka.getSender());
         holder.recept.setText(zayavka.getRecept());
        // holder.senderadr.setText((zayavka.getSenderadr()));

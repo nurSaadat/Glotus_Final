@@ -1,6 +1,5 @@
 package com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles;
 
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -9,16 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.usk.glotus_final.R;
-import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.ExpedPage;
 import com.example.usk.glotus_final.System.Catalog.Adress;
-import com.example.usk.glotus_final.System.Catalog.AutoUpdate;
 import com.example.usk.glotus_final.System.Catalog.Mdnames;
 import com.example.usk.glotus_final.System.Encryption.AES;
 import com.example.usk.glotus_final.System.connection.Server;
@@ -50,10 +45,6 @@ public class SuperviserListActivity extends AppCompatActivity {
     static Server server;
     TextView etSearch;
     ListView mListView;
-    int skip=0;
-    int top=20;
-    boolean but=false;
-    Button btnLoadExtra;
 
 
 
@@ -70,7 +61,6 @@ public class SuperviserListActivity extends AppCompatActivity {
         swipeView = (SwipeRefreshLayout) findViewById(R.id.swipe_view);
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        btnLoadExtra = new Button(this);
         swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -139,27 +129,17 @@ public class SuperviserListActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                System.out.println("/"+s.toString()+"/");
-                if (s.toString().equals(""))
-                    btnLoadExtra.setVisibility(View.VISIBLE);
-                else
-                    btnLoadExtra.setVisibility(View.INVISIBLE);
                 searchItem(s.toString());
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.toString().equals(""))
-                    btnLoadExtra.setVisibility(View.VISIBLE);
-                else
-                    btnLoadExtra.setVisibility(View.INVISIBLE);
 
             }
         });
 
         }
     public void searchItem(String textToSearch){
- 
         ArrayList<Zayavka> newww = new ArrayList<>();
         System.out.println(textToSearch);
         for(int i=0;i<mZayavkas.size();i++){
@@ -190,15 +170,13 @@ public class SuperviserListActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void refresh() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
-        new AutoUpdate().update();
         // Declaring new array. Сам потом добавь туда заявки. Посмотри сам класс. Сделай констракторы еще.
         mZayavkas = new ArrayList<>();
         //ArrayList<Orders> peopleList = new ArrayList<>();
 
 
         System.out.println(User.cred);
-        process("http://185.209.23.53/InfoBase/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json&$filter=DeletionMark%20eq%20false&$orderby=Ref_Key%20desc&$skip=0&$top="+top+"","GET",User.getCredential(),"{}");
-        skip=20;
+        process("http://185.209.23.53/InfoBase/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json&$orderby=Date%20desc","GET",User.getCredential(),"{}");
         String json = server.getRes();
         System.out.println(json);
 
@@ -266,133 +244,15 @@ public class SuperviserListActivity extends AppCompatActivity {
     }
     String s="";
 
-    public void initlist(final ArrayList<Zayavka> ppp){
-
-        btnLoadExtra.setText("Load More...");
-
-
-// Adding Load More button to lisview at bottom
-
+    public void initlist(ArrayList<Zayavka> ppp){
         final ZayavkaListAdapter adapter = new ZayavkaListAdapter(this, R.layout.superviser_list_item_layout, ppp);
-
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 mListView.setAdapter(adapter);
-                if (but==false){
-                mListView.addFooterView(btnLoadExtra);
-                but=true;}
-
-                btnLoadExtra.setOnClickListener(new View.OnClickListener() {
-                    @RequiresApi(api = Build.VERSION_CODES.O)
-                    @Override
-                    public void onClick(View arg0) {
-                        try {
-                            showmore(ppp);
-                        } catch (NoSuchPaddingException e) {
-                            e.printStackTrace();
-                        } catch (InvalidKeyException e) {
-                            e.printStackTrace();
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        } catch (IllegalBlockSizeException e) {
-                            e.printStackTrace();
-                        } catch (BadPaddingException e) {
-                            e.printStackTrace();
-                        } catch (NoSuchAlgorithmException e) {
-                            e.printStackTrace();
-                        } catch (InvalidAlgorithmParameterException e) {
-                            e.printStackTrace();
-                        }
-
-
-                        adapter.notifyDataSetChanged();
-
-
-
-                    }
-                });
                 swipeView.setRefreshing(false);
             }
         });
-    }
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void showmore(ArrayList<Zayavka> ppp) throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
-       //ArrayList<Orders> peopleList = new ArrayList<>();
-
-
-        System.out.println(User.cred);
-        process("http://185.209.23.53/InfoBase/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json&$filter=DeletionMark%20eq%20false&$orderby=Ref_Key%20desc&$skip="+skip+"&$top="+top+"","GET",User.getCredential(),"{}");
-        skip+=20;
-        String json = server.getRes();
-        System.out.println(json);
-
-        System.out.println(json);
-
-        JSONArray array = null;
-        JSONObject jsonObj=null;
-        try {
-            jsonObj = new JSONObject(json);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            array = jsonObj.getJSONArray("value");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        for(int i = 0; i < array.length(); i++){
-            try {
-                System.out.println((array.getJSONObject(i).getString("Number")+
-                        array.getJSONObject(i).getString("Date")+
-                        array.getJSONObject(i).getString("Отправитель")+
-                        array.getJSONObject(i).getString("Получатель")+
-                        array.getJSONObject(i).getString("АдресОтправителя")+
-                        array.getJSONObject(i).getString("АдресПолучателя")));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-
-            Zayavka john = null;
-            try {
-                // String otkuda=getadr(array.getJSONObject(i).getString("Откуда_Key"));
-                // String kuda=getadr(array.getJSONObject(i).getString("Куда_Key"));
-                // String mened=getadr(array.getJSONObject(i).getString("Менеджер_Key"));
-
-
-
-
-
-                john = new Zayavka(array.getJSONObject(i).getString("Number"),
-                        array.getJSONObject(i).getString("Date"),
-                        array.getJSONObject(i).getString("Отправитель"),
-                        array.getJSONObject(i).getString("Получатель"),/**/
-                        (String) Adress.adresspreferences.getAll().get(array.getJSONObject(i).getString("Откуда_Key")),
-                        (String) Adress.adresspreferences.getAll().get(array.getJSONObject(i).getString("Куда_Key")),
-                        array.getJSONObject(i).getString("Ref_Key"),
-                        array.getJSONObject(i).getString("Заказчик_Key"),
-                        (String) Mdnames.mdpreferences.getAll().get(array.getJSONObject(i).getString("Менеджер_Key")),
-                        array.getJSONObject(i).getString("Подразделение_Key"),array.getJSONObject(i).getString("СтатусЗаказа"));
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            ppp.add(john);
-        }
-      /* for(int i=0;i<10;i++){
-           Zayavka a= new Zayavka("a","a","a","a","a","a","a","a","a","a");
-           mZayavkas.add(a);
-       }*/
-
-
-
-
-
-    }
-    public void onBackPressed() {
-        moveTaskToBack(true);
-
     }
 
 

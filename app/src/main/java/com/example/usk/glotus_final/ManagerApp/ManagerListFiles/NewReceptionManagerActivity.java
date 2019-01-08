@@ -1,12 +1,17 @@
 package com.example.usk.glotus_final.ManagerApp.ManagerListFiles;
 
+import android.hardware.camera2.CaptureResult;
+import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -14,6 +19,8 @@ import android.widget.TextView;
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.System.Catalog.Adress;
 import com.example.usk.glotus_final.System.Catalog.Kontragent;
+import com.example.usk.glotus_final.System.Catalog.KontragentNum;
+import com.example.usk.glotus_final.System.Catalog.Pochta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,19 +30,21 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
 
     private RelativeLayout rlZakazchik, rlPoluchatel, rlOtpravitel;
     private Button showZakazchik, showPoluchatel, showOtpravitel,btn_dokumenty, btn_sohranit, btn_otmenit;
-    private TextView tv_code,tv_date,
+    private TextView tv_code,tv_date,et_z_pochta,
             //новые поля стоимости
             tv_s_kurs, tv_stavkands, tv_poryadok, tv_costtranp, tv_sebestoimost,
             tv_obshcost;
-    private EditText  et_z_pochta, et_z_dogovor, et_z_otprav,
+    private EditText   et_z_dogovor, et_z_otprav,
             et_z_otkuda, et_z_adres, et_z_kontakt, et_z_telefon, et_p_poluch, et_date_edit,
             et_p_kolich, et_p_ves, et_p_obiem, et_f_kolich, et_f_ves, et_f_obiem, et_info,
             et_vid, et_dostavka, et_stoimost, et_status,et_kommentar,  rkuda, rotkuda;
-    private List<String> rkontr = new ArrayList<String>();
-    private Spinner et_z_zakazchik,
+    private ArrayList<String> rkontr = new ArrayList<String>();
+    private AutoCompleteTextView et_z_zakazchik,
             // новые поля стоимости
             spin_valuta, spin_vidoplaty;
     private List<String> rlistkuda = new ArrayList<String>();
+    private ArrayList<String> kontr = new ArrayList<String>();
+
 
 
     @Override
@@ -49,28 +58,26 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
         showZakazchik.setOnClickListener(clickZakaz);
         showPoluchatel.setOnClickListener(clickPoluch);
         showOtpravitel.setOnClickListener(clickOtprav);
-        btn_dokumenty.setOnClickListener(clickDocumenty);
+//        btn_dokumenty.setOnClickListener(clickDocumenty);
         btn_sohranit.setOnClickListener(clickSohranit);
         btn_otmenit.setOnClickListener(clickOtmena);
+        et_z_zakazchik.setOnItemClickListener(setP);
     }
 
     public void setData(){
         tv_code.setText("code");
         tv_date.setText("date");
-        List<String> kontr = new ArrayList<String>();
 
 
         int i=0;
         int zk=0;
         for (Map.Entry<String, ?> entry :Kontragent.kontrpreferences.getAll().entrySet()){
-            kontr.add((String) entry.getValue());
+
             rkontr.add((String) entry.getKey());
-            if (RefKeys.ZakazKey.equals((String) entry.getKey()))
-                zk=i;
-            i++;
+             kontr.add((String) entry.getValue());
+             i++;
         }
         et_z_zakazchik.setAdapter( new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,kontr) );
-        et_z_zakazchik.setSelection(zk);
         List<String> listkuda = new ArrayList<String>();
 
         int kda=0,oda=0;
@@ -87,11 +94,11 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
         }
 
 
-        rkuda.setText("");
-        rotkuda.setText("");
+//        rkuda.setText("");
+  //      rotkuda.setText("");
 
         et_z_pochta.setText("");
-        et_z_dogovor.setText("");
+//        et_z_dogovor.setText("");
         et_z_otprav.setText("");
         et_z_otkuda.setText("");
         et_z_adres.setText("");
@@ -108,7 +115,7 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
         et_info.setText("");
         et_vid.setText("");
         et_dostavka.setText("");
-        et_stoimost.setText("");
+//        et_stoimost.setText("");
         et_status.setText("");
         et_kommentar.setText("");
     }
@@ -124,10 +131,6 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
         btn_sohranit = findViewById(R.id.btn_sohranit);
         btn_otmenit = findViewById(R.id.btn_otmenit);
 
-        rkuda = findViewById(R.id.spinner_kuda);
-        rotkuda = findViewById(R.id.spinner_otkuda);
-        spin_valuta = findViewById(R.id.spin_valuta);
-        spin_vidoplaty=findViewById(R.id.spin_vidopltaty);
 
         tv_code=findViewById(R.id.tv_code);
         tv_date=findViewById(R.id.tv_date);
@@ -138,8 +141,10 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
         tv_s_kurs=findViewById(R.id.tv_s_kurs);
         tv_stavkands=findViewById(R.id.tv_stavkands);
         et_z_zakazchik=findViewById(R.id.et_z_zakazchik);
+
+
         et_z_pochta=findViewById(R.id.et_z_pochta);
-        et_z_dogovor=findViewById(R.id.et_z_dogovor);
+
         et_z_otprav=findViewById(R.id.et_z_otprav);
         et_z_otkuda=findViewById(R.id.et_z_otkuda);
         et_z_adres=findViewById(R.id.et_z_adres);
@@ -156,10 +161,21 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
         et_info=findViewById(R.id.et_info);
         et_vid=findViewById(R.id.et_vid);
         et_dostavka=findViewById(R.id.et_dostavka);
-        et_stoimost=findViewById(R.id.et_stoimost);
+//        et_stoimost=findViewById(R.id.et_stoimost);
         et_status=findViewById(R.id.et_status);
         et_kommentar=findViewById(R.id.et_kommentar);
     }
+
+
+
+    private AdapterView.OnItemClickListener setP = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            et_z_pochta.setText((CharSequence) Pochta.pochtakontr.getAll().get(rkontr.get(kontr.indexOf(et_z_zakazchik.getText().toString()))));
+            System.out.println(rkontr.get(kontr.indexOf(et_z_zakazchik.getText().toString())));
+        }
+
+    };
 
     private View.OnClickListener clickZakaz = new View.OnClickListener() {
         @Override

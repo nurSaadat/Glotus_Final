@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.usk.glotus_final.R;
+import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.ZayavkaListAdapter;
 import com.example.usk.glotus_final.System.Catalog.Kontragent;
 import com.example.usk.glotus_final.System.Catalog.KontragentNum;
@@ -128,7 +129,7 @@ public class Reception extends AppCompatActivity {
         numZakaz.setText(ZayavkaListAdapter.item.getNumber());
 
         date=findViewById(R.id.tv_data);
-        date.setText(ZayavkaListAdapter.item.getDate());
+        date.setText(ZayavkaListAdapter.item.getDate().split("T")[0]);
 
         vesFact=findViewById(R.id.et_ves_fact);
         obiemFact=findViewById(R.id.et_obem_fact);
@@ -143,8 +144,7 @@ public class Reception extends AppCompatActivity {
         manager=(TextView)findViewById(R.id.tv_menedzher);
         manager.setText(ZayavkaListAdapter.item.getMenedjer());
 
-        tv_zakazchik_nomer=findViewById(R.id.tv_zakazchik_nomer);
-        tv_zakazchik_nomer.setText((String) KontragentNum.kontrnumpreferences.getAll().get(ZayavkaListAdapter.item.getZakaz()));
+
 
         podrazdelenie=findViewById(R.id.tv_podrazdel);
         podrazdelenie.setText((String)Podrazd.pdpreferences.getAll().get(ZayavkaListAdapter.item.getPodrazd()));
@@ -477,5 +477,11 @@ public class Reception extends AppCompatActivity {
             layToHide.setVisibility(View.GONE);
         }
         System.out.println(damage.toString());
+    }
+    @Override
+    public void onBackPressed() {
+        Intent myIntent = new Intent(Reception.this, SuperviserListActivity.class);
+        startActivity(myIntent);
+
     }
 }

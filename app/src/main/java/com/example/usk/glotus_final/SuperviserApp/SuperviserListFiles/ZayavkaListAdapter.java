@@ -90,9 +90,12 @@ public class ZayavkaListAdapter extends ArrayAdapter<Zayavka> {
         }
 
         lastPosion=position;
+        try {
+            holder.date.setText("     "+zayavka.getDate().split("T")[0]+"\n     "+zayavka.getDate().split("T")[1]);
 
-        holder.date.setText("     "+zayavka.getDate().split("T")[0]+"\n     "+zayavka.getDate().split("T")[1]);
-        holder.number.setText(zayavka.getNumber());
+        }
+        catch (Exception e){}
+         holder.number.setText(zayavka.getNumber());
         holder.sender.setText(zayavka.getSender());
         holder.recept.setText(zayavka.getRecept());
        // holder.senderadr.setText((zayavka.getSenderadr()));
@@ -101,7 +104,7 @@ public class ZayavkaListAdapter extends ArrayAdapter<Zayavka> {
         holder.senderadr.setText(zayavka.getSenderadr());
         holder.receptadr.setText(zayavka.getReceptadr());
 
-        if(status.equals("ПринятноНаСкладе"))
+       /* if(status.equals("ПринятноНаСкладе"))
             holder.iv_status.setImageResource(R.drawable.green);
         else
         if(status.equals("Отгружено"))
@@ -116,7 +119,7 @@ public class ZayavkaListAdapter extends ArrayAdapter<Zayavka> {
         if(status.equals("Доставлено"))
             holder.iv_status.setImageResource(R.drawable.yellow);
         else
-            holder.iv_status.setImageResource(R.drawable.grey);
+            holder.iv_status.setImageResource(R.drawable.grey);*/
 
 
 

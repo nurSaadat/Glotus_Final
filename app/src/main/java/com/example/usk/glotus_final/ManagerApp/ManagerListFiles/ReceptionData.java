@@ -56,7 +56,7 @@ public class ReceptionData implements Serializable {
     public ReceptionData(String code, String date, String zakazchik, String pochta, String dogovor,
                          String otpavitel, String otkuda, String address, String kontakt, String telefon,
                          String poluchatel, String dateEdit, String kuda, String planKolich, String planVes, String planObiem,
-                         String factKolich, String factVes, String factObiem, String info, String vid, String dostavka,
+                         String factKolich, String factVes, String factObiem, String info, String vid,
                          String stoimost, String status, String komment,String tv_p_kuda,
                          String tv_p_adres,String tv_p_kontakt,String tv_p_telefon) {
         this.code = code;

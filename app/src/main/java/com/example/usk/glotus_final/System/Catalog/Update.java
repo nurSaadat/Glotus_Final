@@ -115,7 +115,7 @@ public class Update {
         KontragentNum.kontrnumpreferences.edit().putString("00000000-0000-0000-0000-000000000000","").commit();
         for (int i = 0; i < array.length(); i++) {
             try {
-                KontragentNum.kontrnumpreferences.edit().putString(array.getJSONObject(i).getString("Ref_Key"), array.getJSONObject(i).getString("ТелефонКонтактногоЛица")).commit();
+                KontragentNum.kontrnumpreferences.edit().putString(array.getJSONObject(i).getString("Ref_Key"), array.getJSONObject(i).getString("Description")).commit();
             } catch (JSONException e) {
                 e.printStackTrace();
             }

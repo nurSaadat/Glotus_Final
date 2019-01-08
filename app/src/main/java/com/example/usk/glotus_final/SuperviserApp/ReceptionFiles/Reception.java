@@ -29,7 +29,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.usk.glotus_final.R;
-import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.ZayavkaListAdapter;
 import com.example.usk.glotus_final.System.Catalog.Kontragent;
 import com.example.usk.glotus_final.System.Catalog.KontragentNum;
@@ -129,7 +128,7 @@ public class Reception extends AppCompatActivity {
         numZakaz.setText(ZayavkaListAdapter.item.getNumber());
 
         date=findViewById(R.id.tv_data);
-        date.setText(ZayavkaListAdapter.item.getDate().split("T")[0]);
+        date.setText(ZayavkaListAdapter.item.getDate());
 
         vesFact=findViewById(R.id.et_ves_fact);
         obiemFact=findViewById(R.id.et_obem_fact);
@@ -477,11 +476,5 @@ public class Reception extends AppCompatActivity {
             layToHide.setVisibility(View.GONE);
         }
         System.out.println(damage.toString());
-    }
-    @Override
-    public void onBackPressed() {
-        Intent myIntent = new Intent(Reception.this, SuperviserListActivity.class);
-        startActivity(myIntent);
-
     }
 }

@@ -83,7 +83,7 @@
                     android:text="Заказчик: "
                     style="@style/TextBlueReception" />
 
-                <AutoCompleteTextView
+                <EditText
                     android:id="@+id/et_z_zakazchik"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
                     android:text="Почта: "
                     style="@style/TextBlueReception" />
 
-                <TextView
+                <EditText
                     android:id="@+id/et_z_pochta"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

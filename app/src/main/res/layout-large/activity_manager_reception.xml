@@ -634,12 +634,12 @@
                             style="@style/TextBlueRecBold"
                             />
 
-                        <TextView
-                            android:id="@+id/tv_stoimost"
+                        <EditText
+                            android:id="@+id/et_stoimost"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="100"
-                            android:text=""
+                            android:text="//стоимость"
                             style="@style/TextDarkBlueBold"/>
 
                     </LinearLayout>

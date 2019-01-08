@@ -71,7 +71,7 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
         showZakazchik.setOnClickListener(clickZakaz);
         showPoluchatel.setOnClickListener(clickPoluch);
         showOtpravitel.setOnClickListener(clickOtprav);
-//        btn_dokumenty.setOnClickListener(clickDocumenty);
+        btn_dokumenty.setOnClickListener(clickDocumenty);
         btn_otmenit.setOnClickListener(clickOtmena);
 
         //для "куда", надо брать данные с базы, и сохранить в лист
@@ -217,7 +217,7 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
                 mactv_date_edit.getText().toString(),mactv_kuda.getSelectedItem().toString(),et_p_kolich.getText().toString(),et_p_ves.getText().toString(),
                 et_p_obiem.getText().toString(),et_f_kolich.getText().toString(),et_f_ves.getText().toString(),
                 et_f_obiem.getText().toString(),mactv_info.getText().toString(),mactv_vid.getSelectedItem().toString(),
-              mactv_stoimost.getText().toString(),mactv_status.getSelectedItem().toString(),
+                mactv_dostavka.getText().toString(), mactv_stoimost.getText().toString(),mactv_status.getSelectedItem().toString(),
                 et_kommentar.getText().toString(),
                 mactv_p_otkuda.getText().toString(),mactv_p_adres.getText().toString(),mactv_p_kontakt.getText().toString(),
                 mactv_p_telefon.getText().toString());
@@ -249,7 +249,7 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
         et_f_obiem.setText(recpData.getFactObiem());
         mactv_info.setText(recpData.getInfo());
 
-      //  mactv_dostavka.setText(recpData.getDostavka());
+        mactv_dostavka.setText(recpData.getDostavka());
         mactv_stoimost.setText(recpData.getStoimost());
 
         et_kommentar.setText(recpData.getKomment());

@@ -38,7 +38,7 @@ public class ReceptionManagerActivity extends AppCompatActivity {
         showZakazchik.setOnClickListener(clickZakaz);
         showPoluchatel.setOnClickListener(clickPoluch);
         showOtpravitel.setOnClickListener(clickOtprav);
-        btn_dokumenty.setOnClickListener(clickDockumenty);
+//        btn_dokumenty.setOnClickListener(clickDockumenty);
 
         setData();
 
@@ -71,7 +71,7 @@ public class ReceptionManagerActivity extends AppCompatActivity {
                 tv_date_edit.getText().toString(),tv_kuda.getText().toString(),tv_p_kolich.getText().toString(),tv_p_ves.getText().toString(),
                 tv_p_obiem.getText().toString(),tv_f_kolich.getText().toString(),tv_f_ves.getText().toString(),
                 tv_f_obiem.getText().toString(),tv_info.getText().toString(),tv_vid.getText().toString(),
-                tv_dostavka.getText().toString(), tv_stoimost.getText().toString(),tv_status.getText().toString(),
+                tv_stoimost.getText().toString(),tv_status.getText().toString(),
                 tv_kommentar.getText().toString(),
                 tv_p_kuda.getText().toString(),tv_p_adres.getText().toString(),tv_p_kontakt.getText().toString(),
                 tv_p_telefon.getText().toString());
@@ -149,6 +149,8 @@ public class ReceptionManagerActivity extends AppCompatActivity {
         RefKeys.Status=tv_status.getText().toString();
         RefKeys.vidpr=tv_vid.getText().toString();
 
+
+
         tv_code.setText(zayavka.getNumber());
         tv_date.setText(zayavka.getDate());
         tv_z_zakazchik.setText((CharSequence) Kontragent.kontrpreferences.getAll().get(zayavka.getZakaz()));
@@ -172,7 +174,7 @@ public class ReceptionManagerActivity extends AppCompatActivity {
         tv_f_obiem.setText(zayavka.getObiemfact());
         tv_info.setText(zayavka.getNamegruz());
         tv_vid.setText(zayavka.getVidpere());
-        tv_dostavka.setText("dostavka");
+//        tv_dostavka.setText("dostavka");
         tv_stoimost.setText(zayavka.getPriceorder());
         tv_status.setText(zayavka.getStatusorder());
         tv_kommentar.setText(zayavka.getComment());
@@ -199,6 +201,7 @@ public class ReceptionManagerActivity extends AppCompatActivity {
     }
 
     public void findView(){
+        tv_stoimost=findViewById(R.id.tv_stoimost);
         rlZakazchik = findViewById(R.id.rl_zakazchik);
         rlOtpravitel = findViewById(R.id.rl_otpravitel);
         rlPoluchatel = findViewById(R.id.rl_poluchatel);
@@ -213,6 +216,8 @@ public class ReceptionManagerActivity extends AppCompatActivity {
         tv_z_pochta=findViewById(R.id.tv_z_pochta);
         tv_z_dogovor=findViewById(R.id.tv_z_dogovor);
         tv_z_otprav=findViewById(R.id.tv_z_otprav);
+
+        tv_z_otkuda=findViewById(R.id.tv_otkuda);
 
         tv_z_adres=findViewById(R.id.tv_z_adres);
         tv_z_kontakt=findViewById(R.id.tv_z_kontakt);

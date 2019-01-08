@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -47,18 +48,20 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
             mactv_z_otkuda, mactv_z_adres, mactv_z_kontakt, mactv_z_telefon, mactv_p_poluch, mactv_date_edit,
             mactv_info, mactv_dostavka, mactv_stoimost, mactv_p_otkuda,mactv_p_adres,mactv_p_kontakt,mactv_p_telefon;
     private EditText et_p_kolich, et_p_ves, et_p_obiem, et_f_kolich, et_f_ves, et_f_obiem,et_kommentar;
+    private AutoCompleteTextView autoComplete_zakazchik, autoComplete_otkuda, autoComplete_kuda;
+    private Spinner mactv_status,mactv_vid;
+
+    private List<String> rlistkuda = new ArrayList<String>();
+    private List<String> rkontr = new ArrayList<String>();
+    private String KeyZakaz="00000000-0000-0000-0000-000000000000",KeyOtkuda="00000000-0000-0000-0000-000000000000",KeyKuda="00000000-0000-0000-0000-000000000000";
+
     private ReceptionData returnData;
     private ReceptionData recpData;
-        private List<String> rlistkuda = new ArrayList<String>();
-    private List<String> rkontr = new ArrayList<String>();
-    private Spinner mactv_kuda,mactv_otkuda,mactv_status,mactv_vid,mactv_z_zakazchik;
-    private String KeyZakaz="00000000-0000-0000-0000-000000000000",KeyOtkuda="00000000-0000-0000-0000-000000000000",KeyKuda="00000000-0000-0000-0000-000000000000";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_edreception);
-
 
         findView();
 
@@ -71,10 +74,11 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
         showZakazchik.setOnClickListener(clickZakaz);
         showPoluchatel.setOnClickListener(clickPoluch);
         showOtpravitel.setOnClickListener(clickOtprav);
-//        btn_dokumenty.setOnClickListener(clickDocumenty);
+//      btn_dokumenty.setOnClickListener(clickDocumenty);
         btn_otmenit.setOnClickListener(clickOtmena);
 
         //для "куда", надо брать данные с базы, и сохранить в лист
+        //для "откуда", надо брать данные с базы, и сохранить в лист
 
         List<String> listkuda = new ArrayList<String>();
         int kda=0,oda=0;
@@ -90,16 +94,18 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
             i++;
         }
         ArrayAdapter<String> kudaAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,listkuda);
-        mactv_kuda.setAdapter(kudaAdapter);
+        autoComplete_kuda.setAdapter(kudaAdapter);
 
+        ArrayAdapter<String> otkudaAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,listkuda);
+        autoComplete_otkuda.setAdapter(otkudaAdapter);
 
-        //для "откуда", надо брать данные с базы, и сохранить в лист
+        autoComplete_kuda.setText(recpData.getKuda());
+        autoComplete_otkuda.setText(recpData.getOtkuda());
+
 
         List<String> kontr = new ArrayList<String>();
-
-
-       i=0;
-       int zk=0;
+        i=0;
+        int zk=0;
         for (Map.Entry<String, ?> entry :Kontragent.kontrpreferences.getAll().entrySet()){
             kontr.add((String) entry.getValue());
             rkontr.add((String) entry.getKey());
@@ -107,15 +113,10 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
                 zk=i;
             i++;
         }
+        autoComplete_zakazchik.setAdapter( new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,kontr) );
+        autoComplete_zakazchik.setText(recpData.getZakazchik());
 
-        mactv_z_zakazchik.setAdapter( new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,kontr) );
-        mactv_z_zakazchik.setSelection(zk);
 
-        ArrayAdapter<String> otkudaAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,listkuda);
-        mactv_otkuda.setAdapter(otkudaAdapter);
-
-        mactv_kuda.setSelection(kda);
-        mactv_otkuda.setSelection(oda);
         mactv_status.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, Status.statusy));
         for (i=0;i<Status.statusy.length;i++){
             if (Status.statusy[i].equals(recpData.getStatus()))
@@ -172,53 +173,40 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
                     "\"Комментарий\":\""+et_kommentar.getText().toString()+"\","+
                     "\"КонтактноеЛицоОтправителя\":\""+mactv_z_kontakt.getText().toString()+"\","+
                     "\"КонтактноеЛицоПолучатель\":\""+mactv_p_kontakt.getText().toString()+"\","+
-                    "\"Куда_Key\":\""+rlistkuda.get(mactv_kuda.getSelectedItemPosition())+"\","+
+                    "\"Куда_Key\":\""+rlistkuda.get(autoComplete_kuda.getListSelection())+"\","+
                     "\"НаименованиеГруза\":\""+mactv_info.getText().toString()+"\","+
                     "\"ОбъемПлан\":\""+et_p_obiem.getText().toString()+"\","+
                     "\"ОбъемФакт\":\""+et_f_obiem.getText().toString()+"\","+
-                    "\"Откуда_Key\":\""+rlistkuda.get(mactv_otkuda.getSelectedItemPosition())+"\","+
+                    "\"Откуда_Key\":\""+rlistkuda.get(autoComplete_otkuda.getListSelection())+"\","+
                     "\"Отправитель\":\""+mactv_z_otprav.getText().toString()+"\","+
                     "\"Получатель\":\""+mactv_p_poluch.getText().toString()+"\","+
                     "\"ТелефонКонтактногоЛицаПолучателя\":\""+mactv_p_telefon.getText().toString()+"\","+
                     "\"ТелефонКонтактногоЛицоОтправителя\":\""+mactv_z_telefon.getText().toString()+"\","+
                     "\"СтатусЗаказа\":\""+Status.statusy[mactv_status.getSelectedItemPosition()]+"\","+
                     "\"НомерДоговора\":\""+mactv_z_dogovor.getText().toString()+"\""+
-                    "\"Заказчик_Key\":\""+rkontr.get(mactv_z_zakazchik.getSelectedItemPosition())+"\","+
+                    "\"Заказчик_Key\":\""+rkontr.get(autoComplete_zakazchik.getListSelection())+"\","+
                     "\"ЦенаПеревозки\":\""+mactv_stoimost.getText().toString()+"\""+
                     "}";
         System.out.println(data);
         RefKeys.Status=Status.statusy[mactv_status.getSelectedItemPosition()];
-        RefKeys.ZakazKey=rkontr.get(mactv_z_zakazchik.getSelectedItemPosition());
-        RefKeys.KudaKey=rlistkuda.get(mactv_kuda.getSelectedItemPosition());
-        RefKeys.OkudaKey=rlistkuda.get(mactv_otkuda.getSelectedItemPosition());
+        RefKeys.ZakazKey=rkontr.get(autoComplete_zakazchik.getListSelection());
+        RefKeys.KudaKey=rlistkuda.get(autoComplete_kuda.getListSelection());
+        RefKeys.OkudaKey=rlistkuda.get(autoComplete_otkuda.getListSelection());
         RefKeys.vidpr=mactv_vid.getSelectedItem().toString();
-
 
 
         String res = process("http://185.209.23.53/InfoBase/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7(guid\'" + RefKeys.Ref_Key + "\')?$format=json", "PATCH", User.getCredential(),
                 data);
         System.out.println(res);
 
-
-
-
-
-
-
-
-
-
-
-
         returnData=new ReceptionData(tv_code.getText().toString(),tv_date.getText().toString(),
-                mactv_z_zakazchik.getSelectedItem().toString(),mactv_z_pochta.getText().toString(),mactv_z_dogovor.getText().toString(),
-                mactv_z_otprav.getText().toString(),mactv_otkuda.getSelectedItem().toString(),mactv_z_adres.getText().toString(),
+                autoComplete_zakazchik.getText().toString(),mactv_z_pochta.getText().toString(),mactv_z_dogovor.getText().toString(),
+                mactv_z_otprav.getText().toString(),autoComplete_otkuda.getText().toString(),mactv_z_adres.getText().toString(),
                 mactv_z_kontakt.getText().toString(),mactv_z_telefon.getText().toString(),mactv_p_poluch.getText().toString(),
-                mactv_date_edit.getText().toString(),mactv_kuda.getSelectedItem().toString(),et_p_kolich.getText().toString(),et_p_ves.getText().toString(),
+                mactv_date_edit.getText().toString(),autoComplete_kuda.getText().toString(),et_p_kolich.getText().toString(),et_p_ves.getText().toString(),
                 et_p_obiem.getText().toString(),et_f_kolich.getText().toString(),et_f_ves.getText().toString(),
                 et_f_obiem.getText().toString(),mactv_info.getText().toString(),mactv_vid.getSelectedItem().toString(),
-              mactv_stoimost.getText().toString(),mactv_status.getSelectedItem().toString(),
-                et_kommentar.getText().toString(),
+                mactv_stoimost.getText().toString(),mactv_status.getSelectedItem().toString(), et_kommentar.getText().toString(),
                 mactv_p_otkuda.getText().toString(),mactv_p_adres.getText().toString(),mactv_p_kontakt.getText().toString(),
                 mactv_p_telefon.getText().toString());
         Intent returnIntent=new Intent();
@@ -239,8 +227,8 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
         mactv_z_telefon.setText(recpData.getTelefon());
         mactv_p_poluch.setText(recpData.getPoluchatel());
         mactv_date_edit.setText(recpData.getDateEdit());
-        mactv_otkuda.setPrompt(recpData.getOtkuda());
-        mactv_kuda.setPrompt(recpData.getKuda());
+        autoComplete_otkuda.setText(recpData.getOtkuda());
+        autoComplete_kuda.setText(recpData.getKuda());
         et_p_kolich.setText(recpData.getPlanKolich());
         et_p_ves.setText(recpData.getPlanVes());
         et_p_obiem.setText(recpData.getPlanObiem());
@@ -249,7 +237,7 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
         et_f_obiem.setText(recpData.getFactObiem());
         mactv_info.setText(recpData.getInfo());
 
-      //  mactv_dostavka.setText(recpData.getDostavka());
+        //mactv_dostavka.setText(recpData.getDostavka());
         mactv_stoimost.setText(recpData.getStoimost());
 
         et_kommentar.setText(recpData.getKomment());
@@ -274,7 +262,7 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
 
         tv_code=findViewById(R.id.tv_code);
         tv_date=findViewById(R.id.tv_date);
-        mactv_z_zakazchik=findViewById(R.id.mactv_z_zakazchik);
+        autoComplete_zakazchik=findViewById(R.id.autoComplete_zakazchik);
         mactv_z_pochta=findViewById(R.id.mactv_z_pochta);
         mactv_z_dogovor=findViewById(R.id.mactv_z_dogovor);
         mactv_z_otprav=findViewById(R.id.mactv_z_otprav);
@@ -290,8 +278,8 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
         et_f_kolich=findViewById(R.id.et_f_kolich);
         et_f_ves=findViewById(R.id.et_f_ves);
         et_f_obiem=findViewById(R.id.et_f_obiem);
-        mactv_otkuda=findViewById(R.id.mactv_otkuda);
-        mactv_kuda=findViewById(R.id.mactv_kuda);
+        autoComplete_otkuda=findViewById(R.id.autoComplete_otkuda);
+        autoComplete_kuda=findViewById(R.id.autoComplete_kuda);
         mactv_info=findViewById(R.id.mactv_info);
         mactv_vid=findViewById(R.id.mactv_vid);
         mactv_dostavka=findViewById(R.id.mactv_dostavka);
@@ -364,7 +352,5 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
         server = new Server("http://185.209.23.53/odata/demoaes.php",null, body);
         return server.post();
     }
-
-
 
 }

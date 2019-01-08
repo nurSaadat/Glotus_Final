@@ -27,6 +27,7 @@ public class ReceptionManagerActivity extends AppCompatActivity {
                     tv_p_kuda,tv_p_adres,tv_p_kontakt,tv_p_telefon;
     private ReceptionData recData;
     private ReceptionData returnedData;
+    private ReceptionData fromNewRecp;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,7 +41,14 @@ public class ReceptionManagerActivity extends AppCompatActivity {
         showOtpravitel.setOnClickListener(clickOtprav);
         btn_dokumenty.setOnClickListener(clickDockumenty);
 
-        setData();
+        Intent intent=getIntent();
+        fromNewRecp=(ReceptionData) intent.getExtras().getSerializable("toReceptionData");
+
+        if(fromNewRecp!=null){
+            setDataFromNewRecp();
+        }else {
+            setData();
+        }
 
         //кнопка изменить
         btn_izmenit.setOnClickListener(new View.OnClickListener() {
@@ -52,11 +60,6 @@ public class ReceptionManagerActivity extends AppCompatActivity {
 
 
     }
-
-
-
-
-
 
     //передает данные в EditReceptionManagerActivity
     public void onIzmenitButtonClick(){
@@ -181,11 +184,42 @@ public class ReceptionManagerActivity extends AppCompatActivity {
         tv_p_adres.setText(zayavka.getAdrespol());
         tv_p_kontakt.setText(zayavka.getLisoplouch());
         tv_p_telefon.setText(zayavka.getTelefonOtprav());
+    }
 
+    public void setDataFromNewRecp(){
+        tv_code.setText(fromNewRecp.getCode());
+        tv_date.setText(fromNewRecp.getDate());
+        tv_z_zakazchik.setText(fromNewRecp.getZakazchik());
+        tv_z_pochta.setText(fromNewRecp.getPochta());
+        tv_z_dogovor.setText(fromNewRecp.getDogovor());
+        tv_z_otprav.setText(fromNewRecp.getOtpavitel());
+        tv_z_otkuda.setText(fromNewRecp.getOtkuda());
+        tv_z_adres.setText(fromNewRecp.getAddress());
+        tv_z_kontakt.setText(fromNewRecp.getKontakt());
+        tv_z_telefon.setText(fromNewRecp.getTelefon());
+        tv_p_poluch.setText(fromNewRecp.getPoluchatel());
+        tv_date_edit.setText(fromNewRecp.getDate());
+        tv_otkuda.setText(fromNewRecp.getOtkuda());
+        tv_kuda.setText(fromNewRecp.getKuda());
 
+        tv_p_kolich.setText(fromNewRecp.getPlanKolich());
+        tv_p_ves.setText(fromNewRecp.getPlanVes());
+        tv_p_obiem.setText(fromNewRecp.getPlanObiem());
+        tv_f_kolich.setText(fromNewRecp.getFactKolich());
+        tv_f_ves.setText(fromNewRecp.getFactVes());
+        tv_f_obiem.setText(fromNewRecp.getPlanObiem());
+        tv_info.setText(fromNewRecp.getInfo());
+        tv_vid.setText(fromNewRecp.getVid());
+        tv_dostavka.setText("dostavka");
+        tv_stoimost.setText(fromNewRecp.getStoimost());
+        tv_status.setText(fromNewRecp.getStatus());
+        tv_kommentar.setText(fromNewRecp.getKomment());
 
-
-        }
+        tv_p_kuda.setText(fromNewRecp.getKuda());
+        tv_p_adres.setText(fromNewRecp.getTv_p_adres());
+        tv_p_kontakt.setText(fromNewRecp.getTv_p_kontakt());
+        tv_p_telefon.setText(fromNewRecp.getTv_p_telefon());
+    }
 
     public void saveDataToDB(){
         if (returnedData!=null)

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="serif"
+                android:gravity="center"
+                android:text="Отгрузка"
+                android:textColor="#000"
+                android:textSize="20sp" />
+
+            <TableLayout
+                android:id="@+id/table_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TableRow
+                    android:id="@+id/table_row1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/nomer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:fontFamily="serif"
+                        android:text="№"
+                        android:textColor="#000" />
+
+                    <TextView
+                        android:id="@+id/zakaz"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:fontFamily="serif"
+                        android:text="Заказ"
+                        android:textColor="#000" />
+
+                    <TextView
+                        android:id="@+id/zakazchik"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:fontFamily="serif"
+                        android:text="Заказчик"
+                        android:textColor="#000" />
+
+                    <TextView
+                        android:id="@+id/otpravitel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:fontFamily="serif"
+                        android:text="Отправитель"
+                        android:textColor="#000" />
+
+                    <TextView
+                        android:id="@+id/poluchatel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:fontFamily="serif"
+                        android:text="Получатель"
+                        android:textColor="#000" />
+
+                    <TextView
+                        android:id="@+id/gruz"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:fontFamily="serif"
+                        android:text="Груз"
+                        android:textColor="#000" />
+
+                    <TextView
+                        android:id="@+id/otkuda"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:fontFamily="serif"
+                        android:text="Откуда"
+                        android:textColor="#000" />
+
+                    <TextView
+                        android:id="@+id/kuda"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:fontFamily="serif"
+                        android:text="Куда"
+                        android:textColor="#000" />
+
+                    <TextView
+                        android:id="@+id/vesplan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:fontFamily="serif"
+                        android:text="Вес план"
+                        android:textColor="#000" />
+
+                    <TextView
+                        android:id="@+id/vesfakt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:fontFamily="serif"
+                        android:text="факт"
+                        android:textColor="#000" />
+
+                    <TextView
+                        android:id="@+id/obemplan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:fontFamily="serif"
+                        android:text="Объём план"
+                        android:textColor="#000" />
+
+                    <TextView
+                        android:id="@+id/obemfakt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:fontFamily="serif"
+                        android:text="факт"
+                        android:textColor="#000" />
+
+                    <TextView
+                        android:id="@+id/korobok"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:fontFamily="serif"
+                        android:text="Коробок"
+                        android:textColor="#000" />
+
+                    <TextView
+                        android:id="@+id/kolvoplan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:fontFamily="serif"
+                        android:text="Кол-во план"
+                        android:textColor="#000" />
+
+                    <TextView
+                        android:id="@+id/kolvofakt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:fontFamily="serif"
+                        android:text="факт"
+                        android:textColor="#000" />
+
+                    <TextView
+                        android:id="@+id/zabor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:fontFamily="serif"
+                        android:text="Забор"
+                        android:textColor="#000" />
+
+                    <TextView
+                        android:id="@+id/dostavka"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:fontFamily="serif"
+                        android:text="Доставка"
+                        android:textColor="#000" />
+
+                    <TextView
+                        android:id="@+id/primechanie"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:fontFamily="serif"
+                        android:text="Примечание"
+                        android:textColor="#000" />
+
+                    <TextView
+                        android:id="@+id/vygruzheno"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:fontFamily="serif"
+                        android:text="Выгружено"
+                        android:textColor="#000" />
+
+                    <TextView
+                        android:id="@+id/fp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:fontFamily="serif"
+                        android:text="ФП"
+                        android:textColor="#000" />
+                </TableRow>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dip"
+                    android:background="#ff0000" />
+            </TableLayout>
+
+            <ListView
+                android:id="@+id/records_view"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:layout_marginTop="16dp"></ListView>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

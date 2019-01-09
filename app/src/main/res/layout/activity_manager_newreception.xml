@@ -260,6 +260,87 @@
                     android:text="//получатель"
                     style="@style/TextBlackReception"/>
 
+
+                <TextView
+                    android:id="@+id/tv_p_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/et_p_poluch"
+                    android:text="Куда: "
+                    style="@style/TextBlackReception"/>
+
+                <EditText
+                    android:id="@+id/et_p_kuda"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/tv_p_2"
+                    android:layout_below="@+id/et_p_poluch"
+                    android:layout_alignParentEnd="true"
+                    android:text="//куда"
+                    style="@style/TextBlackReception"/>
+
+                <TextView
+                    android:id="@+id/tv_p_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/et_p_kuda"
+                    android:text="Адрес: "
+                    style="@style/TextBlackReception"/>
+
+                <EditText
+                    android:id="@+id/et_p_adres"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/tv_p_3"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/et_p_kuda"
+                    android:text="//адрес"
+                    style="@style/TextBlackReception"/>
+
+                <TextView
+                    android:id="@+id/tv_p_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/et_p_adres"
+                    android:text="Контактное лицо: "
+                    style="@style/TextBlackReception"/>
+
+                <EditText
+                    android:id="@+id/et_p_kontakt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/tv_p_4"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/et_p_adres"
+                    android:text="//контактное лицо"
+                    style="@style/TextBlackReception"/>
+
+                <TextView
+                    android:id="@+id/tv_p_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/et_p_kontakt"
+                    android:text="Телефон: "
+                    style="@style/TextBlackReception"/>
+
+                <EditText
+                    android:id="@+id/et_p_telefon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/tv_p_5"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/et_p_kontakt"
+                    android:text="//телефон"
+                    style="@style/TextBlackReception"/>
+
             </RelativeLayout>
 
             <LinearLayout
@@ -366,44 +447,6 @@
 
                         <EditText
                             android:id="@+id/et_p_obiem"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="//num"
-                            android:inputType="numberDecimal"
-                            style="@style/TextBlueReception" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="35"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="факт:"
-                            style="@style/TextBlueRecBold" />
-
-                        <EditText
-                            android:id="@+id/et_f_kolich"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="//num"
-                            android:inputType="numberDecimal"
-                            style="@style/TextBlueReception" />
-
-                        <EditText
-                            android:id="@+id/et_f_ves"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="//num"
-                            android:inputType="numberDecimal"
-                            style="@style/TextBlueReception" />
-
-                        <EditText
-                            android:id="@+id/et_f_obiem"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="//num"

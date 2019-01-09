@@ -216,9 +216,7 @@ public class ReceptionManagerActivity extends AppCompatActivity {
         tv_z_pochta=findViewById(R.id.tv_z_pochta);
         tv_z_dogovor=findViewById(R.id.tv_z_dogovor);
         tv_z_otprav=findViewById(R.id.tv_z_otprav);
-
-        tv_z_otkuda=findViewById(R.id.tv_otkuda);
-
+        tv_z_otkuda=findViewById(R.id.tv_);
         tv_z_adres=findViewById(R.id.tv_z_adres);
         tv_z_kontakt=findViewById(R.id.tv_z_kontakt);
         tv_z_telefon=findViewById(R.id.tv_z_telefon);

@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:weightSum="100"
-    tools:context=".ManagerApp.ManagerListFiles.ReceptionManagerActivity">
+    tools:context=".ManagerApp.ManagerListFiles.EditReceptionManagerActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -86,12 +86,19 @@
                         android:text="Заказчик: "
                         style="@style/TextBlueReception"/>
 
-                    <Spinner
+                    <!--<Spinner
                         android:id="@+id/mactv_z_zakazchik"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="//заказчик"
-                        style="@style/TextBlueReception"/>
+                        style="@style/TextBlueReception"/>-->
+
+                    <AutoCompleteTextView
+                        android:id="@+id/autoComplete_zakazchik"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:completionHint="Введите заказчика"
+                        android:completionThreshold="1"/>
 
                 </LinearLayout>
 
@@ -519,13 +526,23 @@
                     android:orientation="horizontal"
                     android:weightSum="100">
 
-                    <Spinner
+                    <!--<Spinner
                         android:id="@+id/mactv_otkuda"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="40"
                         android:elevation="10dp"
-                        style="@style/TextGreyRec"/>
+                        style="@style/TextGreyRec"/>-->
+
+                    <AutoCompleteTextView
+                        android:id="@+id/autoComplete_otkuda"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="40"
+                        android:elevation="10dp"
+                        android:completionHint="Введите город"
+                        android:completionThreshold="1"/>
+
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -533,13 +550,22 @@
                         android:layout_weight="20"
                         app:srcCompat="@drawable/gruzovik_blue" />
 
-                    <Spinner
+                    <!--<Spinner
                         android:id="@+id/mactv_kuda"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="40"
                         android:elevation="10dp"
-                        style="@style/TextGreyRec"/>
+                        style="@style/TextGreyRec"/>-->
+
+                    <AutoCompleteTextView
+                        android:id="@+id/autoComplete_kuda"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="40"
+                        android:elevation="10dp"
+                        android:completionHint="Введите город"
+                        android:completionThreshold="1"/>
 
                 </LinearLayout>
 

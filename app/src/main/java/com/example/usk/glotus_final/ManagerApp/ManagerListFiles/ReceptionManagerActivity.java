@@ -95,45 +95,50 @@ public class ReceptionManagerActivity extends AppCompatActivity {
 
     //поменяет данные фронта по returnedData, и ты должен поменять данные базы с этими
     public void setReturnedData(ReceptionData returnedData){
-        KeyZakaz=RefKeys.ZakazKey;
-        tv_code.setText(returnedData.getCode());
-        tv_date.setText(returnedData.getDate());
-        tv_z_zakazchik.setText(returnedData.getZakazchik());
-        tv_z_pochta.setText(returnedData.getPochta());
-        tv_z_dogovor.setText(returnedData.getDogovor());
-        tv_z_otprav.setText(returnedData.getOtpavitel());
-        tv_z_otkuda.setText(returnedData.getOtkuda());
-        tv_z_adres.setText(returnedData.getAddress());
-        tv_z_kontakt.setText(returnedData.getKontakt());
-        tv_z_telefon.setText(returnedData.getTelefon());
-        tv_p_poluch.setText(returnedData.getPoluchatel());
-        tv_date_edit.setText(returnedData.getDateEdit());
-        tv_otkuda.setText(returnedData.getOtkuda());
-        tv_kuda.setText(returnedData.getKuda());
-        tv_p_kolich.setText(returnedData.getPlanKolich());
-        tv_p_ves.setText(returnedData.getPlanVes());
-        tv_p_obiem.setText(returnedData.getPlanObiem());
-        tv_f_kolich.setText(returnedData.getFactKolich());
-        tv_f_ves.setText(returnedData.getFactVes());
-        tv_f_obiem.setText(returnedData.getFactObiem());
-        tv_info.setText(returnedData.getInfo());
-        tv_vid.setText(returnedData.getVid());
-        tv_dostavka.setText(returnedData.getDostavka());
-        tv_stoimost.setText(returnedData.getStoimost());
-        tv_status.setText(returnedData.getStatus());
-        tv_kommentar.setText(returnedData.getKomment());
-        tv_p_poluch.setText(returnedData.getPoluchatel());
-        tv_p_adres.setText(returnedData.getTv_p_adres());
-        tv_p_kuda.setText(returnedData.getKuda());
-        tv_p_telefon.setText(returnedData.getTv_p_telefon());
-        tv_p_kontakt.setText(returnedData.getTv_p_kontakt());
+        try {
+            KeyZakaz = RefKeys.ZakazKey;
+            tv_code.setText(returnedData.getCode());
+            tv_date.setText(returnedData.getDate());
+            tv_z_zakazchik.setText(returnedData.getZakazchik());
+            tv_z_pochta.setText(returnedData.getPochta());
+            tv_z_dogovor.setText(returnedData.getDogovor());
+            tv_z_otprav.setText(returnedData.getOtpavitel());
+            tv_z_otkuda.setText(returnedData.getOtkuda());
+            tv_z_adres.setText(returnedData.getAddress());
+            tv_z_kontakt.setText(returnedData.getKontakt());
+            tv_z_telefon.setText(returnedData.getTelefon());
+            tv_p_poluch.setText(returnedData.getPoluchatel());
+            tv_date_edit.setText(returnedData.getDateEdit());
+            tv_otkuda.setText(returnedData.getOtkuda());
+            tv_kuda.setText(returnedData.getKuda());
+            tv_p_kolich.setText(returnedData.getPlanKolich());
+            tv_p_ves.setText(returnedData.getPlanVes());
+            tv_p_obiem.setText(returnedData.getPlanObiem());
+            tv_f_kolich.setText(returnedData.getFactKolich());
+            tv_f_ves.setText(returnedData.getFactVes());
+            tv_f_obiem.setText(returnedData.getFactObiem());
+            tv_info.setText(returnedData.getInfo());
+            tv_vid.setText(returnedData.getVid());
+            tv_dostavka.setText(returnedData.getDostavka());
+            tv_stoimost.setText(returnedData.getStoimost());
+            tv_status.setText(returnedData.getStatus());
+            tv_kommentar.setText(returnedData.getKomment());
+            tv_p_poluch.setText(returnedData.getPoluchatel());
+            tv_p_adres.setText(returnedData.getTv_p_adres());
+            tv_p_kuda.setText(returnedData.getKuda());
+            tv_p_telefon.setText(returnedData.getTv_p_telefon());
+            tv_p_kontakt.setText(returnedData.getTv_p_kontakt());
 
-        CharSequence hint = showZakazchik.getHint();
-        showZakazchik.setHint(hint + returnedData.getZakazchik());
-        hint = showOtpravitel.getHint();
-        showOtpravitel.setHint(hint + returnedData.getOtpavitel());
-        hint = showPoluchatel.getHint();
-        showPoluchatel.setHint(hint + returnedData.getPoluchatel());
+            CharSequence hint = showZakazchik.getHint();
+            showZakazchik.setHint(hint + returnedData.getZakazchik());
+            hint = showOtpravitel.getHint();
+            showOtpravitel.setHint(hint + returnedData.getOtpavitel());
+            hint = showPoluchatel.getHint();
+            showPoluchatel.setHint(hint + returnedData.getPoluchatel());
+
+        }catch(Exception e){
+            e.getCause();
+        }
 
     }
 

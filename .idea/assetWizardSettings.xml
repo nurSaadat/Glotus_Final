@@ -93,12 +93,10 @@
                         <option name="values">
                           <map>
                             <entry key="autoMirrored" value="true" />
-                            <entry key="color" value="1a66a3" />
-                            <entry key="height" value="70" />
-                            <entry key="outputName" value="gruzovik_blue" />
+                            <entry key="color" value="0ea30a" />
+                            <entry key="outputName" value="gruzovik_green" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\Sunny" />
-                            <entry key="width" value="100" />
                           </map>
                         </option>
                       </PersistentState>

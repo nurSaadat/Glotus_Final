@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -76,7 +77,8 @@ public class Reception extends AppCompatActivity {
     static PdfData pd;
     static Spinner upakovka;
     private LinearLayout layToHide;
-    private Spinner soprDocument,transportType;
+    private Spinner soprDocument;
+    private AutoCompleteTextView transportType;
     static TextView foto_kol;
     private TextView numZakaz, date, zakazchik, otpravitel, poluchatel, manager,podrazdelenie, soprDoc;
     private EditText dateToFill, vesFact, obiemFact, kolich, komentToFill,comment;
@@ -152,7 +154,7 @@ public class Reception extends AppCompatActivity {
         kolichFotok=findViewById(R.id.kolich_fotok);
 
         soprDocument=findViewById(R.id.spinner_soprDoc);
-        String[] itemsForSop=new String[]{"Транспортная накладная","Товарно-транспортная накладная",
+        String[] itemsForSop=new String[]{"","Транспортная накладная","Товарно-транспортная накладная",
                 "Универсально-передаточный документ","Счет фактура","Накладная",
                 "Расходная накладная","INVOICE","другое"};
         ArrayAdapter<String> adapterForSop=new ArrayAdapter<String>(this,R.layout.spinner_item, itemsForSop);
@@ -369,6 +371,7 @@ public class Reception extends AppCompatActivity {
         //here some mistakes, look throw
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void pposting() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, JSONException {
+
         uploadingfile();
         String images="\"Изображения\" : [";
         for(int i=0;i<adress.size();i++) {
@@ -432,35 +435,32 @@ public class Reception extends AppCompatActivity {
             startActivity(myIntent);
     }
 
-    public void setTransportSpinner(final Spinner spinner){
-        List<String> list = new ArrayList<String>();
+    public void setTransportSpinner(final AutoCompleteTextView spinner){
+        final List<String> list = new ArrayList<String>();
         final List<String> rlist = new ArrayList<String>();
 
         list.add("Выберите:");
+        rlist.add("");
+
         for (Map.Entry<String, ?> entry : Transport.trpreferences.getAll().entrySet()) {
             System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
             list.add((String) entry.getValue());
             rlist.add(entry.getKey());
         }
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,R.layout.spinner_item,list);
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,R.layout.spinner_item,list);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                spinner.setSelection(i);
-                System.out.println(spinner.getSelectedItem());
-                System.out.println(spinner.getSelectedItemPosition());
-                if(spinner.getSelectedItemPosition()-1>=0)
-                        trkey=rlist.get(spinner.getSelectedItemPosition()-1);
 
+        spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                trkey=(rlist.get(list.indexOf(spinner.getText().toString())));
             }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
 
-            }
         });
     }
 

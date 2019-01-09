@@ -362,7 +362,7 @@
                                 android:text="Транспорт: "
                                 style="@style/TextBlueBold" />
 
-                            <Spinner
+                            <AutoCompleteTextView
                                 android:id="@+id/spin_transport"
                                 android:layout_width="79dp"
                                 android:layout_height="wrap_content"

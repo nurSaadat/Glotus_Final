@@ -1,9 +1,12 @@
 package com.example.usk.glotus_final.SuperviserApp.ReceptionFiles;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +15,7 @@ import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -90,7 +95,9 @@ public class Reception extends AppCompatActivity {
     private LinearLayout hide_lay;
     static Integer fotokol=0;
     private TextView kolichFotok;
-
+    private EditText sopnumber;
+    private EditText sopdate;
+    private DatePickerDialog.OnDateSetListener mDateListener;
     boolean ch=false;
 
     Boolean damage=false;
@@ -137,14 +144,43 @@ public class Reception extends AppCompatActivity {
         obiemFact=findViewById(R.id.et_obem_fact);
         kolich=findViewById(R.id.et_kolich);
 
+        sopdate=findViewById(R.id.sopdate);
+        sopnumber=findViewById(R.id.sopnum);
+
         otpravitel=findViewById(R.id.tv_otpravitel);
         otpravitel.setText(ZayavkaListAdapter.item.getSender());
+        sopnumber.setInputType(InputType.TYPE_CLASS_NUMBER  );
 
         poluchatel=findViewById(R.id.tv_poluchatel);
         poluchatel.setText(ZayavkaListAdapter.item.getRecept());
+        sopdate.setInputType(InputType.TYPE_NULL);
 
         manager=(TextView)findViewById(R.id.tv_menedzher);
         manager.setText(ZayavkaListAdapter.item.getMenedjer());
+        sopdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal=Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        Reception.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        mDateListener,year,month,day
+                );
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+        mDateListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month=month+1;
+                sopdate.setText(dayOfMonth+"/"+month+"/"+year);
+            }
+        };
 
 
 
@@ -385,7 +421,7 @@ public class Reception extends AppCompatActivity {
         System.out.println(images);
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(Calendar.getInstance().getTime()).replace("_","T");
 
-
+        String ssp=soprDocument.getSelectedItem().toString()+" от " +sopnumber.getText().toString()+" "+sopdate.getText().toString();
        String body="{\n" +
                 "    \"КоличествоФакт\": \""+kolich.getText().toString()+"\",\n" +
                 "    \"ВесФакт\": \""+vesFact.getText().toString()+"\",\n" +
@@ -404,7 +440,7 @@ public class Reception extends AppCompatActivity {
                 "    \"Фото_Type\": \"application/image/jpeg\",\n" +
                 "    \"Письмо\": \""+komentToFill.getText().toString()+"\",\n" +
                 "    \"ПисьмоОтправлено\": false,\n"+
-                "    \"СопроводительныйДокумент\": \""+soprDocument.getSelectedItem().toString()+"\","+
+                "    \"СопроводительныйДокумент\": \""+ssp+"\","+
                      images+
                 " }";
        Log.d("aa",body);

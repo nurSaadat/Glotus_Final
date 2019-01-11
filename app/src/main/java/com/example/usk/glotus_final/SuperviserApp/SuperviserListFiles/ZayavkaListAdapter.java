@@ -79,7 +79,7 @@ public class ZayavkaListAdapter extends ArrayAdapter<Zayavka> {
             holder.senderadr = (TextView) convertView.findViewById(R.id.tv_otkuda);
             holder.receptadr = (TextView) convertView.findViewById(R.id.tv_kuda);
             holder.manager=(TextView) convertView.findViewById(R.id.tv_manager);
-            holder.iv_status=(ImageView) convertView.findViewById(R.id.iv_status);
+            holder.iv_status=(ImageView) convertView.findViewById(R.id.iv_strela);
 
             result = convertView;
             convertView.setTag(holder);

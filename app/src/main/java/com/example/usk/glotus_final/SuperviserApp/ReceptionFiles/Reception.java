@@ -1,9 +1,12 @@
 package com.example.usk.glotus_final.SuperviserApp.ReceptionFiles;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,14 +15,17 @@ import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -76,7 +82,8 @@ public class Reception extends AppCompatActivity {
     static PdfData pd;
     static Spinner upakovka;
     private LinearLayout layToHide;
-    private Spinner soprDocument,transportType;
+    private Spinner soprDocument;
+    private AutoCompleteTextView transportType;
     static TextView foto_kol;
     private TextView numZakaz, date, zakazchik, otpravitel, poluchatel, manager,podrazdelenie, soprDoc;
     private EditText dateToFill, vesFact, obiemFact, kolich, komentToFill,comment;
@@ -88,7 +95,10 @@ public class Reception extends AppCompatActivity {
     private LinearLayout hide_lay;
     static Integer fotokol=0;
     private TextView kolichFotok;
-
+    private EditText sopnumber;
+    private EditText sopdate;
+    private DatePickerDialog.OnDateSetListener mDateListener;
+    String ttt="";
     boolean ch=false;
 
     Boolean damage=false;
@@ -135,14 +145,54 @@ public class Reception extends AppCompatActivity {
         obiemFact=findViewById(R.id.et_obem_fact);
         kolich=findViewById(R.id.et_kolich);
 
+        sopdate=findViewById(R.id.sopdate);
+        sopnumber=findViewById(R.id.sopnum);
+
         otpravitel=findViewById(R.id.tv_otpravitel);
         otpravitel.setText(ZayavkaListAdapter.item.getSender());
+        sopnumber.setInputType(InputType.TYPE_CLASS_NUMBER  );
 
         poluchatel=findViewById(R.id.tv_poluchatel);
         poluchatel.setText(ZayavkaListAdapter.item.getRecept());
+        sopdate.setInputType(InputType.TYPE_NULL);
 
         manager=(TextView)findViewById(R.id.tv_menedzher);
         manager.setText(ZayavkaListAdapter.item.getMenedjer());
+        sopdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal=Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        Reception.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        mDateListener,year,month,day
+                );
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+        mDateListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month=month+1;
+                String m = null;
+                if (month<=9)
+                    m="0"+month;
+                else
+                    m+=String.valueOf(month);
+                String d=null;
+                if (dayOfMonth<=9)
+                    d="0"+dayOfMonth;
+                else
+                    d= String.valueOf(dayOfMonth);
+                ttt=year+"-"+m+"-"+d+"T";
+                sopdate.setText(dayOfMonth+"/"+month+"/"+year);
+            }
+        };
 
 
 
@@ -152,7 +202,7 @@ public class Reception extends AppCompatActivity {
         kolichFotok=findViewById(R.id.kolich_fotok);
 
         soprDocument=findViewById(R.id.spinner_soprDoc);
-        String[] itemsForSop=new String[]{"Транспортная накладная","Товарно-транспортная накладная",
+        String[] itemsForSop=new String[]{"","Транспортная накладная","Товарно-транспортная накладная",
                 "Универсально-передаточный документ","Счет фактура","Накладная",
                 "Расходная накладная","INVOICE","другое"};
         ArrayAdapter<String> adapterForSop=new ArrayAdapter<String>(this,R.layout.spinner_item, itemsForSop);
@@ -369,6 +419,7 @@ public class Reception extends AppCompatActivity {
         //here some mistakes, look throw
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void pposting() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, JSONException {
+
         uploadingfile();
         String images="\"Изображения\" : [";
         for(int i=0;i<adress.size();i++) {
@@ -382,7 +433,11 @@ public class Reception extends AppCompatActivity {
         System.out.println(images);
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(Calendar.getInstance().getTime()).replace("_","T");
 
-
+        String ssp=soprDocument.getSelectedItem().toString()+" от " +sopnumber.getText().toString()+" "+sopdate.getText().toString();
+        if (soprDocument.getSelectedItem().toString().length()>1 && sopnumber.getText().toString().length()>=1 && sopdate.getText().toString().length()>1)
+        ssp="[{\"LineNumber\": \"1\",\"СопроводительныйДокумент\": \""+soprDocument.getSelectedItem().toString()+"\",\"НомерСД\": \""+sopnumber.getText().toString()+"\",\"ДатаСД\": \""+ttt+"00:00:00\"}}";
+      else
+          ssp="[{}]";
        String body="{\n" +
                 "    \"КоличествоФакт\": \""+kolich.getText().toString()+"\",\n" +
                 "    \"ВесФакт\": \""+vesFact.getText().toString()+"\",\n" +
@@ -401,7 +456,7 @@ public class Reception extends AppCompatActivity {
                 "    \"Фото_Type\": \"application/image/jpeg\",\n" +
                 "    \"Письмо\": \""+komentToFill.getText().toString()+"\",\n" +
                 "    \"ПисьмоОтправлено\": false,\n"+
-                "    \"СопроводительныйДокумент\": \""+soprDocument.getSelectedItem().toString()+"\","+
+                "    \"Док\": "+ssp+","+
                      images+
                 " }";
        Log.d("aa",body);
@@ -432,35 +487,32 @@ public class Reception extends AppCompatActivity {
             startActivity(myIntent);
     }
 
-    public void setTransportSpinner(final Spinner spinner){
-        List<String> list = new ArrayList<String>();
+    public void setTransportSpinner(final AutoCompleteTextView spinner){
+        final List<String> list = new ArrayList<String>();
         final List<String> rlist = new ArrayList<String>();
 
         list.add("Выберите:");
+        rlist.add("");
+
         for (Map.Entry<String, ?> entry : Transport.trpreferences.getAll().entrySet()) {
             System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
             list.add((String) entry.getValue());
             rlist.add(entry.getKey());
         }
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,R.layout.spinner_item,list);
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,R.layout.spinner_item,list);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                spinner.setSelection(i);
-                System.out.println(spinner.getSelectedItem());
-                System.out.println(spinner.getSelectedItemPosition());
-                if(spinner.getSelectedItemPosition()-1>=0)
-                        trkey=rlist.get(spinner.getSelectedItemPosition()-1);
 
+        spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                trkey=(rlist.get(list.indexOf(spinner.getText().toString())));
             }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
 
-            }
         });
     }
 

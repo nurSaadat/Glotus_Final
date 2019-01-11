@@ -53,11 +53,6 @@ public class ReceptionManagerActivity extends AppCompatActivity {
 
     }
 
-
-
-
-
-
     //передает данные в EditReceptionManagerActivity
     public void onIzmenitButtonClick(){
         RefKeys.ZakazKey=KeyZakaz;

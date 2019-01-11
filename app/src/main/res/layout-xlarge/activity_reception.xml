@@ -408,12 +408,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Номер:" />
+                                android:text="Номер:"
+                                android:textAppearance="@style/TextBlueBold" />
 
                             <EditText
                                 android:id="@+id/sopnum"
+                                style="@style/Widget.AppCompat.EditText"
                                 android:layout_width="81dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:ems="10"
                                 android:inputType="textPersonName" />
@@ -423,12 +425,14 @@
                                 android:layout_width="44dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Дата:" />
+                                android:text="Дата:"
+                                android:textAppearance="@style/TextBlueBold" />
 
                             <EditText
                                 android:id="@+id/sopdate"
+                                style="@android:style/Widget.DeviceDefault.EditText"
                                 android:layout_width="168dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:ems="10"
                                 android:inputType="date" />

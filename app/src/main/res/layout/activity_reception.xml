@@ -405,7 +405,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Номер:" />
+                                android:text="Номер:"
+                                android:textAppearance="@style/TextBlueBold" />
 
                             <EditText
                                 android:id="@+id/sopnum"
@@ -417,10 +418,11 @@
 
                             <TextView
                                 android:id="@+id/textView6"
-                                android:layout_width="44dp"
+                                android:layout_width="50dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Дата:" />
+                                android:text="Дата:"
+                                android:textAppearance="@style/TextBlueBold" />
 
                             <EditText
                                 android:id="@+id/sopdate"

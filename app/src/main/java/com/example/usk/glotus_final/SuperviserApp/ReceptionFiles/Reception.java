@@ -98,6 +98,7 @@ public class Reception extends AppCompatActivity {
     private EditText sopnumber;
     private EditText sopdate;
     private DatePickerDialog.OnDateSetListener mDateListener;
+    String ttt="";
     boolean ch=false;
 
     Boolean damage=false;
@@ -178,6 +179,17 @@ public class Reception extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month=month+1;
+                String m = null;
+                if (month<=9)
+                    m="0"+month;
+                else
+                    m+=String.valueOf(month);
+                String d=null;
+                if (dayOfMonth<=9)
+                    d="0"+dayOfMonth;
+                else
+                    d= String.valueOf(dayOfMonth);
+                ttt=year+"-"+m+"-"+d+"T";
                 sopdate.setText(dayOfMonth+"/"+month+"/"+year);
             }
         };
@@ -422,6 +434,10 @@ public class Reception extends AppCompatActivity {
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(Calendar.getInstance().getTime()).replace("_","T");
 
         String ssp=soprDocument.getSelectedItem().toString()+" от " +sopnumber.getText().toString()+" "+sopdate.getText().toString();
+        if (soprDocument.getSelectedItem().toString().length()>1 && sopnumber.getText().toString().length()>=1 && sopdate.getText().toString().length()>1)
+        ssp="[{\"LineNumber\": \"1\",\"СопроводительныйДокумент\": \""+soprDocument.getSelectedItem().toString()+"\",\"НомерСД\": \""+sopnumber.getText().toString()+"\",\"ДатаСД\": \""+ttt+"00:00:00\"}}";
+      else
+          ssp="[{}]";
        String body="{\n" +
                 "    \"КоличествоФакт\": \""+kolich.getText().toString()+"\",\n" +
                 "    \"ВесФакт\": \""+vesFact.getText().toString()+"\",\n" +
@@ -440,7 +456,7 @@ public class Reception extends AppCompatActivity {
                 "    \"Фото_Type\": \"application/image/jpeg\",\n" +
                 "    \"Письмо\": \""+komentToFill.getText().toString()+"\",\n" +
                 "    \"ПисьмоОтправлено\": false,\n"+
-                "    \"СопроводительныйДокумент\": \""+ssp+"\","+
+                "    \"Док\": "+ssp+","+
                      images+
                 " }";
        Log.d("aa",body);

@@ -54,9 +54,9 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
     private List<String> rlistkuda = new ArrayList<String>();
     private List<String> rkontr = new ArrayList<String>();
 
-    ArrayAdapter<String> kudaAdapter;
-    ArrayAdapter<String> otkudaAdapter;
-    ArrayAdapter<String> zakazchikAdapter;
+    private ArrayAdapter<String> kudaAdapter;
+    private ArrayAdapter<String> otkudaAdapter;
+    private ArrayAdapter<String> zakazchikAdapter;
 
     private String KeyZakaz="00000000-0000-0000-0000-000000000000",KeyOtkuda="00000000-0000-0000-0000-000000000000",KeyKuda="00000000-0000-0000-0000-000000000000";
 
@@ -104,9 +104,6 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
         otkudaAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,listkuda);
         autoComplete_otkuda.setAdapter(otkudaAdapter);
 
-        //autoComplete_kuda.setText(recpData.getKuda());
-        //autoComplete_otkuda.setText(recpData.getOtkuda());
-
 
         List<String> kontr = new ArrayList<String>();
         i=0;
@@ -120,8 +117,6 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
         }
         zakazchikAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,kontr);
         autoComplete_zakazchik.setAdapter(zakazchikAdapter);
-        //autoComplete_zakazchik.setText(recpData.getZakazchik());
-
 
         mactv_status.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, Status.statusy));
         for (i=0;i<Status.statusy.length;i++){
@@ -131,6 +126,7 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
                 break;
             }
         }
+
         mactv_vid.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, Vidperevoz.vidy));
         for (i=0;i<Vidperevoz.vidy.length;i++)
         {
@@ -139,6 +135,7 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
                 break;
             }
         }
+
         btn_sohranit.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override

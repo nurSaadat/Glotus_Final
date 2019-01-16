@@ -138,11 +138,12 @@ public class ExpedPage extends AppCompatActivity  {
         scroll.draw(page.getCanvas());
         document.finishPage(page);
 
+
         File mFolder;
-        imageFile = null;
+        String fileName="Exped.pdf";
         try {
             mFolder = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
-            imageFile = new File(mFolder,"Exped.pdf"/*+ "_"+ System.currentTimeMillis() + ".pdf"*/);
+            imageFile = new File(mFolder,fileName/*+ "_"+ System.currentTimeMillis() + ".pdf"*/);
             if (!mFolder.exists()) {
                 mFolder.mkdirs();
             }
@@ -154,7 +155,9 @@ public class ExpedPage extends AppCompatActivity  {
         } catch (IOException e) {
             Toast.makeText(this, "При сохранении возникла ошибка", Toast.LENGTH_LONG).show();
         }
-        imgFile.add(imageFile);
+
+        imgFile.add(new PdfInfo(imageFile,imageFile.getAbsolutePath(),fileName));
+        //imgFile.add(imageFile);
     }
 
     public void open(File imageFile){

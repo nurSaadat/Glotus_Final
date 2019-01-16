@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.Etiketka;
+import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.PdfInfo;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
 
 import java.io.File;
@@ -54,7 +55,6 @@ public class WifiManagerClass extends AppCompatActivity {
     private ListView listView;
     private TextView messageWifi;
     TextView connectStatus;
-    private EditText sendData;
     private MenuItem btn_generate;
     private MenuItem btn_ok;
     private MenuItem btn_print;
@@ -78,9 +78,8 @@ public class WifiManagerClass extends AppCompatActivity {
     private SendReceive sendReceive;
     private writeOnStream wrt;
 
-    private ArrayList<File> imgFile=Etiketka.imgFile;
+    private ArrayList<PdfInfo> imgFile=Etiketka.imgFile;
     private ArrayList<File> imgS;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -191,8 +190,8 @@ public class WifiManagerClass extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //String message=sendData.getText().toString();
-                for(File imgFiles:imgFile) {
-                    wrt = new writeOnStream(imgFiles, sendReceive.getOutputStream());
+                for(PdfInfo pi:imgFile) {
+                    wrt = new writeOnStream(pi.getFile(), sendReceive.getOutputStream(),pi.getPath(),pi.getFileName());
                     wrt.start();
                 }
             }
@@ -301,13 +300,15 @@ public class WifiManagerClass extends AppCompatActivity {
         private Socket socket;
         private InputStream inputStream;
         private OutputStream outputStream;
+        private String fileName;
 
         public OutputStream getOutputStream() {
             return outputStream;
         }
 
-        public void setOutputStream(OutputStream outputStream) {
+        public void setOutputStream(OutputStream outputStream,String fileName) {
             this.outputStream = outputStream;
+            this.fileName=fileName;
         }
 
         public SendReceive(Socket skt){
@@ -330,16 +331,18 @@ public class WifiManagerClass extends AppCompatActivity {
             File pdf=null;
             while (socket!=null){
                 try {
+                    bytes=inputStream.read(buffer);
                     mFolder = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
-                    pdf=new File(mFolder,"Exped"+ "_"+ System.currentTimeMillis() + ".pdf");
+                    pdf=new File(mFolder,fileName);
+
                     if (!mFolder.exists()) {
                         mFolder.mkdirs();
                     }
                     FileOutputStream out = new FileOutputStream(pdf);
-                    bytes=inputStream.read(buffer);
                     while(bytes!=-1){
-                        handler.obtainMessage(MESSAGE_READ,bytes,-1,buffer).sendToTarget();
+                        //handler.obtainMessage(MESSAGE_READ,bytes,-1,buffer).sendToTarget();
                         out.write(buffer,0,bytes);
+                        out.flush();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -352,24 +355,29 @@ public class WifiManagerClass extends AppCompatActivity {
     private class writeOnStream extends Thread{
         OutputStream outputStream;
         File imageFile;
+        String path;
+        String fileName;
 
-        public writeOnStream(File file,OutputStream outputStr){
+        public writeOnStream(File file,OutputStream outputStr,String path,String fileName){
             this.imageFile=file;
             this.outputStream=outputStr;
+            this.path=path;
+            this.fileName=fileName;
         }
 
         public void run(){
             byte[] bytes=new byte[1024];
             int count=0;
             try {
-                String uri=imageFile.toURI().toString();
-                File file=new File(uri);
+                //String uri=imageFile.toURI().toString();
+                File file=new File(path);
                 InputStream in=new FileInputStream(file);
 
                 while ((count=in.read(bytes))>0){
                     outputStream.write(bytes,0,count);
+                    outputStream.flush();
                 }
-                sendReceive.setOutputStream(outputStream);
+                sendReceive.setOutputStream(outputStream,fileName);
             }catch (IOException e){
                 e.printStackTrace();
             }

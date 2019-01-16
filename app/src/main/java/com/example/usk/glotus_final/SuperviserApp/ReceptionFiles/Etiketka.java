@@ -1,11 +1,14 @@
 package com.example.usk.glotus_final.SuperviserApp.ReceptionFiles;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.pdf.PdfDocument;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.print.PrintAttributes;
+import android.print.PrintManager;
 import android.print.pdf.PrintedPdfDocument;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
@@ -31,8 +34,10 @@ public class Etiketka extends AppCompatActivity{
     private ScrollView scrollViewEt;
     private MenuItem btn_next;
     private PdfData data;
-    public static ArrayList<File> imgFile=new ArrayList<>();
+    public static ArrayList<PdfInfo> imgFile=new ArrayList<>();
     private File imageFile;
+
+    private TextView mesta;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +67,7 @@ public class Etiketka extends AppCompatActivity{
         TextView dateZ=findViewById(R.id.dateZakazField);
         TextView fromCityBottom=findViewById(R.id.otkudaBottomField);
         TextView toCityBottom=findViewById(R.id.kudaBottomField);
-        TextView mesta=findViewById(R.id.mestoBottomField);
+        mesta=findViewById(R.id.mestoBottomField);
         TextView otprBottom=findViewById(R.id.otpravitelBottomField);
         TextView poluchBottom=findViewById(R.id.poluchatelBottomField);
         TextView pasrbottom=findViewById(R.id.raspBottomField);
@@ -97,6 +102,8 @@ public class Etiketka extends AppCompatActivity{
 
         btn_next=menu.findItem(R.id.btn_next);
         btn_next.setVisible(true);
+        MenuItem btn_open=menu.findItem(R.id.btn_open);
+        btn_open.setVisible(true);
         return true;
     }
 
@@ -112,12 +119,16 @@ public class Etiketka extends AppCompatActivity{
             startActivity(myIntent);
         }
 
+        if(id==R.id.btn_open){
+            open(imageFile);
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void save (View v){
-        RelativeLayout scroll = (RelativeLayout) findViewById(R.id.relativeLay);
+        RelativeLayout scroll = findViewById(R.id.relativeLay);
         int yy = scroll.getScrollY()+scroll.getHeight();
         int xx = scroll.getWidth();
 
@@ -126,14 +137,20 @@ public class Etiketka extends AppCompatActivity{
                 setMediaSize(PrintAttributes.MediaSize.NA_LETTER).
                 setMinMargins(PrintAttributes.Margins.NO_MARGINS).
                 build();
+
         PrintedPdfDocument document = new PrintedPdfDocument(this,printAttrs);
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(xx, yy, 1).create();
-        PdfDocument.Page page = document.startPage(pageInfo);
-        scroll.draw(page.getCanvas());
-        document.finishPage(page);
+        String fileName="Этикетка.pdf";
+        for(int i=0; i<Integer.valueOf(data.getKolvoMest());i++) {
+            mesta.setText((i+1)+" из "+ data.getKolvoMest());
+            PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(xx, yy, i+1).create();
+            PdfDocument.Page page = document.startPage(pageInfo);
+            scroll.draw(page.getCanvas());
+            document.finishPage(page);
+        }
+
         try {
             File mFolder = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
-            imageFile = new File(mFolder,"Этикетка.pdf"/*+ "_"+ System.currentTimeMillis() + ".pdf"*/);
+            imageFile = new File(mFolder,fileName/*+ "_"+ System.currentTimeMillis() + ".pdf"*/);
             if (!mFolder.exists()) {
                 mFolder.mkdirs();
             }
@@ -146,8 +163,31 @@ public class Etiketka extends AppCompatActivity{
             Toast.makeText(this, "При сохранении возникла ошибка", Toast.LENGTH_LONG).show();
         }
 
-        imgFile.add(imageFile);
+        System.out.println(imageFile.getAbsolutePath()+"////////////////////////////////");
+        imgFile.add(new PdfInfo(imageFile,imageFile.getAbsolutePath(),fileName));
     }
+
+    public void open(File imageFile){
+        String rootSDCard=Environment.getExternalStorageDirectory().getAbsolutePath();
+
+        System.out.println(imageFile.toURI().toString());
+        String uri=imageFile.toURI().toString();
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.parse(uri), "application/pdf");
+        startActivity(intent);
+    }
+
+    /*private void doPrint() {
+        // Get a PrintManager instance
+        PrintManager printManager = (PrintManager) getSystemService(Context.PRINT_SERVICE);
+
+        // Set job name, which will be displayed in the print queue
+        String jobName = getString(R.string.app_name) + " Document";
+
+        // Start a print job, passing in a PrintDocumentAdapter implementation
+        // to handle the generation of a print document
+        printManager.print(jobName, document, null); //
+    }*/
 
     @Override
     public void onBackPressed() {

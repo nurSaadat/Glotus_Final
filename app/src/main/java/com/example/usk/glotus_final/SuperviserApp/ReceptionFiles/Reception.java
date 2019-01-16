@@ -116,8 +116,7 @@ public class Reception extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
@@ -295,9 +294,13 @@ public class Reception extends AppCompatActivity {
         kolichFotok.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Reception.this, ImageViewer.class);
-                intent.putExtra("imageData", arr);
-                startActivityForResult(intent, REQUEST_CODE);
+                if(arr.size()==0){
+                    Toast.makeText(getApplicationContext(),"No any photo",Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent intent = new Intent(Reception.this, ImageViewer.class);
+                    intent.putExtra("imageData", arr);
+                    startActivityForResult(intent, REQUEST_CODE);
+                }
             }
         });
     }

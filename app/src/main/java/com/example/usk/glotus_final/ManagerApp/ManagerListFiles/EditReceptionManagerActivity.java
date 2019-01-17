@@ -1,22 +1,40 @@
 package com.example.usk.glotus_final.ManagerApp.ManagerListFiles;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.gesture.GestureOverlayView;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.WindowInsets;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.MultiAutoCompleteTextView;
+import android.widget.ScrollView;
+import android.widget.Scroller;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.System.Catalog.Adress;
@@ -25,6 +43,7 @@ import com.example.usk.glotus_final.System.Catalog.Status;
 import com.example.usk.glotus_final.System.Catalog.Vidperevoz;
 import com.example.usk.glotus_final.System.Encryption.AES;
 import com.example.usk.glotus_final.System.connection.Server;
+import com.example.usk.glotus_final.System.loginFiles.SignInActivity;
 import com.example.usk.glotus_final.System.loginFiles.User;
 
 import java.io.UnsupportedEncodingException;
@@ -39,6 +58,9 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
+import static android.graphics.Color.BLACK;
+import static android.graphics.Color.RED;
+
 public class EditReceptionManagerActivity extends AppCompatActivity {
 
     private LinearLayout rlZakazchik, rlPoluchatel, rlOtpravitel;
@@ -52,17 +74,23 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
     private Spinner mactv_status,mactv_vid;
 
     private List<String> rlistkuda = new ArrayList<String>();
+    private List<String>listkuda = new ArrayList<String>();
     private List<String> rkontr = new ArrayList<String>();
+    private List<String> kontr = new ArrayList<String>();
 
     private ArrayAdapter<String> kudaAdapter;
     private ArrayAdapter<String> otkudaAdapter;
     private ArrayAdapter<String> zakazchikAdapter;
+    private ScrollView scrollView;
+
+
 
     private String KeyZakaz="00000000-0000-0000-0000-000000000000",KeyOtkuda="00000000-0000-0000-0000-000000000000",KeyKuda="00000000-0000-0000-0000-000000000000";
 
     private ReceptionData returnData;
     private ReceptionData recpData;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +113,7 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
         //для "куда", надо брать данные с базы, и сохранить в лист
         //для "откуда", надо брать данные с базы, и сохранить в лист
 
-        List<String> listkuda = new ArrayList<String>();
+
         int kda=0,oda=0;
         int i=0;
         for (Map.Entry<String, ?> entry : Adress.adresspreferences.getAll().entrySet()) {
@@ -105,7 +133,80 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
         autoComplete_otkuda.setAdapter(otkudaAdapter);
 
 
-        List<String> kontr = new ArrayList<String>();
+
+
+        autoComplete_zakazchik.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!kontr.contains(autoComplete_zakazchik.getText().toString())) {
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(EditReceptionManagerActivity.this, "Такого заказчика не существует!", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+                    ColorStateList colorStateList = ColorStateList.valueOf(RED);
+                    autoComplete_zakazchik.setBackgroundTintList(colorStateList);
+                }
+                else{
+
+                    ColorStateList colorStateList = ColorStateList.valueOf(BLACK);
+                    autoComplete_zakazchik.setBackgroundTintList(colorStateList);
+                }
+
+
+            }
+        });
+        autoComplete_kuda.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if (!listkuda.contains(autoComplete_kuda.getText().toString())) {
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(EditReceptionManagerActivity.this, "Такого адреса не существует!", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+                    ColorStateList colorStateList = ColorStateList.valueOf(RED);
+                    autoComplete_kuda.setBackgroundTintList(colorStateList);
+                }
+                else{
+
+                    ColorStateList colorStateList = ColorStateList.valueOf(BLACK);
+                    autoComplete_kuda.setBackgroundTintList(colorStateList);
+                }
+
+            }
+        });
+        autoComplete_otkuda.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if (!listkuda.contains(autoComplete_otkuda.getText().toString())) {
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(EditReceptionManagerActivity.this, "Такого адреса не существует!", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+                    ColorStateList colorStateList = ColorStateList.valueOf(RED);
+                    autoComplete_otkuda.setBackgroundTintList(colorStateList);
+                }
+                else{
+
+                    ColorStateList colorStateList = ColorStateList.valueOf(BLACK);
+                    autoComplete_otkuda.setBackgroundTintList(colorStateList);
+                }
+
+            }
+        });
+
+
+
         i=0;
         int zk=0;
         for (Map.Entry<String, ?> entry :Kontragent.kontrpreferences.getAll().entrySet()){
@@ -159,12 +260,48 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
                 }
             }
         });
+        scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                InputMethodManager imm =  (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
+
+            }
+        });
+
+
     }
 
     //возвращает измененные данные в ReceptionManager
     @TargetApi(Build.VERSION_CODES.O)
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void onSohranitButtonClick() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
+        String keyKuda=null,keyOtkuda=null,keyZakaz=null;
+        try{
+            keyKuda=rlistkuda.get(listkuda.indexOf(autoComplete_kuda.getText().toString()));
+        }
+        catch (Exception e){
+            keyKuda="00000000-0000-0000-0000-000000000000";
+            autoComplete_kuda.setText("");
+
+        }
+        try{
+            keyOtkuda=rlistkuda.get(listkuda.indexOf(autoComplete_otkuda.getText().toString()));
+        }
+        catch (Exception e){
+            keyOtkuda="00000000-0000-0000-0000-000000000000";
+            autoComplete_otkuda.setText("");
+        }
+        try{
+            keyZakaz=rkontr.get(kontr.indexOf(autoComplete_zakazchik.getText().toString()));
+        }
+        catch (Exception e){
+            keyZakaz="00000000-0000-0000-0000-000000000000";
+            autoComplete_zakazchik.setText("");
+        }
+
+
+
         String data="{\"АдресПолучателя\":\""+mactv_p_adres.getText().toString()+"\"," +
                     "\"ВидПеревозки\":\""+mactv_vid.getSelectedItem().toString()+"\","+
                     "\"ВесФакт\":\""+et_f_ves.getText().toString()+"\"," +
@@ -176,25 +313,25 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
                     "\"Комментарий\":\""+et_kommentar.getText().toString()+"\","+
                     "\"КонтактноеЛицоОтправителя\":\""+mactv_z_kontakt.getText().toString()+"\","+
                     "\"КонтактноеЛицоПолучатель\":\""+mactv_p_kontakt.getText().toString()+"\","+
-                    "\"Куда_Key\":\""+rlistkuda.get(kudaAdapter.getPosition(autoComplete_otkuda.getText().toString()))+"\","+
+                    "\"Куда_Key\":\""+keyKuda+"\","+
                     "\"НаименованиеГруза\":\""+mactv_info.getText().toString()+"\","+
                     "\"ОбъемПлан\":\""+et_p_obiem.getText().toString()+"\","+
                     "\"ОбъемФакт\":\""+et_f_obiem.getText().toString()+"\","+
-                    "\"Откуда_Key\":\""+rlistkuda.get(otkudaAdapter.getPosition(autoComplete_otkuda.getText().toString()))+"\","+
+                    "\"Откуда_Key\":\""+keyOtkuda+"\","+
                     "\"Отправитель\":\""+mactv_z_otprav.getText().toString()+"\","+
                     "\"Получатель\":\""+mactv_p_poluch.getText().toString()+"\","+
                     "\"ТелефонКонтактногоЛицаПолучателя\":\""+mactv_p_telefon.getText().toString()+"\","+
                     "\"ТелефонКонтактногоЛицоОтправителя\":\""+mactv_z_telefon.getText().toString()+"\","+
                     "\"СтатусЗаказа\":\""+Status.statusy[mactv_status.getSelectedItemPosition()]+"\","+
                     "\"НомерДоговора\":\""+mactv_z_dogovor.getText().toString()+"\""+
-                    "\"Заказчик_Key\":\""+rkontr.get(zakazchikAdapter.getPosition(autoComplete_zakazchik.getText().toString()))+"\","+
+                    "\"Заказчик_Key\":\""+keyZakaz+"\","+
                     "\"ЦенаПеревозки\":\""+mactv_stoimost.getText().toString()+"\""+
                     "}";
         System.out.println(data);
         RefKeys.Status=Status.statusy[mactv_status.getSelectedItemPosition()];
-        RefKeys.ZakazKey=rkontr.get(zakazchikAdapter.getPosition(autoComplete_zakazchik.getText().toString()));
-        RefKeys.KudaKey=rlistkuda.get(kudaAdapter.getPosition(autoComplete_kuda.getText().toString()));
-        RefKeys.OkudaKey=rlistkuda.get(kudaAdapter.getPosition(autoComplete_otkuda.getText().toString()));
+        RefKeys.ZakazKey=keyZakaz;
+        RefKeys.KudaKey=keyKuda;
+        RefKeys.OkudaKey=keyOtkuda;
         RefKeys.vidpr=mactv_vid.getSelectedItem().toString();
 
 
@@ -244,6 +381,7 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
         //mactv_dostavka.setText(recpData.getDostavka());
         mactv_stoimost.setText(recpData.getStoimost());
 
+
         et_kommentar.setText(recpData.getKomment());
 
         mactv_p_otkuda.setText(recpData.getOtkuda());
@@ -253,6 +391,7 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
     }
 
     public void findView(){
+        scrollView=findViewById(R.id.scrollView);
         rlZakazchik = findViewById(R.id.rl_zakazchik);
         rlOtpravitel = findViewById(R.id.rl_otpravitel);
         rlPoluchatel = findViewById(R.id.rl_poluchatel);
@@ -275,12 +414,16 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
         mactv_z_telefon=findViewById(R.id.mactv_z_telefon);
         mactv_p_poluch=findViewById(R.id.mactv_p_poluch);
         mactv_date_edit=findViewById(R.id.mactv_date_edit);
+        mactv_date_edit.setEnabled(false);
         et_p_kolich=findViewById(R.id.et_p_kolich);
         et_p_ves=findViewById(R.id.et_p_ves);
         et_p_obiem=findViewById(R.id.et_p_obiem);
         et_f_kolich=findViewById(R.id.et_f_kolich);
+        et_f_kolich.setEnabled(false);
         et_f_ves=findViewById(R.id.et_f_ves);
+        et_f_ves.setEnabled(false);
         et_f_obiem=findViewById(R.id.et_f_obiem);
+        et_f_obiem.setEnabled(false);
         autoComplete_otkuda=findViewById(R.id.autoComplete_otkuda);
         autoComplete_kuda=findViewById(R.id.autoComplete_kuda);
         mactv_info=findViewById(R.id.mactv_info);
@@ -289,6 +432,8 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
         mactv_stoimost=findViewById(R.id.mactv_stoimost);
         mactv_status=findViewById(R.id.mactv_status);
         et_kommentar=findViewById(R.id.et_kommentar);
+        mactv_stoimost.setEnabled(false);
+        mactv_status.setEnabled(false);
 
         mactv_p_otkuda=findViewById(R.id.mactv_p_otkuda);
         mactv_p_adres=findViewById(R.id.mactv_p_adres);

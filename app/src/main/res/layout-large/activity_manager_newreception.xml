@@ -520,23 +520,24 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="8dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <TextView
+                            style="@style/TextBlueRecBold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Доставка: "
-                            android:textAlignment="textStart"
-                            style="@style/TextBlueRecBold"/>
+                            android:textAlignment="textStart" />
 
                         <EditText
                             android:id="@+id/et_dostavka"
+                            style="@style/TextBlueRecBold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="100"
-                            android:text="//доставка"
-                            style="@style/TextBlueRecBold" />
+                            android:text="//доставка" />
 
                     </LinearLayout>
 

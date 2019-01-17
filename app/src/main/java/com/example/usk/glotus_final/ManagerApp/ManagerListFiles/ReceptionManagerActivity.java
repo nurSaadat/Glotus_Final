@@ -104,7 +104,7 @@ public class ReceptionManagerActivity extends AppCompatActivity {
         try {
             KeyZakaz = RefKeys.ZakazKey;
             tv_code.setText(returnedData.getCode());
-            tv_date.setText(returnedData.getDate());
+            tv_date.setText(returnedData.getDate().split("T")[0]);
             tv_z_zakazchik.setText(returnedData.getZakazchik());
             tv_z_pochta.setText(returnedData.getPochta());
             tv_z_dogovor.setText(returnedData.getDogovor());
@@ -161,7 +161,7 @@ public class ReceptionManagerActivity extends AppCompatActivity {
         RefKeys.vidpr=tv_vid.getText().toString();
 
         tv_code.setText(zayavka.getNumber());
-        tv_date.setText(zayavka.getDate());
+        tv_date.setText(zayavka.getDate().split("T")[0]);
         tv_z_zakazchik.setText((CharSequence) Kontragent.kontrpreferences.getAll().get(zayavka.getZakaz()));
         tv_z_pochta.setText(zayavka.getPochta());
         tv_z_dogovor.setText(zayavka.getNomerdogovor());
@@ -197,7 +197,7 @@ public class ReceptionManagerActivity extends AppCompatActivity {
     public void setDataFromNewRecp(){
         try {
             tv_code.setText(fromNewRecp.getCode());
-            tv_date.setText(fromNewRecp.getDate());
+            tv_date.setText(fromNewRecp.getDate().split("T")[0]);
             tv_z_zakazchik.setText(fromNewRecp.getZakazchik());
             tv_z_pochta.setText(fromNewRecp.getPochta());
             tv_z_dogovor.setText(fromNewRecp.getDogovor());

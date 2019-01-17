@@ -163,13 +163,9 @@ public class SuperviserListActivity extends AppCompatActivity {
         ArrayList<Zayavka> newww = new ArrayList<>();
         System.out.println(textToSearch);
         for(int i=0;i<mZayavkas.size();i++){
-
-            if(mZayavkas.get(i).getSender().contains(textToSearch) || mZayavkas.get(i).getNumber().contains(textToSearch) || mZayavkas.get(i).getRecept().contains(textToSearch)){
-
+            if(mZayavkas.get(i).getSender().toLowerCase().contains(textToSearch.toLowerCase()) || mZayavkas.get(i).getNumber().toLowerCase().contains(textToSearch.toLowerCase()) || mZayavkas.get(i).getRecept().toLowerCase().contains(textToSearch.toLowerCase())){
                 newww.add(mZayavkas.get(i));
-
             }
-
         }
 
        initlist(newww);

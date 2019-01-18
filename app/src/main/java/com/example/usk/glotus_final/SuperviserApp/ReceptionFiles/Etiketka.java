@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserApp.BluetoothService.BluetoothMain;
+import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -152,13 +153,15 @@ public class Etiketka extends AppCompatActivity{
 
         PrintedPdfDocument document = new PrintedPdfDocument(this,printAttrs);
         String fileName="Этикетка.pdf";
+try{
         for(int i=0; i<Integer.valueOf(data.getKolvoMest());i++) {
             mesta.setText((i+1)+" из "+ data.getKolvoMest());
             PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(xx, yy, i+1).create();
             PdfDocument.Page page = document.startPage(pageInfo);
             scroll.draw(page.getCanvas());
             document.finishPage(page);
-        }
+        }}
+        catch (Exception e){}
 
         try {
             File mFolder = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
@@ -190,7 +193,7 @@ public class Etiketka extends AppCompatActivity{
 
     @Override
     public void onBackPressed() {
-        Intent myIntent = new Intent(Etiketka.this, Reception.class);
+        Intent myIntent = new Intent(Etiketka.this, SuperviserListActivity.class);
         startActivity(myIntent);
     }
 }

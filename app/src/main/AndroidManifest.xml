@@ -10,6 +10,9 @@
     <uses-feature android:name="android.hardware.camera" android:required="true"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-feature android:name="android.hardware.bluetooth" />
 
     <supports-screens
         android:normalScreens="true"
@@ -56,12 +59,12 @@
             android:configChanges="orientation|screenSize"/>
         <activity android:name=".ManagerApp.ManagerListFiles.EditReceptionManagerActivity"
             android:configChanges="orientation|screenSize"/>
-        <activity android:name=".ManagerApp.ManagerListFiles.ImageViewerManager"
+      <activity android:name=".ManagerApp.ManagerListFiles.ImageViewerManager"
             android:configChanges="orientation|screenSize">
+        <activity android:name=".SuperviserApp.BluetoothService.BluetoothMain"
+            android:configChanges="orientation|screenSize"/>
 
 
-
-        </activity>
 
         <provider
             android:authorities="${applicationId}.provider"

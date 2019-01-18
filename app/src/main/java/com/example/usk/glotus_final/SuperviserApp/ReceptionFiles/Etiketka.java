@@ -1,17 +1,24 @@
 package com.example.usk.glotus_final.SuperviserApp.ReceptionFiles;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.graphics.pdf.PdfDocument;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.print.PrintAttributes;
-import android.print.PrintManager;
 import android.print.pdf.PrintedPdfDocument;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,20 +29,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.usk.glotus_final.R;
+import com.example.usk.glotus_final.SuperviserApp.BluetoothService.BluetoothMain;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static android.os.Environment.getExternalStoragePublicDirectory;
+
 
 public class Etiketka extends AppCompatActivity{
     private RelativeLayout pdf_contEt;
     private ScrollView scrollViewEt;
     private MenuItem btn_next;
+    private MenuItem btn_print;
     private PdfData data;
-    public static ArrayList<PdfInfo> imgFile=new ArrayList<>();
     private File imageFile;
+    private PdfInfo pdfEtiketka;
 
     private TextView mesta;
 
@@ -52,7 +63,6 @@ public class Etiketka extends AppCompatActivity{
     }
 
     public void buildText(PdfData pd){
-        //PdfData pd=Reception.pd;
 
         TextView fromCity=findViewById(R.id.otkudaField);
         TextView toCity=findViewById(R.id.kudaField);
@@ -102,8 +112,8 @@ public class Etiketka extends AppCompatActivity{
 
         btn_next=menu.findItem(R.id.btn_next);
         btn_next.setVisible(true);
-        MenuItem btn_open=menu.findItem(R.id.btn_open);
-        btn_open.setVisible(true);
+        btn_print=menu.findItem(R.id.btn_print);
+        btn_print.setVisible(true);
         return true;
     }
 
@@ -113,14 +123,16 @@ public class Etiketka extends AppCompatActivity{
         int id = item.getItemId();
 
         if(id==R.id.btn_next){
-            save(pdf_contEt);
             Intent myIntent = new Intent(Etiketka.this, ExpedPage.class);
             myIntent.putExtra("pdfExped",data);
             startActivity(myIntent);
         }
 
-        if(id==R.id.btn_open){
-            open(imageFile);
+        if(id==R.id.btn_print){
+            save(pdf_contEt);
+            Intent myIntent = new Intent(Etiketka.this, BluetoothMain.class);
+            //myIntent.putExtra("pdfEtiketka", bitmapInfo);
+            startActivity(myIntent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -163,11 +175,10 @@ public class Etiketka extends AppCompatActivity{
             Toast.makeText(this, "При сохранении возникла ошибка", Toast.LENGTH_LONG).show();
         }
 
-        System.out.println(imageFile.getAbsolutePath()+"////////////////////////////////");
-        imgFile.add(new PdfInfo(imageFile,imageFile.getAbsolutePath(),fileName));
+        pdfEtiketka=new PdfInfo(imageFile,imageFile.getAbsolutePath(),fileName);
     }
 
-    public void open(File imageFile){
+    /*public void open(File imageFile){
         String rootSDCard=Environment.getExternalStorageDirectory().getAbsolutePath();
 
         System.out.println(imageFile.toURI().toString());
@@ -175,18 +186,6 @@ public class Etiketka extends AppCompatActivity{
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(Uri.parse(uri), "application/pdf");
         startActivity(intent);
-    }
-
-    /*private void doPrint() {
-        // Get a PrintManager instance
-        PrintManager printManager = (PrintManager) getSystemService(Context.PRINT_SERVICE);
-
-        // Set job name, which will be displayed in the print queue
-        String jobName = getString(R.string.app_name) + " Document";
-
-        // Start a print job, passing in a PrintDocumentAdapter implementation
-        // to handle the generation of a print document
-        printManager.print(jobName, document, null); //
     }*/
 
     @Override

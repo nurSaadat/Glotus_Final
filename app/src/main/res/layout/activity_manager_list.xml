@@ -22,6 +22,7 @@
             android:layout_alignParentTop="true"
             android:hint="Введите номер заявки"
             android:imeOptions="actionSearch"
+            android:textSize="15dp"
             style="@style/TextSearchList"
             />
 

@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.Etiketka;
+import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.ExpedPage;
 import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.PdfInfo;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
 
@@ -78,8 +79,7 @@ public class WifiManagerClass extends AppCompatActivity {
     private SendReceive sendReceive;
     private writeOnStream wrt;
 
-    private ArrayList<PdfInfo> imgFile=Etiketka.imgFile;
-    private ArrayList<File> imgS;
+    private PdfInfo pdfExped;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -87,6 +87,8 @@ public class WifiManagerClass extends AppCompatActivity {
         setContentView(R.layout.wifi_direct);
 
         initialWork();
+        Intent intent=getIntent();
+        pdfExped=(PdfInfo) intent.getExtras().getSerializable("pdfExpeds");
         exqListener();
 
     }
@@ -190,10 +192,12 @@ public class WifiManagerClass extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //String message=sendData.getText().toString();
-                for(PdfInfo pi:imgFile) {
+                /*for(PdfInfo pi:imgFile) {
                     wrt = new writeOnStream(pi.getFile(), sendReceive.getOutputStream(),pi.getPath(),pi.getFileName());
                     wrt.start();
-                }
+                }*/
+                wrt = new writeOnStream(pdfExped.getFile(), sendReceive.getOutputStream(),pdfExped.getPath(),pdfExped.getFileName());
+                wrt.start();
             }
         });
     }
@@ -333,7 +337,7 @@ public class WifiManagerClass extends AppCompatActivity {
                 try {
                     bytes=inputStream.read(buffer);
                     mFolder = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
-                    pdf=new File(mFolder,fileName);
+                    pdf=new File(mFolder,fileName+"1");
 
                     if (!mFolder.exists()) {
                         mFolder.mkdirs();
@@ -348,7 +352,6 @@ public class WifiManagerClass extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-           imgS.add(pdf);
         }
     }
 
@@ -378,6 +381,7 @@ public class WifiManagerClass extends AppCompatActivity {
                     outputStream.flush();
                 }
                 sendReceive.setOutputStream(outputStream,fileName);
+                outputStream.close();
             }catch (IOException e){
                 e.printStackTrace();
             }

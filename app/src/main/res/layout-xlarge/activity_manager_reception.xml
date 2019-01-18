@@ -70,7 +70,7 @@
             <RelativeLayout
                 android:id="@+id/rl_zakazchik"
                 android:layout_width="match_parent"
-                android:layout_height="72dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:visibility="visible">
 
@@ -97,8 +97,8 @@
                     style="@style/TextBlueReception"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
                     android:layout_below="@+id/tv_2"
+                    android:layout_alignParentStart="true"
                     android:text="Почта: " />
 
                 <TextView
@@ -106,8 +106,8 @@
                     style="@style/TextBlueReception"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:layout_below="@+id/tv_z_zakazchik"
+                    android:layout_alignParentEnd="true"
                     android:layout_toEndOf="@+id/tv_3"
                     android:text="//почта" />
 
@@ -116,19 +116,21 @@
                     style="@style/TextBlueRecBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
                     android:layout_below="@+id/tv_3"
-                    android:text="Договор №: " />
+                    android:layout_alignParentStart="true"
+                    android:text="Договор №: "
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/tv_z_dogovor"
                     style="@style/TextBlueReception"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:layout_below="@+id/tv_z_pochta"
+                    android:layout_alignParentEnd="true"
                     android:layout_toEndOf="@+id/tv_4"
-                    android:text="//договор" />
+                    android:text="//договор"
+                    android:visibility="gone" />
 
             </RelativeLayout>
 

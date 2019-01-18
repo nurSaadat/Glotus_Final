@@ -53,6 +53,7 @@ public class SuperviserListActivity extends AppCompatActivity {
     int skip=0;
     int top=20;
     boolean but=false;
+    String search=null;
     Button btnLoadExtra;
 
 
@@ -140,36 +141,35 @@ public class SuperviserListActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 System.out.println("/"+s.toString()+"/");
+                search=s.toString();
                 if (s.toString().equals(""))
-                    btnLoadExtra.setVisibility(View.VISIBLE);
+                    btnLoadExtra.setText("Показать еще");
                 else
-                    btnLoadExtra.setVisibility(View.INVISIBLE);
+                    btnLoadExtra.setText("Найти еще");
                 searchItem(s.toString());
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                search=s.toString();
                 if (s.toString().equals(""))
-                    btnLoadExtra.setVisibility(View.VISIBLE);
+                    btnLoadExtra.setText("Показать еще");
                 else
-                    btnLoadExtra.setVisibility(View.INVISIBLE);
+                    btnLoadExtra.setText("Найти еще");
 
             }
         });
 
         }
     public void searchItem(String textToSearch){
- 
+        search=s.toString();
+
         ArrayList<Zayavka> newww = new ArrayList<>();
         System.out.println(textToSearch);
         for(int i=0;i<mZayavkas.size();i++){
-
-            if(mZayavkas.get(i).getSender().contains(textToSearch) || mZayavkas.get(i).getNumber().contains(textToSearch) || mZayavkas.get(i).getRecept().contains(textToSearch)){
-
+            if(mZayavkas.get(i).getSender().toLowerCase().contains(textToSearch.toLowerCase()) || mZayavkas.get(i).getNumber().toLowerCase().contains(textToSearch.toLowerCase()) || mZayavkas.get(i).getRecept().toLowerCase().contains(textToSearch.toLowerCase())){
                 newww.add(mZayavkas.get(i));
-
             }
-
         }
 
        initlist(newww);
@@ -378,7 +378,14 @@ public class SuperviserListActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            ppp.add(john);
+            if (btnLoadExtra.getText().toString().equals("Найти еще")){
+            if(john.getSender().toLowerCase().contains(search.toLowerCase()) || john.getNumber().toLowerCase().contains(search.toLowerCase()) || john.getRecept().toLowerCase().contains(search.toLowerCase())){
+                ppp.add(john);
+            }}
+            else {
+                ppp.add(john);
+
+            }
         }
       /* for(int i=0;i<10;i++){
            Zayavka a= new Zayavka("a","a","a","a","a","a","a","a","a","a");

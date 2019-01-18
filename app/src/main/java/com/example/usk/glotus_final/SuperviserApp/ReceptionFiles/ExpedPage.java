@@ -1,5 +1,6 @@
 package com.example.usk.glotus_final.SuperviserApp.ReceptionFiles;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
@@ -7,6 +8,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.print.PrintAttributes;
+import android.print.PrintDocumentAdapter;
+import android.print.PrintManager;
 import android.print.pdf.PrintedPdfDocument;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -26,7 +29,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import static com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.Etiketka.imgFile;
 
 public class ExpedPage extends AppCompatActivity  {
     private RelativeLayout pdf_cont;
@@ -36,6 +38,7 @@ public class ExpedPage extends AppCompatActivity  {
     private String upak=Reception.upakovka.getSelectedItem().toString();
     private PdfData item;
     private File imageFile;
+    private PdfInfo pdfExped;
 
 
     @Override
@@ -93,8 +96,8 @@ public class ExpedPage extends AppCompatActivity  {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.pdf_menu, menu);
-        btn_open=menu.findItem(R.id.btn_open);
-        btn_open.setVisible(true);
+        /*btn_open=menu.findItem(R.id.btn_open);
+        btn_open.setVisible(true);*/
 
         btn_print=menu.findItem(R.id.btn_print);
         btn_print.setVisible(true);
@@ -108,22 +111,24 @@ public class ExpedPage extends AppCompatActivity  {
             Intent myintent = new Intent(ExpedPage.this, SuperviserListActivity.class);
             startActivity(myintent);
         }
-        if(id==R.id.btn_open){
+        /*if(id==R.id.btn_open){
             save(pdf_cont);
             open(imageFile);
-        }
+        }*/
 
         if(id==R.id.btn_print){
             save(pdf_cont);
-            Intent myintent = new Intent(ExpedPage.this, WifiManagerClass.class);
-            startActivity(myintent);
+            /*Intent myIntent = new Intent(ExpedPage.this, WifiManagerClass.class);
+            myIntent.putExtra("pdfExpeds ", pdfExped);
+            startActivity(myIntent);*/
+            printDocument(imageFile);
         }
 
         return super.onOptionsItemSelected(item);
     }
 
     public void save (View v){
-        RelativeLayout scroll = (RelativeLayout) findViewById(R.id.relLay);
+        RelativeLayout scroll = findViewById(R.id.relLay);
         int yy = scroll.getScrollY()+scroll.getHeight();
         int xx = scroll.getWidth();
 
@@ -143,7 +148,7 @@ public class ExpedPage extends AppCompatActivity  {
         String fileName="Exped.pdf";
         try {
             mFolder = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
-            imageFile = new File(mFolder,fileName/*+ "_"+ System.currentTimeMillis() + ".pdf"*/);
+            imageFile = new File(mFolder,fileName);
             if (!mFolder.exists()) {
                 mFolder.mkdirs();
             }
@@ -156,8 +161,7 @@ public class ExpedPage extends AppCompatActivity  {
             Toast.makeText(this, "При сохранении возникла ошибка", Toast.LENGTH_LONG).show();
         }
 
-        imgFile.add(new PdfInfo(imageFile,imageFile.getAbsolutePath(),fileName));
-        //imgFile.add(imageFile);
+        //pdfExped=new PdfInfo(imageFile,imageFile.getAbsolutePath(),fileName);
     }
 
     public void open(File imageFile){
@@ -168,6 +172,12 @@ public class ExpedPage extends AppCompatActivity  {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(Uri.parse(uri), "application/pdf");
         startActivity(intent);
+    }
+
+    public void printDocument(File file){
+        PrintManager printManager = (PrintManager) this.getSystemService(Context.PRINT_SERVICE);
+        String jobName = this.getString(R.string.app_name) + " Document";
+        printManager.print(jobName, new MyPrintDocumentAdapter(file), null);
     }
 
     public void print(){
@@ -184,7 +194,7 @@ public class ExpedPage extends AppCompatActivity  {
 
     @Override
     public void onBackPressed() {
-        Intent myIntent = new Intent(ExpedPage.this, SuperviserListActivity.class);
+        Intent myIntent = new Intent(ExpedPage.this, Etiketka.class);
         startActivity(myIntent);
     }
 }

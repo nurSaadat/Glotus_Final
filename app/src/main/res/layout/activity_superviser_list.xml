@@ -21,6 +21,7 @@
             android:layout_toEndOf="@+id/ivSearch"
             android:layout_alignParentTop="true"
             style="@style/TextSearchList"
+            android:textSize="15dp"
             android:hint="Введите номер заявки"
             android:imeOptions="actionSearch"
             />

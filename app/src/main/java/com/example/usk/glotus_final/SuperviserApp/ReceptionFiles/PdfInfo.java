@@ -1,8 +1,9 @@
 package com.example.usk.glotus_final.SuperviserApp.ReceptionFiles;
 
 import java.io.File;
+import java.io.Serializable;
 
-public class PdfInfo {
+public class PdfInfo implements Serializable {
     private File file;
     private String path;
     private String fileName;

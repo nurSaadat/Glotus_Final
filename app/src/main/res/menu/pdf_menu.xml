@@ -9,7 +9,7 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/btn_print"
-        android:title="print"
+        android:title="Печать"
         android:visible="false"
         app:showAsAction="always" />
     <item

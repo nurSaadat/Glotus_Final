@@ -59,8 +59,11 @@
             android:configChanges="orientation|screenSize"/>
         <activity android:name=".ManagerApp.ManagerListFiles.EditReceptionManagerActivity"
             android:configChanges="orientation|screenSize"/>
+      <activity android:name=".ManagerApp.ManagerListFiles.ImageViewerManager"
+            android:configChanges="orientation|screenSize">
         <activity android:name=".SuperviserApp.BluetoothService.BluetoothMain"
             android:configChanges="orientation|screenSize"/>
+
 
 
         <provider

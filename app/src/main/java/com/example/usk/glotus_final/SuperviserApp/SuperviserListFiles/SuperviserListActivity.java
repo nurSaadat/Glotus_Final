@@ -280,8 +280,8 @@ public class SuperviserListActivity extends AppCompatActivity {
             public void run() {
                 mListView.setAdapter(adapter);
                 if (but==false){
-                mListView.addFooterView(btnLoadExtra);
-                but=true;}
+                    mListView.addFooterView(btnLoadExtra);
+                    but=true;}
 
                 btnLoadExtra.setOnClickListener(new View.OnClickListener() {
                     @RequiresApi(api = Build.VERSION_CODES.O)

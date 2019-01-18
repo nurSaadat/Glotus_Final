@@ -55,6 +55,8 @@
         <activity android:name=".SuperviserApp.WifiManagerService.WifiManagerClass"
             android:configChanges="orientation|screenSize"/>
         <activity android:name=".ManagerApp.ManagerListFiles.EditReceptionManagerActivity"
+            android:configChanges="orientation|screenSize"/>
+        <activity android:name=".ManagerApp.ManagerListFiles.ImageViewerManager"
             android:configChanges="orientation|screenSize">
 
 

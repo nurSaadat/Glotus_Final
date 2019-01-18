@@ -69,11 +69,12 @@
             />
 
         <Button
-            android:layout_alignParentBottom="true"
+            style="@style/ButtonBlueReception"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:hint="Показать ещё"
-            style="@style/ButtonBlueReception"/>
+            android:visibility="gone" />
 
     </RelativeLayout>
 

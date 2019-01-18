@@ -287,10 +287,11 @@
 
                     <MultiAutoCompleteTextView
                         android:id="@+id/mactv_p_poluch"
+                        style="@style/TextBlackReception"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="//получатель"
-                        style="@style/TextBlackReception"/>
+                        android:gravity="start"
+                        android:text="//получатель" />
                 </LinearLayout>
 
                 <LinearLayout

@@ -1,17 +1,38 @@
 package com.example.usk.glotus_final.ManagerApp.ManagerListFiles;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.usk.glotus_final.R;
+import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.ExpedPage;
+import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.Image;
+import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.ImageViewer;
+import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.Reception;
+import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
 import com.example.usk.glotus_final.System.Catalog.Adress;
 import com.example.usk.glotus_final.System.Catalog.Kontragent;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class ReceptionManagerActivity extends AppCompatActivity {
     private String KeyZakaz="00000000-0000-0000-0000-000000000000",KeyOtkuda="00000000-0000-0000-0000-000000000000",KeyKuda="00000000-0000-0000-0000-000000000000";
@@ -28,6 +49,7 @@ public class ReceptionManagerActivity extends AppCompatActivity {
     private ReceptionData recData;
     private ReceptionData returnedData;
     private ReceptionData fromNewRecp;
+    private Button btn_foto_gruza;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,12 +74,22 @@ public class ReceptionManagerActivity extends AppCompatActivity {
         } else {
             setDataFromNewRecp();
         }
-        
+
         //кнопка изменить
         btn_izmenit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onIzmenitButtonClick();
+            }
+        });
+        btn_foto_gruza.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               /* ArrayList<Bitmap> arr=new ArrayList();
+                        arr=download(arr);
+                Intent intent = new Intent(ReceptionManagerActivity.this, ImageViewerManager.class);
+                intent.putExtra("imageData", arr);
+                startActivityForResult(intent, REQUEST_CODE);*/
             }
         });
 
@@ -99,6 +131,49 @@ public class ReceptionManagerActivity extends AppCompatActivity {
         }
     }
 
+    public ArrayList<Bitmap> download(final ArrayList<Bitmap> arr){
+
+        String url=("http://185.209.23.53/upload/getimages.php");
+        MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+        RequestBody body = RequestBody.create(mediaType, "number="+"ALA004807");
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .addHeader("content-type", "application/x-www-form-urlencoded")
+                .addHeader("cache-control", "no-cache")
+                .build();
+
+        OkHttpClient client = new OkHttpClient();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+
+            }
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+
+                if (response.isSuccessful()) {
+                    final String s[] =response.body().string().split("-----------------------------------------------------------------------------------");
+                    for (int i=0;i<s.length;i++)
+                    {
+                        System.out.println(s[i]);
+                        byte[] decodedString = Base64.decode(s[i], Base64.DEFAULT);
+                        BitmapFactory.Options options = new BitmapFactory.Options();
+                        options.inSampleSize = 8;
+                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length,options);
+                        arr.add(decodedByte);
+
+                    }
+
+
+
+                }
+            }});
+        //  progressBar.setVisibility(View.INVISIBLE);
+        return arr;
+    }
     //поменяет данные фронта по returnedData, и ты должен поменять данные базы с этими
     public void setReturnedData(ReceptionData returnedData){
         try {
@@ -159,6 +234,7 @@ public class ReceptionManagerActivity extends AppCompatActivity {
         RefKeys.Ref_Key=zayavka.getRef_key();
         RefKeys.Status=tv_status.getText().toString();
         RefKeys.vidpr=tv_vid.getText().toString();
+        tv_p_poluch.setGravity(Gravity.START);
 
         tv_code.setText(zayavka.getNumber());
         tv_date.setText(zayavka.getDate().split("T")[0]);
@@ -245,6 +321,7 @@ public class ReceptionManagerActivity extends AppCompatActivity {
     }
 
     public void findView(){
+        btn_foto_gruza=findViewById(R.id.btn_foto_gruza);
         tv_stoimost=findViewById(R.id.tv_stoimost);
         rlZakazchik = findViewById(R.id.rl_zakazchik);
         rlOtpravitel = findViewById(R.id.rl_otpravitel);
@@ -324,4 +401,10 @@ public class ReceptionManagerActivity extends AppCompatActivity {
 
         }
     };
+    @Override
+    public void onBackPressed() {
+        Intent myIntent = new Intent(ReceptionManagerActivity.this, ManagerListActivity.class);
+        startActivity(myIntent);
+    }
+
 }

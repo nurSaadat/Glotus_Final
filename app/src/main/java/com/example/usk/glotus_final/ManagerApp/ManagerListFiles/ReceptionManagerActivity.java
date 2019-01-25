@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -85,11 +86,13 @@ public class ReceptionManagerActivity extends AppCompatActivity {
         btn_foto_gruza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* ArrayList<Bitmap> arr=new ArrayList();
+               ArrayList<String> arr=new ArrayList();
                         arr=download(arr);
-                Intent intent = new Intent(ReceptionManagerActivity.this, ImageViewerManager.class);
+                Intent intent = new Intent(ReceptionManagerActivity.this, ImagesMd.class);
+                System.out.println(arr.size());
                 intent.putExtra("imageData", arr);
-                startActivityForResult(intent, REQUEST_CODE);*/
+                startActivityForResult(intent, REQUEST_CODE);
+
             }
         });
 
@@ -131,7 +134,7 @@ public class ReceptionManagerActivity extends AppCompatActivity {
         }
     }
 
-    public ArrayList<Bitmap> download(final ArrayList<Bitmap> arr){
+    public ArrayList<String> download(final ArrayList<String> arr){
 
         String url=("http://185.209.23.53/upload/getimages.php");
         MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
@@ -153,17 +156,15 @@ public class ReceptionManagerActivity extends AppCompatActivity {
             }
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
-
+                String rss=(response.body().string());
+                System.out.println(rss);
                 if (response.isSuccessful()) {
-                    final String s[] =response.body().string().split("-----------------------------------------------------------------------------------");
+                    final String s[] =rss.split("-------------------");
                     for (int i=0;i<s.length;i++)
                     {
                         System.out.println(s[i]);
-                        byte[] decodedString = Base64.decode(s[i], Base64.DEFAULT);
-                        BitmapFactory.Options options = new BitmapFactory.Options();
-                        options.inSampleSize = 8;
-                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length,options);
-                        arr.add(decodedByte);
+
+                        arr.add(s[i]);
 
                     }
 

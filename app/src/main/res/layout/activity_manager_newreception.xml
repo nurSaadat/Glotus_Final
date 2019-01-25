@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:weightSum="100"
-    tools:context=".ManagerApp.ManagerListFiles.NewReceptionManagerActivity">
+        tools:context=".ManagerApp.ManagerListFiles.NewReceptionManagerActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

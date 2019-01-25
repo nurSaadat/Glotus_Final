@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    tools:context=".ManagerApp.ManagerListFiles.Otgruzki"
     android:layout_height="match_parent"
     android:background="#fff">
+
 
     <ScrollView
         android:layout_width="match_parent"

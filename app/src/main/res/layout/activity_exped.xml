@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SuperviserApp.ReceptionFiles.ExpedPage">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".SuperviserApp.ReceptionFiles.ExpedPage"
+    android:background="@android:color/white">
 
 
     <ScrollView
@@ -16,6 +18,17 @@
             android:id="@+id/relLay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="152dp"
+                android:layout_height="44dp"
+                app:srcCompat="@drawable/smaller_logo"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/border_black"
+                />
 
             <TextView
                 android:id="@+id/headerText"
@@ -33,9 +46,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
+                android:layout_below="@+id/headerText"
                 android:layout_marginStart="75dp"
-                android:layout_marginTop="138dp"
                 android:padding="3dp"
                 android:text="@string/qwer"
                 style="@style/TextBlackEtikBig"
@@ -45,14 +57,14 @@
                 android:id="@+id/expedNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@+id/expedRaspis"
                 android:layout_alignTop="@+id/expedRaspis"
-                android:layout_marginEnd="75dp"
                 android:padding="3dp"
                 android:text="@string/expedNumber"
                 style="@style/TextBlackEtikBig" />
 
             <View
+                android:id="@+id/i1"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_alignBottom="@+id/expedRaspis"
@@ -60,13 +72,16 @@
                 android:background="@android:color/black" />
 
             <TableLayout
-                android:layout_width="match_parent"
+                android:id="@+id/i2"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="167dp">
+                android:layout_below="@+id/i1"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/black"
+                android:padding="1dp">
 
-                <TableRow android:layout_width="388dp">
+                <TableRow android:layout_width="wrap_content">
 
                     <TextView
                         android:id="@+id/vremya"
@@ -75,7 +90,9 @@
                         android:padding="3dp"
                         android:text="@string/date"
                         style="@style/TextBlackEtiketka"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:background="@android:color/white"
+                        android:layout_marginEnd="1dp"/>
 
                     <TextView
                         android:id="@+id/vremyaFill"
@@ -83,7 +100,9 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/dateFill"
-                        style="@style/TextBlackEtiketka"/>
+                        style="@style/TextBlackEtiketka"
+                        android:background="@android:color/white"
+                        android:layout_marginEnd="1dp"/>
 
                     <TextView
                         android:id="@+id/marshrut"
@@ -92,7 +111,9 @@
                         android:padding="3dp"
                         android:text="@string/marshrut"
                         style="@style/TextBlackEtiketka"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:background="@android:color/white"
+                        android:layout_marginEnd="1dp"/>
 
                     <TextView
                         android:id="@+id/marshrutFill"
@@ -100,7 +121,9 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/marshFill1"
-                        style="@style/TextBlackEtiketka"/>
+                        style="@style/TextBlackEtiketka"
+                        android:background="@android:color/white"
+                        android:layout_marginEnd="1dp"/>
 
                     <TextView
                         android:id="@+id/tere"
@@ -108,7 +131,9 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/tere"
-                        style="@style/TextBlackEtiketka"/>
+                        style="@style/TextBlackEtiketka"
+                        android:layout_marginEnd="1dp"
+                        android:background="@android:color/white"/>
 
                     <TextView
                         android:id="@+id/marshrutFill2"
@@ -116,65 +141,87 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/marshFill2"
-                        style="@style/TextBlackEtiketka"/>
+                        style="@style/TextBlackEtiketka"
+                        android:layout_marginEnd="1dp"
+                        android:background="@android:color/white"/>
                 </TableRow>
             </TableLayout>
 
             <TableLayout
+                android:id="@+id/i3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="193dp">
+                android:layout_below="@+id/i2"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/black"
+                android:padding="1dp">
 
-                <TableRow>
+                <TableRow
+                    android:gravity="center"
+                    android:background="@color/greyField">
 
                     <TextView
                         android:id="@+id/gruzootpravitel"
-                        android:layout_width="371dp"
+                        style="@style/TextBlackEtikBig"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:padding="3dp"
                         android:text="@string/gruzootpravitel"
-                        style="@style/TextBlackEtikBig"
                         android:textStyle="bold" />
                 </TableRow>
             </TableLayout>
 
             <TableLayout
+                android:id="@+id/i4"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="215dp">
+                android:layout_below="@+id/i3"
+                android:background="@android:color/black"
+                android:paddingBottom="1dp"
+                android:paddingStart="1dp"
+                android:paddingEnd="1dp"
+                android:weightSum="100">
 
-                <TableRow>
+                <TableRow android:layout_width="match_parent">
 
                     <TextView
                         android:id="@+id/naimenovanie"
+                        style="@style/TextBlackEtiketka"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="1dp"
+                        android:background="@android:color/white"
                         android:padding="3dp"
                         android:text="@string/naimenovanie"
-                        style="@style/TextBlackEtiketka"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:ems="12"/>
 
                     <TextView
                         android:id="@+id/naimenovanieFill"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/TextBlackEtiketka"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="70"
+                        android:background="@android:color/white"
                         android:padding="3dp"
-                        android:text="@string/naimenovanieаFill"
-                        style="@style/TextBlackEtiketka"/>
+                        android:text="@string/naimenovanieаFill" />
                 </TableRow>
             </TableLayout>
 
             <TableLayout
+                android:id="@+id/i5"
                 android:layout_width="match_parent"
-                android:layout_height="22dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="235dp">
+                android:layout_below="@+id/i4"
+                android:weightSum="100"
+                android:background="@android:color/black"
+                android:paddingBottom="1dp"
+                android:paddingStart="1dp"
+                android:paddingEnd="1dp">
 
                 <TableRow>
 
@@ -185,7 +232,10 @@
                         android:padding="3dp"
                         android:text="@string/adres"
                         style="@style/TextBlackEtiketka"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_marginEnd="1dp"
+                        android:ems="12"
+                        android:background="@android:color/white"/>
 
                     <TextView
                         android:id="@+id/adresFill"
@@ -193,16 +243,23 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/adresFill"
-                        style="@style/TextBlackEtiketka"/>
+                        style="@style/TextBlackEtiketka"
+                        android:layout_weight="70"
+                        android:background="@android:color/white"/>
                 </TableRow>
             </TableLayout>
 
             <TableLayout
+                android:id="@+id/i6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="255dp">
+                android:layout_below="@+id/i5"
+                android:weightSum="100"
+                android:background="@android:color/black"
+                android:paddingBottom="1dp"
+                android:paddingStart="1dp"
+                android:paddingEnd="1dp">
 
                 <TableRow>
 
@@ -213,7 +270,10 @@
                         android:padding="3dp"
                         android:text="@string/contact"
                         style="@style/TextBlackEtiketka"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_marginEnd="1dp"
+                        android:ems="12"
+                        android:background="@android:color/white"/>
 
                     <TextView
                         android:id="@+id/contacFill"
@@ -221,18 +281,25 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/contactFill"
-                        style="@style/TextBlackEtiketka"/>
+                        style="@style/TextBlackEtiketka"
+                        android:layout_weight="70"
+                        android:background="@android:color/white"/>
                 </TableRow>
             </TableLayout>
 
             <TableLayout
+                android:id="@+id/i7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="275dp">
+                android:layout_below="@+id/i6"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/black"
+                android:padding="1dp">
 
-                <TableRow>
+                <TableRow
+                    android:gravity="center"
+                    android:background="@color/greyField">
 
                     <TextView
                         android:id="@+id/gruzopoluchatel"
@@ -247,11 +314,16 @@
             </TableLayout>
 
             <TableLayout
+                android:id="@+id/i8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="295dp">
+                android:layout_below="@+id/i7"
+                android:background="@android:color/black"
+                android:paddingBottom="1dp"
+                android:paddingStart="1dp"
+                android:paddingEnd="1dp"
+                android:weightSum="100">
 
                 <TableRow>
 
@@ -262,7 +334,10 @@
                         android:padding="3dp"
                         android:text="@string/naimenPoluch"
                         style="@style/TextBlackEtiketka"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_marginEnd="1dp"
+                        android:background="@android:color/white"
+                        android:ems="12"/>
 
                     <TextView
                         android:id="@+id/naimenPoluchFill"
@@ -270,18 +345,25 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/naimenPoluchFill"
-                        style="@style/TextBlackEtiketka"/>
+                        style="@style/TextBlackEtiketka"
+                        android:background="@android:color/white"
+                        android:layout_weight="70"/>
                 </TableRow>
             </TableLayout>
 
             <TableLayout
+                android:id="@+id/i9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="315dp">
-                <TableRow>
+                android:layout_below="@+id/i8"
+                android:background="@android:color/black"
+                android:paddingBottom="1dp"
+                android:paddingStart="1dp"
+                android:paddingEnd="1dp"
+                android:weightSum="100">
 
+                <TableRow>
                     <TextView
                         android:id="@+id/adressPoluch"
                         android:layout_width="wrap_content"
@@ -289,7 +371,10 @@
                         android:padding="3dp"
                         android:text="@string/adressPolusch"
                         style="@style/TextBlackEtiketka"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:background="@android:color/white"
+                        android:ems="12"
+                        android:layout_marginEnd="1dp"/>
 
                     <TextView
                         android:id="@+id/adressPoluchFill"
@@ -297,18 +382,25 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/adressPoluchFill"
-                        style="@style/TextBlackEtiketka"/>
+                        style="@style/TextBlackEtiketka"
+                        android:background="@android:color/white"
+                        android:layout_weight="70"/>
                 </TableRow>
             </TableLayout>
 
             <TableLayout
+                android:id="@+id/i10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="335dp">
-                <TableRow>
+                android:layout_below="@+id/i9"
+                android:background="@android:color/black"
+                android:paddingBottom="1dp"
+                android:paddingStart="1dp"
+                android:paddingEnd="1dp"
+                android:weightSum="100">
 
+                <TableRow>
                     <TextView
                         android:id="@+id/contactPoluch"
                         android:layout_width="wrap_content"
@@ -316,7 +408,10 @@
                         android:padding="3dp"
                         android:text="@string/contactPoluch"
                         style="@style/TextBlackEtiketka"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:background="@android:color/white"
+                        android:layout_marginEnd="1dp"
+                        android:ems="12"/>
 
                     <TextView
                         android:id="@+id/contactPoluchFill"
@@ -324,17 +419,25 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/contactPoluchFill"
-                        style="@style/TextBlackEtiketka"/>
+                        style="@style/TextBlackEtiketka"
+                        android:background="@android:color/white"
+                        android:layout_weight="70"/>
                 </TableRow>
             </TableLayout>
+
             <TableLayout
+                android:id="@+id/i11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="355dp">
-                <TableRow>
+                android:layout_below="@+id/i10"
+                android:background="@android:color/black"
+                android:paddingBottom="1dp"
+                android:paddingStart="1dp"
+                android:paddingEnd="1dp"
+                android:weightSum="100">
 
+                <TableRow>
                     <TextView
                         android:id="@+id/platelshik"
                         android:layout_width="wrap_content"
@@ -342,7 +445,10 @@
                         android:padding="3dp"
                         android:text="@string/platelshik"
                         style="@style/TextBlackEtiketka"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:background="@android:color/white"
+                        android:layout_marginEnd="1dp"
+                        android:ems="12"/>
 
                     <TextView
                         android:id="@+id/platelshikFill"
@@ -350,17 +456,25 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/platelshikFill"
-                        style="@style/TextBlackEtiketka"/>
+                        style="@style/TextBlackEtiketka"
+                        android:layout_weight="70"
+                        android:background="@android:color/white"/>
                 </TableRow>
             </TableLayout>
+
             <TableLayout
+                android:id="@+id/i12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="375dp">
-                <TableRow>
+                android:background="@android:color/black"
+                android:layout_marginTop="16dp"
+                android:layout_below="@+id/i11"
+                android:padding="1dp">
 
+                <TableRow
+                    android:gravity="center"
+                    android:background="@color/greyField">
                     <TextView
                         android:id="@+id/dataGruz"
                         android:layout_width="373dp"
@@ -372,14 +486,20 @@
                         android:textStyle="bold" />
                 </TableRow>
             </TableLayout>
+
             <TableLayout
+                android:id="@+id/i13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="395dp">
-                <TableRow>
+                android:layout_below="@+id/i12"
+                android:background="@android:color/black"
+                android:paddingBottom="1dp"
+                android:paddingStart="1dp"
+                android:paddingEnd="1dp"
+                android:weightSum="100">
 
+                <TableRow>
                     <TextView
                         android:id="@+id/naimenGruz"
                         android:layout_width="wrap_content"
@@ -387,7 +507,10 @@
                         android:padding="3dp"
                         android:text="@string/naimenGruz"
                         style="@style/TextBlackEtiketka"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:background="@android:color/white"
+                        android:layout_marginEnd="1dp"
+                        android:ems="12"/>
 
                     <TextView
                         android:id="@+id/naimenGruzFill"
@@ -395,17 +518,25 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/naimenGruzFill"
-                        style="@style/TextBlackEtiketka"/>
+                        style="@style/TextBlackEtiketka"
+                        android:background="@android:color/white"
+                        android:layout_weight="70"/>
                 </TableRow>
             </TableLayout>
+
             <TableLayout
+                android:id="@+id/i14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="415dp">
-                <TableRow>
+                android:layout_below="@+id/i13"
+                android:background="@android:color/black"
+                android:paddingBottom="1dp"
+                android:paddingEnd="1dp"
+                android:paddingStart="1dp"
+                android:weightSum="100">
 
+                <TableRow>
                     <TextView
                         android:id="@+id/characterGruz"
                         android:layout_width="wrap_content"
@@ -413,7 +544,10 @@
                         android:padding="3dp"
                         android:text="@string/characterGruz"
                         style="@style/TextBlackEtiketka"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:background="@android:color/white"
+                        android:ems="12"
+                        android:layout_marginEnd="1dp" />
 
                     <TextView
                         android:id="@+id/characterGruzFill"
@@ -421,17 +555,25 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/characterGruzFill"
-                        style="@style/TextBlackEtiketka"/>
+                        style="@style/TextBlackEtiketka"
+                        android:layout_weight="70"
+                        android:background="@android:color/white"/>
                 </TableRow>
             </TableLayout>
+
             <TableLayout
+                android:id="@+id/i15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="435dp">
-                <TableRow>
+                android:layout_below="@+id/i14"
+                android:background="@android:color/black"
+                android:paddingBottom="1dp"
+                android:weightSum="100"
+                android:paddingStart="1dp"
+                android:paddingEnd="1dp">
 
+                <TableRow>
                     <TextView
                         android:id="@+id/kolvoMest"
                         android:layout_width="wrap_content"
@@ -439,15 +581,21 @@
                         android:padding="3dp"
                         android:text="@string/kolvoMest"
                         style="@style/TextBlackEtiketka"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:background="@android:color/white"
+                        android:layout_marginEnd="1dp"
+                        android:ems="12"/>
 
                     <TextView
                         android:id="@+id/kolvoMestFill"
+                        style="@style/TextBlackEtiketka"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:ems="7"
+                        android:background="@android:color/white"
                         android:padding="3dp"
                         android:text="@string/kolvoMestFill"
-                        style="@style/TextBlackEtiketka"/>
+                        android:layout_marginEnd="1dp"/>
 
                     <TextView
                         android:id="@+id/upakovka"
@@ -455,17 +603,36 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/upakovka"
-                        style="@style/TextBlackEtiketka"/>
+                        style="@style/TextBlackEtiketka"
+                        android:background="@android:color/white"
+                        android:ems="5"
+                        android:layout_marginEnd="1dp"/>
+
+                    <TextView
+                        android:id="@+id/upakovk"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="@string/upakovka"
+                        style="@style/TextBlackEtiketka"
+                        android:background="@android:color/white"
+                        android:layout_weight="10"/>
                 </TableRow>
             </TableLayout>
+
             <TableLayout
+                android:id="@+id/i16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="455dp">
-                <TableRow>
+                android:layout_below="@+id/i15"
+                android:background="@android:color/black"
+                android:paddingEnd="1dp"
+                android:paddingStart="1dp"
+                android:paddingBottom="1dp"
+                android:weightSum="100">
 
+                <TableRow>
                     <TextView
                         android:id="@+id/vesAndObiem"
                         android:layout_width="wrap_content"
@@ -473,7 +640,10 @@
                         android:padding="3dp"
                         android:text="@string/vesObiem"
                         style="@style/TextBlackEtiketka"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:background="@android:color/white"
+                        android:ems="12"
+                        android:layout_marginEnd="1dp"/>
 
                     <TextView
                         android:id="@+id/ves"
@@ -481,7 +651,10 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/ves"
-                        style="@style/TextBlackEtiketka"/>
+                        style="@style/TextBlackEtiketka"
+                        android:ems="7"
+                        android:background="@android:color/white"
+                        android:layout_marginEnd="1dp"/>
 
                     <TextView
                         android:id="@+id/vesFill"
@@ -489,7 +662,10 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/vesFill"
-                        style="@style/TextBlackEtiketka" />
+                        style="@style/TextBlackEtiketka"
+                        android:ems="3"
+                        android:background="@android:color/white"
+                        android:layout_marginEnd="1dp"/>
 
                     <TextView
                         android:id="@+id/obiem"
@@ -497,7 +673,10 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/obiem"
-                        style="@style/TextBlackEtiketka" />
+                        style="@style/TextBlackEtiketka"
+                        android:background="@android:color/white"
+                        android:layout_weight="20"
+                        android:layout_marginEnd="1dp"/>
 
                     <TextView
                         android:id="@+id/obiemFill"
@@ -505,43 +684,61 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/obiemFill"
-                        style="@style/TextBlackEtiketka" />
+                        style="@style/TextBlackEtiketka"
+                        android:background="@android:color/white"
+                        android:ems="3" />
                 </TableRow>
             </TableLayout>
+
             <TableLayout
+                android:id="@+id/i17"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="475dp">
-                <TableRow>
+                android:layout_below="@+id/i16"
+                android:background="@android:color/black"
+                android:paddingBottom="1dp"
+                android:paddingStart="1dp"
+                android:paddingEnd="1dp"
+                android:weightSum="100">
 
+                <TableRow>
                     <TextView
                         android:id="@+id/dopUslugi"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="44dp"
                         android:padding="3dp"
                         android:text="@string/dopUslugi"
                         style="@style/TextBlackEtiketka"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:background="@android:color/white"
+                        android:layout_marginEnd="1dp"
+                        android:ems="12"
+                        android:gravity="start"/>
 
                     <TextView
                         android:id="@+id/dopUslugiFill"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
                         android:padding="3dp"
                         android:text="something"
-                        style="@style/TextBlackEtiketka" />
+                        style="@style/TextBlackEtiketka"
+                        android:background="@android:color/white"
+                        android:layout_weight="70"/>
                 </TableRow>
             </TableLayout>
+
             <TableLayout
+                android:id="@+id/i18"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="495dp">
-                <TableRow>
+                android:layout_below="@+id/i17"
+                android:background="@android:color/black"
+                android:padding="1dp"
+                android:weightSum="100">
 
+                <TableRow>
                     <TextView
                         android:id="@+id/osobOtmExp"
                         android:layout_width="wrap_content"
@@ -549,52 +746,123 @@
                         android:padding="3dp"
                         android:text="@string/osobOtmExp"
                         style="@style/TextBlackEtiketka"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:background="@android:color/white"
+                        android:ems="12"
+                        android:layout_marginEnd="1dp"/>
 
                     <TextView
                         android:id="@+id/osobOtmExpFill"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:padding="3dp"
                         android:text="something"
-                        style="@style/TextBlackEtiketka" />
+                        style="@style/TextBlackEtiketka"
+                        android:layout_weight="70"
+                        android:background="@android:color/white"/>
                 </TableRow>
             </TableLayout>
+
             <TableLayout
+                android:id="@+id/i19"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="515dp">
-                <TableRow>
+                android:layout_below="@+id/i18"
+                android:background="@android:color/black"
+                android:paddingBottom="1dp"
+                android:paddingStart="1dp"
+                android:paddingEnd="1dp"
+                android:weightSum="1">
 
+                <TableRow>
                     <TextView
                         android:id="@+id/soprDoc"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:text="@string/soprDoc"
                         style="@style/TextBlackEtiketka"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/soprDocFill"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="3dp"
-                        android:text="something"
-                        style="@style/TextBlackEtiketka" />
+                        android:textStyle="bold"
+                        android:layout_weight="1"
+                        android:background="@android:color/white"
+                        />
                 </TableRow>
             </TableLayout>
+
             <TableLayout
+                android:id="@+id/i24"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="535dp">
+                android:layout_below="@+id/i19"
+                android:background="@android:color/black"
+                android:paddingBottom="1dp"
+                android:paddingStart="1dp"
+                android:paddingEnd="1dp"
+                android:weightSum="100">
+
                 <TableRow>
+                    <TextView
+                        android:id="@+id/i25"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="Груз принял (ФИО, подпись)"
+                        style="@style/TextBlackEtiketka"
+                        android:textStyle="bold"
+                        android:layout_weight="50"
+                        android:layout_marginEnd="1dp"
+                        android:background="@android:color/white"
+                        />
 
+                    <TextView
+                        android:id="@+id/i26"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="Груз сдал (ФИО, подпись)"
+                        style="@style/TextBlackEtiketka"
+                        android:textStyle="bold"
+                        android:layout_weight="50"
+                        android:background="@android:color/white"
+                        />
+                </TableRow>
 
+                <TableRow>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="35sp"
+                        android:padding="3dp"
+                        style="@style/TextBlackEtiketka"
+                        android:layout_marginTop="1dp"
+                        android:textStyle="bold"
+                        android:layout_marginEnd="1dp"
+                        android:layout_weight="50"
+                        android:background="@android:color/white"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="35sp"
+                        android:padding="3dp"
+                        style="@style/TextBlackEtiketka"
+                        android:textStyle="bold"
+                        android:layout_weight="50"
+                        android:layout_marginTop="1dp"
+                        android:background="@android:color/white"
+                        />
+                </TableRow>
+            </TableLayout>
+
+            <TableLayout
+                android:id="@+id/i20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/i24">
+
+                <TableRow>
                     <TextView
                         android:id="@+id/longText"
                         android:layout_width="wrap_content"
@@ -604,15 +872,15 @@
                         style="@style/TextBlackEtikSmall" />
                 </TableRow>
             </TableLayout>
+
             <TableLayout
+                android:id="@+id/i21"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="585dp">
+                android:layout_below="@+id/i20">
+
                 <TableRow>
-
-
                     <TextView
                         android:id="@+id/longText1"
                         android:layout_width="wrap_content"
@@ -622,15 +890,15 @@
                         style="@style/TextBlackEtikSmall" />
                 </TableRow>
             </TableLayout>
+
             <TableLayout
+                android:id="@+id/i22"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="615dp">
+                android:layout_below="@+id/i21">
+
                 <TableRow>
-
-
                     <TextView
                         android:id="@+id/longText2"
                         android:layout_width="wrap_content"
@@ -640,15 +908,15 @@
                         style="@style/TextBlackEtikSmall" />
                 </TableRow>
             </TableLayout>
+
             <TableLayout
+                android:id="@+id/i23"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="630dp">
+                android:layout_below="@+id/i22">
+
                 <TableRow>
-
-
                     <TextView
                         android:id="@+id/longText3"
                         android:layout_width="wrap_content"

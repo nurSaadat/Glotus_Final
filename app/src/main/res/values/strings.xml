@@ -7,7 +7,7 @@
     050026, г. Алматы, ул. Нурмакова 1/1, оф. 208
     +7 727 221 93 99, 8 800 080 0101
     www.glotus.kz</string>
-    <string name="qwer">Экспедиторская расписка</string>
+    <string name="qwer">Экспедиторская расписка №</string>
     <string name="generate">Generate</string>
     <string name="expedNumber">ALA000000</string>
     <string name="date">Дата, время</string>

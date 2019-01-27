@@ -132,7 +132,7 @@ public class Etiketka extends AppCompatActivity{
         if(id==R.id.btn_print){
             save(pdf_contEt);
             Intent myIntent = new Intent(Etiketka.this, BluetoothMain.class);
-            //myIntent.putExtra("pdfEtiketka", bitmapInfo);
+            myIntent.putExtra("pdfEtiketka", pdfEtiketka);
             startActivity(myIntent);
         }
 
@@ -153,19 +153,19 @@ public class Etiketka extends AppCompatActivity{
 
         PrintedPdfDocument document = new PrintedPdfDocument(this,printAttrs);
         String fileName="Этикетка.pdf";
-try{
-        for(int i=0; i<Integer.valueOf(data.getKolvoMest());i++) {
-            mesta.setText((i+1)+" из "+ data.getKolvoMest());
-            PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(xx, yy, i+1).create();
-            PdfDocument.Page page = document.startPage(pageInfo);
-            scroll.draw(page.getCanvas());
-            document.finishPage(page);
-        }}
-        catch (Exception e){}
+        try{
+            for(int i=0; i<Integer.valueOf(data.getKolvoMest());i++) {
+                mesta.setText((i+1)+" из "+ data.getKolvoMest());
+                PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(xx, yy, i+1).create();
+                PdfDocument.Page page = document.startPage(pageInfo);
+                scroll.draw(page.getCanvas());
+                document.finishPage(page);
+            }
+        } catch (Exception e){}
 
         try {
             File mFolder = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
-            imageFile = new File(mFolder,fileName/*+ "_"+ System.currentTimeMillis() + ".pdf"*/);
+            imageFile = new File(mFolder,fileName);
             if (!mFolder.exists()) {
                 mFolder.mkdirs();
             }

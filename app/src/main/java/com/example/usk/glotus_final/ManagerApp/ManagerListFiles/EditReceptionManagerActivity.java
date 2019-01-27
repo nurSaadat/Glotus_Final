@@ -82,6 +82,7 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
     private ArrayAdapter<String> otkudaAdapter;
     private ArrayAdapter<String> zakazchikAdapter;
     private ScrollView scrollView;
+    private Button btn_foto_gruza;
 
 
 
@@ -103,6 +104,13 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
         recpData=(ReceptionData) intent.getExtras().getSerializable("receptionData");
 
         setData();
+        btn_foto_gruza.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+        });
 
         showZakazchik.setOnClickListener(clickZakaz);
         showPoluchatel.setOnClickListener(clickPoluch);
@@ -260,14 +268,7 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
                 }
             }
         });
-        scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-                InputMethodManager imm =  (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
 
-            }
-        });
 
 
     }
@@ -391,6 +392,7 @@ public class EditReceptionManagerActivity extends AppCompatActivity {
     }
 
     public void findView(){
+        btn_foto_gruza=findViewById(R.id.btn_foto_gruza);
         scrollView=findViewById(R.id.scrollView);
         rlZakazchik = findViewById(R.id.rl_zakazchik);
         rlOtpravitel = findViewById(R.id.rl_otpravitel);

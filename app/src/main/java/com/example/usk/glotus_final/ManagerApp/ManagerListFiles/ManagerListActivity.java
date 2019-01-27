@@ -10,6 +10,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -20,12 +22,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.usk.glotus_final.R;
+import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.ListOtgruzki;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.Zayavka;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.ZayavkaListAdapter;
 import com.example.usk.glotus_final.System.Catalog.Kontragent;
 import com.example.usk.glotus_final.System.Catalog.Pochta;
 import com.example.usk.glotus_final.System.Encryption.AES;
 import com.example.usk.glotus_final.System.connection.Server;
+import com.example.usk.glotus_final.System.loginFiles.SignInActivity;
 import com.example.usk.glotus_final.System.loginFiles.User;
 
 import org.json.JSONArray;
@@ -58,6 +62,31 @@ public class ManagerListActivity extends AppCompatActivity {
     int p=0;
     ArrayList<ManagerZayavka> mManagerZayavkas;
     SwipeRefreshLayout swipeView;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.manager_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.zakaz:
+                return true;
+            case R.id.otgruz:
+                Intent myIntent = new Intent(ManagerListActivity.this, ListOtgruzki.class);
+                startActivity(myIntent);
+                return true;
+            case  R.id.logout:
+                Intent intent = new Intent(ManagerListActivity.this, SignInActivity.class);
+                startActivity(intent);
+                return true;
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
     @TargetApi(Build.VERSION_CODES.O)
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -67,8 +96,8 @@ public class ManagerListActivity extends AppCompatActivity {
         InputMethodManager imm =  (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
         swipeView = (SwipeRefreshLayout) findViewById(R.id.swipe_view);
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+      //  android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+       // actionBar.hide();
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 

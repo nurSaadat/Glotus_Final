@@ -16,15 +16,14 @@
 
         <AutoCompleteTextView
             android:id="@+id/etSearch"
+            style="@style/TextSearchList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toEndOf="@+id/ivSearch"
             android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/ivSearch"
             android:hint="Введите номер заявки"
             android:imeOptions="actionSearch"
-            android:textSize="15dp"
-            style="@style/TextSearchList"
-            />
+            android:textSize="15dp" />
 
         <ImageView
             android:id="@+id/ivSearch"
@@ -60,14 +59,14 @@
             android:id="@+id/btn_dobavit_zayavku"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="32dp"
+            android:layout_marginBottom="32dp"
             android:background="@drawable/white"
             android:elevation="10dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="32dp"
-            android:layout_marginRight="32dp"
-            app:srcCompat="@drawable/ic_add"
-            />
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_add" />
 
         <Button
             style="@style/ButtonBlueReception"

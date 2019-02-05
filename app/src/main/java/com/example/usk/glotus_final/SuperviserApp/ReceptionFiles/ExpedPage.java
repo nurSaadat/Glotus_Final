@@ -75,7 +75,7 @@ public class ExpedPage extends AppCompatActivity  {
         TextView obiem=findViewById(R.id.obiem);
         TextView dopUslugi=findViewById(R.id.dopUslugiFill);            //from 1C
         TextView osobOtmExp=findViewById(R.id.osobOtmExpFill);          //from 1C
-        TextView soprDoc=findViewById(R.id.soprDocFill);                //from 1C
+        //TextView soprDoc=findViewById(R.id.soprDocFill);                //from 1C
 
         expedNum.setText(item.getNumZakaz());
         date.setText(item.getDate());

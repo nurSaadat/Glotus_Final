@@ -18,15 +18,20 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.print.pdf.PrintedPdfDocument;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.usk.glotus_final.R;
+import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.Image;
 import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.PdfInfo;
+import com.qoppa.android.pdf.source.ByteArrayPDFSource;
 import com.qoppa.android.pdfProcess.PDFDocument;
 import com.qoppa.android.pdfProcess.PDFPage;
 import com.qoppa.android.pdfViewer.fonts.StandardFontTF;
@@ -40,6 +45,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -61,6 +67,8 @@ public class BluetoothMain extends Activity {
     volatile boolean stopWorker;
 
     PdfInfo pdfInfo;
+    Bitmap bmp;
+    Bitmap bb;
 
 
     @Override
@@ -71,7 +79,15 @@ public class BluetoothMain extends Activity {
         Intent intent=getIntent();
         pdfInfo=(PdfInfo) intent.getExtras().getSerializable("pdfEtiketka");
 
+        ImageView img=findViewById(R.id.imageView2);
         final String pathFile=generateBitmap();
+        ImageView ii=findViewById(R.id.imageView3);
+
+        img.setImageBitmap(getImage(pathFile));
+        bmp=getViewBitmap(img);
+
+        bb=getViewBitmap(ii);
+
 
         try {
 
@@ -97,7 +113,11 @@ public class BluetoothMain extends Activity {
                 public void onClick(View v) {
                     try {
                         //sendData();
-                        printPhoto(pathFile);
+                        //printPhoto(pathFile);
+                        //print_image(pathFile);
+                        //printPhoto(bmp);
+                        //print_image(bmp);
+                        printImages(bb);
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
@@ -278,9 +298,9 @@ public class BluetoothMain extends Activity {
 
             // Resize the bitmap
 
-            //bitmapPath=saveBitmap(getResizedBitmap(bm,58,120));
+            bitmapPath=saveBitmap(bm);
             //bitmapPath=saveBitmap(bm);
-            bitmapPath=compressImage(saveBitmap(bm),"out.jpg");
+            //bitmapPath=saveBitmap(bm);
             // Save the bitmap
 
         }catch(Exception e){
@@ -307,8 +327,21 @@ public class BluetoothMain extends Activity {
         return resizedBitmap;
     }
 
-    public void compressImg(Bitmap bm){
-        compressImage(saveBitmap(bm),"out.jpg");
+    public Bitmap getImage(String path){
+        Bitmap btm=BitmapFactory.decodeFile(path);
+        return btm;
+    }
+
+    public Bitmap getViewBitmap(View v){
+        v.setDrawingCacheEnabled(true);
+        v.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        v.layout(0, 0, v.getMeasuredWidth(), v.getMeasuredHeight());
+        v.buildDrawingCache(true);
+        Bitmap b = Bitmap.createBitmap(v.getDrawingCache());
+        v.setDrawingCacheEnabled(false);
+
+        return b;
     }
 
     public String saveBitmap(Bitmap bm){
@@ -329,169 +362,7 @@ public class BluetoothMain extends Activity {
         return file.getAbsolutePath();
     }
 
-    /**
-    *
-    *
-    * */
 
-    public String compressImage(String filePath,String flName) {
-
-        //String filePath = getRealPathFromURI(imageUri);
-        Bitmap scaledBitmap = null;
-
-        BitmapFactory.Options options = new BitmapFactory.Options();
-
-//      by setting this field as true, the actual bitmap pixels are not loaded in the memory. Just the bounds are loaded. If
-//      you try the use the bitmap here, you will get null.
-        options.inJustDecodeBounds = true;
-        Bitmap bmp = BitmapFactory.decodeFile(filePath, options);
-
-        int actualHeight = options.outHeight;
-        int actualWidth = options.outWidth;
-
-//      max Height and width values of the compressed image is taken as 816x612
-
-        float maxHeight = 816.0f;
-        float maxWidth = 612.0f;
-        float imgRatio = actualWidth / actualHeight;
-        float maxRatio = maxWidth / maxHeight;
-
-//      width and height values are set maintaining the aspect ratio of the image
-
-        if (actualHeight > maxHeight || actualWidth > maxWidth) {
-            if (imgRatio < maxRatio) {
-                imgRatio = maxHeight / actualHeight;
-                actualWidth = (int) (imgRatio * actualWidth);
-                actualHeight = (int) maxHeight;
-            } else if (imgRatio > maxRatio) {
-                imgRatio = maxWidth / actualWidth;
-                actualHeight = (int) (imgRatio * actualHeight);
-                actualWidth = (int) maxWidth;
-            } else {
-                actualHeight = (int) maxHeight;
-                actualWidth = (int) maxWidth;
-
-            }
-        }
-
-//      setting inSampleSize value allows to load a scaled down version of the original image
-
-        options.inSampleSize = calculateInSampleSize(options, actualWidth, actualHeight);
-
-//      inJustDecodeBounds set to false to load the actual bitmap
-        options.inJustDecodeBounds = false;
-
-//      this options allow android to claim the bitmap memory if it runs low on memory
-        options.inPurgeable = true;
-        options.inInputShareable = true;
-        options.inTempStorage = new byte[16 * 1024];
-
-        try {
-//          load the bitmap from its path
-            bmp = BitmapFactory.decodeFile(filePath, options);
-        } catch (OutOfMemoryError exception) {
-            exception.printStackTrace();
-
-        }
-        try {
-            scaledBitmap = Bitmap.createBitmap(actualWidth, actualHeight, Bitmap.Config.ARGB_8888);
-        } catch (OutOfMemoryError exception) {
-            exception.printStackTrace();
-        }
-
-        float ratioX = actualWidth / (float) options.outWidth;
-        float ratioY = actualHeight / (float) options.outHeight;
-        float middleX = actualWidth / 2.0f;
-        float middleY = actualHeight / 2.0f;
-
-        Matrix scaleMatrix = new Matrix();
-        scaleMatrix.setScale(ratioX, ratioY, middleX, middleY);
-
-        Canvas canvas = new Canvas(scaledBitmap);
-        canvas.setMatrix(scaleMatrix);
-        canvas.drawBitmap(bmp, middleX - bmp.getWidth() / 2, middleY - bmp.getHeight() / 2, new Paint(Paint.FILTER_BITMAP_FLAG));
-
-//      check the rotation of the image and display it properly
-        ExifInterface exif;
-        try {
-            exif = new ExifInterface(filePath);
-
-            int orientation = exif.getAttributeInt(
-                    ExifInterface.TAG_ORIENTATION, 0);
-            Log.d("EXIF", "Exif: " + orientation);
-            Matrix matrix = new Matrix();
-            if (orientation == 6) {
-                matrix.postRotate(90);
-                Log.d("EXIF", "Exif: " + orientation);
-            } else if (orientation == 3) {
-                matrix.postRotate(180);
-                Log.d("EXIF", "Exif: " + orientation);
-            } else if (orientation == 8) {
-                matrix.postRotate(270);
-                Log.d("EXIF", "Exif: " + orientation);
-            }
-            scaledBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0,
-                    scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix,
-                    true);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        FileOutputStream out = null;
-        String filename = flName;
-        try {
-            out = new FileOutputStream(filename);
-
-//          write the compressed bitmap at the destination specified by filename.
-            scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 80, out);
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        return filePath;
-    }
-
-    public String getFilename() {
-        File file = new File(Environment.getExternalStorageDirectory().getPath(), "MyFolder/Images");
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-        String uriSting = (file.getAbsolutePath() + "/" + System.currentTimeMillis() + ".jpg");
-        return uriSting;
-
-    }
-
-    private String getRealPathFromURI(String contentURI) {
-        Uri contentUri = Uri.parse(contentURI);
-        Cursor cursor = getContentResolver().query(contentUri, null, null, null, null);
-        if (cursor == null) {
-            return contentUri.getPath();
-        } else {
-            cursor.moveToFirst();
-            int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            return cursor.getString(index);
-        }
-    }
-
-    public int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        int inSampleSize = 1;
-
-        if (height > reqHeight || width > reqWidth) {
-            final int heightRatio = Math.round((float) height / (float) reqHeight);
-            final int widthRatio = Math.round((float) width / (float) reqWidth);
-            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
-        }
-        final float totalPixels = width * height;
-        final float totalReqPixelsCap = reqWidth * reqHeight * 2;
-        while (totalPixels / (inSampleSize * inSampleSize) > totalReqPixelsCap) {
-            inSampleSize++;
-        }
-
-        return inSampleSize;
-    }
 
     /***
      *
@@ -511,6 +382,21 @@ public class BluetoothMain extends Activity {
     public void printPhoto(String path) throws IOException {
         try {
             Bitmap bmp = BitmapFactory.decodeFile(path);
+            if(bmp!=null){
+                byte[] command =decodeBitmap(bmp);
+                printText(command);
+            }else{
+                Log.e("Print Photo error", "the file isn't exists");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("PrintTools", "the file isn't exists");
+        }
+    }
+
+    public void printPhoto(Bitmap btm) throws IOException {
+        try {
+            //Bitmap bmp = BitmapFactory.decodeFile(path);
             if(bmp!=null){
                 byte[] command =decodeBitmap(bmp);
                 printText(command);
@@ -543,7 +429,7 @@ public class BluetoothMain extends Activity {
 
     public static byte[] decodeBitmap(Bitmap bmp){
         int bmpWidth = bmp.getWidth();
-        int bmpHeight = bmp.getHeight()/5;
+        int bmpHeight = bmp.getHeight();
         System.out.print(bmpHeight+"qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
 
         List<String> list = new ArrayList<String>(); //binaryString list
@@ -686,5 +572,291 @@ public class BluetoothMain extends Activity {
     }
 
 
+    /**
+     *
+     *
+     */
+
+    private byte[] buildPOSCommand(byte[] command, byte... args) {
+        byte[] posCommand = new byte[command.length + args.length];
+
+        System.arraycopy(command, 0, posCommand, 0, command.length);
+        System.arraycopy(args, 0, posCommand, command.length, args.length);
+
+        return posCommand;
+    }
+
+    BitSet dots;
+    private void print_image(String file) throws IOException {
+        File fl = new File(file);
+        if (fl.exists()) {
+            Bitmap bmp = BitmapFactory.decodeFile(file);
+            convertBitmap(bmp);
+            byte nL=(byte) (bmp.getWidth()& 0xFF);
+            byte nH=(byte) ((bmp.getWidth()>>8) & 0xFF);
+//            mmOutputStream.write(PrinterCommands.SET_LINE_SPACING_24);
+            mmOutputStream.write(PrinterCommands.ESC_Init);
+            mmOutputStream.write(PrinterCommands.ESC_Init1);
+
+            byte[] qwer=buildPOSCommand(PrinterCommands.SELECT_BIT_IMAGE_MODE,nL,nH);
+
+            int offset = 0;
+            while (offset < bmp.getHeight()) {
+                mmOutputStream.write(qwer);
+                for (int x = 0; x < bmp.getWidth(); ++x) {
+
+                    for (int k = 0; k < 3; ++k) {
+
+                        byte slice = 0;
+                        for (int b = 0; b < 8; ++b) {
+                            int y = (((offset / 8) + k) * 8) + b;
+                            int i = (y * bmp.getWidth()) + x;
+                            boolean v = false;
+                            if (i < dots.length()) {
+                                v = dots.get(i);
+                            }
+                            slice |= (byte) ((v ? 1 : 0) << (7 - b));
+                        }
+
+                        mmOutputStream.write(slice);
+                    }
+                }
+                offset += 24;
+                mmOutputStream.write(PrinterCommands.LF);
+                /*mmOutputStream.write(PrinterCommands.FEED_LINE);
+                mmOutputStream.write(PrinterCommands.FEED_LINE);
+                mmOutputStream.write(PrinterCommands.FEED_LINE);
+                mmOutputStream.write(PrinterCommands.FEED_LINE);
+                mmOutputStream.write(PrinterCommands.FEED_LINE);
+                mmOutputStream.write(PrinterCommands.FEED_LINE);*/
+            }
+            /*mmOutputStream.write(PrinterCommands.ESC_J);
+            mmOutputStream.write(PrinterCommands.GS_V_m_n);
+            mmOutputStream.write(PrinterCommands.ESC_Init);*/
+            mmOutputStream.write(PrinterCommands.SET_LINE_SPACING_30);
+
+
+        } else {
+            Toast.makeText(this, "file doesn't exists", Toast.LENGTH_SHORT)
+                    .show();
+        }
+    }
+
+    private void print_image(Bitmap bmp) throws IOException {
+            convertBitmap(bmp);
+            mmOutputStream.write(PrinterCommands.SET_LINE_SPACING_24);
+
+            int offset = 0;
+            while (offset < bmp.getHeight()) {
+                mmOutputStream.write(PrinterCommands.SELECT_BIT_IMAGE_MODE);
+                for (int x = 0; x < bmp.getWidth(); ++x) {
+
+                    for (int k = 0; k < 3; ++k) {
+
+                        byte slice = 0;
+                        for (int b = 0; b < 8; ++b) {
+                            int y = (((offset / 8) + k) * 8) + b;
+                            int i = (y * bmp.getWidth()) + x;
+                            boolean v = false;
+                            if (i < dots.length()) {
+                                v = dots.get(i);
+                            }
+                            slice |= (byte) ((v ? 1 : 0) << (7 - b));
+                        }
+
+                        mmOutputStream.write(slice);
+                    }
+                }
+                offset += 24;
+
+                mmOutputStream.write(PrinterCommands.FEED_LINE);
+                mmOutputStream.write(PrinterCommands.FEED_LINE);
+                mmOutputStream.write(PrinterCommands.FEED_LINE);
+                mmOutputStream.write(PrinterCommands.FEED_LINE);
+                mmOutputStream.write(PrinterCommands.FEED_LINE);
+                mmOutputStream.write(PrinterCommands.FEED_LINE);
+            }
+            mmOutputStream.write(PrinterCommands.SET_LINE_SPACING_30);
+    }
+
+    public String convertBitmap(Bitmap inputBitmap) {
+
+        int mWidth = ((inputBitmap.getWidth()+7)/8)*8;
+        int mHeight = inputBitmap.getHeight()*mWidth/inputBitmap.getWidth();
+        mHeight=((mHeight+7)/8)*8;
+        convertArgbToGrayscale(inputBitmap, mWidth, mHeight);
+        String mStatus = "ok";
+        return mStatus;
+
+    }
+
+    private void convertArgbToGrayscale(Bitmap bmpOriginal, int width,
+                                        int height) {
+        int pixel;
+        int k = 0;
+        int B = 0, G = 0, R = 0;
+        dots = new BitSet();
+        try {
+
+            for (int x = 0; x < height; x++) {
+                for (int y = 0; y < width; y++) {
+                    // get one pixel color
+                    pixel = bmpOriginal.getPixel(y, x);
+
+                    // retrieve color of all channels
+                    R = Color.red(pixel);
+                    G = Color.green(pixel);
+                    B = Color.blue(pixel);
+                    // take conversion up to one single value by calculating
+                    // pixel intensity.
+                    R = G = B = (int) (0.299 * R + 0.587 * G + 0.114 * B);
+                    // set bit into bitset, by calculating the pixel's luma
+                    if (R < 55) {
+                        dots.set(k);//this is the bitset that i'm printing
+                    }
+                    k++;
+
+                }
+
+
+            }
+
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            //Log.e(TAG, e.toString());
+        }
+    }
+
+
+    /***
+     *
+     *
+     */
+        private final byte[] INITIALIZE_PRINTER = new byte[]{0x1B,0x40};
+
+        private final byte[] PRINT_AND_FEED_PAPER = new byte[]{0x0A};
+
+        private final byte[] SELECT_BIT_IMAGE_MODE = new byte[]{(byte)0x1B, (byte)0x2A};
+        private final byte[] SET_LINE_SPACING = new byte[]{0x1B, 0x33};
+
+        private FileOutputStream printOutput;
+
+        public int maxBitsWidth = 255;
+
+
+        private byte[] buildPOSCmmand(byte[] command, byte... args) {
+            byte[] posCommand = new byte[command.length + args.length];
+
+            System.arraycopy(command, 0, posCommand, 0, command.length);
+            System.arraycopy(args, 0, posCommand, command.length, args.length);
+
+            return posCommand;
+        }
+
+        private BitSet getBitsImageData(Bitmap bmt) {
+            int threshold = 127;
+            int index = 0;
+            int dimenssions = bmt.getWidth() * bmt.getHeight();
+            BitSet imageBitsData = new BitSet(dimenssions);
+
+            for (int y = 0; y < bmt.getHeight(); y++)
+            {
+                for (int x = 0; x < bmt.getWidth(); x++)
+                {
+                    int color = bmt.getPixel(x,y);
+                    int  red = (color & 0x00ff0000) >> 16;
+                    int  green = (color & 0x0000ff00) >> 8;
+                    int  blue = color & 0x000000ff;
+                    int luminance = (int)(red * 0.3 + green * 0.59 + blue * 0.11);
+                    //dots[index] = (luminance < threshold);
+                    imageBitsData.set(index, (luminance < threshold));
+                    index++;
+                }
+            }
+
+            return imageBitsData;
+        }
+
+        public void printImages(Bitmap image) throws IOException{
+            try {
+                BitSet imageBits = getBitsImageData(image);
+
+                byte widthLSB = (byte)(image.getWidth() & 0xFF);
+                byte widthMSB = (byte)((image.getWidth() >> 16) & 0xFF);
+
+                // COMMANDS
+                byte[] selectBitImageModeCommand = buildPOSCmmand(SELECT_BIT_IMAGE_MODE, (byte) 33, widthLSB, widthMSB);
+                byte[] setLineSpacing24Dots = buildPOSCmmand(SET_LINE_SPACING, (byte) 24);
+                byte[] setLineSpacing30Dots = buildPOSCmmand(SET_LINE_SPACING, (byte) 30);
+
+
+                mmOutputStream.write(INITIALIZE_PRINTER);
+                mmOutputStream.write(setLineSpacing24Dots);
+
+                int offset = 0;
+                while (offset < image.getHeight()) {
+                    mmOutputStream.write(selectBitImageModeCommand);
+
+                    int imageDataLineIndex = 0;
+                    byte[] imageDataLine = new byte[3 * image.getWidth()];
+
+                    for (int x = 0; x < image.getWidth(); ++x) {
+
+                        // Remember, 24 dots = 24 bits = 3 bytes.
+                        // The 'k' variable keeps track of which of those
+                        // three bytes that we're currently scribbling into.
+                        for (int k = 0; k < 3; ++k) {
+                            byte slice = 0;
+
+                            // A byte is 8 bits. The 'b' variable keeps track
+                            // of which bit in the byte we're recording.
+                            for (int b = 0; b < 8; ++b) {
+                                // Calculate the y position that we're currently
+                                // trying to draw. We take our offset, divide it
+                                // by 8 so we're talking about the y offset in
+                                // terms of bytes, add our current 'k' byte
+                                // offset to that, multiple by 8 to get it in terms
+                                // of bits again, and add our bit offset to it.
+                                int y = (((offset / 8) + k) * 8) + b;
+
+                                // Calculate the location of the pixel we want in the bit array.
+                                // It'll be at (y * width) + x.
+                                int i = (y * image.getWidth()) + x;
+
+                                // If the image (or this stripe of the image)
+                                // is shorter than 24 dots, pad with zero.
+                                boolean v = false;
+                                if (i < imageBits.length()) {
+                                    v = imageBits.get(i);
+                                }
+                                // Finally, store our bit in the byte that we're currently
+                                // scribbling to. Our current 'b' is actually the exact
+                                // opposite of where we want it to be in the byte, so
+                                // subtract it from 7, shift our bit into place in a temp
+                                // byte, and OR it with the target byte to get it into there.
+                                slice |= (byte) ((v ? 1 : 0) << (7 - b));
+                            }
+
+                            imageDataLine[imageDataLineIndex + k] = slice;
+
+                            // Phew! Write the damn byte to the buffer
+                            //printOutput.write(slice);
+                        }
+
+                        imageDataLineIndex += 3;
+                    }
+
+                    mmOutputStream.write(imageDataLine);
+                    offset += 24;
+                    mmOutputStream.write(PRINT_AND_FEED_PAPER);
+                }
+
+
+                mmOutputStream.write(setLineSpacing30Dots);
+            } catch (IOException ex) {
+
+            }
+        }
 
 }

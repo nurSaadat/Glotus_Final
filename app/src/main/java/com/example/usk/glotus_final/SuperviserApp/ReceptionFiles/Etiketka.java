@@ -23,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.Superviser
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 import static android.os.Environment.getExternalStoragePublicDirectory;
@@ -130,6 +132,7 @@ public class Etiketka extends AppCompatActivity{
         }
 
         if(id==R.id.btn_print){
+            //saveBitmap();
             save(pdf_contEt);
             Intent myIntent = new Intent(Etiketka.this, BluetoothMain.class);
             myIntent.putExtra("pdfEtiketka", pdfEtiketka);
@@ -137,6 +140,30 @@ public class Etiketka extends AppCompatActivity{
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void saveBitmap(){
+        RelativeLayout view = findViewById(R.id.relativeLay);
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+
+        String fileName="Этикетка.pdf";
+
+        File file=null;
+        try {
+            File fold=getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+            file=new File(fold,"out.jpg");
+            if (!fold.exists()) {
+                fold.mkdirs();
+            }
+            OutputStream outStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, outStream);
+            outStream.close();
+            Toast.makeText(this,"Результат сохранен", Toast.LENGTH_LONG).show();
+        } catch (IOException e) {
+            Toast.makeText(this, "При сохранении возникла ошибка", Toast.LENGTH_LONG).show();
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -180,16 +207,6 @@ public class Etiketka extends AppCompatActivity{
 
         pdfEtiketka=new PdfInfo(imageFile,imageFile.getAbsolutePath(),fileName);
     }
-
-    /*public void open(File imageFile){
-        String rootSDCard=Environment.getExternalStorageDirectory().getAbsolutePath();
-
-        System.out.println(imageFile.toURI().toString());
-        String uri=imageFile.toURI().toString();
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.parse(uri), "application/pdf");
-        startActivity(intent);
-    }*/
 
     @Override
     public void onBackPressed() {

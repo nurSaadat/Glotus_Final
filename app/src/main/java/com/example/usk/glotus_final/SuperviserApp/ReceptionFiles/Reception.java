@@ -126,7 +126,7 @@ public class Reception extends AppCompatActivity {
 
         relativeLayout=findViewById(R.id.relativeLay);
 
-        System.out.println(ZayavkaListAdapter.item.getMenedjer());
+        //System.out.println(ZayavkaListAdapter.item.getMenedjer());
         setContentView(R.layout.activity_reception);
 
         hide_lay=findViewById(R.id.hide_lay);

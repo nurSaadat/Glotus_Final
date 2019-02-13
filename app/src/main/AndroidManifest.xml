@@ -76,9 +76,6 @@
         <activity
             android:name=".ManagerApp.ManagerListFiles.ImageViewerManager"
             android:configChanges="orientation|screenSize" />
-        <activity
-            android:name=".SuperviserApp.BluetoothService.BluetoothMain"
-            android:configChanges="orientation|screenSize" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

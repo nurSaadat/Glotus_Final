@@ -31,4 +31,5 @@ dependencies {
     implementation 'commons-codec:commons-codec:1.11'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     //implementation files('src/okio-2.1.0.jar')
+    implementation files('src/main/jniLibs')
 }

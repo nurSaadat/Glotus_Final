@@ -8,4 +8,5 @@
     <color name="greyField">#b4b4b4</color>
     <color name="buttonSave">#73c05e</color>
     <color name="btnSaveDark">#508641</color>
+    <color name="Black">#000000</color>
 </resources>

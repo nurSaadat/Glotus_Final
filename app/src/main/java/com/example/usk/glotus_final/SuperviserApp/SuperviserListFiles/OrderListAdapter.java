@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.usk.glotus_final.ManagerApp.ManagerListFiles.ListOtg;
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.Reception;
 
@@ -126,8 +127,15 @@ public class OrderListAdapter extends ArrayAdapter<Zayavka> {
 
 
 
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-
+                item=zayavka;
+                Intent myIntent = new Intent(mContext, ListOtg.class);
+                mContext.startActivity(myIntent);
+            }
+        });
         return convertView;
     }
 

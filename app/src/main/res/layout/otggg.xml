@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/aa"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/search_field"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_margin="16dp"
+
+        android:elevation="12dp">
+
+        <AutoCompleteTextView
+            android:id="@+id/etSearch"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:hint="Введите номер заявки"
+            android:imeOptions="actionSearch"
+            android:textSize="15dp" />
+
+        <ImageView
+            android:id="@+id/ivSearch"
+            android:layout_width="42dp"
+            android:layout_height="32dp"
+
+            android:layout_centerVertical="true"
+
+
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <ImageButton
+            android:id="@+id/btn_dobavit_zayavku"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="32dp"
+            android:layout_marginBottom="32dp"
+
+            android:elevation="10dp"
+            android:visibility="gone" />
+
+        <Button
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:hint="Показать ещё"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+</LinearLayout>

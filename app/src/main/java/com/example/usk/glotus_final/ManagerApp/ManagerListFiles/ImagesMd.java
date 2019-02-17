@@ -38,7 +38,8 @@ public class ImagesMd extends Activity {
 
 
     }
-}/*byte[] decodedString = Base64.decode(s[i], Base64.DEFAULT);
+}
+/*byte[] decodedString = Base64.decode(s[i], Base64.DEFAULT);
                         System.out.println("==============");
                         System.out.println(decodedString);
                         BitmapFactory.Options options = new BitmapFactory.Options();

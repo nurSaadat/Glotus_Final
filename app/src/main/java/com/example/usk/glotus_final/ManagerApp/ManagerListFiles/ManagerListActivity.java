@@ -103,6 +103,9 @@ public class ManagerListActivity extends AppCompatActivity {
 
         list = (ListView) findViewById(R.id.manager_list);
 
+        //подсказка
+        Toast.makeText(getApplicationContext(),
+                "Нажмите два раза что бы посмотреть данные", Toast.LENGTH_LONG).show();
 
         dobavitZayavku = (ImageButton) findViewById(R.id.btn_dobavit_zayavku);
         dobavitZayavku.setOnClickListener(new View.OnClickListener() {

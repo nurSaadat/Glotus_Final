@@ -274,27 +274,31 @@ public class Reception extends AppCompatActivity {
         saveBtn.setOnClickListener(new View.OnClickListener(){
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
-            public void onClick(View view){
-                try {
+            public void onClick(View view) {
+                if(kolich.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(), "Количество мест не должно быть пустым", Toast.LENGTH_SHORT).show();
+                }else {
                     try {
-                        posting();
-                    } catch (JSONException e) {
+                        try {
+                            posting();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } catch (NoSuchPaddingException e) {
+                        e.printStackTrace();
+                    } catch (InvalidKeyException e) {
+                        e.printStackTrace();
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    } catch (IllegalBlockSizeException e) {
+                        e.printStackTrace();
+                    } catch (BadPaddingException e) {
+                        e.printStackTrace();
+                    } catch (NoSuchAlgorithmException e) {
+                        e.printStackTrace();
+                    } catch (InvalidAlgorithmParameterException e) {
                         e.printStackTrace();
                     }
-                } catch (NoSuchPaddingException e) {
-                    e.printStackTrace();
-                } catch (InvalidKeyException e) {
-                    e.printStackTrace();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                } catch (IllegalBlockSizeException e) {
-                    e.printStackTrace();
-                } catch (BadPaddingException e) {
-                    e.printStackTrace();
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
-                } catch (InvalidAlgorithmParameterException e) {
-                    e.printStackTrace();
                 }
             }
         });
@@ -402,15 +406,14 @@ public class Reception extends AppCompatActivity {
         progressDialog.show(); // Display Progress Dialog
         progressDialog.setCancelable(false);
 
-
-       pposting();
+        pposting();
     }
 
         //here some mistakes, look throw
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void pposting() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, JSONException {
-
         uploadingfile();
+
         String images="\"Изображения\" : [";
         for(int i=0;i<adress.size();i++) {
             System.out.println(adress.get(i));
@@ -419,16 +422,18 @@ public class Reception extends AppCompatActivity {
             if (i!=adress.size() - 1)
                 images+=",";
         }
+
         images+="]";
         System.out.println(images);
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(Calendar.getInstance().getTime()).replace("_","T");
 
         String ssp=soprDocument.getSelectedItem().toString()+" от " +sopnumber.getText().toString()+" "+sopdate.getText().toString();
         if (soprDocument.getSelectedItem().toString().length()>1 && sopnumber.getText().toString().length()>=1 && sopdate.getText().toString().length()>1)
-        ssp="[{\"LineNumber\": \"1\",\"СопроводительныйДокумент\": \""+soprDocument.getSelectedItem().toString()+"\",\"НомерСД\": \""+sopnumber.getText().toString()+"\",\"ДатаСД\": \""+ttt+"00:00:00\"}}";
-      else
+            ssp="[{\"LineNumber\": \"1\",\"СопроводительныйДокумент\": \""+soprDocument.getSelectedItem().toString()+"\",\"НомерСД\": \""+sopnumber.getText().toString()+"\",\"ДатаСД\": \""+ttt+"00:00:00\"}}";
+        else
           ssp="[{}]";
-       String body="{\n" +
+
+        String body="{\n" +
                 "    \"КоличествоФакт\": \""+kolich.getText().toString()+"\",\n" +
                 "    \"ВесФакт\": \""+vesFact.getText().toString()+"\",\n" +
                 "    \"ОбъемФакт\": \""+obiemFact.getText().toString()+"\",\n" +
@@ -449,8 +454,8 @@ public class Reception extends AppCompatActivity {
                 "    \"Док\": "+ssp+","+
                      images+
                 " }";
-       Log.d("aa",body);
-       System.out.println(body);
+        Log.d("aa",body);
+        System.out.println(body);
         System.out.println(body);
 
         String res=process("http://185.209.23.53/InfoBase/odata/standard.odata/Document_%D0%9F%D1%80%D0%B8%D0%B5%D0%BC%D0%9D%D0%B0%D0%A1%D0%BA%D0%BB%D0%B0%D0%B4?$format=json","POST", User.getCredential(),body);
@@ -468,13 +473,13 @@ public class Reception extends AppCompatActivity {
                     "{\"ДокументПриемГруза_Key\": \""+jsonObj.getString("Ref_Key").toString()+"\",\"СтатусЗаказа\": \"ПринятноНаСкладе\",\"ВесФакт\":\""+vesFact.getText().toString()+"\",\"ОбъемФакт\": \""+obiemFact.getText().toString()+"\",\"КоличествоФакт\": \""+kolich.getText().toString()+"\"}");
 
         System.out.println(res);
-            pd=new PdfData(ZayavkaListAdapter.item.getSenderadr(),ZayavkaListAdapter.item.getReceptadr(),ZayavkaListAdapter.item.getRecept(),ZayavkaListAdapter.item.getSender(),kolich.getText().toString(),vesFact.getText().toString(),
-                    obiemFact.getText().toString(),"AUTO","RASP", ZayavkaListAdapter.item.getNumber().toString(),ZayavkaListAdapter.item.getDate().toString(),
+        pd=new PdfData(ZayavkaListAdapter.item.getSenderadr(),ZayavkaListAdapter.item.getReceptadr(),ZayavkaListAdapter.item.getRecept(),ZayavkaListAdapter.item.getSender(),kolich.getText().toString(),vesFact.getText().toString(),
+                    obiemFact.getText().toString(),"AUTO","Админ", ZayavkaListAdapter.item.getNumber().toString(),ZayavkaListAdapter.item.getDate().toString(),
                     " ");
 
-            Intent myIntent = new Intent(Reception.this, Etiketka.class);
-            myIntent.putExtra("pdfData",pd);
-            startActivity(myIntent);
+        Intent myIntent = new Intent(Reception.this, Etiketka.class);
+        myIntent.putExtra("pdfData", pd);
+        startActivity(myIntent);
     }
 
     public void setTransportSpinner(final AutoCompleteTextView spinner){

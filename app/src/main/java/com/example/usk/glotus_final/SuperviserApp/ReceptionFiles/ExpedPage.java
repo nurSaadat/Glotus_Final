@@ -44,9 +44,9 @@ public class ExpedPage extends AppCompatActivity  {
         Intent intent=getIntent();
         item=(PdfData) intent.getExtras().getSerializable("pdfExped");
 
-        scrollView2=findViewById(R.id.scrollview);
         pdf_cont=findViewById(R.id.relLay);
-        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder(); StrictMode.setVmPolicy(builder.build());
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
         buildText(item);
     }
 
@@ -114,9 +114,9 @@ public class ExpedPage extends AppCompatActivity  {
     }
 
     public void save (View v){
-        RelativeLayout scroll = findViewById(R.id.relLay);
-        int yy = scroll.getScrollY()+scroll.getHeight();
-        int xx = scroll.getWidth();
+        ScrollView scroll = findViewById(R.id.scrollview);
+        int yy = v.getScrollY()+v.getHeight();
+        int xx = v.getWidth();
 
         PrintAttributes printAttrs = new PrintAttributes.Builder().
                 setColorMode(PrintAttributes.COLOR_MODE_COLOR).

@@ -155,7 +155,7 @@ public class ExpedPage extends AppCompatActivity  {
 
     @Override
     public void onBackPressed() {
-        Intent myIntent = new Intent(ExpedPage.this, Etiketka.class);
+        Intent myIntent = new Intent(ExpedPage.this, SuperviserListActivity.class);
         startActivity(myIntent);
     }
 }

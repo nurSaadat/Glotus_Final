@@ -282,10 +282,10 @@ public class ListOtgruzki extends AppCompatActivity {
                         kuda,
                         otkuda,
                         array.getJSONObject(i).getString("Ref_Key"),
-                            "",
+                        array.getJSONObject(i).getString("Заказы"),
                         array.getJSONObject(i).getString("НазваниеОтгрузки"),
                         "","");
-
+                System.out.println(array.getJSONObject(i).getString("Заказы"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -324,6 +324,7 @@ public class ListOtgruzki extends AppCompatActivity {
                 swipeView.setRefreshing(false);
             }
         });
+
     }
 
     public void onBackPressed() {

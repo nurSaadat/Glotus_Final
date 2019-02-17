@@ -132,6 +132,7 @@ public class ZayavkaListAdapter extends ArrayAdapter<Zayavka> {
                 item = zayavka;
                 Intent myIntent = new Intent(mContext, Reception.class);
                 mContext.startActivity(myIntent);
+
             }
         });
 

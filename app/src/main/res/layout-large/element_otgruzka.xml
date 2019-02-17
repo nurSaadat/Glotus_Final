@@ -154,7 +154,7 @@
                 android:background="@color/colorAccent"
                 android:text="Д"
                 android:textColor="@android:color/white"
-                />
+          />
 
             <TextView
                 android:id="@+id/tv_z"

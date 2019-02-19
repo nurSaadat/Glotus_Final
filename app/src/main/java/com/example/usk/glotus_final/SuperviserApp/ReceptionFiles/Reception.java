@@ -213,9 +213,37 @@ public class Reception extends AppCompatActivity {
         String[] itemsForSop=new String[]{"","Транспортная накладная","Товарно-транспортная накладная",
                 "Универсально-передаточный документ","Счет фактура","Накладная",
                 "Расходная накладная","INVOICE","другое"};
+        final LinearLayout sop;
+        sop=findViewById(R.id.sopr);
+
+
         ArrayAdapter<String> adapterForSop=new ArrayAdapter<String>(this,R.layout.spinner_item, itemsForSop);
         adapterForSop.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         soprDocument.setAdapter(adapterForSop);
+        soprDocument.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                System.out.println(soprDocument.getSelectedItem().toString());
+                if (soprDocument.getSelectedItem().toString().equals("другое"))
+                    sop.setVisibility(View.VISIBLE);
+                else
+                    sop.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });        /*ser(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                System.out.println(soprDocument.getSelectedItem().toString());
+                if (soprDocument.getSelectedItem().toString().equals("другое"))
+                    sop.setVisibility(View.VISIBLE);
+                else
+                    sop.setVisibility(View.GONE);
+            }
+        });*/
 
         transportType=findViewById(R.id.spin_transport);
         setTransportSpinner(transportType);
@@ -427,11 +455,18 @@ public class Reception extends AppCompatActivity {
         System.out.println(images);
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(Calendar.getInstance().getTime()).replace("_","T");
 
-        String ssp=soprDocument.getSelectedItem().toString()+" от " +sopnumber.getText().toString()+" "+sopdate.getText().toString();
-        if (soprDocument.getSelectedItem().toString().length()>1 && sopnumber.getText().toString().length()>=1 && sopdate.getText().toString().length()>1)
-            ssp="[{\"LineNumber\": \"1\",\"СопроводительныйДокумент\": \""+soprDocument.getSelectedItem().toString()+"\",\"НомерСД\": \""+sopnumber.getText().toString()+"\",\"ДатаСД\": \""+ttt+"00:00:00\"}}";
+        String pp="";
+        EditText dd=findViewById(R.id.drug);
+        if (soprDocument.getSelectedItem().toString().equals("другое"))
+            pp=dd.getText().toString();
         else
-          ssp="[{}]";
+            pp=soprDocument.getSelectedItem().toString();
+
+        String ssp=soprDocument.getSelectedItem().toString()+" от " +sopnumber.getText().toString()+" "+sopdate.getText().toString();
+        if (pp.length()>1 && sopnumber.getText().toString().length()>=1 && sopdate.getText().toString().length()>1)
+            ssp="[{\"LineNumber\": \"1\",\"СопроводительныйДокумент\": \""+pp+"\",\"НомерСД\": \""+sopnumber.getText().toString()+"\",\"ДатаСД\": \""+ttt+"00:00:00\"}}";
+        else
+            ssp="[{}]";
 
         String body="{\n" +
                 "    \"КоличествоФакт\": \""+kolich.getText().toString()+"\",\n" +

@@ -394,6 +394,7 @@
                                 android:layout_weight="1" />
                         </LinearLayout>
 
+
                         <LinearLayout
                             android:id="@+id/sopr"
                             android:layout_width="match_parent"
@@ -408,7 +409,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Другое:" />
+                                android:text="Другое:"
+                                />
 
                             <EditText
                                 android:id="@+id/drug"
@@ -416,7 +418,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:ems="10"
-                                android:hint="Другое"
+                                android:hint="Введите название"
                                 android:inputType="textPersonName" />
                         </LinearLayout>
 

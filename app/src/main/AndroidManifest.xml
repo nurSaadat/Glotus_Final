@@ -2,21 +2,27 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.usk.glotus_final">
 
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-feature android:name="android.hardware.camera" android:required="true"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <uses-feature android:name="android.hardware.bluetooth" />
 
     <supports-screens
-        android:normalScreens="true"
         android:largeScreens="true"
-        android:xlargeScreens="true"
-        />
-
+        android:normalScreens="true"
+        android:xlargeScreens="true" />
 
     <application
         android:allowBackup="true"
@@ -25,8 +31,8 @@
         android:roundIcon="@mipmap/auncher_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".System.loginFiles.SignInActivity"
+        <activity
+            android:name=".System.loginFiles.SignInActivity"
             android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,41 +40,60 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ManagerApp.ManagerListFiles.ManagerListActivity"
-            android:configChanges="orientation|screenSize"/>
-        <activity android:name=".SuperviserApp.ReceptionFiles.ExpedPage"
-            android:configChanges="orientation|screenSize"/>
-        <activity android:name=".SuperviserApp.SuperviserListFiles.SuperviserListActivity"
-            android:configChanges="orientation|screenSize"/>
-        <activity android:name=".SuperviserApp.ReceptionFiles.Reception"
-            android:configChanges="orientation|screenSize"/>
-        <activity android:name=".SuperviserApp.ReceptionFiles.Camera"
-            android:configChanges="orientation|screenSize"/>
-        <activity android:name=".SuperviserApp.ReceptionFiles.Etiketka"
-            android:configChanges="orientation|screenSize"/>
-        <activity android:name=".ManagerApp.ManagerListFiles.ReceptionManagerActivity"
-            android:configChanges="orientation|screenSize"/>
-        <activity android:name=".ManagerApp.ManagerListFiles.NewReceptionManagerActivity"
-            android:configChanges="orientation|screenSize"/>
-        <activity android:name=".SuperviserApp.ReceptionFiles.ImageViewer"
-            android:configChanges="orientation|screenSize"/>
-        <activity android:name=".SuperviserApp.WifiManagerService.WifiManagerClass"
-            android:configChanges="orientation|screenSize"/>
-        <activity android:name=".ManagerApp.ManagerListFiles.EditReceptionManagerActivity"
-            android:configChanges="orientation|screenSize">
+        <activity
+            android:name=".ManagerApp.ManagerListFiles.ListOtg"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity
+            android:name=".ManagerApp.ManagerListFiles.ManagerListActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".SuperviserApp.ReceptionFiles.ExpedPage"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".SuperviserApp.SuperviserListFiles.SuperviserListActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".SuperviserApp.ReceptionFiles.Reception"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".SuperviserApp.ReceptionFiles.Camera"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".SuperviserApp.ReceptionFiles.Etiketka"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".ManagerApp.ManagerListFiles.ReceptionManagerActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".ManagerApp.ManagerListFiles.NewReceptionManagerActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".SuperviserApp.ReceptionFiles.ImageViewer"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".SuperviserApp.WifiManagerService.WifiManagerClass"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".ManagerApp.ManagerListFiles.EditReceptionManagerActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".ManagerApp.ManagerListFiles.ImageViewerManager"
+            android:configChanges="orientation|screenSize" />
 
         <provider
-            android:authorities="${applicationId}.provider"
             android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
         <provider
             android:name=".GenericFileProvider"
@@ -77,7 +102,13 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
+
+        <activity android:name=".SuperviserApp.SuperviserListFiles.ListOtgruzki" />
+        <activity
+            android:name=".ManagerApp.ManagerListFiles.ImagesMd"
+            android:label="@string/title_activity_images_md"></activity>
     </application>
+
 </manifest>

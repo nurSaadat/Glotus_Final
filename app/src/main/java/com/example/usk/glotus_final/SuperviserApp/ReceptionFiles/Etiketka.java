@@ -1,38 +1,61 @@
 package com.example.usk.glotus_final.SuperviserApp.ReceptionFiles;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
-import android.graphics.pdf.PdfDocument;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.print.PrintAttributes;
-import android.print.pdf.PrintedPdfDocument;
+import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.usk.glotus_final.R;
+import com.example.usk.glotus_final.SuperviserApp.BluetoothPrintService.Command;
+import com.example.usk.glotus_final.SuperviserApp.BluetoothPrintService.PrintPicture;
+import com.example.usk.glotus_final.SuperviserApp.BluetoothPrintService.PrinterCommand;
+import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Set;
+import java.util.UUID;
 
 public class Etiketka extends AppCompatActivity{
-    private RelativeLayout pdf_contEt;
-    private ScrollView scrollViewEt;
     private MenuItem btn_next;
     private PdfData data;
-    public static ArrayList<File> imgFile=new ArrayList<>();
-    private File imageFile;
+    LinearLayout linearLayout;
+    private TextView mesto;
+    static TextView myLabel;
+
+    static BluetoothAdapter mBluetoothAdapter;
+    static BluetoothSocket mmSocket;
+    static BluetoothDevice mmDevice;
+    static Set<BluetoothDevice> pairedDevices;
+
+    static OutputStream mmOutputStream;
+    static InputStream mmInputStream;
+    static Thread workerThread;
+
+    static byte[] readBuffer;
+    static int readBufferPosition;
+    static volatile boolean stopWorker;
+
+    Bitmap bmp;
+    Button coonect,send,off;
+    Spinner bluetoothDevices;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,54 +63,95 @@ public class Etiketka extends AppCompatActivity{
 
         Intent intent=getIntent();
         data=(PdfData) intent.getExtras().getSerializable("pdfData");
-
-        scrollViewEt=findViewById(R.id.scrollView3);
-        pdf_contEt=findViewById(R.id.relativeLay);
         buildText(data);
+        final int kolvoMest=Integer.parseInt(data.getKolvoMest());
+
+        initialBLuetooth();
+        setBoundedDevices();
+
+        try {
+            myLabel = findViewById(R.id.label);
+
+            coonect.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    try {
+                        connectBT();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            });
+
+            send.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    try {
+                        for(int i=0; i<kolvoMest;i++){
+                            String mest=String.valueOf(i+1);
+                            mesto.setText(mest+" из "+data.getKolvoMest());
+                            bmp=getViewBitmap(linearLayout);
+                            Print_BMP(bmp);
+                        }
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            });
+
+            off.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    try {
+                        closeBT();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            });
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void buildText(PdfData pd){
-        //PdfData pd=Reception.pd;
+        TextView gorodOtkuda=findViewById(R.id.gorod_otkuda);
+        TextView gorodKuda=findViewById(R.id.gorod_kuda);
+        TextView imya_otprav=findViewById(R.id.imya_otprav);
+        TextView imya_poluch=findViewById(R.id.imya_poluch);
+        TextView kolichMest=findViewById(R.id.kolich);
+        TextView ves=findViewById(R.id.ves);
+        TextView obiem=findViewById(R.id.obiem);
+        TextView raspechatal=findViewById(R.id.admin);
+        TextView idAndDate=findViewById(R.id.date);
+        TextView gorodOtkuda1=findViewById(R.id.gorod_otkuda1);
+        TextView gorodKuda1=findViewById(R.id.gorod_kuda1);
+        TextView imya_otprav1=findViewById(R.id.imya_otprav1);
+        TextView imya_poluch1=findViewById(R.id.imya_poluch1);
+        mesto=findViewById(R.id.mesto);
+        TextView raspechatal1=findViewById(R.id.admin1);
+        TextView idAndDate1=findViewById(R.id.date1);
 
-        TextView fromCity=findViewById(R.id.otkudaField);
-        TextView toCity=findViewById(R.id.kudaField);
-        TextView otpr= findViewById(R.id.otpravitelField);
-        TextView poluch=findViewById(R.id.poluchatelField);
-        TextView kolvMest=findViewById(R.id.kolvoMestField);
-        TextView ves=findViewById(R.id.vesField);
-        TextView obm=findViewById(R.id.obiemField);
-        TextView trans=findViewById(R.id.transportTypeField);
-        TextView rasp=findViewById(R.id.raspechatalField);
-        TextView numZ=findViewById(R.id.numZakaz);
-        TextView dateZ=findViewById(R.id.dateZakazField);
-        TextView fromCityBottom=findViewById(R.id.otkudaBottomField);
-        TextView toCityBottom=findViewById(R.id.kudaBottomField);
-        TextView mesta=findViewById(R.id.mestoBottomField);
-        TextView otprBottom=findViewById(R.id.otpravitelBottomField);
-        TextView poluchBottom=findViewById(R.id.poluchatelBottomField);
-        TextView pasrbottom=findViewById(R.id.raspBottomField);
-        TextView numZbottom=findViewById(R.id.numZakazBottom);
-        TextView dateBottom=findViewById(R.id.dateZakazBottom);
+        linearLayout=findViewById(R.id.linLay);
+        coonect = findViewById(R.id.open);
+        send = findViewById(R.id.send);
+        off = findViewById(R.id.close);
+        bluetoothDevices=findViewById(R.id.bluetoothDevices);
 
-        fromCity.setText(pd.getFromCity());
-        toCity.setText(pd.getToCity());
-        otpr.setText(pd.getOtpravitel());
-        poluch.setText(pd.getPoluchatel());
-        kolvMest.setText(pd.getKolvoMest());
+        gorodOtkuda.setText(pd.getFromCity());
+        gorodKuda.setText(pd.getToCity());
+        imya_otprav.setText(pd.getOtpravitel());
+        imya_otprav1.setText(pd.getOtpravitel());
+        imya_poluch.setText(pd.getPoluchatel());
+        imya_poluch1.setText(pd.getPoluchatel());
+        kolichMest.setText(pd.getKolvoMest());
         ves.setText(pd.getVes());
-        obm.setText(pd.getObiem());
-        trans.setText(pd.getTypeTrans());
-        rasp.setText(pd.getRasp());
-        numZ.setText(pd.getNumZakaz());
-        dateZ.setText(pd.getDate());
-        fromCityBottom.setText(pd.getFromCity());
-        toCityBottom.setText(pd.getToCity());
-        mesta.setText("1 из "+ pd.getKolvoMest());
-        otprBottom.setText(pd.getOtpravitel());
-        poluchBottom.setText(pd.getPoluchatel());
-        pasrbottom.setText(pd.getRasp());
-        numZbottom.setText(pd.getNumZakaz());
-        dateBottom.setText(pd.getDate());
+        obiem.setText(pd.getObiem());
+        raspechatal.setText(pd.getRasp());
+        idAndDate.setText(pd.getNumZakaz()+" от "+pd.getDate());
+        gorodOtkuda1.setText(pd.getFromCity());
+        gorodKuda1.setText(pd.getToCity());
+        mesto.setText("1 из "+pd.getKolvoMest());
+        raspechatal1.setText(pd.getRasp());
+        idAndDate1.setText(pd.getNumZakaz()+" от "+pd.getDate());
     }
 
     @Override
@@ -97,6 +161,7 @@ public class Etiketka extends AppCompatActivity{
 
         btn_next=menu.findItem(R.id.btn_next);
         btn_next.setVisible(true);
+
         return true;
     }
 
@@ -106,52 +171,171 @@ public class Etiketka extends AppCompatActivity{
         int id = item.getItemId();
 
         if(id==R.id.btn_next){
-            save(pdf_contEt);
             Intent myIntent = new Intent(Etiketka.this, ExpedPage.class);
             myIntent.putExtra("pdfExped",data);
             startActivity(myIntent);
         }
-
         return super.onOptionsItemSelected(item);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void save (View v){
-        RelativeLayout scroll = (RelativeLayout) findViewById(R.id.relativeLay);
-        int yy = scroll.getScrollY()+scroll.getHeight();
-        int xx = scroll.getWidth();
+    void initialBLuetooth(){
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
-        PrintAttributes printAttrs = new PrintAttributes.Builder().
-                setColorMode(PrintAttributes.COLOR_MODE_COLOR).
-                setMediaSize(PrintAttributes.MediaSize.NA_LETTER).
-                setMinMargins(PrintAttributes.Margins.NO_MARGINS).
-                build();
-        PrintedPdfDocument document = new PrintedPdfDocument(this,printAttrs);
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(xx, yy, 1).create();
-        PdfDocument.Page page = document.startPage(pageInfo);
-        scroll.draw(page.getCanvas());
-        document.finishPage(page);
-        try {
-            File mFolder = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
-            imageFile = new File(mFolder,"Этикетка.pdf"/*+ "_"+ System.currentTimeMillis() + ".pdf"*/);
-            if (!mFolder.exists()) {
-                mFolder.mkdirs();
-            }
-            FileOutputStream out = new FileOutputStream(imageFile);
-            document.writeTo(out);
-            document.close();
-            out.close();
-            Toast.makeText(this,"Результат сохранен", Toast.LENGTH_LONG).show();
-        } catch (IOException e) {
-            Toast.makeText(this, "При сохранении возникла ошибка", Toast.LENGTH_LONG).show();
+        if(mBluetoothAdapter == null) {
+            myLabel.setText("Bluetooth адаптер не подключен.");
         }
 
-        imgFile.add(imageFile);
+        if(!mBluetoothAdapter.isEnabled()) {
+            Intent enableBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBluetooth, 0);
+        }
+    }
+
+    void setBoundedDevices(){
+        pairedDevices = mBluetoothAdapter.getBondedDevices();
+
+        String [] devices=new String[pairedDevices.size()];
+
+        int i=0;
+        for(BluetoothDevice dev:pairedDevices){
+            devices[i]=dev.getName();
+            i++;
+        }
+
+        ArrayAdapter<String> arrayAdapter=new ArrayAdapter<>(getApplicationContext(),R.layout.spinner_item,devices);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        bluetoothDevices.setAdapter(arrayAdapter);
+
+        bluetoothDevices.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(pairedDevices.size() > 0) {
+                    for (BluetoothDevice device : pairedDevices) {
+                        if (device.getName().equals(adapterView.getSelectedItem().toString())) {
+                            mmDevice = device;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    void connectBT() throws IOException {
+        UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
+        mmSocket = mmDevice.createRfcommSocketToServiceRecord(uuid);
+
+        if (!mmSocket.isConnected()){
+            myLabel.setText(mmDevice.getName()+" не активировано");
+        }
+
+        mmSocket.connect();
+        mmOutputStream = mmSocket.getOutputStream();
+        mmInputStream = mmSocket.getInputStream();
+
+        beginListenForData();
+
+        myLabel.setText("Bluetooth подключен к "+mmDevice.getName());
+    }
+
+    void beginListenForData() {
+        final Handler handler = new Handler();
+        final byte delimiter = 10;
+
+        stopWorker = false;
+        readBufferPosition = 0;
+        readBuffer = new byte[1024];
+
+        workerThread = new Thread(new Runnable() {
+            public void run() {
+                while (!Thread.currentThread().isInterrupted() && !stopWorker) {
+                    try {
+                        int bytesAvailable = mmInputStream.available();
+                        if (bytesAvailable > 0) {
+                            byte[] packetBytes = new byte[bytesAvailable];
+                            mmInputStream.read(packetBytes);
+
+                            for (int i = 0; i < bytesAvailable; i++) {
+                                byte b = packetBytes[i];
+                                if (b == delimiter) {
+                                    byte[] encodedBytes = new byte[readBufferPosition];
+                                    System.arraycopy(
+                                            readBuffer, 0,
+                                            encodedBytes, 0,
+                                            encodedBytes.length
+                                    );
+
+                                    // specify US-ASCII encoding
+                                    final String data = new String(encodedBytes, "US-ASCII");
+                                    readBufferPosition = 0;
+
+                                    // tell the user data were sent to bluetooth printer device
+                                    handler.post(new Runnable() {
+                                        public void run() {
+                                            myLabel.setText(data);
+                                        }
+                                    });
+                                } else {
+                                    readBuffer[readBufferPosition++] = b;
+                                }
+                            }
+                        }
+                    } catch (IOException ex) {
+                        stopWorker = true;
+                    }
+                }
+            }
+        });
+        workerThread.start();
+    }
+
+    void closeBT() throws IOException {
+        stopWorker = true;
+        mmOutputStream.close();
+        mmInputStream.close();
+        mmSocket.close();
+        myLabel.setText("Bluetooth не подключен к устроиству.");
+    }
+
+    public Bitmap getViewBitmap(View v){
+        v.setDrawingCacheEnabled(true);
+        v.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        v.layout(0, 0, v.getMeasuredWidth(), v.getMeasuredHeight());
+        v.buildDrawingCache(true);
+        Bitmap b = Bitmap.createBitmap(v.getDrawingCache());
+        v.setDrawingCacheEnabled(false);
+
+        return b;
+    }
+
+    void Print_BMP(Bitmap mBitmap) throws IOException {
+
+        int nMode = 0;
+        int nPaperWidth = 384;
+
+        if(mBitmap != null)
+        {
+            byte[] data = PrintPicture.POS_PrintBMP(mBitmap, nPaperWidth, nMode,12);
+            mmOutputStream.write(Command.ESC_Init);
+            mmOutputStream.write(Command.LF);
+            mmOutputStream.write(data);
+            mmOutputStream.write(PrinterCommand.POS_Set_PrtAndFeedPaper(30));
+            mmOutputStream.write(PrinterCommand.POS_Set_Cut(1));
+            mmOutputStream.write(Command.FEED_LINE);
+            mmOutputStream.write(Command.FEED_LINE);
+            mmOutputStream.write(PrinterCommand.POS_Set_PrtInit());
+        }
     }
 
     @Override
     public void onBackPressed() {
-        Intent myIntent = new Intent(Etiketka.this, Reception.class);
+        Intent myIntent = new Intent(Etiketka.this, SuperviserListActivity.class);
         startActivity(myIntent);
     }
 }

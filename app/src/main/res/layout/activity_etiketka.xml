@@ -1,408 +1,586 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".SuperviserApp.ReceptionFiles.Etiketka"
-    tools:layout_editor_absoluteY="25dp">
+    android:layout_margin="5dp">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/scrollView3"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Подключитесь к устройству"
+                android:textColor="@android:color/black" />
+
+            <Spinner
+                android:id="@+id/bluetoothDevices"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp">
+
+            <Button
+                android:id="@+id/open"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="Подк."
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorAccent"
+                android:text="Печать"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorAccent"
+                android:text="Откл."
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
 
         <RelativeLayout
-            android:id="@+id/relativeLay"
-            android:layout_width="match_parent"
-            android:layout_height="600dp">
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
 
-            <TextView
-                android:id="@+id/otkudaField"
-                android:layout_width="120dp"
+            <LinearLayout
+                android:id="@+id/linLay"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="30dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="56dp"
-                android:text="@string/fromCity"
-                android:textAlignment="center"
-                style="@style/TextBlackReception"
-                android:textStyle="bold" />
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:background="@android:color/white"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/kudaField"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignTop="@+id/otkudaField"
-                android:layout_marginEnd="30dp"
-                android:layout_marginRight="30dp"
-                android:text="@string/toCity"
-                android:textAlignment="center"
-                style="@style/TextBlackReception"
-                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/otkuda"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/poluchatel"
-                android:layout_below="@+id/otkudaField"
-                android:text="@string/otkuda"
-                style="@style/TextBlackEtikBig"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/kuda"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/otkudaField"
-                android:layout_marginEnd="60dp"
-                android:layout_marginRight="60dp"
-                android:text="@string/kuda"
-                style="@style/TextBlackEtikBig"/>
+                    <ImageView
+                        android:id="@+id/logo"
+                        android:layout_width="132dp"
+                        android:layout_height="52dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/smaller_logo" />
 
-            <TextView
-                android:id="@+id/otpravitel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/otkudaField"
-                android:text="@string/otpravitel"
-                android:layout_marginTop="120dp"
-                style="@style/TextBlackEtikBig"
-                android:textStyle="bold" />
+                    <ImageView
+                        android:id="@+id/shtrih"
+                        android:layout_width="132dp"
+                        android:layout_height="52dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/shtrih" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/podpis"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="90dp"
-                android:layout_marginTop="120dp"
-                android:text="@string/podpis"
-                style="@style/TextBlackEtikBig"
-                android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/otpravitelField"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/poluchatel"
-                android:layout_alignStart="@+id/otkudaField"
-                android:layout_marginBottom="-155dp"
-                android:text="@string/otpavitelImya"
-                style="@style/TextBlackEtikBig"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="2dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/poluchatel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="160dp"
-                android:text="@string/poluchatel"
-                style="@style/TextBlackEtikBig"
-                android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/gorod_otkuda"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Город откуда"
+                            android:textColor="@color/Black"
+                            android:textSize="17dp"
+                            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/poluchatelField"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="180dp"
-                android:text="@string/poluchatelImya"
-                style="@style/TextBlackEtikBig"/>
+                        <View
+                            android:id="@+id/i5"
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="@android:color/black" />
+                    </LinearLayout>
 
-            <TextView
-                android:id="@+id/kolvoMest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="220dp"
-                android:text="@string/kolvoMestEt"
-                style="@style/TextBlackEtik13"
-                android:textStyle="bold" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/ves"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="245dp"
-                android:text="@string/vesEt"
-                style="@style/TextBlackEtik13"
-                android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/gorod_kuda"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Город куда"
+                            android:textColor="@color/Black"
+                            android:textSize="17dp"
+                            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/obiem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="270dp"
-                android:text="@string/obiemEt"
-                style="@style/TextBlackEtik13"
-                android:textStyle="bold" />
+                        <View
+                            android:id="@+id/i6"
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="@android:color/black" />
 
-            <TextView
-                android:id="@+id/transportType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="295dp"
-                android:text="@string/typeTrans"
-                style="@style/TextBlackEtik13"
-                android:textStyle="bold" />
+                    </LinearLayout>
 
-            <TextView
-                android:id="@+id/kolvoMestField"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/kudaField"
-                android:layout_alignStart="@+id/kudaField"
-                android:layout_alignTop="@+id/kolvoMest"
-                android:text="@string/kolvoField"
-                style="@style/TextBlackEtik13"/>
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/vesField"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/kudaField"
-                android:layout_alignStart="@+id/kudaField"
-                android:layout_alignTop="@+id/ves"
-                android:text="@string/vesField"
-                style="@style/TextBlackEtik13"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/obiemField"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/kudaField"
-                android:layout_alignStart="@+id/kudaField"
-                android:layout_alignTop="@+id/obiem"
-                android:text="@string/obiemField"
-                style="@style/TextBlackEtik13"/>
 
-            <TextView
-                android:id="@+id/transportTypeField"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/kudaField"
-                android:layout_alignStart="@+id/kudaField"
-                android:layout_alignTop="@+id/transportType"
-                android:text="@string/transField"
-                style="@style/TextBlackEtik13"/>
+                    <TextView
+                        android:id="@+id/otkuda"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="откуда"
+                        android:textColor="@color/Black"
+                        android:textSize="10dp" />
 
-            <TextView
-                android:id="@+id/raspechatal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="320dp"
-                android:text="@string/rasp"
-                style="@style/TextBlackEtikBig"
-                android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/kuda"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="куда"
+                        android:textColor="@color/Black"
+                        android:textSize="10dp" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/numZakaz"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/kudaField"
-                android:layout_alignTop="@+id/raspechatal"
-                android:text="@string/numZakField"
-                style="@style/TextBlackEtikBig" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/raspechatalField"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/raspechatal"
-                android:layout_toEndOf="@+id/otpravitel"
-                android:layout_toRightOf="@+id/otpravitel"
-                android:text="@string/raspField"
-                style="@style/TextBlackEtikBig"
-                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/dateZakazField"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignStart="@+id/numZakaz"
-                android:layout_marginTop="340dp"
-                android:text="@string/dateZakField"
-                style="@style/TextBlackEtikBig" />
+                    <TextView
+                        android:id="@+id/otpravitel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Отправитель:"
+                        android:textColor="@color/Black" />
 
-            <TextView
-                android:id="@+id/otkudaBottomField"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/kolvoMest"
-                android:text="@string/fromCity"
-                android:textAlignment="center"
-                android:layout_marginTop="360dp"
-                style="@style/TextBlackReception"
-                android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/imya_otprav"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:text="имя отправителя"
+                        android:textColor="@color/Black" />
 
-            <TextView
-                android:id="@+id/kudaBottomField"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/kudaField"
-                android:layout_marginTop="360dp"
-                android:text="@string/toCity"
-                android:textAlignment="center"
-                style="@style/TextBlackReception"
-                android:textStyle="bold" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/otkudaBottom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="65dp"
-                android:layout_marginTop="400dp"
-                android:text="@string/otkuda"
-                style="@style/TextBlackEtiketka"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/kudaBottom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="65dp"
-                android:layout_marginTop="400dp"
-                android:text="@string/kuda"
-                style="@style/TextBlackEtiketka" />
 
-            <TextView
-                android:id="@+id/mestoBottom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="420dp"
-                android:text="@string/mesto"
-                style="@style/TextBlack16"
-                android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/poluchatel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Получатель:"
+                        android:textColor="@color/Black" />
 
-            <TextView
-                android:id="@+id/mestoBottomField"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/kudaField"
-                android:layout_alignStart="@+id/kudaField"
-                android:layout_alignTop="@+id/mestoBottom"
-                android:text="@string/mestoField"
-                style="@style/TextBlack16"/>
+                    <TextView
+                        android:id="@+id/imya_poluch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:text="имя получателя"
+                        android:textColor="@color/Black" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/otpravitelBottom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="445dp"
-                android:text="@string/otpravitel"
-                style="@style/TextBlackEtikBig"
-                android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp">
 
-            <TextView
-                android:id="@+id/poluchatelBottom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="465dp"
-                android:text="@string/poluchatel"
-                style="@style/TextBlackEtikBig"
-                android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/kolichMest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Количество мест:"
+                        android:textColor="@color/Black" />
 
-            <TextView
-                android:id="@+id/otpravitelBottomField"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/otpravitelBottom"
-                android:layout_centerHorizontal="true"
-                android:text="@string/otpavitelImya"
-                style="@style/TextBlackEtikBig" />
+                    <TextView
+                        android:id="@+id/kolich"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="40dp"
+                        android:text="количество"
+                        android:textColor="@color/Black" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/poluchatelBottomField"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/poluchatelBottom"
-                android:layout_centerHorizontal="true"
-                android:text="@string/poluchatelImya"
-                style="@style/TextBlackEtikBig"/>
+                <View
+                    android:id="@+id/i1"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@android:color/black" />
 
-            <TextView
-                android:id="@+id/raspechatalBottom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="485dp"
-                android:text="@string/rasp"
-                style="@style/TextBlackEtikBig"
-                android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/raspBottomField"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/raspechatalBottom"
-                android:layout_toEndOf="@+id/otpravitel"
-                android:layout_toRightOf="@+id/otpravitel"
-                android:text="@string/raspField"
-                style="@style/TextBlackEtikBig"
-                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/numZakazBottom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/numZakaz"
-                android:layout_alignStart="@+id/numZakaz"
-                android:layout_alignTop="@+id/raspechatalBottom"
-                android:text="@string/numZakField"
-                style="@style/TextBlackEtikBig" />
+                    <TextView
+                        android:id="@+id/vesBig"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Вес:"
+                        android:textColor="@color/Black" />
 
-            <TextView
-                android:id="@+id/dateZakazBottom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="505dp"
-                android:layout_marginRight="40dp"
-                android:text="@string/dateZakField"
-                style="@style/TextBlackEtikBig" />
+                    <TextView
+                        android:id="@+id/ves"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="вес"
+                        android:textColor="@color/Black" />
+                </LinearLayout>
 
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="wrap_content"
-                android:layout_height="75dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
+                <View
+                    android:id="@+id/i2"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@android:color/black" />
 
-                tools:ignore="VectorDrawableCompat" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
+
+                    <TextView
+                        android:id="@+id/obiemBig"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Объем:"
+                        android:textColor="@color/Black" />
+
+                    <TextView
+                        android:id="@+id/obiem"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="объем"
+                        android:textColor="@color/Black" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/i3"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@android:color/black" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/Rasp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Распечатал:"
+                        android:textColor="@color/Black"
+                        android:textSize="10dp" />
+
+                    <TextView
+                        android:id="@+id/admin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Администратор"
+                        android:textColor="@color/Black"
+                        android:textSize="10dp" />
+
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ALA004703 от 10.11.2016"
+                        android:textAlignment="viewEnd"
+                        android:textColor="@color/Black"
+                        android:textSize="10dp" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/i4"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@android:color/black" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/logo1"
+                        android:layout_width="132dp"
+                        android:layout_height="52dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/smaller_logo" />
+
+                    <ImageView
+                        android:id="@+id/shtrih1"
+                        android:layout_width="132dp"
+                        android:layout_height="52dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/shtrih" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="2dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/gorod_otkuda1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Город откуда"
+                            android:textColor="@android:color/black"
+                            android:textSize="17dp"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:id="@+id/i7"
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="@android:color/black" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/gorod_kuda1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Город куда"
+                            android:textColor="@android:color/black"
+                            android:textSize="17dp"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:id="@+id/i8"
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="@android:color/black" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/otkuda1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="откуда"
+                        android:textColor="@android:color/black"
+                        android:textSize="10dp" />
+
+                    <TextView
+                        android:id="@+id/kuda1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="куда"
+                        android:textColor="@android:color/black"
+                        android:textSize="10dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="2dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/mestoBig"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Место:"
+                            android:textColor="@android:color/black"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:id="@+id/i9"
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="@android:color/black" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/mesto"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="3dp"
+                            android:text="1 из 2"
+                            android:textColor="@android:color/black"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:id="@+id/i10"
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="@android:color/black" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp">
+
+
+                    <TextView
+                        android:id="@+id/otpravitel1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Отправитель:"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/imya_otprav1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:text="имя отправителя"
+                        android:textColor="@android:color/black" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/poluchatel1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Получатель:"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/imya_poluch1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:text="имя получателя"
+                        android:textColor="@android:color/black" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp">
+
+                    <TextView
+                        android:id="@+id/Rasp1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Распечатал:"
+                        android:textColor="@android:color/black"
+                        android:textSize="10dp" />
+
+                    <TextView
+                        android:id="@+id/admin1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Администратор"
+                        android:textColor="@android:color/black"
+                        android:textSize="10dp" />
+
+                    <TextView
+                        android:id="@+id/date1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ALA004703 от 10.11.2016"
+                        android:textAlignment="viewEnd"
+                        android:textColor="@android:color/black"
+                        android:textSize="10dp" />
+                </LinearLayout>
+            </LinearLayout>
         </RelativeLayout>
-    </ScrollView>
 
-    <!--<include layout="@layout/jai"/>-->
-    <!--app:srcCompat="@mipmap/ic_launcher_foreground"-->
-</LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

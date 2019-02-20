@@ -9,19 +9,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.usk.glotus_final.ManagerApp.ManagerListFiles.ManagerListActivity;
 import com.example.usk.glotus_final.R;
-import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.ExpedPage;
 import com.example.usk.glotus_final.System.Catalog.Adress;
 import com.example.usk.glotus_final.System.Catalog.AutoUpdate;
 import com.example.usk.glotus_final.System.Catalog.Mdnames;
+import com.example.usk.glotus_final.System.Catalog.Transport;
 import com.example.usk.glotus_final.System.Encryption.AES;
 import com.example.usk.glotus_final.System.connection.Server;
+import com.example.usk.glotus_final.System.loginFiles.SignInActivity;
 import com.example.usk.glotus_final.System.loginFiles.User;
 
 import org.json.JSONArray;
@@ -38,7 +42,7 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
-public class SuperviserListActivity extends AppCompatActivity {
+public class ListOtgruzki extends AppCompatActivity {
     // Это форма со списком заявок для супервайзера
 
     // Log.d are for testing
@@ -56,14 +60,37 @@ public class SuperviserListActivity extends AppCompatActivity {
     String search=null;
     Button btnLoadExtra;
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.manager_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.zakaz:
+                Intent myIntent = new Intent(ListOtgruzki.this, ManagerListActivity.class);
+                startActivity(myIntent);
+            case R.id.otgruz:
+
+                return true;
+            case  R.id.logout:
+                Intent intent = new Intent(ListOtgruzki.this, SignInActivity.class);
+                startActivity(intent);
+                return true;
+
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_superviser_list);
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+
         etSearch=findViewById(R.id.etSearch);
         mListView = (ListView) findViewById(R.id.superviser_list);
         // Declaring listView
@@ -197,7 +224,7 @@ public class SuperviserListActivity extends AppCompatActivity {
 
 
         System.out.println(User.cred);
-        process("http://185.209.23.53/InfoBase/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json&$filter=DeletionMark%20eq%20false&$orderby=Ref_Key%20desc&$skip=0&$top="+top+"","GET",User.getCredential(),"{}");
+        process("http://185.209.23.53/InfoBase/odata/standard.odata/Document_%D0%9E%D1%82%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0?$format=json&$orderby=Ref_Key%20desc","GET",User.getCredential(),"{}");
         skip=20;
         String json = server.getRes();
         System.out.println(json);
@@ -217,16 +244,7 @@ public class SuperviserListActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         for(int i = 0; i < array.length(); i++){
-            try {
-                System.out.println((array.getJSONObject(i).getString("Number")+
-                        array.getJSONObject(i).getString("Date")+
-                        array.getJSONObject(i).getString("Отправитель")+
-                        array.getJSONObject(i).getString("Получатель")+
-                        array.getJSONObject(i).getString("АдресОтправителя")+
-                        array.getJSONObject(i).getString("АдресПолучателя")));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+
 
 
             Zayavka john = null;
@@ -237,22 +255,41 @@ public class SuperviserListActivity extends AppCompatActivity {
 
                 
 
+                String trans="";
+                String kuda="";
+                String otkuda="";
+                try {
+                    trans=Transport.trpreferences.getAll().get(array.getJSONObject(i).getString("Автомобиль_Key")).toString();
+                }
+                catch (Exception e){}
+
+                try {
+                    kuda=(String) Adress.adresspreferences.getAll().get(array.getJSONObject(i).getString("Откуда_Key"));
+
+                }
+                catch (Exception e){}
+                try {
+                    otkuda=(String) Adress.adresspreferences.getAll().get(array.getJSONObject(i).getString("Куда_Key"));
+                }
+                catch (Exception e){}
+
 
 
                 john = new Zayavka(array.getJSONObject(i).getString("Number"),
                         array.getJSONObject(i).getString("Date"),
-                        array.getJSONObject(i).getString("Отправитель"),
-                        array.getJSONObject(i).getString("Получатель"),/**/
-                        (String) Adress.adresspreferences.getAll().get(array.getJSONObject(i).getString("Откуда_Key")),
-                        (String) Adress.adresspreferences.getAll().get(array.getJSONObject(i).getString("Куда_Key")),
+                        array.getJSONObject(i).getString("Водитель"),
+                        trans,/**/
+                        kuda,
+                        otkuda,
                         array.getJSONObject(i).getString("Ref_Key"),
-                        array.getJSONObject(i).getString("Заказчик_Key"),
-                        (String) Mdnames.mdpreferences.getAll().get(array.getJSONObject(i).getString("Менеджер_Key")),
-                        array.getJSONObject(i).getString("Подразделение_Key"),array.getJSONObject(i).getString("СтатусЗаказа"));
-
+                        array.getJSONObject(i).getString("Заказы"),
+                        array.getJSONObject(i).getString("НазваниеОтгрузки"),
+                        "","");
+                System.out.println(array.getJSONObject(i).getString("Заказы"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
             mZayavkas.add(john);
         }
       /* for(int i=0;i<10;i++){
@@ -273,7 +310,7 @@ public class SuperviserListActivity extends AppCompatActivity {
 
 // Adding Load More button to lisview at bottom
 
-        final ZayavkaListAdapter adapter = new ZayavkaListAdapter(this, R.layout.superviser_list_item_layout, ppp);
+        final OrderListAdapter adapter = new OrderListAdapter(this, R.layout.superviser_list_item_layout, ppp);
 
         runOnUiThread(new Runnable() {
             @Override
@@ -282,121 +319,14 @@ public class SuperviserListActivity extends AppCompatActivity {
                 if (but==false){
                     mListView.addFooterView(btnLoadExtra);
                     but=true;}
+                btnLoadExtra.setVisibility(View.INVISIBLE);
 
-                btnLoadExtra.setOnClickListener(new View.OnClickListener() {
-                    @RequiresApi(api = Build.VERSION_CODES.O)
-                    @Override
-                    public void onClick(View arg0) {
-                        try {
-                            showmore(ppp);
-                        } catch (NoSuchPaddingException e) {
-                            e.printStackTrace();
-                        } catch (InvalidKeyException e) {
-                            e.printStackTrace();
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        } catch (IllegalBlockSizeException e) {
-                            e.printStackTrace();
-                        } catch (BadPaddingException e) {
-                            e.printStackTrace();
-                        } catch (NoSuchAlgorithmException e) {
-                            e.printStackTrace();
-                        } catch (InvalidAlgorithmParameterException e) {
-                            e.printStackTrace();
-                        }
-
-
-                        adapter.notifyDataSetChanged();
-
-
-
-                    }
-                });
                 swipeView.setRefreshing(false);
             }
         });
-    }
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void showmore(ArrayList<Zayavka> ppp) throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
-       //ArrayList<Orders> peopleList = new ArrayList<>();
-
-
-        System.out.println(User.cred);
-        process("http://185.209.23.53/InfoBase/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json&$filter=DeletionMark%20eq%20false&$orderby=Ref_Key%20desc&$skip="+skip+"&$top="+top+"","GET",User.getCredential(),"{}");
-        skip+=20;
-        String json = server.getRes();
-        System.out.println(json);
-
-        System.out.println(json);
-
-        JSONArray array = null;
-        JSONObject jsonObj=null;
-        try {
-            jsonObj = new JSONObject(json);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            array = jsonObj.getJSONArray("value");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        for(int i = 0; i < array.length(); i++){
-            try {
-                System.out.println((array.getJSONObject(i).getString("Number")+
-                        array.getJSONObject(i).getString("Date")+
-                        array.getJSONObject(i).getString("Отправитель")+
-                        array.getJSONObject(i).getString("Получатель")+
-                        array.getJSONObject(i).getString("АдресОтправителя")+
-                        array.getJSONObject(i).getString("АдресПолучателя")));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-
-            Zayavka john = null;
-            try {
-                // String otkuda=getadr(array.getJSONObject(i).getString("Откуда_Key"));
-                // String kuda=getadr(array.getJSONObject(i).getString("Куда_Key"));
-                // String mened=getadr(array.getJSONObject(i).getString("Менеджер_Key"));
-
-
-
-
-
-                john = new Zayavka(array.getJSONObject(i).getString("Number"),
-                        array.getJSONObject(i).getString("Date"),
-                        array.getJSONObject(i).getString("Отправитель"),
-                        array.getJSONObject(i).getString("Получатель"),/**/
-                        (String) Adress.adresspreferences.getAll().get(array.getJSONObject(i).getString("Откуда_Key")),
-                        (String) Adress.adresspreferences.getAll().get(array.getJSONObject(i).getString("Куда_Key")),
-                        array.getJSONObject(i).getString("Ref_Key"),
-                        array.getJSONObject(i).getString("Заказчик_Key"),
-                        (String) Mdnames.mdpreferences.getAll().get(array.getJSONObject(i).getString("Менеджер_Key")),
-                        array.getJSONObject(i).getString("Подразделение_Key"),array.getJSONObject(i).getString("СтатусЗаказа"));
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            if (btnLoadExtra.getText().toString().equals("Найти еще")){
-            if(john.getSender().toLowerCase().contains(search.toLowerCase()) || john.getNumber().toLowerCase().contains(search.toLowerCase()) || john.getRecept().toLowerCase().contains(search.toLowerCase())){
-                ppp.add(john);
-            }}
-            else {
-                ppp.add(john);
-
-            }
-        }
-      /* for(int i=0;i<10;i++){
-           Zayavka a= new Zayavka("a","a","a","a","a","a","a","a","a","a");
-           mZayavkas.add(a);
-       }*/
-
-
-
-
 
     }
+
     public void onBackPressed() {
         moveTaskToBack(true);
 

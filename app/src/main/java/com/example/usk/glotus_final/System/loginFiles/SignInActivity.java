@@ -303,7 +303,7 @@ public class SignInActivity extends AppCompatActivity {
                     progressing(true);
                 }
             });
-        else if(status==0)
+        else if(status==0 || !server.res.contains("value"))
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {

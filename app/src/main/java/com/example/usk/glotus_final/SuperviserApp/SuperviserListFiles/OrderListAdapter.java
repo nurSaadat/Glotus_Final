@@ -11,12 +11,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.usk.glotus_final.ManagerApp.ManagerListFiles.ListOtg;
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.Reception;
 
 import java.util.List;
 
-public class ZayavkaListAdapter extends ArrayAdapter<Zayavka> {
+public class OrderListAdapter extends ArrayAdapter<Zayavka> {
 
     private static final String TAG = "ZayavkaListAdapter";
     public static Zayavka item;
@@ -42,7 +43,10 @@ public class ZayavkaListAdapter extends ArrayAdapter<Zayavka> {
      * @param resource
      * @param objects
      */
-    public ZayavkaListAdapter(@NonNull Context context, int resource, @NonNull List<Zayavka> objects) {
+
+
+
+    public OrderListAdapter(@NonNull Context context, int resource, @NonNull List<Zayavka> objects) {
         super(context, resource, objects);
         mContext = context;
         mResource = resource;
@@ -126,16 +130,12 @@ public class ZayavkaListAdapter extends ArrayAdapter<Zayavka> {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println(zayavka.getNumber());
-                System.out.println(zayavka.getRef_key());
-                System.out.println("--------------------");
-                item = zayavka;
-                Intent myIntent = new Intent(mContext, Reception.class);
-                mContext.startActivity(myIntent);
 
+                item=zayavka;
+                Intent myIntent = new Intent(mContext, ListOtg.class);
+                mContext.startActivity(myIntent);
             }
         });
-
         return convertView;
     }
 

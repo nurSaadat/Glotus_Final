@@ -113,6 +113,7 @@ public class Etiketka extends AppCompatActivity{
             });
 
             send.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.O)
                 public void onClick(View v) {
                     save();
                     /*try {
@@ -375,7 +376,7 @@ public class Etiketka extends AppCompatActivity{
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void save (){
         Bitmap bitmap=getViewBitmap(linearLayout);
-        int width = ((140 + 7) / 8) * 8;
+        int width = ((230 + 7) / 8) * 8;
         int height = bitmap.getHeight() * width / bitmap.getWidth();
         height = ((height + 7) / 8) * 8;
 

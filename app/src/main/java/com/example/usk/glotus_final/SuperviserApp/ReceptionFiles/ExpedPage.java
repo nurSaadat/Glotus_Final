@@ -121,7 +121,7 @@ public class ExpedPage extends AppCompatActivity  {
         PrintAttributes printAttrs = new PrintAttributes.Builder().
                 setColorMode(PrintAttributes.COLOR_MODE_COLOR).
                 setMediaSize(PrintAttributes.MediaSize.NA_LETTER).
-                setMinMargins(PrintAttributes.Margins.).
+                setMinMargins(PrintAttributes.Margins.NO_MARGINS).
                 build();
         PrintedPdfDocument document = new PrintedPdfDocument(this,printAttrs);
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(xx, yy, 1).create();

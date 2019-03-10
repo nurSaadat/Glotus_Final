@@ -3,35 +3,57 @@ package com.example.usk.glotus_final.SuperviserApp.ReceptionFiles;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.pdf.PdfDocument;
+import android.media.ThumbnailUtils;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.print.PrintAttributes;
+import android.print.PrintManager;
+import android.print.pdf.PrintedPdfDocument;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserApp.BluetoothPrintService.Command;
+import com.example.usk.glotus_final.SuperviserApp.BluetoothPrintService.Other;
 import com.example.usk.glotus_final.SuperviserApp.BluetoothPrintService.PrintPicture;
 import com.example.usk.glotus_final.SuperviserApp.BluetoothPrintService.PrinterCommand;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Set;
 import java.util.UUID;
+
 
 public class Etiketka extends AppCompatActivity{
     private MenuItem btn_next;
@@ -66,8 +88,16 @@ public class Etiketka extends AppCompatActivity{
         buildText(data);
         final int kolvoMest=Integer.parseInt(data.getKolvoMest());
 
-        initialBLuetooth();
-        setBoundedDevices();
+        try {
+            initialBLuetooth();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            setBoundedDevices();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         try {
             myLabel = findViewById(R.id.label);
@@ -83,8 +113,10 @@ public class Etiketka extends AppCompatActivity{
             });
 
             send.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.O)
                 public void onClick(View v) {
-                    try {
+                    save();
+                    /*try {
                         for(int i=0; i<kolvoMest;i++){
                             String mest=String.valueOf(i+1);
                             mesto.setText(mest+" из "+data.getKolvoMest());
@@ -93,7 +125,7 @@ public class Etiketka extends AppCompatActivity{
                         }
                     } catch (IOException ex) {
                         ex.printStackTrace();
-                    }
+                    }*/
                 }
             });
 
@@ -178,7 +210,7 @@ public class Etiketka extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
-    void initialBLuetooth(){
+    void initialBLuetooth() throws Exception{
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         if(mBluetoothAdapter == null) {
@@ -191,7 +223,7 @@ public class Etiketka extends AppCompatActivity{
         }
     }
 
-    void setBoundedDevices(){
+    void setBoundedDevices() throws Exception{
         pairedDevices = mBluetoothAdapter.getBondedDevices();
 
         String [] devices=new String[pairedDevices.size()];
@@ -322,6 +354,7 @@ public class Etiketka extends AppCompatActivity{
         if(mBitmap != null)
         {
             byte[] data = PrintPicture.POS_PrintBMP(mBitmap, nPaperWidth, nMode,12);
+
             mmOutputStream.write(Command.ESC_Init);
             mmOutputStream.write(Command.LF);
             mmOutputStream.write(data);
@@ -338,4 +371,137 @@ public class Etiketka extends AppCompatActivity{
         Intent myIntent = new Intent(Etiketka.this, SuperviserListActivity.class);
         startActivity(myIntent);
     }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void save (){
+        Bitmap bitmap=getViewBitmap(linearLayout);
+        int width = ((230 + 7) / 8) * 8;
+        int height = bitmap.getHeight() * width / bitmap.getWidth();
+        height = ((height + 7) / 8) * 8;
+
+
+        PdfDocument document = new PdfDocument();
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(bitmap.getWidth(), bitmap.getHeight(), 1).create();
+        PdfDocument.Page page = document.startPage(pageInfo);
+
+        Canvas canvas = page.getCanvas();
+
+
+        Paint paint = new Paint();
+        paint.setColor(Color.parseColor("#ffffff"));
+        canvas.drawPaint(paint);
+
+
+
+        //bitmap = Bitmap.createScaledBitmap(bitmap, 384, bitmap.getHeight(), true);
+
+
+
+        Bitmap bm =getViewBitmap(linearLayout);
+        bm=getResizedBitmap(bm,width,height);
+        paint.setColor(Color.BLUE);
+        canvas.drawBitmap(bm, 0, 0 , new Paint(Paint.FILTER_BITMAP_FLAG));
+
+
+        document.finishPage(page);
+        // write the document content
+        String targetPdf = "/test.pdf";
+
+        File mFolder = null;
+        File imageFile = null;
+        String fileName="ttt.pdf";
+        try {
+            mFolder = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+            imageFile = new File(mFolder,fileName);
+            if (!mFolder.exists()) {
+                mFolder.mkdirs();
+            }
+            FileOutputStream out = new FileOutputStream(imageFile);
+            document.writeTo(out);
+            document.close();
+            out.close();
+
+            Toast.makeText(this,"Результат сохранен"+imageFile.getPath().toString(), Toast.LENGTH_LONG).show();
+        } catch (IOException e) {
+            Toast.makeText(this, "При сохранении возникла ошибка", Toast.LENGTH_LONG).show();
+        }
+        PrintManager printManager = (PrintManager) this.getSystemService(Context.PRINT_SERVICE);
+        String jobName = this.getString(R.string.app_name) + " Document";
+        printManager.print(jobName, new MyPrintDocumentAdapter(imageFile), null);
+
+
+
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public Bitmap getResizedBitmap(Bitmap bitmap, int newWidth, int newHeight) {
+        Bitmap resizedBitmap = Bitmap.createBitmap(newWidth, newHeight, Bitmap.Config.ARGB_8888,true);
+
+        float scaleX = newWidth / (float) bitmap.getWidth();
+        float scaleY = newHeight / (float) bitmap.getHeight();
+        float pivotX = 0;
+        float pivotY = 0;
+
+        Matrix scaleMatrix = new Matrix();
+        scaleMatrix.setScale(scaleX, scaleY, pivotX, pivotY);
+
+        Canvas canvas = new Canvas(resizedBitmap);
+        canvas.setMatrix(scaleMatrix);
+        canvas.drawBitmap(bitmap, 0, 0, new Paint(Paint.FILTER_BITMAP_FLAG));
+        return resizedBitmap;
+    }
+
+
+    /*
+    private void createPdf(){
+        WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        this.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        float hight = displaymetrics.heightPixels ;
+        float width = displaymetrics.widthPixels ;
+
+        int convertHighet = (int) hight, convertWidth = (int) width;
+
+//        Resources mResources = getResources();
+//        Bitmap bitmap = BitmapFactory.decodeResource(mResources, R.drawable.screenshot);
+
+        PdfDocument document = new PdfDocument();
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(bitmap.getWidth(), bitmap.getHeight(), 1).create();
+        PdfDocument.Page page = document.startPage(pageInfo);
+
+        Canvas canvas = page.getCanvas();
+
+
+        Paint paint = new Paint();
+        paint.setColor(Color.parseColor("#ffffff"));
+        canvas.drawPaint(paint);
+
+
+
+        bitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
+
+        paint.setColor(Color.BLUE);
+        canvas.drawBitmap(bitmap, 0, 0 , null);
+        document.finishPage(page);
+
+
+        // write the document content
+        String targetPdf = "/sdcard/test.pdf";
+        File filePath = new File(targetPdf);
+        try {
+            document.writeTo(new FileOutputStream(filePath));
+            btn_convert.setText("Check PDF");
+            boolean_save=true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Something wrong: " + e.toString(), Toast.LENGTH_LONG).show();
+        }
+
+        // close the document
+        document.close();
+    }*/
+
 }

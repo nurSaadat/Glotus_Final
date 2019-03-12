@@ -107,14 +107,15 @@ public class ExpedPage extends AppCompatActivity  {
 
         if(id==R.id.btn_print){
             save(pdf_cont);
-            printDocument(imageFile);
+            printDocument(imageFile,1);
         }
 
         return super.onOptionsItemSelected(item);
     }
 
     public void save (View v){
-        ScrollView scroll = findViewById(R.id.scrollview);
+        //ScrollView scroll = findViewById(R.id.scrollview);
+        RelativeLayout rel=findViewById(R.id.relLay);
         int yy = v.getScrollY()+v.getHeight();
         int xx = v.getWidth();
 
@@ -126,7 +127,7 @@ public class ExpedPage extends AppCompatActivity  {
         PrintedPdfDocument document = new PrintedPdfDocument(this,printAttrs);
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(xx, yy, 1).create();
         PdfDocument.Page page = document.startPage(pageInfo);
-        scroll.draw(page.getCanvas());
+        rel.draw(page.getCanvas());
         document.finishPage(page);
 
         File mFolder;
@@ -147,10 +148,10 @@ public class ExpedPage extends AppCompatActivity  {
         }
     }
 
-    public void printDocument(File file){
+    public void printDocument(File file, int totalPage){
         PrintManager printManager = (PrintManager) this.getSystemService(Context.PRINT_SERVICE);
         String jobName = this.getString(R.string.app_name) + " Document";
-        printManager.print(jobName, new MyPrintDocumentAdapter(file), null);
+        printManager.print(jobName, new MyPrintDocumentAdapter(file,totalPage), null);
     }
 
     @Override

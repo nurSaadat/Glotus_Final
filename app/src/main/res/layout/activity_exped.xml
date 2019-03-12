@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".SuperviserApp.ReceptionFiles.ExpedPage"
-    android:background="@android:color/white">
-
+    android:background="@android:color/white"
+    android:orientation="vertical">
 
     <ScrollView
         android:id="@+id/scrollview"
@@ -16,18 +16,18 @@
 
         <RelativeLayout
             android:id="@+id/relLay"
-            android:layout_width="match_parent"
+            android:layout_width="600dp"
             android:layout_height="wrap_content">
 
             <ImageView
                 android:layout_width="152dp"
                 android:layout_height="44dp"
-                app:srcCompat="@drawable/smaller_logo"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="11dp"
                 android:layout_marginTop="35dp"
-                android:background="@drawable/border_black" />
+                android:background="@drawable/border_black"
+                app:srcCompat="@drawable/smaller_logo" />
 
             <TextView
                 android:id="@+id/headerText"
@@ -38,33 +38,32 @@
                 android:layout_marginStart="11dp"
                 android:layout_marginTop="80dp"
                 android:text="@string/constant"
-                android:textSize="10sp"
                 android:textColor="@android:color/black"
-                />
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/expedRaspis"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/headerText"
+                android:layout_alignParentStart="true"
                 android:layout_marginStart="75dp"
                 android:padding="3dp"
                 android:text="@string/qwer"
-                android:textSize="12sp"
                 android:textColor="@android:color/black"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/expedNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/expedRaspis"
                 android:layout_alignTop="@+id/expedRaspis"
+                android:layout_toEndOf="@+id/expedRaspis"
                 android:padding="3dp"
                 android:text="@string/expedNumber"
-                android:textSize="12sp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:textSize="12sp" />
 
             <View
                 android:id="@+id/i1"
@@ -78,8 +77,8 @@
                 android:id="@+id/i2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/i1"
+                android:layout_alignParentStart="true"
                 android:layout_marginTop="8dp"
                 android:background="@android:color/black"
                 android:padding="1dp">
@@ -90,69 +89,69 @@
                         android:id="@+id/vremya"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:background="@android:color/white"
                         android:padding="3dp"
                         android:text="@string/date"
                         android:textColor="@android:color/black"
                         android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:background="@android:color/white"
-                        android:layout_marginEnd="1dp"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/vremyaFill"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:background="@android:color/white"
                         android:padding="3dp"
                         android:text="@string/dateFill"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
-                        android:background="@android:color/white"
-                        android:layout_marginEnd="1dp"/>
+                        android:textSize="10sp" />
 
                     <TextView
                         android:id="@+id/marshrut"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:background="@android:color/white"
                         android:padding="3dp"
                         android:text="@string/marshrut"
                         android:textColor="@android:color/black"
                         android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:background="@android:color/white"
-                        android:layout_marginEnd="1dp"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/marshrutFill"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:background="@android:color/white"
                         android:padding="3dp"
                         android:text="@string/marshFill1"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
-                        android:background="@android:color/white"
-                        android:layout_marginEnd="1dp"/>
+                        android:textSize="10sp" />
 
                     <TextView
                         android:id="@+id/tere"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:background="@android:color/white"
                         android:padding="3dp"
                         android:text="@string/tere"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
-                        android:layout_marginEnd="1dp"
-                        android:background="@android:color/white"/>
+                        android:textSize="10sp" />
 
                     <TextView
                         android:id="@+id/marshrutFill2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:background="@android:color/white"
                         android:padding="3dp"
                         android:text="@string/marshFill2"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
-                        android:layout_marginEnd="1dp"
-                        android:background="@android:color/white"/>
+                        android:textSize="10sp" />
                 </TableRow>
             </TableLayout>
 
@@ -160,25 +159,25 @@
                 android:id="@+id/i3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/i2"
+                android:layout_alignParentStart="true"
                 android:layout_marginTop="16dp"
                 android:background="@android:color/black"
                 android:padding="1dp">
 
                 <TableRow
-                    android:gravity="center"
-                    android:background="@color/greyField">
+                    android:background="@color/greyField"
+                    android:gravity="center">
 
                     <TextView
                         android:id="@+id/gruzootpravitel"
-                        android:textSize="12sp"
-                        android:textColor="@android:color/black"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:padding="3dp"
                         android:text="@string/gruzootpravitel"
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
                 </TableRow>
             </TableLayout>
@@ -187,39 +186,39 @@
                 android:id="@+id/i4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/i3"
+                android:layout_alignParentStart="true"
                 android:background="@android:color/black"
-                android:paddingBottom="1dp"
                 android:paddingStart="1dp"
                 android:paddingEnd="1dp"
+                android:paddingBottom="1dp"
                 android:weightSum="100">
 
                 <TableRow android:layout_width="match_parent">
 
                     <TextView
                         android:id="@+id/naimenovanie"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="1dp"
                         android:background="@android:color/white"
+                        android:ems="12"
                         android:padding="3dp"
                         android:text="@string/naimenovanie"
-                        android:textStyle="bold"
-                        android:ems="12"/>
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/naimenovanieFill"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="70"
                         android:background="@android:color/white"
                         android:padding="3dp"
-                        android:text="@string/naimenovanieаFill" />
+                        android:text="@string/naimenovanieаFill"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
                 </TableRow>
             </TableLayout>
 
@@ -227,13 +226,13 @@
                 android:id="@+id/i5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/i4"
-                android:weightSum="100"
+                android:layout_alignParentStart="true"
                 android:background="@android:color/black"
-                android:paddingBottom="1dp"
                 android:paddingStart="1dp"
-                android:paddingEnd="1dp">
+                android:paddingEnd="1dp"
+                android:paddingBottom="1dp"
+                android:weightSum="100">
 
                 <TableRow>
 
@@ -241,25 +240,25 @@
                         android:id="@+id/adres"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:background="@android:color/white"
+                        android:ems="12"
                         android:padding="3dp"
                         android:text="@string/adres"
                         android:textColor="@android:color/black"
                         android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:layout_marginEnd="1dp"
-                        android:ems="12"
-                        android:background="@android:color/white"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/adresFill"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="70"
+                        android:background="@android:color/white"
                         android:padding="3dp"
                         android:text="@string/adresFill"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
-                        android:layout_weight="70"
-                        android:background="@android:color/white"/>
+                        android:textSize="10sp" />
                 </TableRow>
             </TableLayout>
 
@@ -267,13 +266,13 @@
                 android:id="@+id/i6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/i5"
-                android:weightSum="100"
+                android:layout_alignParentStart="true"
                 android:background="@android:color/black"
-                android:paddingBottom="1dp"
                 android:paddingStart="1dp"
-                android:paddingEnd="1dp">
+                android:paddingEnd="1dp"
+                android:paddingBottom="1dp"
+                android:weightSum="100">
 
                 <TableRow>
 
@@ -281,25 +280,25 @@
                         android:id="@+id/contact"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:background="@android:color/white"
+                        android:ems="12"
                         android:padding="3dp"
                         android:text="@string/contact"
                         android:textColor="@android:color/black"
                         android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:layout_marginEnd="1dp"
-                        android:ems="12"
-                        android:background="@android:color/white"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/contacFill"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="70"
+                        android:background="@android:color/white"
                         android:padding="3dp"
                         android:text="@string/contactFill"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
-                        android:layout_weight="70"
-                        android:background="@android:color/white"/>
+                        android:textSize="10sp" />
                 </TableRow>
             </TableLayout>
 
@@ -307,15 +306,15 @@
                 android:id="@+id/i7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/i6"
+                android:layout_alignParentStart="true"
                 android:layout_marginTop="16dp"
                 android:background="@android:color/black"
                 android:padding="1dp">
 
                 <TableRow
-                    android:gravity="center"
-                    android:background="@color/greyField">
+                    android:background="@color/greyField"
+                    android:gravity="center">
 
                     <TextView
                         android:id="@+id/gruzopoluchatel"
@@ -324,8 +323,8 @@
                         android:gravity="center"
                         android:padding="3dp"
                         android:text="@string/gruzopoluchatel"
-                        android:textSize="12sp"
                         android:textColor="@android:color/black"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
                 </TableRow>
             </TableLayout>
@@ -334,12 +333,12 @@
                 android:id="@+id/i8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/i7"
+                android:layout_alignParentStart="true"
                 android:background="@android:color/black"
-                android:paddingBottom="1dp"
                 android:paddingStart="1dp"
                 android:paddingEnd="1dp"
+                android:paddingBottom="1dp"
                 android:weightSum="100">
 
                 <TableRow>
@@ -348,25 +347,25 @@
                         android:id="@+id/naimenPoluch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:background="@android:color/white"
+                        android:ems="12"
                         android:padding="3dp"
                         android:text="@string/naimenPoluch"
                         android:textColor="@android:color/black"
                         android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:layout_marginEnd="1dp"
-                        android:background="@android:color/white"
-                        android:ems="12"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/naimenPoluchFill"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="70"
+                        android:background="@android:color/white"
                         android:padding="3dp"
                         android:text="@string/naimenPoluchFill"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
-                        android:background="@android:color/white"
-                        android:layout_weight="70"/>
+                        android:textSize="10sp" />
                 </TableRow>
             </TableLayout>
 
@@ -374,38 +373,41 @@
                 android:id="@+id/i9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/i8"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="-12dp"
                 android:background="@android:color/black"
-                android:paddingBottom="1dp"
                 android:paddingStart="1dp"
                 android:paddingEnd="1dp"
+                android:paddingBottom="1dp"
                 android:weightSum="100">
 
                 <TableRow>
+
                     <TextView
                         android:id="@+id/adressPoluch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:background="@android:color/white"
+                        android:ems="12"
                         android:padding="3dp"
                         android:text="@string/adressPolusch"
                         android:textColor="@android:color/black"
                         android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:background="@android:color/white"
-                        android:ems="12"
-                        android:layout_marginEnd="1dp"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/adressPoluchFill"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="70"
+                        android:background="@android:color/white"
                         android:padding="3dp"
                         android:text="@string/adressPoluchFill"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
-                        android:background="@android:color/white"
-                        android:layout_weight="70"/>
+                        android:textSize="10sp" />
                 </TableRow>
             </TableLayout>
 
@@ -413,38 +415,39 @@
                 android:id="@+id/i10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/i9"
+                android:layout_alignParentStart="true"
                 android:background="@android:color/black"
-                android:paddingBottom="1dp"
                 android:paddingStart="1dp"
                 android:paddingEnd="1dp"
+                android:paddingBottom="1dp"
                 android:weightSum="100">
 
                 <TableRow>
+
                     <TextView
                         android:id="@+id/contactPoluch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:background="@android:color/white"
+                        android:ems="12"
                         android:padding="3dp"
                         android:text="@string/contactPoluch"
                         android:textColor="@android:color/black"
                         android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:background="@android:color/white"
-                        android:layout_marginEnd="1dp"
-                        android:ems="12"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/contactPoluchFill"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="70"
+                        android:background="@android:color/white"
                         android:padding="3dp"
                         android:text="@string/contactPoluchFill"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
-                        android:background="@android:color/white"
-                        android:layout_weight="70"/>
+                        android:textSize="10sp" />
                 </TableRow>
             </TableLayout>
 
@@ -452,38 +455,39 @@
                 android:id="@+id/i11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/i10"
+                android:layout_alignParentStart="true"
                 android:background="@android:color/black"
-                android:paddingBottom="1dp"
                 android:paddingStart="1dp"
                 android:paddingEnd="1dp"
+                android:paddingBottom="1dp"
                 android:weightSum="100">
 
                 <TableRow>
+
                     <TextView
                         android:id="@+id/platelshik"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:background="@android:color/white"
+                        android:ems="12"
                         android:padding="3dp"
                         android:text="@string/platelshik"
                         android:textColor="@android:color/black"
                         android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:background="@android:color/white"
-                        android:layout_marginEnd="1dp"
-                        android:ems="12"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/platelshikFill"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="70"
+                        android:background="@android:color/white"
                         android:padding="3dp"
                         android:text="@string/platelshikFill"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
-                        android:layout_weight="70"
-                        android:background="@android:color/white"/>
+                        android:textSize="10sp" />
                 </TableRow>
             </TableLayout>
 
@@ -491,24 +495,26 @@
                 android:id="@+id/i12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:background="@android:color/black"
-                android:layout_marginTop="16dp"
                 android:layout_below="@+id/i11"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="27dp"
+                android:background="@android:color/black"
                 android:padding="1dp">
 
                 <TableRow
-                    android:gravity="center"
-                    android:background="@color/greyField">
+                    android:background="@color/greyField"
+                    android:gravity="center">
+
                     <TextView
                         android:id="@+id/dataGruz"
                         android:layout_width="373dp"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="@string/datagruz"
                         android:padding="3dp"
-                        android:textSize="12sp"
+                        android:text="@string/datagruz"
                         android:textColor="@android:color/black"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
                 </TableRow>
             </TableLayout>
@@ -517,38 +523,39 @@
                 android:id="@+id/i13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/i12"
+                android:layout_alignParentStart="true"
                 android:background="@android:color/black"
-                android:paddingBottom="1dp"
                 android:paddingStart="1dp"
                 android:paddingEnd="1dp"
+                android:paddingBottom="1dp"
                 android:weightSum="100">
 
                 <TableRow>
+
                     <TextView
                         android:id="@+id/naimenGruz"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:background="@android:color/white"
+                        android:ems="12"
                         android:padding="3dp"
                         android:text="@string/naimenGruz"
                         android:textColor="@android:color/black"
                         android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:background="@android:color/white"
-                        android:layout_marginEnd="1dp"
-                        android:ems="12"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/naimenGruzFill"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="70"
+                        android:background="@android:color/white"
                         android:padding="3dp"
                         android:text="@string/naimenGruzFill"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
-                        android:background="@android:color/white"
-                        android:layout_weight="70"/>
+                        android:textSize="10sp" />
                 </TableRow>
             </TableLayout>
 
@@ -556,38 +563,39 @@
                 android:id="@+id/i14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/i13"
+                android:layout_alignParentStart="true"
                 android:background="@android:color/black"
-                android:paddingBottom="1dp"
-                android:paddingEnd="1dp"
                 android:paddingStart="1dp"
+                android:paddingEnd="1dp"
+                android:paddingBottom="1dp"
                 android:weightSum="100">
 
                 <TableRow>
+
                     <TextView
                         android:id="@+id/characterGruz"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:background="@android:color/white"
+                        android:ems="12"
                         android:padding="3dp"
                         android:text="@string/characterGruz"
                         android:textColor="@android:color/black"
                         android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:background="@android:color/white"
-                        android:ems="12"
-                        android:layout_marginEnd="1dp" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/characterGruzFill"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="70"
+                        android:background="@android:color/white"
                         android:padding="3dp"
                         android:text="@string/characterGruzFill"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
-                        android:layout_weight="70"
-                        android:background="@android:color/white"/>
+                        android:textSize="10sp" />
                 </TableRow>
             </TableLayout>
 
@@ -595,62 +603,63 @@
                 android:id="@+id/i15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/i14"
+                android:layout_alignParentStart="true"
                 android:background="@android:color/black"
-                android:paddingBottom="1dp"
-                android:weightSum="100"
                 android:paddingStart="1dp"
-                android:paddingEnd="1dp">
+                android:paddingEnd="1dp"
+                android:paddingBottom="1dp"
+                android:weightSum="100">
 
                 <TableRow>
+
                     <TextView
                         android:id="@+id/kolvoMest"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:background="@android:color/white"
+                        android:ems="12"
                         android:padding="3dp"
                         android:text="@string/kolvoMest"
                         android:textColor="@android:color/black"
                         android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:background="@android:color/white"
-                        android:layout_marginEnd="1dp"
-                        android:ems="12"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/kolvoMestFill"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ems="7"
+                        android:layout_marginEnd="1dp"
                         android:background="@android:color/white"
+                        android:ems="7"
                         android:padding="3dp"
                         android:text="@string/kolvoMestFill"
-                        android:layout_marginEnd="1dp"/>
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
 
                     <TextView
                         android:id="@+id/upakovka"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:background="@android:color/white"
+                        android:ems="5"
                         android:padding="3dp"
                         android:text="@string/upakovka"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
-                        android:background="@android:color/white"
-                        android:ems="5"
-                        android:layout_marginEnd="1dp"/>
+                        android:textSize="10sp" />
 
                     <TextView
                         android:id="@+id/upakovk"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="10"
+                        android:background="@android:color/white"
                         android:padding="3dp"
                         android:text="@string/upakovka"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
-                        android:background="@android:color/white"
-                        android:layout_weight="10"/>
+                        android:textSize="10sp" />
                 </TableRow>
             </TableLayout>
 
@@ -658,74 +667,75 @@
                 android:id="@+id/i16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/i15"
+                android:layout_alignParentStart="true"
                 android:background="@android:color/black"
-                android:paddingEnd="1dp"
                 android:paddingStart="1dp"
+                android:paddingEnd="1dp"
                 android:paddingBottom="1dp"
                 android:weightSum="100">
 
                 <TableRow>
+
                     <TextView
                         android:id="@+id/vesAndObiem"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:background="@android:color/white"
+                        android:ems="12"
                         android:padding="3dp"
                         android:text="@string/vesObiem"
                         android:textColor="@android:color/black"
                         android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:background="@android:color/white"
-                        android:ems="12"
-                        android:layout_marginEnd="1dp"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/ves"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:background="@android:color/white"
+                        android:ems="7"
                         android:padding="3dp"
                         android:text="@string/ves"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
-                        android:ems="7"
-                        android:background="@android:color/white"
-                        android:layout_marginEnd="1dp"/>
+                        android:textSize="10sp" />
 
                     <TextView
                         android:id="@+id/vesFill"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:background="@android:color/white"
+                        android:ems="3"
                         android:padding="3dp"
                         android:text="@string/vesFill"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
-                        android:ems="3"
-                        android:background="@android:color/white"
-                        android:layout_marginEnd="1dp"/>
+                        android:textSize="10sp" />
 
                     <TextView
                         android:id="@+id/obiem"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:layout_weight="20"
+                        android:background="@android:color/white"
                         android:padding="3dp"
                         android:text="@string/obiem"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
-                        android:background="@android:color/white"
-                        android:layout_weight="20"
-                        android:layout_marginEnd="1dp"/>
+                        android:textSize="10sp" />
 
                     <TextView
                         android:id="@+id/obiemFill"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="@android:color/white"
+                        android:ems="3"
                         android:padding="3dp"
                         android:text="@string/obiemFill"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
-                        android:background="@android:color/white"
-                        android:ems="3" />
+                        android:textSize="10sp" />
                 </TableRow>
             </TableLayout>
 
@@ -733,39 +743,40 @@
                 android:id="@+id/i17"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/i16"
+                android:layout_alignParentStart="true"
                 android:background="@android:color/black"
-                android:paddingBottom="1dp"
                 android:paddingStart="1dp"
                 android:paddingEnd="1dp"
+                android:paddingBottom="1dp"
                 android:weightSum="100">
 
                 <TableRow>
+
                     <TextView
                         android:id="@+id/dopUslugi"
                         android:layout_width="wrap_content"
                         android:layout_height="44dp"
+                        android:layout_marginEnd="1dp"
+                        android:background="@android:color/white"
+                        android:ems="12"
+                        android:gravity="start"
                         android:padding="3dp"
                         android:text="@string/dopUslugi"
                         android:textColor="@android:color/black"
                         android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:background="@android:color/white"
-                        android:layout_marginEnd="1dp"
-                        android:ems="12"
-                        android:gravity="start"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/dopUslugiFill"
                         android:layout_width="match_parent"
                         android:layout_height="44dp"
+                        android:layout_weight="70"
+                        android:background="@android:color/white"
                         android:padding="3dp"
                         android:text="something"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
-                        android:background="@android:color/white"
-                        android:layout_weight="70"/>
+                        android:textSize="10sp" />
                 </TableRow>
             </TableLayout>
 
@@ -773,36 +784,37 @@
                 android:id="@+id/i18"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/i17"
+                android:layout_alignParentStart="true"
                 android:background="@android:color/black"
                 android:padding="1dp"
                 android:weightSum="100">
 
                 <TableRow>
+
                     <TextView
                         android:id="@+id/osobOtmExp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:background="@android:color/white"
+                        android:ems="12"
                         android:padding="3dp"
                         android:text="@string/osobOtmExp"
                         android:textColor="@android:color/black"
                         android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:background="@android:color/white"
-                        android:ems="12"
-                        android:layout_marginEnd="1dp"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/osobOtmExpFill"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_weight="70"
+                        android:background="@android:color/white"
                         android:padding="3dp"
                         android:text="something"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
-                        android:layout_weight="70"
-                        android:background="@android:color/white"/>
+                        android:textSize="10sp" />
                 </TableRow>
             </TableLayout>
 
@@ -810,27 +822,27 @@
                 android:id="@+id/i19"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/i18"
+                android:layout_alignParentStart="true"
                 android:background="@android:color/black"
-                android:paddingBottom="1dp"
                 android:paddingStart="1dp"
                 android:paddingEnd="1dp"
+                android:paddingBottom="1dp"
                 android:weightSum="1">
 
                 <TableRow>
+
                     <TextView
                         android:id="@+id/soprDoc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@android:color/white"
                         android:padding="3dp"
                         android:text="@string/soprDoc"
                         android:textColor="@android:color/black"
                         android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:layout_weight="1"
-                        android:background="@android:color/white"
-                        />
+                        android:textStyle="bold" />
                 </TableRow>
             </TableLayout>
 
@@ -838,68 +850,66 @@
                 android:id="@+id/i24"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/i19"
+                android:layout_alignParentStart="true"
                 android:background="@android:color/black"
-                android:paddingBottom="1dp"
                 android:paddingStart="1dp"
                 android:paddingEnd="1dp"
+                android:paddingBottom="1dp"
                 android:weightSum="100">
 
                 <TableRow>
+
                     <TextView
                         android:id="@+id/i25"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:layout_weight="50"
+                        android:background="@android:color/white"
                         android:padding="3dp"
                         android:text="Груз принял (ФИО, подпись)"
                         android:textColor="@android:color/black"
                         android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:layout_weight="50"
-                        android:layout_marginEnd="1dp"
-                        android:background="@android:color/white"
-                        />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/i26"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:background="@android:color/white"
                         android:padding="3dp"
                         android:text="Груз сдал (ФИО, подпись)"
                         android:textColor="@android:color/black"
                         android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:layout_weight="50"
-                        android:background="@android:color/white"
-                        />
+                        android:textStyle="bold" />
                 </TableRow>
 
                 <TableRow>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="35sp"
-                        android:padding="3dp"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"
-                        android:layout_marginTop="1dp"
-                        android:textStyle="bold"
-                        android:layout_marginEnd="1dp"
-                        android:layout_weight="50"
-                        android:background="@android:color/white"
-                        />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="35sp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_weight="50"
+                        android:background="@android:color/white"
                         android:padding="3dp"
                         android:textColor="@android:color/black"
                         android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:layout_weight="50"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="35sp"
                         android:layout_marginTop="1dp"
+                        android:layout_weight="50"
                         android:background="@android:color/white"
-                        />
+                        android:padding="3dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
                 </TableRow>
             </TableLayout>
 
@@ -907,10 +917,11 @@
                 android:id="@+id/i20"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/i24">
+                android:layout_below="@+id/i24"
+                android:layout_alignParentStart="true">
 
                 <TableRow>
+
                     <TextView
                         android:id="@+id/longText"
                         android:layout_width="wrap_content"
@@ -918,7 +929,7 @@
                         android:padding="3dp"
                         android:text="@string/longText"
                         android:textColor="@android:color/black"
-                        android:textSize="9sp"/>
+                        android:textSize="9sp" />
                 </TableRow>
             </TableLayout>
 
@@ -926,10 +937,11 @@
                 android:id="@+id/i21"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/i20">
+                android:layout_below="@+id/i20"
+                android:layout_alignParentStart="true">
 
                 <TableRow>
+
                     <TextView
                         android:id="@+id/longText1"
                         android:layout_width="wrap_content"
@@ -937,7 +949,7 @@
                         android:padding="3dp"
                         android:text="@string/longText1"
                         android:textColor="@android:color/black"
-                        android:textSize="9sp"/>
+                        android:textSize="9sp" />
                 </TableRow>
             </TableLayout>
 
@@ -945,10 +957,11 @@
                 android:id="@+id/i22"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/i21">
+                android:layout_below="@+id/i21"
+                android:layout_alignParentStart="true">
 
                 <TableRow>
+
                     <TextView
                         android:id="@+id/longText2"
                         android:layout_width="wrap_content"
@@ -956,7 +969,7 @@
                         android:padding="3dp"
                         android:text="@string/longText2"
                         android:textColor="@android:color/black"
-                        android:textSize="9sp"/>
+                        android:textSize="9sp" />
                 </TableRow>
             </TableLayout>
 
@@ -964,10 +977,11 @@
                 android:id="@+id/i23"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/i22">
+                android:layout_below="@+id/i22"
+                android:layout_alignParentStart="true">
 
                 <TableRow>
+
                     <TextView
                         android:id="@+id/longText3"
                         android:layout_width="wrap_content"
@@ -975,11 +989,10 @@
                         android:padding="3dp"
                         android:text="@string/longText3"
                         android:textColor="@android:color/black"
-                        android:textSize="9sp"/>
+                        android:textSize="9sp" />
                 </TableRow>
             </TableLayout>
 
         </RelativeLayout>
     </ScrollView>
-
 </LinearLayout>

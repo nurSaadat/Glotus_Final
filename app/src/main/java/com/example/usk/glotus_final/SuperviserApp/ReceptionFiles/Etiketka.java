@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserApp.BluetoothPrintService.Command;
+import com.example.usk.glotus_final.SuperviserApp.BluetoothPrintService.Other;
 import com.example.usk.glotus_final.SuperviserApp.BluetoothPrintService.PrintPicture;
 import com.example.usk.glotus_final.SuperviserApp.BluetoothPrintService.PrinterCommand;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
@@ -66,7 +67,7 @@ public class Etiketka extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 save1();
-                printDocument(imageFile,kolvoMest);
+                printDocument(imageFile,kolvoMest+1);
             }
         });
     }
@@ -167,6 +168,9 @@ public class Etiketka extends AppCompatActivity{
         return resizedBitmap;
     }
 
+
+
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void save (){
         Bitmap bitmap=getViewBitmap(linearLayout);
@@ -218,55 +222,6 @@ public class Etiketka extends AppCompatActivity{
         }
     }
 
-    public void save1 (){
-        LinearLayout main= findViewById(R.id.mainLay);
-        RelativeLayout rel=findViewById(R.id.relative1);
-        Bitmap bitmap=getViewBitmap(firstPageLayout);
-        Bitmap secondPart=getViewBitmap(secondPartLayout);
-        int yy=bitmap.getHeight();
-        int xx=bitmap.getWidth();
-        int secYY=secondPart.getHeight();
-        int secXX=secondPart.getWidth();
-
-        PrintAttributes printAttrs = new PrintAttributes.Builder().
-                setColorMode(PrintAttributes.COLOR_MODE_COLOR).
-                setMediaSize(PrintAttributes.MediaSize.NA_LETTER).
-                setMinMargins(PrintAttributes.Margins.NO_MARGINS).
-                build();
-        PrintedPdfDocument document = new PrintedPdfDocument(this,printAttrs);
-
-        for(int i=0;i<kolvoMest;i++) {
-            if(i==0){
-                PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(xx, yy, i + 1).create();
-                PdfDocument.Page page = document.startPage(pageInfo);
-                main.draw(page.getCanvas());
-                document.finishPage(page);
-            }else if(i>0){
-                mesto.setText((i+1)+" из "+kolvoMest);
-                PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(secXX, secYY, i + 1).create();
-                PdfDocument.Page page = document.startPage(pageInfo);
-                rel.draw(page.getCanvas());
-                document.finishPage(page);
-            }
-        }
-
-        File mFolder;
-        String fileName="Exped.pdf";
-        try {
-            mFolder = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
-            imageFile = new File(mFolder,fileName);
-            if (!mFolder.exists()) {
-                mFolder.mkdirs();
-            }
-            FileOutputStream out = new FileOutputStream(imageFile);
-            document.writeTo(out);
-            document.close();
-            out.close();
-            Toast.makeText(this,"Результат сохранен", Toast.LENGTH_LONG).show();
-        } catch (IOException e) {
-            Toast.makeText(this, "При сохранении возникла ошибка", Toast.LENGTH_LONG).show();
-        }
-    }
 
     public void printDocument(File file,int totalPage){
         PrintManager printManager = (PrintManager) this.getSystemService(Context.PRINT_SERVICE);

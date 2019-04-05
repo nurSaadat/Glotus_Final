@@ -16,14 +16,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="26dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="100">
 
             <TextView
                 android:id="@+id/tv_data"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="40"
                 android:text="Hello"
                 android:textColor="@android:color/black"
@@ -34,7 +34,7 @@
         <TextView
             android:id="@+id/tv_code"
             android:layout_width="match_parent"
-            android:layout_height="36dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Hello"
             android:textStyle="bold"
@@ -53,20 +53,20 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="100">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_weight="30">
 
                 <TextView
                     android:id="@+id/tv_otkuda"
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
+                    android:layout_height="wrap_content"
                     android:text="Hello"
                     android:textColor="@android:color/black"
                     android:textAlignment="center"
@@ -77,7 +77,7 @@
                 <TextView
                     android:id="@+id/tv_otpravitel"
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
+                    android:layout_height="wrap_content"
                     android:text="Hello"
                     android:textColor="@color/otpravitelRed"
                     android:textAlignment="center"
@@ -88,7 +88,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="70dp"
                 android:orientation="vertical"
                 android:layout_weight="40">
 
@@ -102,14 +102,14 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_weight="30">
 
                 <TextView
                     android:id="@+id/tv_kuda"
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
+                    android:layout_height="wrap_content"
                     android:text="Hello"
                     android:textColor="@android:color/black"
                     android:textAlignment="center"
@@ -120,12 +120,11 @@
                 <TextView
                     android:id="@+id/tv_poluchatel"
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
+                    android:layout_height="wrap_content"
                     android:text="Hello"
                     android:textColor="@color/colorAccent"
                     android:textAlignment="center"
-                    style="@style/TextBlackList"
-                    />
+                    style="@style/TextBlackList" />
 
             </LinearLayout>
 
@@ -134,12 +133,11 @@
         <TextView
             android:id="@+id/tv_manager"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:textColor="@android:color/black"
             android:textAlignment="center"
             android:text="Hello"
-            style="@style/TextBlackList"
-            />
+            style="@style/TextBlackList" />
 
     </LinearLayout>
 

@@ -22,6 +22,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -74,10 +75,6 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
-/*
-* there some elements that
-*
-* */
 public class Reception extends AppCompatActivity {
     private static final String TAG = "a";
     static int cm=0;
@@ -102,6 +99,7 @@ public class Reception extends AppCompatActivity {
     private EditText sopnumber;
     private EditText sopdate;
     private DatePickerDialog.OnDateSetListener mDateListener;
+    private LinearLayout sop;
     String ttt="";
     boolean ch=false;
 
@@ -159,7 +157,7 @@ public class Reception extends AppCompatActivity {
         poluchatel.setText(ZayavkaListAdapter.item.getRecept());
         sopdate.setInputType(InputType.TYPE_NULL);
 
-        manager=(TextView)findViewById(R.id.tv_menedzher);
+        manager=findViewById(R.id.tv_menedzher);
         manager.setText(ZayavkaListAdapter.item.getMenedjer());
         sopdate.setInputType(InputType.TYPE_NULL);
         sopdate.setOnClickListener(new View.OnClickListener() {
@@ -182,7 +180,6 @@ public class Reception extends AppCompatActivity {
             }
         });
 
-
         mDateListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -202,24 +199,25 @@ public class Reception extends AppCompatActivity {
             }
         };
 
-
-
         podrazdelenie=findViewById(R.id.tv_podrazdel);
         podrazdelenie.setText((String)Podrazd.pdpreferences.getAll().get(ZayavkaListAdapter.item.getPodrazd()));
 
         kolichFotok=findViewById(R.id.kolich_fotok);
 
+        /*transportType=findViewById(R.id.spin_transport);
+        setTransportSpinner(transportType);*/
+
         soprDocument=findViewById(R.id.spinner_soprDoc);
         String[] itemsForSop=new String[]{"","Транспортная накладная","Товарно-транспортная накладная",
                 "Универсально-передаточный документ","Счет фактура","Накладная",
                 "Расходная накладная","INVOICE","другое"};
-        final LinearLayout sop;
-        sop=findViewById(R.id.sopr);
 
+        sop=findViewById(R.id.sopr);
 
         ArrayAdapter<String> adapterForSop=new ArrayAdapter<String>(this,R.layout.spinner_item, itemsForSop);
         adapterForSop.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-       /* soprDocument.setAdapter(adapterForSop);
+        soprDocument.setAdapter(adapterForSop);
+
         soprDocument.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -234,19 +232,7 @@ public class Reception extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });   */     /*ser(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println(soprDocument.getSelectedItem().toString());
-                if (soprDocument.getSelectedItem().toString().equals("другое"))
-                    sop.setVisibility(View.VISIBLE);
-                else
-                    sop.setVisibility(View.GONE);
-            }
-        });*/
-
-///        transportType=findViewById(R.id.spin_transport);
-    ///    setTransportSpinner(transportType);
+        });
 
         upakovka=findViewById(R.id.spin_upakovka);
         String[] items=new String[]{"Без упаковки","Ящик","Паллет","Короб","Мешок","Другое"};
@@ -336,7 +322,7 @@ public class Reception extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(arr.size()==0){
-                    Toast.makeText(getApplicationContext(),"No any photo",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Фоток нет",Toast.LENGTH_SHORT).show();
                 }else {
                     Intent intent = new Intent(Reception.this, ImageViewer.class);
                     intent.putExtra("imageData", arr);
@@ -457,17 +443,17 @@ public class Reception extends AppCompatActivity {
 
         String pp="";
         EditText dd=findViewById(R.id.drug);
-/*        if (soprDocument.getSelectedItem().toString().equals("другое"))
+        if (soprDocument.getSelectedItem().toString().equals("другое"))
             pp=dd.getText().toString();
         else
-            pp=soprDocument.getSelectedItem().toString();*/
+            pp=soprDocument.getSelectedItem().toString();
 
        String ssp="[{}]";
-       /*/ soprDocument.getSelectedItem().toString()+" от " +sopnumber.getText().toString()+" "+sopdate.getText().toString();
-       /* if (pp.length()>1 && sopnumber.getText().toString().length()>=1 && sopdate.getText().toString().length()>1)
+       /*/ soprDocument.getSelectedItem().toString()+" от " +sopnumber.getText().toString()+" "+sopdate.getText().toString();*/
+       if (pp.length()>1 && sopnumber.getText().toString().length()>=1 && sopdate.getText().toString().length()>1)
             ssp="[{\"LineNumber\": \"1\",\"СопроводительныйДокумент\": \""+pp+"\",\"НомерСД\": \""+sopnumber.getText().toString()+"\",\"ДатаСД\": \""+ttt+"00:00:00\"}}";
         else
-            ssp="[{}]";*/
+            ssp="[{}]";
 
         String body="{\n" +
                 "    \"КоличествоФакт\": \""+kolich.getText().toString()+"\",\n" +
@@ -531,22 +517,18 @@ public class Reception extends AppCompatActivity {
             rlist.add(entry.getKey());
         }
 
-       /* final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,R.layout.spinner_item,list);
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,R.layout.spinner_item,list);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                spinner.setAdapter(arrayAdapter);
-                spinner.setWidth(50);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setDropDownHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        spinner.setWidth(50);
 
         spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
                 trkey=(rlist.get(list.indexOf(spinner.getText().toString())));
             }
-
-
-        });*/
+        });
     }
 
     public void check_cb(View view){
@@ -563,6 +545,7 @@ public class Reception extends AppCompatActivity {
         }
         System.out.println(damage.toString());
     }
+
     @Override
     public void onBackPressed() {
         Intent myIntent = new Intent(Reception.this, SuperviserListActivity.class);

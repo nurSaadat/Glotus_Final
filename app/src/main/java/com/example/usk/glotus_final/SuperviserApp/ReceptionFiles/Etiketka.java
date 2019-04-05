@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
@@ -28,28 +27,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.usk.glotus_final.R;
-import com.example.usk.glotus_final.SuperviserApp.BluetoothPrintService.Command;
 import com.example.usk.glotus_final.SuperviserApp.BluetoothPrintService.Other;
-import com.example.usk.glotus_final.SuperviserApp.BluetoothPrintService.PrintPicture;
-import com.example.usk.glotus_final.SuperviserApp.BluetoothPrintService.PrinterCommand;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 
 public class Etiketka extends AppCompatActivity{
     private MenuItem btn_next;
     private PdfData data;
     private LinearLayout firstPageLayout;
-    private LinearLayout linearLayout;
+    private LinearLayout firstPartLayout;
     private LinearLayout secondPartLayout;
     private TextView mesto;
     private int kolvoMest;
 
     RelativeLayout relativeLayout;
-
     Button send;
     File imageFile;
 
@@ -92,7 +86,7 @@ public class Etiketka extends AppCompatActivity{
 
         relativeLayout=findViewById(R.id.relative1);
         firstPageLayout=findViewById(R.id.mainLay);
-        linearLayout=findViewById(R.id.linLay);
+        firstPartLayout=findViewById(R.id.linLay);
         secondPartLayout=findViewById(R.id.linLay1);
         send = findViewById(R.id.send);
 
@@ -151,6 +145,75 @@ public class Etiketka extends AppCompatActivity{
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
+    public void save1 (){
+        Bitmap bitmap=getViewBitmap(firstPartLayout);
+        Bitmap secondPart=getViewBitmap(secondPartLayout);
+        int width = 280;
+        int height = 280;
+
+        Bitmap rszBitmap = resizeBitmap(bitmap,width,height);
+        Bitmap rszBitmap2= resizeBitmap(secondPart,width,height);
+
+        int xx=rszBitmap.getWidth();
+        int yy=rszBitmap.getHeight();
+        int secXX=rszBitmap2.getWidth();
+        int secYY=rszBitmap2.getHeight();
+
+        PrintAttributes printAttrs = new PrintAttributes.Builder().
+                setColorMode(PrintAttributes.COLOR_MODE_COLOR).
+                setMediaSize(PrintAttributes.MediaSize.NA_LETTER).
+                setMinMargins(PrintAttributes.Margins.NO_MARGINS).
+                build();
+        PrintedPdfDocument document = new PrintedPdfDocument(this,printAttrs);
+
+        for(int i=0;i<kolvoMest+1;i++) {
+            if(i==0){
+                PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(xx, yy, i + 1).create();
+                PdfDocument.Page page = document.startPage(pageInfo);
+                Canvas canvas=page.getCanvas();
+                canvas.drawBitmap(rszBitmap,0,0,null);
+                document.finishPage(page);
+            }else if(i>0){
+                PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(secXX, secYY, i + 1).create();
+                PdfDocument.Page page = document.startPage(pageInfo);
+                mesto.setText(i+" из "+kolvoMest);
+                Canvas canvas=page.getCanvas();
+                canvas.drawBitmap(rszBitmap2,0,0,null);
+                document.finishPage(page);
+            }
+        }
+
+        File mFolder;
+        String fileName="Etiketka.pdf";
+        try {
+            mFolder = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+            imageFile = new File(mFolder,fileName);
+            if (!mFolder.exists()) {
+                mFolder.mkdirs();
+            }
+            FileOutputStream out = new FileOutputStream(imageFile);
+            document.writeTo(out);
+            document.close();
+            out.close();
+            Toast.makeText(this,"Результат сохранен", Toast.LENGTH_LONG).show();
+        } catch (IOException e) {
+            Toast.makeText(this, "При сохранении возникла ошибка", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public Bitmap resizeBitmap(Bitmap bitmap, int newWidth,int newHeight){
+        Bitmap resizedBitmap;
+        resizedBitmap = Other.resizeImage(bitmap, newWidth, newHeight);
+        return resizedBitmap;
+    }
+
+    public void printDocument(File file,int totalPage){
+        PrintManager printManager = (PrintManager) this.getSystemService(Context.PRINT_SERVICE);
+        String jobName = this.getString(R.string.app_name) + " Document";
+        printManager.print(jobName, new MyPrintDocumentAdapter(file,totalPage), null);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public Bitmap getResizedBitmap(Bitmap bitmap, int newWidth, int newHeight) {
         Bitmap resizedBitmap = Bitmap.createBitmap(newWidth, newHeight, Bitmap.Config.ARGB_8888,true);
 
@@ -166,67 +229,6 @@ public class Etiketka extends AppCompatActivity{
         canvas.setMatrix(scaleMatrix);
         canvas.drawBitmap(bitmap, 0, 0, new Paint(Paint.FILTER_BITMAP_FLAG));
         return resizedBitmap;
-    }
-
-
-
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void save (){
-        Bitmap bitmap=getViewBitmap(linearLayout);
-        //Bitmap btm=getViewBitmap(secondPartLayout);
-        int width = ((230 + 7) / 8) * 8;
-        int height = bitmap.getHeight() * width / bitmap.getWidth();
-        height = ((height + 7) / 8) * 8;
-        //int height2Part=btm.getHeight()*width/btm.getWidth();
-        //height2Part=((height2Part+7)/8)*8;
-
-        PdfDocument document = new PdfDocument();
-        Paint paint = new Paint();
-        Canvas canvas=new Canvas();
-            PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(bitmap.getWidth(), bitmap.getHeight(), 1).create();
-            PdfDocument.Page page = document.startPage(pageInfo);
-            canvas = page.getCanvas();
-            paint.setColor(Color.parseColor("#ffffff"));
-            canvas.drawPaint(paint);
-            document.finishPage(page);
-
-
-        //bitmap = Bitmap.createScaledBitmap(bitmap, 384, bitmap.getHeight(), true);
-
-        Bitmap bm =getViewBitmap(linearLayout);
-        bm=getResizedBitmap(bm,width,height);
-        paint.setColor(Color.BLUE);
-        canvas.drawBitmap(bm, 0, 0 , new Paint(Paint.FILTER_BITMAP_FLAG));
-
-
-        // write the document content
-        String targetPdf = "/test.pdf";
-
-        File mFolder = null;
-        String fileName="ttt.pdf";
-        try {
-            mFolder = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
-            imageFile = new File(mFolder,fileName);
-            if (!mFolder.exists()) {
-                mFolder.mkdirs();
-            }
-            FileOutputStream out = new FileOutputStream(imageFile);
-            document.writeTo(out);
-            document.close();
-            out.close();
-
-            Toast.makeText(this,"Результат сохранен"+imageFile.getPath().toString(), Toast.LENGTH_LONG).show();
-        } catch (IOException e) {
-            Toast.makeText(this, "При сохранении возникла ошибка", Toast.LENGTH_LONG).show();
-        }
-    }
-
-
-    public void printDocument(File file,int totalPage){
-        PrintManager printManager = (PrintManager) this.getSystemService(Context.PRINT_SERVICE);
-        String jobName = this.getString(R.string.app_name) + " Document";
-        printManager.print(jobName, new MyPrintDocumentAdapter(file,totalPage), null);
     }
 
     @Override

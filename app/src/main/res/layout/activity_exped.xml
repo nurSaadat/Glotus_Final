@@ -339,6 +339,7 @@
                 android:paddingStart="1dp"
                 android:paddingEnd="1dp"
                 android:paddingBottom="1dp"
+                android:layout_marginBottom="10dp"
                 android:weightSum="100">
 
                 <TableRow>

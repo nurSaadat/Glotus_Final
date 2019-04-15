@@ -82,31 +82,25 @@ public class Reception extends AppCompatActivity {
     public static ArrayList<String> adress = new ArrayList<String>();
     static PdfData pd;
     static Spinner upakovka;
-    private LinearLayout layToHide;
+    private LinearLayout layToHide,sop,hide_lay;
     private Spinner soprDocument;
     private AutoCompleteTextView transportType;
     static TextView foto_kol;
-    private TextView numZakaz, date, zakazchik, otpravitel, poluchatel, manager,podrazdelenie, soprDoc;
-    private EditText dateToFill, vesFact, obiemFact, kolich, komentToFill,comment;
+    private TextView numZakaz, date, zakazchik, otpravitel, poluchatel, manager,podrazdelenie, soprDoc,tv_zakazchik_nomer,kolichFotok;
+    private EditText dateToFill, vesFact, obiemFact, kolich, komentToFill,comment,sopnumber,sopdate;
     private CheckBox gruz;
     private Button save,delete,etiketka,saveBtn;
     private ImageView img,img1,img2;
     private RelativeLayout relativeLayout;
-    private TextView tv_zakazchik_nomer;
-    private LinearLayout hide_lay;
     static Integer fotokol=0;
-    private TextView kolichFotok;
-    private EditText sopnumber;
-    private EditText sopdate;
     private DatePickerDialog.OnDateSetListener mDateListener;
-    private LinearLayout sop;
-    String ttt="";
-    boolean ch=false;
 
+    boolean ch=false;
+    String ttt="";
     Boolean damage=false;
-    private String msg= "Уважаемый клиент, обращаем Ваше внимание, что в результате приемки груза были выявлены повреждения упаковки (см. фото),\n" +
-            "\n" +
-            " по всем вопросам связывайтесь с Вашим менеджером Администратор тел.";
+    private String msg= "Уважаемый клиент, обращаем Ваше внимание, что в результате приемки груза были " +
+            "            выявлены повреждения упаковки (см. фото),\n" +
+                        "\n" + " по всем вопросам связывайтесь с Вашим менеджером Администратор тел.";
     private String trkey="00000000-0000-0000-0000-000000000000";
 
     //новые переменные для фоток
@@ -204,8 +198,8 @@ public class Reception extends AppCompatActivity {
 
         kolichFotok=findViewById(R.id.kolich_fotok);
 
-        /*transportType=findViewById(R.id.spin_transport);
-        setTransportSpinner(transportType);*/
+        transportType=findViewById(R.id.spin_transport);
+        setTransportSpinner(transportType);
 
         soprDocument=findViewById(R.id.spinner_soprDoc);
         String[] itemsForSop=new String[]{"","Транспортная накладная","Товарно-транспортная накладная",

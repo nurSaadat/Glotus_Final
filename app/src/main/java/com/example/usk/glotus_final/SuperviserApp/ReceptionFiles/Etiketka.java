@@ -22,7 +22,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,7 +59,7 @@ public class Etiketka extends AppCompatActivity{
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                save1();
+                createPDF();
                 printDocument(imageFile,kolvoMest+1);
             }
         });
@@ -145,7 +144,7 @@ public class Etiketka extends AppCompatActivity{
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void save1 (){
+    public void createPDF (){
         Bitmap bitmap=getViewBitmap(firstPartLayout);
         Bitmap secondPart=getViewBitmap(secondPartLayout);
         int width = 280;
@@ -174,15 +173,19 @@ public class Etiketka extends AppCompatActivity{
                 canvas.drawBitmap(rszBitmap,0,0,null);
                 document.finishPage(page);
             }else if(i>0){
+                mesto.setText(i+" из "+kolvoMest);
                 PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(secXX, secYY, i + 1).create();
                 PdfDocument.Page page = document.startPage(pageInfo);
-                mesto.setText(i+" из "+kolvoMest);
                 Canvas canvas=page.getCanvas();
                 canvas.drawBitmap(rszBitmap2,0,0,null);
                 document.finishPage(page);
             }
         }
 
+        saveOnDevice(document);
+    }
+
+    public void saveOnDevice(PrintedPdfDocument document){
         File mFolder;
         String fileName="Etiketka.pdf";
         try {

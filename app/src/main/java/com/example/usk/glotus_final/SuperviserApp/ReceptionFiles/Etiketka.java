@@ -41,6 +41,7 @@ public class Etiketka extends AppCompatActivity{
     private LinearLayout secondPartLayout;
     private TextView mesto;
     private int kolvoMest;
+    private PrintedPdfDocument document;
 
     RelativeLayout relativeLayout;
     Button send;
@@ -150,39 +151,43 @@ public class Etiketka extends AppCompatActivity{
         int width = 280;
         int height = 280;
 
-        Bitmap rszBitmap = resizeBitmap(bitmap,width,height);
-        Bitmap rszBitmap2= resizeBitmap(secondPart,width,height);
-
-        int xx=rszBitmap.getWidth();
-        int yy=rszBitmap.getHeight();
-        int secXX=rszBitmap2.getWidth();
-        int secYY=rszBitmap2.getHeight();
-
         PrintAttributes printAttrs = new PrintAttributes.Builder().
                 setColorMode(PrintAttributes.COLOR_MODE_COLOR).
                 setMediaSize(PrintAttributes.MediaSize.NA_LETTER).
                 setMinMargins(PrintAttributes.Margins.NO_MARGINS).
                 build();
-        PrintedPdfDocument document = new PrintedPdfDocument(this,printAttrs);
+        document = new PrintedPdfDocument(this,printAttrs);
 
-        for(int i=0;i<kolvoMest+1;i++) {
-            if(i==0){
-                PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(xx, yy, i + 1).create();
-                PdfDocument.Page page = document.startPage(pageInfo);
-                Canvas canvas=page.getCanvas();
-                canvas.drawBitmap(rszBitmap,0,0,null);
-                document.finishPage(page);
-            }else if(i>0){
-                mesto.setText(i+" из "+kolvoMest);
-                PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(secXX, secYY, i + 1).create();
-                PdfDocument.Page page = document.startPage(pageInfo);
-                Canvas canvas=page.getCanvas();
-                canvas.drawBitmap(rszBitmap2,0,0,null);
-                document.finishPage(page);
-            }
+        for(int i=0; i<kolvoMest+1;i++){
+            mesto.setText("4 из "+kolvoMest);
+            Bitmap rszBitmap = resizeBitmap(bitmap,width,height);
+            Bitmap rszBitmap2= resizeBitmap(secondPart,width,height);
+
+            int xx=rszBitmap.getWidth();
+            int yy=rszBitmap.getHeight();
+            int secXX=rszBitmap2.getWidth();
+            int secYY=rszBitmap2.getHeight();
+
+            createCanvas(rszBitmap,rszBitmap2,xx,yy,secXX,secYY,i);
         }
 
         saveOnDevice(document);
+    }
+
+    public void createCanvas(Bitmap btm, Bitmap btm1, int width,int height, int width1, int height1, int i){
+        if(i==0){
+            PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(width, height, i + 1).create();
+            PdfDocument.Page page = document.startPage(pageInfo);
+            Canvas canvas=page.getCanvas();
+            canvas.drawBitmap(btm,0,0,null);
+            document.finishPage(page);
+        }else if(i>0){
+            PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(width1, height1, i + 1).create();
+            PdfDocument.Page page = document.startPage(pageInfo);
+            Canvas canvas=page.getCanvas();
+            canvas.drawBitmap(btm1,0,0,null);
+            document.finishPage(page);
+        }
     }
 
     public void saveOnDevice(PrintedPdfDocument document){

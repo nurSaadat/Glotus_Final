@@ -169,6 +169,8 @@ public class Reception extends AppCompatActivity {
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         mDateListener,year,month,day
                 );
+                dialog.getDatePicker().setCalendarViewShown(false);
+                dialog.getDatePicker().setSpinnersShown(true);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
@@ -146,8 +147,6 @@ public class Etiketka extends AppCompatActivity{
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void createPDF (){
-        Bitmap bitmap=getViewBitmap(firstPartLayout);
-        Bitmap secondPart=getViewBitmap(secondPartLayout);
         int width = 280;
         int height = 280;
 
@@ -158,17 +157,20 @@ public class Etiketka extends AppCompatActivity{
                 build();
         document = new PrintedPdfDocument(this,printAttrs);
 
-        for(int i=0; i<kolvoMest+1;i++){
-            mesto.setText("4 из "+kolvoMest);
-            Bitmap rszBitmap = resizeBitmap(bitmap,width,height);
-            Bitmap rszBitmap2= resizeBitmap(secondPart,width,height);
 
-            int xx=rszBitmap.getWidth();
-            int yy=rszBitmap.getHeight();
-            int secXX=rszBitmap2.getWidth();
-            int secYY=rszBitmap2.getHeight();
+        for(int i=0;i<kolvoMest+1;i++) {
+            mesto.setText(i+" из "+kolvoMest);
+            Bitmap bitmap=getViewBitmap(firstPartLayout);
+            Bitmap secondPart=getViewBitmap(secondPartLayout);
+            Bitmap rszBitmap = resizeBitmap(bitmap, width, height);
+            Bitmap rszBitmap2 = resizeBitmap(secondPart, width, height);
 
-            createCanvas(rszBitmap,rszBitmap2,xx,yy,secXX,secYY,i);
+            int xx = rszBitmap.getWidth();
+            int yy = rszBitmap.getHeight();
+            int secXX = rszBitmap2.getWidth();
+            int secYY = rszBitmap2.getHeight();
+
+            createCanvas(rszBitmap, rszBitmap2, xx, yy, secXX, secYY, i);
         }
 
         saveOnDevice(document);

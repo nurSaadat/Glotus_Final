@@ -99,7 +99,7 @@ public class Reception extends AppCompatActivity {
     String ttt="";
     Boolean damage=false;
     private String msg= "Уважаемый клиент, обращаем Ваше внимание, что в результате приемки груза были " +
-            "            выявлены повреждения упаковки (см. фото),\n" +
+                        "выявлены повреждения упаковки (см. фото),\n" +
                         "\n" + " по всем вопросам связывайтесь с Вашим менеджером Администратор тел.";
     private String trkey="00000000-0000-0000-0000-000000000000";
 
@@ -116,44 +116,10 @@ public class Reception extends AppCompatActivity {
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        relativeLayout=findViewById(R.id.relativeLay);
-
         //System.out.println(ZayavkaListAdapter.item.getMenedjer());
         setContentView(R.layout.activity_reception);
+        buildText();
 
-        hide_lay=findViewById(R.id.hide_lay);
-
-        layToHide=findViewById(R.id.lay_to_hide);
-        foto_kol=findViewById(R.id.foto_kol);
-
-        comment=findViewById(R.id.tv_comment);
-        zakazchik=findViewById(R.id.tv_zakazchic);
-        zakazchik.setText((String)Kontragent.kontrpreferences.getAll().get(ZayavkaListAdapter.item.getZakaz()));
-
-        numZakaz=findViewById(R.id.tv_nomer);
-        numZakaz.setText(ZayavkaListAdapter.item.getNumber());
-
-        date=findViewById(R.id.tv_data);
-        date.setText(ZayavkaListAdapter.item.getDate().split("T")[0]);
-
-        vesFact=findViewById(R.id.et_ves_fact);
-        obiemFact=findViewById(R.id.et_obem_fact);
-        kolich=findViewById(R.id.et_kolich);
-
-        sopdate=findViewById(R.id.sopdate);
-        sopnumber=findViewById(R.id.sopnum);
-
-        otpravitel=findViewById(R.id.tv_otpravitel);
-        otpravitel.setText(ZayavkaListAdapter.item.getSender());
-        sopnumber.setInputType(InputType.TYPE_CLASS_NUMBER  );
-
-        poluchatel=findViewById(R.id.tv_poluchatel);
-        poluchatel.setText(ZayavkaListAdapter.item.getRecept());
-        sopdate.setInputType(InputType.TYPE_NULL);
-
-        manager=findViewById(R.id.tv_menedzher);
-        manager.setText(ZayavkaListAdapter.item.getMenedjer());
-        sopdate.setInputType(InputType.TYPE_NULL);
         sopdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -195,20 +161,10 @@ public class Reception extends AppCompatActivity {
             }
         };
 
-        podrazdelenie=findViewById(R.id.tv_podrazdel);
-        podrazdelenie.setText((String)Podrazd.pdpreferences.getAll().get(ZayavkaListAdapter.item.getPodrazd()));
-
-        kolichFotok=findViewById(R.id.kolich_fotok);
-
-        transportType=findViewById(R.id.spin_transport);
         setTransportSpinner(transportType);
-
-        soprDocument=findViewById(R.id.spinner_soprDoc);
         String[] itemsForSop=new String[]{"","Транспортная накладная","Товарно-транспортная накладная",
                 "Универсально-передаточный документ","Счет фактура","Накладная",
                 "Расходная накладная","INVOICE","другое"};
-
-        sop=findViewById(R.id.sopr);
 
         ArrayAdapter<String> adapterForSop=new ArrayAdapter<String>(this,R.layout.spinner_item, itemsForSop);
         adapterForSop.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -230,14 +186,11 @@ public class Reception extends AppCompatActivity {
             }
         });
 
-        upakovka=findViewById(R.id.spin_upakovka);
         String[] items=new String[]{"Без упаковки","Ящик","Паллет","Короб","Мешок","Другое"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.spinner_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         upakovka.setAdapter(adapter);
 
-        komentToFill=findViewById(R.id.et_message_povrezhden);
-        gruz=findViewById(R.id.cb_gruz_povrezhden);
         gruz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -246,7 +199,6 @@ public class Reception extends AppCompatActivity {
         });
 
         //it it takes a photo of gruz
-        img=findViewById(R.id.iw_camera_icon);
         img.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -269,7 +221,6 @@ public class Reception extends AppCompatActivity {
         });
 
         //here I will change, this is delete button for gruz;
-        delete=findViewById(R.id.del);
         delete.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -280,7 +231,6 @@ public class Reception extends AppCompatActivity {
             }
         });
 
-        saveBtn=findViewById(R.id.btn_otpr);
         saveBtn.setOnClickListener(new View.OnClickListener(){
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
@@ -328,6 +278,49 @@ public class Reception extends AppCompatActivity {
         });
     }
 
+    public void buildText(){
+        relativeLayout=findViewById(R.id.relativeLay);
+        hide_lay=findViewById(R.id.hide_lay);
+        layToHide=findViewById(R.id.lay_to_hide);
+        foto_kol=findViewById(R.id.foto_kol);
+        comment=findViewById(R.id.tv_comment);
+        zakazchik=findViewById(R.id.tv_zakazchic);
+        numZakaz=findViewById(R.id.tv_nomer);
+        date=findViewById(R.id.tv_data);
+        vesFact=findViewById(R.id.et_ves_fact);
+        obiemFact=findViewById(R.id.et_obem_fact);
+        kolich=findViewById(R.id.et_kolich);
+        sopdate=findViewById(R.id.sopdate);
+        sopnumber=findViewById(R.id.sopnum);
+        otpravitel=findViewById(R.id.tv_otpravitel);
+        poluchatel=findViewById(R.id.tv_poluchatel);
+        manager=findViewById(R.id.tv_menedzher);
+        podrazdelenie=findViewById(R.id.tv_podrazdel);
+        kolichFotok=findViewById(R.id.kolich_fotok);
+        transportType=findViewById(R.id.spin_transport);
+        soprDocument=findViewById(R.id.spinner_soprDoc);
+        sop=findViewById(R.id.sopr);
+        upakovka=findViewById(R.id.spin_upakovka);
+        komentToFill=findViewById(R.id.et_message_povrezhden);
+        gruz=findViewById(R.id.cb_gruz_povrezhden);
+        img=findViewById(R.id.iw_camera_icon);
+        delete=findViewById(R.id.del);
+        saveBtn=findViewById(R.id.btn_otpr);
+
+        sopdate.setInputType(InputType.TYPE_NULL);
+        sopdate.setInputType(InputType.TYPE_NULL);
+        sopnumber.setInputType(InputType.TYPE_CLASS_NUMBER  );
+
+        zakazchik.setText((String)Kontragent.kontrpreferences.getAll().get(ZayavkaListAdapter.item.getZakaz()));
+        numZakaz.setText(ZayavkaListAdapter.item.getNumber());
+        date.setText(ZayavkaListAdapter.item.getDate().split("T")[0]);
+        otpravitel.setText(ZayavkaListAdapter.item.getSender());
+        poluchatel.setText(ZayavkaListAdapter.item.getRecept());
+        manager.setText(ZayavkaListAdapter.item.getMenedjer());
+        podrazdelenie.setText((String)Podrazd.pdpreferences.getAll().get(ZayavkaListAdapter.item.getPodrazd()));
+
+    }
+
     // берет данные с intent камеры
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -367,7 +360,6 @@ public class Reception extends AppCompatActivity {
         return server.post();
     }
 
-
     public void uploadingfile(){
 
         for(int i=0;i<arr.size();i++){
@@ -406,6 +398,7 @@ public class Reception extends AppCompatActivity {
         String encodedImage = Base64.encodeToString(imageBytes,Base64.DEFAULT);
         return encodedImage;
     }
+
     @TargetApi(Build.VERSION_CODES.O)
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void posting() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, JSONException {

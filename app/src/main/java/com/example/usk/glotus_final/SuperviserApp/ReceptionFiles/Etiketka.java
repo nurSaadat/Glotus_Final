@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
@@ -22,7 +23,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +42,7 @@ public class Etiketka extends AppCompatActivity{
     private LinearLayout secondPartLayout;
     private TextView mesto;
     private int kolvoMest;
+    private PrintedPdfDocument document;
 
     RelativeLayout relativeLayout;
     Button send;
@@ -60,7 +61,7 @@ public class Etiketka extends AppCompatActivity{
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                save1();
+                createPDF();
                 printDocument(imageFile,kolvoMest+1);
             }
         });
@@ -145,44 +146,53 @@ public class Etiketka extends AppCompatActivity{
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void save1 (){
-        Bitmap bitmap=getViewBitmap(firstPartLayout);
-        Bitmap secondPart=getViewBitmap(secondPartLayout);
+    public void createPDF (){
         int width = 280;
         int height = 280;
-
-        Bitmap rszBitmap = resizeBitmap(bitmap,width,height);
-        Bitmap rszBitmap2= resizeBitmap(secondPart,width,height);
-
-        int xx=rszBitmap.getWidth();
-        int yy=rszBitmap.getHeight();
-        int secXX=rszBitmap2.getWidth();
-        int secYY=rszBitmap2.getHeight();
 
         PrintAttributes printAttrs = new PrintAttributes.Builder().
                 setColorMode(PrintAttributes.COLOR_MODE_COLOR).
                 setMediaSize(PrintAttributes.MediaSize.NA_LETTER).
                 setMinMargins(PrintAttributes.Margins.NO_MARGINS).
                 build();
-        PrintedPdfDocument document = new PrintedPdfDocument(this,printAttrs);
+        document = new PrintedPdfDocument(this,printAttrs);
+
 
         for(int i=0;i<kolvoMest+1;i++) {
-            if(i==0){
-                PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(xx, yy, i + 1).create();
-                PdfDocument.Page page = document.startPage(pageInfo);
-                Canvas canvas=page.getCanvas();
-                canvas.drawBitmap(rszBitmap,0,0,null);
-                document.finishPage(page);
-            }else if(i>0){
-                PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(secXX, secYY, i + 1).create();
-                PdfDocument.Page page = document.startPage(pageInfo);
-                mesto.setText(i+" из "+kolvoMest);
-                Canvas canvas=page.getCanvas();
-                canvas.drawBitmap(rszBitmap2,0,0,null);
-                document.finishPage(page);
-            }
+            mesto.setText(i+" из "+kolvoMest);
+            Bitmap bitmap=getViewBitmap(firstPartLayout);
+            Bitmap secondPart=getViewBitmap(secondPartLayout);
+            Bitmap rszBitmap = resizeBitmap(bitmap, width, height);
+            Bitmap rszBitmap2 = resizeBitmap(secondPart, width, height);
+
+            int xx = rszBitmap.getWidth();
+            int yy = rszBitmap.getHeight();
+            int secXX = rszBitmap2.getWidth();
+            int secYY = rszBitmap2.getHeight();
+
+            createCanvas(rszBitmap, rszBitmap2, xx, yy, secXX, secYY, i);
         }
 
+        saveOnDevice(document);
+    }
+
+    public void createCanvas(Bitmap btm, Bitmap btm1, int width,int height, int width1, int height1, int i){
+        if(i==0){
+            PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(width, height, i + 1).create();
+            PdfDocument.Page page = document.startPage(pageInfo);
+            Canvas canvas=page.getCanvas();
+            canvas.drawBitmap(btm,0,0,null);
+            document.finishPage(page);
+        }else if(i>0){
+            PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(width1, height1, i + 1).create();
+            PdfDocument.Page page = document.startPage(pageInfo);
+            Canvas canvas=page.getCanvas();
+            canvas.drawBitmap(btm1,0,0,null);
+            document.finishPage(page);
+        }
+    }
+
+    public void saveOnDevice(PrintedPdfDocument document){
         File mFolder;
         String fileName="Etiketka.pdf";
         try {

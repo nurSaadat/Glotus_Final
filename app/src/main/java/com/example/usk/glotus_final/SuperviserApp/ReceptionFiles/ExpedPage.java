@@ -106,14 +106,14 @@ public class ExpedPage extends AppCompatActivity  {
         }
 
         if(id==R.id.btn_print){
-            save(pdf_cont);
+            createPDF(pdf_cont);
             printDocument(imageFile,1);
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void save (View v){
+    public void createPDF (View v){
         //ScrollView scroll = findViewById(R.id.scrollview);
         RelativeLayout rel=findViewById(R.id.relLay);
         int yy = v.getScrollY()+v.getHeight();
@@ -130,6 +130,10 @@ public class ExpedPage extends AppCompatActivity  {
         rel.draw(page.getCanvas());
         document.finishPage(page);
 
+        saveOnDevice(document);
+    }
+
+    public void saveOnDevice(PrintedPdfDocument document){
         File mFolder;
         String fileName="Exped.pdf";
         try {

@@ -119,7 +119,9 @@ public class Reception extends AppCompatActivity {
         //System.out.println(ZayavkaListAdapter.item.getMenedjer());
         setContentView(R.layout.activity_reception);
         buildText();
-
+        arr=new ArrayList<>();
+        adress = new ArrayList<String>();
+        singleAddress = new ArrayList<String>();
         sopdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -409,7 +411,31 @@ public class Reception extends AppCompatActivity {
         progressDialog.show(); // Display Progress Dialog
         progressDialog.setCancelable(false);
 
-        pposting();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    pposting();
+                } catch (NoSuchPaddingException e) {
+                    e.printStackTrace();
+                } catch (InvalidKeyException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (IllegalBlockSizeException e) {
+                    e.printStackTrace();
+                } catch (BadPaddingException e) {
+                    e.printStackTrace();
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                } catch (InvalidAlgorithmParameterException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
     }
 
         //here some mistakes, look throw

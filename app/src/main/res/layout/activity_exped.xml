@@ -775,7 +775,7 @@
                         android:layout_weight="70"
                         android:background="@android:color/white"
                         android:padding="3dp"
-                        android:text="something"
+                        android:text="нет данных"
                         android:textColor="@android:color/black"
                         android:textSize="10sp" />
                 </TableRow>
@@ -813,7 +813,7 @@
                         android:layout_weight="70"
                         android:background="@android:color/white"
                         android:padding="3dp"
-                        android:text="something"
+                        android:text="нет данных"
                         android:textColor="@android:color/black"
                         android:textSize="10sp" />
                 </TableRow>

@@ -55,13 +55,14 @@ public class ExpedPage extends AppCompatActivity  {
         TextView date=findViewById(R.id.vremyaFill);
         TextView otkuda=findViewById(R.id.marshrutFill);
         TextView kuda=findViewById(R.id.marshrutFill2);
-        TextView naimenOtpr=findViewById(R.id.naimenGruzFill);
+        TextView naimOtpr=findViewById(R.id.naimenovanieFill);
+        TextView naimenOtpr=findViewById(R.id.naimenGruzFill);         //from 1C
         TextView addressOtpr=findViewById(R.id.adresFill);
         TextView contactOtpr=findViewById(R.id.contacFill);           //from 1C
         TextView naimenPoluch=findViewById(R.id.naimenPoluchFill);
         TextView addressPoluch=findViewById(R.id.adressPoluchFill);
         TextView contactPoluch=findViewById(R.id.contactPoluchFill);  //from 1C
-        TextView platelshik=findViewById(R.id.platelshikFill);
+        TextView platelshik=findViewById(R.id.platelshikFill);        //from 1С
         TextView naimenGruz=findViewById(R.id.naimenGruzFill);        //from 1C
         TextView characGruz=findViewById(R.id.characterGruzFill);     //from 1C
         TextView kolvoMest=findViewById(R.id.kolvoMestFill);
@@ -76,11 +77,10 @@ public class ExpedPage extends AppCompatActivity  {
         date.setText(item.getDate());
         otkuda.setText(item.getFromCity());
         kuda.setText(item.getToCity());
-        naimenOtpr.setText(item.getOtpravitel());
+        naimOtpr.setText(item.getOtpravitel());
         addressOtpr.setText(item.getFromCity());
         naimenPoluch.setText(item.getPoluchatel());
         addressPoluch.setText(item.getToCity());
-        platelshik.setText(item.getPoluchatel());
         kolvoMest.setText(item.getKolvoMest());
         upakovka.setText(upak);
         ves.setText(item.getVes());

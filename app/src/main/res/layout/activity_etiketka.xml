@@ -201,12 +201,14 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp">
+                    android:layout_marginTop="3dp"
+                    android:weightSum="100">
 
                     <TextView
                         android:id="@+id/kolichMest"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="50"
                         android:text="Количество мест:"
                         android:textColor="@color/Black" />
 
@@ -214,9 +216,10 @@
                         android:id="@+id/kolich"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingLeft="40dp"
+                        android:gravity="end"
                         android:text="количество"
+                        android:layout_weight="50"
+                        android:paddingRight="40dp"
                         android:textColor="@color/Black" />
                 </LinearLayout>
 
@@ -228,14 +231,15 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:weightSum="100">
 
 
                     <TextView
                         android:id="@+id/vesBig"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="50"
                         android:text="Вес:"
                         android:textColor="@color/Black" />
 
@@ -243,7 +247,9 @@
                         android:id="@+id/ves"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:paddingRight="40dp"
+                        android:layout_weight="50"
                         android:text="вес"
                         android:textColor="@color/Black" />
                 </LinearLayout>
@@ -256,23 +262,25 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100">
 
                     <TextView
                         android:id="@+id/obiemBig"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="Объем:"
+                        android:layout_weight="50"
                         android:textColor="@color/Black" />
 
                     <TextView
                         android:id="@+id/obiem"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:paddingRight="40dp"
                         android:text="объем"
+                        android:layout_weight="50"
                         android:textColor="@color/Black" />
                 </LinearLayout>
 
@@ -476,10 +484,11 @@
 
                         <TextView
                             android:id="@+id/mesto"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingLeft="3dp"
                             android:text="1 из 2"
+                            android:gravity="center"
                             android:textColor="@android:color/black"
                             android:textSize="15dp"
                             android:textStyle="bold" />

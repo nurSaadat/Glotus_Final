@@ -71,15 +71,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Заказчик: "
-                        style="@style/TextBoldBlack"
-                        />
+                        style="@style/TextBoldBlack" />
 
                     <TextView
                         android:id="@+id/tv_zakazchic"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="57dp"
-                        android:text="//заказчик"
+                        android:layout_marginLeft="120dp"
+                        android:text="заказчик"
                         style="@style/TextPlainBlack"
                         />
 
@@ -101,8 +100,8 @@
                         android:id="@+id/tv_otpravitel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
-                        android:text="//отправитель"
+                        android:layout_marginLeft="58dp"
+                        android:text="отправитель"
                         style="@style/TextPlainBlack"/>
                 </LinearLayout>
 
@@ -122,7 +121,7 @@
                         android:id="@+id/tv_poluchatel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="35dp"
+                        android:layout_marginLeft="80dp"
                         android:text="получатель"
                         style="@style/TextPlainBlack"/>
                 </LinearLayout>
@@ -133,41 +132,49 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:weightSum="100"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp">
 
                     <TextView
                         android:id="@+id/tv_ves"
-                        style="@style/TextBoldBlack"
-                        android:layout_marginBottom="8dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="50"
                         android:ems="6"
+                        style="@style/TextBoldBlack"
                         android:text="Вес факт" />
 
                     <EditText
                         android:id="@+id/et_ves_fact"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="50"
                         android:inputType="numberDecimal"
                         android:ems="10"
                         style="@style/TextPlainBlack"
                         android:layout_toEndOf="@+id/tv_ves"/>
 
-                </RelativeLayout>
+                </LinearLayout>
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:weightSum="100"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp">
 
                     <TextView
                         android:id="@+id/tv_obem"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="50"
                         android:text="Объем факт"
                         android:ems="6"
                         style="@style/TextBoldBlack" />
@@ -176,23 +183,27 @@
                         android:id="@+id/et_obem_fact"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="50"
                         android:ems="10"
                         android:inputType="numberDecimal"
-                        style="@style/TextPlainBlack"
-                        android:layout_toEndOf="@+id/tv_obem"/>
+                        style="@style/TextPlainBlack" />
 
-                </RelativeLayout>
+                </LinearLayout>
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    >
+                    android:weightSum="100"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp">
 
                     <TextView
                         android:id="@+id/tv_kol"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="50"
                         android:text="Количество"
                         style="@style/TextBoldBlack"
                         android:ems="6"/>
@@ -201,23 +212,27 @@
                         android:id="@+id/et_kolich"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
                         android:ems="10"
-                        android:layout_toEndOf="@+id/tv_kol"
+                        android:layout_weight="50"
                         android:inputType="numberDecimal"
                         style="@style/TextPlainBlack"/>
 
-                </RelativeLayout>
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:weightSum="100">
+                    android:weightSum="100"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="57"
                         android:text="Упаковка"
                         style="@style/TextBoldBlack" />
 
@@ -225,12 +240,11 @@
                         android:id="@+id/spin_upakovka"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="47dp"
-                        android:layout_weight="20"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="43"
                         android:ems="10"
                         android:inputType="textPersonName"
-                        style="@style/TextPlainBlack"
-                        />
+                        style="@style/TextPlainBlack" />
 
                 </LinearLayout>
 
@@ -298,6 +312,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textSize="25dp"
                             android:ems="20"
                             android:inputType="textMultiLine"
                             android:text="Text" />
@@ -351,57 +366,58 @@
                         android:layout_height="match_parent"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
+                        android:layout_marginTop="5dp"
                         android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:weightSum="100"
+                            android:paddingBottom="3dp"
+                            android:paddingTop="3dp">
 
                             <TextView
                                 android:id="@+id/tv_8"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_weight="20"
+                                android:layout_gravity="center_vertical"
                                 android:text="Транспорт: "
                                 style="@style/TextBlueBold" />
 
-                            <!--<Spinner-->
-                                <!--android:id="@+id/spin_transport"-->
-                                <!--android:layout_width="match_parent"-->
-                                <!--android:layout_height="match_parent"-->
-                                <!--android:layout_weight="1"-->
-                                <!--style="@style/TextPlainBlack" />-->
                             <AutoCompleteTextView
                                 android:id="@+id/spin_transport"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="80"
                                 style="@style/TextPlainBlack" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:weightSum="100"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp">
 
                             <TextView
                                 android:id="@+id/sopDoc"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="12dp"
-                                android:layout_weight="1"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="50"
                                 android:text="Сопроводительный документ"
                                 style="@style/TextBlueBold" />
 
                             <Spinner
                                 android:id="@+id/spinner_soprDoc"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="8dp"
-                                android:layout_weight="1"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="50"
                                 style="@style/TextPlainBlack"/>
                         </LinearLayout>
 
@@ -409,26 +425,30 @@
                             android:id="@+id/sopr"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal"
-                            android:layout_marginBottom="5dp"
-                            android:visibility="gone">
+                            android:visibility="gone"
+                            android:weightSum="100"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp">
 
                             <TextView
                                 android:id="@+id/textView7"
                                 style="@style/TextBlueBold"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="50"
+                                android:ems="6"
                                 android:text="Другое:"/>
 
                             <EditText
                                 android:id="@+id/drug"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="50"
                                 android:ems="10"
-                                android:textSize="30dp"
+                                android:textSize="35dp"
                                 android:hint="Введите название"
                                 android:inputType="textPersonName" />
                         </LinearLayout>
@@ -436,40 +456,55 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:weightSum="100">
 
                             <TextView
                                 android:id="@+id/textView5"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="50"
+                                android:ems="6"
                                 android:text="Номер:"
                                 android:textAppearance="@style/TextBlueBold" />
 
                             <EditText
                                 android:id="@+id/sopnum"
                                 style="@style/Widget.AppCompat.EditText"
-                                android:layout_width="81dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="50"
+                                android:textSize="35dp"
                                 android:ems="10"
                                 android:inputType="textPersonName" />
 
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="100">
+
                             <TextView
                                 android:id="@+id/textView6"
-                                android:layout_width="44dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="50"
+                                android:ems="6"
                                 android:text="Дата:"
                                 android:textAppearance="@style/TextBlueBold" />
 
                             <EditText
                                 android:id="@+id/sopdate"
                                 style="@android:style/Widget.DeviceDefault.EditText"
-                                android:layout_width="168dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="50"
+                                android:textSize="35dp"
                                 android:ems="10"
                                 android:inputType="date" />
                         </LinearLayout>
@@ -478,7 +513,8 @@
                             android:id="@+id/l1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:weightSum="2">
 
                             <TextView
                                 android:id="@+id/tv_5"

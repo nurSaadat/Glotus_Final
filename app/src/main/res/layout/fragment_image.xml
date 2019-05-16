@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/Black"
     tools:context=".SuperviserApp.ReceptionFiles.ImageFragment">
 
     <ImageView
@@ -15,6 +16,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="image name"
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorPrimary"
         android:textSize="20dp" />
 
 

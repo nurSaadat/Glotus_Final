@@ -56,21 +56,40 @@ public class ExpedPage extends AppCompatActivity  {
         TextView otkuda=findViewById(R.id.marshrutFill);
         TextView kuda=findViewById(R.id.marshrutFill2);
         TextView naimOtpr=findViewById(R.id.naimenovanieFill);
+
         TextView naimenOtpr=findViewById(R.id.naimenGruzFill);         //from 1C
+        naimenOtpr.setText(item.getNamegruz());
+
         TextView addressOtpr=findViewById(R.id.adresFill);
+
         TextView contactOtpr=findViewById(R.id.contacFill);           //from 1C
+        contactOtpr.setText(Kont.numotpr);
+
         TextView naimenPoluch=findViewById(R.id.naimenPoluchFill);
         TextView addressPoluch=findViewById(R.id.adressPoluchFill);
+
         TextView contactPoluch=findViewById(R.id.contactPoluchFill);  //from 1C
+        contactPoluch.setText(Kont.numpoluch);
+
         TextView platelshik=findViewById(R.id.platelshikFill);        //from 1С
+        platelshik.setText("");
+
         TextView naimenGruz=findViewById(R.id.naimenGruzFill);        //from 1C
+        naimenGruz.setText(Kont.namegruz);
+
         TextView characGruz=findViewById(R.id.characterGruzFill);     //from 1C
+        characGruz.setText(item.getHaracgruz());
+
         TextView kolvoMest=findViewById(R.id.kolvoMestFill);
         TextView upakovka=findViewById(R.id.upakovka);
         TextView ves=findViewById(R.id.ves);
         TextView obiem=findViewById(R.id.obiem);
+
         TextView dopUslugi=findViewById(R.id.dopUslugiFill);            //from 1C
+        dopUslugi.setText("Забор от клиента\n" +
+                "Доставка клиенту\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t");
         TextView osobOtmExp=findViewById(R.id.osobOtmExpFill);          //from 1C
+        osobOtmExp.setText("");
         //TextView soprDoc=findViewById(R.id.soprDocFill);                //from 1C
 
         expedNum.setText(item.getNumZakaz());

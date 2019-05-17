@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:weightSum="100">
 
@@ -20,29 +20,28 @@
 
             <TextView
                 android:id="@+id/tv_data"
+                style="@style/TextBlackList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="40"
-                android:text="Hello"
-                android:textSize="13dp"
                 android:gravity="left"
+                android:text="Hello"
                 android:textColor="@android:color/black"
-                style="@style/TextBlackList"/>
+                android:textSize="13dp" />
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/tv_code"
+            style="@style/TextBlackList"
             android:layout_width="match_parent"
             android:layout_height="36dp"
             android:gravity="center"
             android:text="Hello"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
             android:textAlignment="center"
-            style="@style/TextBlackList"
-            />
+            android:textColor="@android:color/black"
+            android:textSize="15dp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

@@ -16,6 +16,14 @@ public class PdfData implements Serializable {
     String date;
     String mesta;
 
+
+    private String numotpr;
+    private String numpolu;
+    private String platel;
+    private String namegruz;
+    private String haracgruz;
+
+
     public PdfData() {
     }
 
@@ -36,6 +44,32 @@ public class PdfData implements Serializable {
         this.mesta = mesta;
 
     }
+
+    public PdfData(String fromCity, String toCity, String otpravitel, String poluchatel, String kolvoMest,
+                   String ves, String obiem, String typeTrans, String rasp, String numZakaz, String date,
+                   String mesta, String numotpr,String numpolu,String platel,String namegruz,String haracgruz) {
+        this.fromCity = fromCity;
+        this.toCity = toCity;
+        this.otpravitel = otpravitel;
+        this.poluchatel = poluchatel;
+        this.kolvoMest = kolvoMest;
+        this.ves = ves;
+        this.obiem = obiem;
+        this.typeTrans = typeTrans;
+        this.rasp = rasp;
+        this.numZakaz = numZakaz;
+        this.date = date;
+        this.mesta = mesta;
+
+
+        this.numotpr=numotpr;
+        this.numpolu=numpolu;
+        this.platel=platel;
+        this.namegruz=namegruz;
+        this.haracgruz=haracgruz;
+
+    }
+
 
     public String getFromCity() {
         return fromCity;
@@ -131,6 +165,26 @@ public class PdfData implements Serializable {
 
     public void setMesta(String mesta) {
         this.mesta = mesta;
+    }
+
+    public String getPlatel() {
+        return platel;
+    }
+
+    public String getNumpolu() {
+        return numpolu;
+    }
+
+    public String getNumotpr() {
+        return numotpr;
+    }
+
+    public String getNamegruz() {
+        return namegruz;
+    }
+
+    public String getHaracgruz() {
+        return haracgruz;
     }
 
 }

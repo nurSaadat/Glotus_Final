@@ -2,6 +2,8 @@ package com.example.usk.glotus_final.SuperviserApp.ReceptionFiles;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,11 +23,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.usk.glotus_final.R;
+import com.example.usk.glotus_final.SuperviserApp.BluetoothPrintService.Other;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.pdf.AcroFields;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfStamper;
+import com.itextpdf.text.pdf.RandomAccessFileOrArray;
+import com.qoppa.android.pdfProcess.PDFFont;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Set;
 
 
 public class ExpedPage extends AppCompatActivity  {
@@ -106,7 +122,14 @@ public class ExpedPage extends AppCompatActivity  {
         }
 
         if(id==R.id.btn_print){
-            createPDF(pdf_cont);
+            //createPDF(pdf_cont);
+            try {
+                fillPDF();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (DocumentException e) {
+                e.printStackTrace();
+            }
             printDocument(imageFile,1);
         }
 
@@ -118,6 +141,7 @@ public class ExpedPage extends AppCompatActivity  {
         RelativeLayout rel=findViewById(R.id.relLay);
         int yy = v.getScrollY()+v.getHeight();
         int xx = v.getWidth();
+
 
         PrintAttributes printAttrs = new PrintAttributes.Builder().
                 setColorMode(PrintAttributes.COLOR_MODE_COLOR).
@@ -133,7 +157,52 @@ public class ExpedPage extends AppCompatActivity  {
         saveOnDevice(document);
     }
 
-    public void saveOnDevice(PrintedPdfDocument document){
+    public void fillPDF() throws IOException, DocumentException {
+        File dir = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+        imageFile=new File(dir,"Ex.pdf");
+
+        PdfReader reader=new PdfReader(dir+"/Exp.pdf");
+        OutputStream outputStream=new FileOutputStream(imageFile);
+        BaseFont bf= (BaseFont) BaseFont.createFont("/assets/fonts/arial.ttf","CP1251",BaseFont.EMBEDDED);
+        PdfStamper pdfStamper=new PdfStamper(reader,outputStream);
+        AcroFields acroFields=pdfStamper.getAcroFields();
+        bf.addSubsetRange(BaseFont.CHAR_RANGE_CYRILLIC);
+        acroFields.addSubstitutionFont(bf);
+
+        acroFields.setField("exp_num",item.getNumZakaz());
+        acroFields.setField("date", item.getDate());
+        acroFields.setField("from_city",item.getFromCity());
+        acroFields.setField("dest_city",item.getToCity());
+        acroFields.setField("naimen_otpr",item.getOtpravitel());
+        acroFields.setField("address_otpr",item.getFromCity());
+        acroFields.setField("mobnum_otpr","нет данных");
+        acroFields.setField("naimen_poluch",item.getPoluchatel());
+        acroFields.setField("address_poluch",item.getToCity());
+        acroFields.setField("mobnum_poluch","нет данных");
+        acroFields.setField("platelshik","нет данных");
+        acroFields.setField("naimen_gruz","нет данных");
+        acroFields.setField("charac_gruz","нет данных");
+        acroFields.setField("kolvomest",item.getKolvoMest());
+        acroFields.setField("upak_gruz",upak);
+        acroFields.setField("ves_gruz",item.getVes());
+        acroFields.setField("obiem_gruz",item.getObiem());
+        acroFields.setField("dop_uslugi","нет данных");
+        acroFields.setField("otmetki_exp","нет данных");
+
+
+        AcroFields fields = reader.getAcroFields();
+        Set<String> fldNames = fields.getFields().keySet();
+
+        for (String fldName : fldNames) {
+            System.out.println( fldName + ": " + fields.getField( fldName ) );
+        }
+        pdfStamper.close();
+        outputStream.close();
+        reader.close();
+    }
+
+
+    public void saveOnDevice(PdfDocument document){
         File mFolder;
         String fileName="Exped.pdf";
         try {

@@ -16,7 +16,7 @@
 
         <RelativeLayout
             android:id="@+id/relLay"
-            android:layout_width="600dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView

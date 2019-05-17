@@ -32,4 +32,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     //implementation files('src/okio-2.1.0.jar')
     implementation files('src/main/jniLibs')
+    implementation 'com.itextpdf:itextg:5.5.10'
 }

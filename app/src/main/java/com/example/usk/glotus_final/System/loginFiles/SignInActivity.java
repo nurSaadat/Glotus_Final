@@ -25,6 +25,8 @@ import android.widget.Toast;
 
 import com.example.usk.glotus_final.ManagerApp.ManagerListFiles.ManagerListActivity;
 import com.example.usk.glotus_final.R;
+
+import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.Admin;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.Zayavka;
 import com.example.usk.glotus_final.System.Catalog.Adress;
@@ -216,8 +218,8 @@ public class SignInActivity extends AppCompatActivity {
         }).start();
 */
 /*
-       // server=new Server("http://185.209.23.53/InfoBase/odata/standard.odata",getCredential(name,password));
-        server.setUrl("http://185.209.23.53/InfoBase/odata/standard.odata?$format=json");
+       // server=new Server("http://89.219.32.202/glotus/odata/standard.odata",getCredential(name,password));
+        server.setUrl("http://89.219.32.202/glotus/odata/standard.odata?$format=json");
         server.setCredential(getCredential(name,password));
         System.out.println(server.get());
         System.out.println(server.getAns());
@@ -230,7 +232,7 @@ public class SignInActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void run() {
-                /*server.setUrl("http://185.209.23.53/InfoBase/odata/standard.odata?$format=json");
+                /*server.setUrl("http://89.219.32.202/glotus/odata/standard.odata?$format=json");
                 server.setCredential(getCredential(name,password));
                 System.out.println(server.get());
                 System.out.println(server.getAns());
@@ -240,7 +242,7 @@ public class SignInActivity extends AppCompatActivity {
 
 
                 try {
-                    process("http://185.209.23.53/InfoBase/odata/standard.odata/Catalog_%D0%9F%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D0%B8?$format=json&$filter=Code%20eq%20%27"+
+                    process("http://89.219.32.202/glotus/odata/standard.odata/Catalog_%D0%9F%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D0%B8?$format=json&$filter=Code%20eq%20%27"+
                             URLEncoder.encode(name, java.nio.charset.StandardCharsets.UTF_8.toString())+"%27&$select=%D0%A0%D0%BE%D0%BB%D1%8C%D0%92%D0%A1%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B5","GET",User.getCredential(),"{}");
                 } catch (NoSuchPaddingException e) {
                     e.printStackTrace();
@@ -287,7 +289,7 @@ public class SignInActivity extends AppCompatActivity {
         String string = AES.aesEncryptString(body, "1234567890123456");
         body="data="+string;
         System.out.println(body);
-        server = new Server("http://185.209.23.53/odata/demoaes.php",null, body);
+        server = new Server("http://89.219.32.202/odata/demoaes.php",null, body);
         return server.post();
     }
 
@@ -380,6 +382,7 @@ public class SignInActivity extends AppCompatActivity {
             }
             else{
             finish();
+                Admin.name=name;
                 Intent myIntent = new Intent(SignInActivity.this, SuperviserListActivity.class);
                 startActivity(myIntent);}
         }

@@ -70,6 +70,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -99,8 +100,8 @@ public class Reception extends AppCompatActivity {
     String ttt="";
     Boolean damage=false;
     private String msg= "Уважаемый клиент, обращаем Ваше внимание, что в результате приемки груза были " +
-                        "выявлены повреждения упаковки (см. фото)," +
-                        " по всем вопросам связывайтесь с Вашим менеджером Администратор тел.";
+                        "выявлены повреждения упаковки (см. фото),\n" +
+                        "\n" + " по всем вопросам связывайтесь с Вашим менеджером Администратор тел.";
     private String trkey="00000000-0000-0000-0000-000000000000";
 
     //новые переменные для фоток
@@ -320,6 +321,15 @@ public class Reception extends AppCompatActivity {
         poluchatel.setText(ZayavkaListAdapter.item.getRecept());
         manager.setText(ZayavkaListAdapter.item.getMenedjer());
         podrazdelenie.setText((String)Podrazd.pdpreferences.getAll().get(ZayavkaListAdapter.item.getPodrazd()));
+        Kont.namegruz=ZayavkaListAdapter.item.getNamegruz();
+        Kont.numotpr=ZayavkaListAdapter.item.getNumotpr();
+        Kont.numpoluch=ZayavkaListAdapter.item.getNumpolu();
+
+        System.out.println("111");
+        System.out.println(Kont.namegruz);
+        System.out.println(Kont.numotpr);
+        System.out.println(Kont.numpoluch);
+        System.out.println("111");
 
     }
 
@@ -358,11 +368,26 @@ public class Reception extends AppCompatActivity {
         Log.d("aaa",body);
         System.out.println(body);
         Server server;
-        server = new Server("http://185.209.23.53/odata/demoaes.php",null, body);
+        server = new Server("http://89.219.32.202/odata/demoaes.php",null, body);
         return server.post();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static String processM(String url, String way, String cred, String data) throws NoSuchPaddingException, UnsupportedEncodingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+        String body=url+","+way+","+cred+"*---*" +data;
+        System.out.println(body);
+        String string = AES.aesEncryptString(body, "1234567890123456");
+        body="data="+string;
+        Log.d("aaa",body);
+        System.out.println(body);
+        Server server;
+        server = new Server(url,User.getCredential(), data);
+        return server.post1();
+    }
+
+
     public void uploadingfile(){
+        CountDownLatch countDownLatch = new CountDownLatch(1);
 
         for(int i=0;i<arr.size();i++){
             String encodedImage="";
@@ -379,12 +404,13 @@ public class Reception extends AppCompatActivity {
         for (int i=0;i<adress.size();i++){
             System.out.println(adress.get(i).toString());
         }
+        countDownLatch.countDown();
     }
 
     public void upload(String encodedImage, int i) {
         encodedImage=encodedImage.replace("/","%2F").replace("+","%2B");
         String body = "image="+encodedImage+"&key="+ZayavkaListAdapter.item.getNumber().toString()+"&iter="+i;
-        ServerPhoto sr= new ServerPhoto("http://185.209.23.53/upload/uploaded.php",null,body);
+        ServerPhoto sr= new ServerPhoto("http://89.219.32.202/upload/uploaded.php",null,body);
 
         adress.add(sr.post().replace("<","").replace("\\","\\\\").replace("/","\\\\"));
         System.out.println(sr.getRes());
@@ -483,7 +509,6 @@ public class Reception extends AppCompatActivity {
                 "    \"ДокументОснования_Key\": \""+ZayavkaListAdapter.item.getRef_key()+"\",\n" +
               //      "    \"Менеджер_Key\": \""+ZayavkaListAdapter.item.getMenedjer()+"\",\n" +
                 "    \"Отправитель\": \""+ZayavkaListAdapter.item.getSender().replace("\"","\\\"")+"\",\n" +
-                "    \"Подразделение_Key\": \""+ZayavkaListAdapter.item.getPodrazd()+"\",\n" +
                 "    \"Комментарий\": \""+comment.getText().toString()+"\",\n" +
                 "    \"Фото_Type\": \"application/image/jpeg\",\n" +
                 "    \"Письмо\": \""+komentToFill.getText().toString()+"\",\n" +
@@ -495,7 +520,7 @@ public class Reception extends AppCompatActivity {
         System.out.println(body);
         System.out.println(body);
 
-        String res=process("http://185.209.23.53/InfoBase/odata/standard.odata/Document_%D0%9F%D1%80%D0%B8%D0%B5%D0%BC%D0%9D%D0%B0%D0%A1%D0%BA%D0%BB%D0%B0%D0%B4?$format=json","POST", User.getCredential(),body);
+        String res=process("http://89.219.32.202/glotus/odata/standard.odata/Document_%D0%9F%D1%80%D0%B8%D0%B5%D0%BC%D0%9D%D0%B0%D0%A1%D0%BA%D0%BB%D0%B0%D0%B4?$format=json","POST", User.getCredential(),body);
         System.out.println(res);
         JSONArray array = null;
         JSONObject jsonObj=null;
@@ -506,13 +531,15 @@ public class Reception extends AppCompatActivity {
         }
         System.out.println(jsonObj.getString("Ref_Key").toString());
 
-        res=process("http://185.209.23.53/InfoBase/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7(guid\'"+ZayavkaListAdapter.item.getRef_key()+"\')?$format=json","PATCH","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz",
+       res=processM("http://89.219.32.202/glotus/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7(guid\'"+ZayavkaListAdapter.item.getRef_key()+"\')?$format=json","PATCH","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz",
                     "{\"ДокументПриемГруза_Key\": \""+jsonObj.getString("Ref_Key").toString()+"\",\"СтатусЗаказа\": \"ПринятноНаСкладе\",\"ВесФакт\":\""+vesFact.getText().toString()+"\",\"ОбъемФакт\": \""+obiemFact.getText().toString()+"\",\"КоличествоФакт\": \""+kolich.getText().toString()+"\"}");
+
 
         System.out.println(res);
         pd=new PdfData(ZayavkaListAdapter.item.getSenderadr(),ZayavkaListAdapter.item.getReceptadr(),ZayavkaListAdapter.item.getSender(),ZayavkaListAdapter.item.getRecept(),kolich.getText().toString(),vesFact.getText().toString(),
                     obiemFact.getText().toString(),"AUTO","Админ", ZayavkaListAdapter.item.getNumber().toString(),ZayavkaListAdapter.item.getDate().toString(),
-                    " ");
+                    " ", ZayavkaListAdapter.item.getNumotpr(),ZayavkaListAdapter.item.getNumpolu(),ZayavkaListAdapter.item.getPlatel(),ZayavkaListAdapter.item.getNamegruz(),
+                ZayavkaListAdapter.item.getHaracgruz());
 
         Intent myIntent = new Intent(Reception.this, Etiketka.class);
         myIntent.putExtra("pdfData", pd);

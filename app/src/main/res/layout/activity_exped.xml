@@ -658,7 +658,7 @@
                         android:layout_weight="10"
                         android:background="@android:color/white"
                         android:padding="3dp"
-                        android:text="@string/upakovka"
+                        android:text=""
                         android:textColor="@android:color/black"
                         android:textSize="10sp" />
                 </TableRow>

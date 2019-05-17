@@ -100,12 +100,12 @@ public class Etiketka extends AppCompatActivity{
         kolichMest.setText(pd.getKolvoMest());
         ves.setText(pd.getVes());
         obiem.setText(pd.getObiem());
-        raspechatal.setText(pd.getRasp());
+        raspechatal.setText(Admin.name);
         idAndDate.setText(pd.getNumZakaz()+" от "+pd.getDate());
         gorodOtkuda1.setText(pd.getFromCity());
         gorodKuda1.setText(pd.getToCity());
         mesto.setText("1 из "+pd.getKolvoMest());
-        raspechatal1.setText(pd.getRasp());
+        raspechatal1.setText(Admin.name);
         idAndDate1.setText(pd.getNumZakaz()+" от "+pd.getDate());
     }
 
@@ -132,18 +132,44 @@ public class Etiketka extends AppCompatActivity{
         }
         return super.onOptionsItemSelected(item);
     }
+    /*    public Bitmap getViewBitmap(View v){
+            v.setDrawingCacheEnabled(true);
+            v.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+            v.layout(0, 0, v.getMeasuredWidth(), v.getMeasuredHeight());
+            v.buildDrawingCache(true);
+            Bitmap b = Bitmap.createBitmap(
+                    getResources().getDisplayMetrics().densityDpi*v.getHeight(),
+                    getResources().getDisplayMetrics().densityDpi*v.getWidth(),
+                    Bitmap.Config.ARGB_8888
+                    );
+            Canvas c = new Canvas(b);
+            v.layout(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());
+            v.draw(c);
+            v.setDrawingCacheEnabled(false);
 
-    public Bitmap getViewBitmap(View v){
-        v.setDrawingCacheEnabled(true);
-        v.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-        v.layout(0, 0, v.getMeasuredWidth(), v.getMeasuredHeight());
-        v.buildDrawingCache(true);
-        Bitmap b = Bitmap.createBitmap(v.getDrawingCache());
-        v.setDrawingCacheEnabled(false);
+            return b;
+        }
+    */
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public Bitmap getViewBitmap(View v) {
+        Bitmap bitmap = Bitmap.createBitmap(
+                1100,
+                1100,
+                Bitmap.Config.RGBA_F16
+        );
 
-        return b;
+        bitmap.setDensity(1300);
+        Canvas canvas = new Canvas(bitmap);
+
+        v.draw(canvas);
+
+
+        return bitmap;
+
     }
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void createPDF (){
@@ -162,8 +188,14 @@ public class Etiketka extends AppCompatActivity{
             mesto.setText(i+" из "+kolvoMest);
             Bitmap bitmap=getViewBitmap(firstPartLayout);
             Bitmap secondPart=getViewBitmap(secondPartLayout);
-            Bitmap rszBitmap = resizeBitmap(bitmap, width, height);
-            Bitmap rszBitmap2 = resizeBitmap(secondPart, width, height);
+            // Bitmap rszBitmap = resizeBitmap(bitmap, width, height);
+            // Bitmap rszBitmap2 = resizeBitmap(secondPart, width, height);
+
+            // Bitmap rszBitmap = get_Resized_Bitmap(bitmap, width, height);
+            // Bitmap rszBitmap2 = get_Resized_Bitmap(secondPart, width, height);
+
+            Bitmap rszBitmap = bitmap;
+            Bitmap rszBitmap2 = secondPart;
 
             int xx = rszBitmap.getWidth();
             int yy = rszBitmap.getHeight();
@@ -216,7 +248,10 @@ public class Etiketka extends AppCompatActivity{
         resizedBitmap = Other.resizeImage(bitmap, newWidth, newHeight);
         return resizedBitmap;
     }
-
+    public Bitmap get_Resized_Bitmap(Bitmap bmp, int newHeight, int newWidth) {
+        Bitmap newBitmap= Bitmap.createScaledBitmap(bmp, newHeight, newWidth, true);
+        return newBitmap ;
+    }
     public void printDocument(File file,int totalPage){
         PrintManager printManager = (PrintManager) this.getSystemService(Context.PRINT_SERVICE);
         String jobName = this.getString(R.string.app_name) + " Document";

@@ -15,6 +15,14 @@ public class Zayavka {
     private String podrazd;
     private String status;
 
+
+    private String numotpr;
+    private String numpolu;
+    private String platel;
+    private String namegruz;
+    private String haracgruz;
+
+
     public Zayavka(){
         
     }
@@ -31,6 +39,31 @@ public class Zayavka {
         this.menedjer=menedjer;
         this.podrazd=podrazd;
         this.status=status;
+    }
+
+    public Zayavka(String number, String date, String sender, String recept, String senderadr, String receptadr, String Ref_key, String zakaz,String menedjer, String podrazd, String status,
+                   String numotpr,String numpolu,String platel,String namegruz,String haracgruz
+
+                   ) {
+        this.number = number;
+        this.date = date;
+        this.sender = sender;
+        this.recept =recept;
+        this.senderadr=senderadr;
+        this.receptadr=receptadr;
+        this.Ref_key=Ref_key;
+        this.zakaz=zakaz;
+        this.menedjer=menedjer;
+        this.podrazd=podrazd;
+        this.status=status;
+
+
+        this.numotpr=numotpr;
+        this.numpolu=numpolu;
+        this.platel=platel;
+        this.namegruz=namegruz;
+        this.haracgruz=haracgruz;
+
     }
 
     public String getDate() {
@@ -87,6 +120,30 @@ public class Zayavka {
     }
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getHaracgruz() {
+        return haracgruz;
+    }
+
+    public void setHaracgruz(String haracgruz) {
+        this.haracgruz = haracgruz;
+    }
+
+    public String getNamegruz() {
+        return namegruz;
+    }
+
+    public String getNumotpr() {
+        return numotpr;
+    }
+
+    public String getNumpolu() {
+        return numpolu;
+    }
+
+    public String getPlatel() {
+        return platel;
     }
 
     /*private String created_at, zakazchik, otpravitel, poluchatel, upakovka, brak, status, title ,ves, obem, kolichestvo, id;

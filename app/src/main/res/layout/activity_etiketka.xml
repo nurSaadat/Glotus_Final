@@ -219,7 +219,7 @@
                         android:gravity="end"
                         android:text="количество"
                         android:layout_weight="50"
-                        android:paddingRight="40dp"
+                        android:paddingRight="75dp"
                         android:textColor="@color/Black" />
                 </LinearLayout>
 
@@ -248,7 +248,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:paddingRight="40dp"
+                        android:paddingRight="75dp"
                         android:layout_weight="50"
                         android:text="вес"
                         android:textColor="@color/Black" />
@@ -278,7 +278,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:paddingRight="40dp"
+                        android:paddingRight="75dp"
                         android:text="объем"
                         android:layout_weight="50"
                         android:textColor="@color/Black" />

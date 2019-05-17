@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.usk.glotus_final.ManagerApp.ManagerListFiles.ManagerListActivity;
 import com.example.usk.glotus_final.R;
+import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.Admin;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.Zayavka;
 import com.example.usk.glotus_final.System.Catalog.Adress;
@@ -380,6 +381,7 @@ public class SignInActivity extends AppCompatActivity {
             }
             else{
             finish();
+            Admin.name=name;
                 Intent myIntent = new Intent(SignInActivity.this, SuperviserListActivity.class);
                 startActivity(myIntent);}
         }

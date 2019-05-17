@@ -89,6 +89,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Город откуда"
+
                             android:textColor="@color/Black"
                             android:textSize="17dp"
                             android:textStyle="bold" />
@@ -140,6 +141,7 @@
                         android:gravity="center"
                         android:text="откуда"
                         android:textColor="@color/Black"
+                        android:textStyle="bold"
                         android:textSize="10dp" />
 
                     <TextView
@@ -150,6 +152,7 @@
                         android:gravity="center"
                         android:text="куда"
                         android:textColor="@color/Black"
+                        android:textStyle="bold"
                         android:textSize="10dp" />
                 </LinearLayout>
 
@@ -163,6 +166,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Отправитель:"
+                        android:textStyle="bold"
                         android:textColor="@color/Black" />
 
                     <TextView
@@ -171,6 +175,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_weight="1"
+                        android:textStyle="bold"
                         android:text="имя отправителя"
                         android:textColor="@color/Black" />
 
@@ -186,6 +191,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Получатель:"
+                        android:textStyle="bold"
                         android:textColor="@color/Black" />
 
                     <TextView
@@ -194,6 +200,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_weight="1"
+                        android:textStyle="bold"
                         android:text="имя получателя"
                         android:textColor="@color/Black" />
                 </LinearLayout>
@@ -209,6 +216,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="50"
+                        android:textStyle="bold"
                         android:text="Количество мест:"
                         android:textColor="@color/Black" />
 
@@ -218,6 +226,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="end"
                         android:text="количество"
+                        android:textStyle="bold"
                         android:layout_weight="50"
                         android:paddingRight="75dp"
                         android:textColor="@color/Black" />
@@ -241,6 +250,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="50"
                         android:text="Вес:"
+                        android:textStyle="bold"
                         android:textColor="@color/Black" />
 
                     <TextView
@@ -249,6 +259,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="end"
                         android:paddingRight="75dp"
+                        android:textStyle="bold"
                         android:layout_weight="50"
                         android:text="вес"
                         android:textColor="@color/Black" />
@@ -270,6 +281,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Объем:"
+                        android:textStyle="bold"
                         android:layout_weight="50"
                         android:textColor="@color/Black" />
 
@@ -280,6 +292,7 @@
                         android:gravity="end"
                         android:paddingRight="75dp"
                         android:text="объем"
+                        android:textStyle="bold"
                         android:layout_weight="50"
                         android:textColor="@color/Black" />
                 </LinearLayout>
@@ -299,6 +312,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Распечатал:"
+                        android:textStyle="bold"
                         android:textColor="@color/Black"
                         android:textSize="10dp" />
 
@@ -307,6 +321,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Администратор"
+                        android:textStyle="bold"
                         android:textColor="@color/Black"
                         android:textSize="10dp" />
 
@@ -315,6 +330,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="ALA004703 от 10.11.2016"
+                        android:textStyle="bold"
                         android:textAlignment="viewEnd"
                         android:textColor="@color/Black"
                         android:textSize="10dp" />
@@ -323,6 +339,7 @@
                 <View
                     android:id="@+id/i4"
                     android:layout_width="match_parent"
+
                     android:layout_height="2dp"
                     android:background="@android:color/black" />
 
@@ -432,6 +449,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="откуда"
+                        android:textStyle="bold"
                         android:textColor="@android:color/black"
                         android:textSize="10dp" />
 
@@ -441,6 +459,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:textStyle="bold"
                         android:text="куда"
                         android:textColor="@android:color/black"
                         android:textSize="10dp" />
@@ -468,6 +487,7 @@
                             android:textSize="15dp"
                             android:textStyle="bold" />
 
+
                         <View
                             android:id="@+id/i9"
                             android:layout_width="match_parent"
@@ -489,6 +509,7 @@
                             android:paddingLeft="3dp"
                             android:text="1 из 2"
                             android:gravity="center"
+
                             android:textColor="@android:color/black"
                             android:textSize="15dp"
                             android:textStyle="bold" />
@@ -512,6 +533,7 @@
                         android:id="@+id/otpravitel1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textStyle="bold"
                         android:text="Отправитель:"
                         android:textColor="@android:color/black" />
 
@@ -521,6 +543,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_weight="1"
+                        android:textStyle="bold"
                         android:text="имя отправителя"
                         android:textColor="@android:color/black" />
 
@@ -536,6 +559,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Получатель:"
+                        android:textStyle="bold"
                         android:textColor="@android:color/black" />
 
                     <TextView
@@ -545,6 +569,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_weight="1"
                         android:text="имя получателя"
+                        android:textStyle="bold"
                         android:textColor="@android:color/black" />
                 </LinearLayout>
 
@@ -558,6 +583,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Распечатал:"
+                        android:textStyle="bold"
                         android:textColor="@android:color/black"
                         android:textSize="10dp" />
 
@@ -566,6 +592,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Администратор"
+                        android:textStyle="bold"
                         android:textColor="@android:color/black"
                         android:textSize="10dp" />
 
@@ -574,6 +601,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="ALA004703 от 10.11.2016"
+                        android:textStyle="bold"
                         android:textAlignment="viewEnd"
                         android:textColor="@android:color/black"
                         android:textSize="10dp" />

@@ -368,7 +368,7 @@ public class Reception extends AppCompatActivity {
         Log.d("aaa",body);
         System.out.println(body);
         Server server;
-        server = new Server("http://89.219.32.202/odata/demoaes.php",null, body);
+        server = new Server("http://185.209.23.53/odata/demoaes.php",null, body);
         return server.post();
     }
 
@@ -410,7 +410,7 @@ public class Reception extends AppCompatActivity {
     public void upload(String encodedImage, int i) {
         encodedImage=encodedImage.replace("/","%2F").replace("+","%2B");
         String body = "image="+encodedImage+"&key="+ZayavkaListAdapter.item.getNumber().toString()+"&iter="+i;
-        ServerPhoto sr= new ServerPhoto("http://89.219.32.202/upload/uploaded.php",null,body);
+        ServerPhoto sr= new ServerPhoto("http://185.209.23.53/upload/uploaded.php",null,body);
 
         adress.add(sr.post().replace("<","").replace("\\","\\\\").replace("/","\\\\"));
         System.out.println(sr.getRes());
@@ -520,7 +520,7 @@ public class Reception extends AppCompatActivity {
         System.out.println(body);
         System.out.println(body);
 
-        String res=process("http://89.219.32.202/glotus/odata/standard.odata/Document_%D0%9F%D1%80%D0%B8%D0%B5%D0%BC%D0%9D%D0%B0%D0%A1%D0%BA%D0%BB%D0%B0%D0%B4?$format=json","POST", User.getCredential(),body);
+        String res=process("http://185.209.23.53/InfoBase/odata/standard.odata/Document_%D0%9F%D1%80%D0%B8%D0%B5%D0%BC%D0%9D%D0%B0%D0%A1%D0%BA%D0%BB%D0%B0%D0%B4?$format=json","POST", User.getCredential(),body);
         System.out.println(res);
         JSONArray array = null;
         JSONObject jsonObj=null;
@@ -531,7 +531,7 @@ public class Reception extends AppCompatActivity {
         }
         System.out.println(jsonObj.getString("Ref_Key").toString());
 
-       res=processM("http://89.219.32.202/glotus/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7(guid\'"+ZayavkaListAdapter.item.getRef_key()+"\')?$format=json","PATCH","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz",
+       res=processM("http://185.209.23.53/InfoBase/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7(guid\'"+ZayavkaListAdapter.item.getRef_key()+"\')?$format=json","PATCH","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz",
                     "{\"ДокументПриемГруза_Key\": \""+jsonObj.getString("Ref_Key").toString()+"\",\"СтатусЗаказа\": \"ПринятноНаСкладе\",\"ВесФакт\":\""+vesFact.getText().toString()+"\",\"ОбъемФакт\": \""+obiemFact.getText().toString()+"\",\"КоличествоФакт\": \""+kolich.getText().toString()+"\"}");
 
 

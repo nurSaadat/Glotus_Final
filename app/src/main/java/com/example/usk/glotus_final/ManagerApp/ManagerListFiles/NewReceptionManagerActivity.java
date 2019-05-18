@@ -522,7 +522,7 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
             System.out.println(data);
             String res=null;
             try {
-                res = process("http://89.219.32.202/glotus/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json", "POST", User.getCredential(),
+                res = process("http://185.209.23.53/InfoBase/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json", "POST", User.getCredential(),
                         data);
                 System.out.println(res);
                 System.out.println("add");
@@ -666,7 +666,7 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
             RefKeys.vidpr=mactv_vid.getSelectedItem().toString();
 
 
-            String res = process("http://89.219.32.202/glotus/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7(guid\'" + RefKeys.Ref_Key + "\')?$format=json", "PATCH", User.getCredential(),
+            String res = process("http://185.209.23.53/InfoBase/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7(guid\'" + RefKeys.Ref_Key + "\')?$format=json", "PATCH", User.getCredential(),
                     data);
             System.out.println(res);*/
 
@@ -682,7 +682,7 @@ public class NewReceptionManagerActivity extends AppCompatActivity {
         Log.d("aaa",body);
         System.out.println(body);
         Server server;
-        server = new Server("http://89.219.32.202/odata/demoaes.php",null, body);
+        server = new Server("http://185.209.23.53/odata/demoaes.php",null, body);
         return server.post();
     }
 

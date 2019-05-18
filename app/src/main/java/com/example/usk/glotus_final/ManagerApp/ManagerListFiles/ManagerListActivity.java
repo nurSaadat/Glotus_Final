@@ -210,7 +210,7 @@ public class ManagerListActivity extends AppCompatActivity {
         String string = AES.aesEncryptString(body, "1234567890123456");
         body="data="+string;
         System.out.println(body);
-        server = new Server("http://89.219.32.202/odata/demoaes.php",null, body);
+        server = new Server("http://185.209.23.53/odata/demoaes.php",null, body);
         return server.post();
     }
     public void initlist(final ArrayList<ManagerZayavka> ppp){
@@ -285,7 +285,7 @@ public class ManagerListActivity extends AppCompatActivity {
         mManagerZayavkas = new ArrayList<>();
 
 
-        process("http://89.219.32.202/glotus/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json&$filter=DeletionMark%20eq%20false&$orderby=Ref_Key%20desc&$skip=0&$top="+top+"","GET",User.getCredential(),"{}");
+        process("http://185.209.23.53/InfoBase/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json&$filter=DeletionMark%20eq%20false&$orderby=Ref_Key%20desc&$skip=0&$top="+top+"","GET",User.getCredential(),"{}");
         skip=20;
         String json = server.getRes();
 
@@ -400,7 +400,7 @@ public class ManagerListActivity extends AppCompatActivity {
            int kk=0;
            int aa=0;
            int yy=skip+p;
-            process("http://89.219.32.202/glotus/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json&$filter=DeletionMark%20eq%20false&$orderby=Ref_Key%20desc&$skip="+yy+"&$top="+200+"","GET",User.getCredential(),"{}");
+            process("http://185.209.23.53/InfoBase/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json&$filter=DeletionMark%20eq%20false&$orderby=Ref_Key%20desc&$skip="+yy+"&$top="+200+"","GET",User.getCredential(),"{}");
 
             String json = server.getRes();
 
@@ -496,7 +496,7 @@ public class ManagerListActivity extends AppCompatActivity {
         }
         else{
             p=0;
-            process("http://89.219.32.202/glotus/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json&$filter=DeletionMark%20eq%20false&$orderby=Ref_Key%20desc&$skip="+skip+"&$top="+top+"","GET",User.getCredential(),"{}");
+            process("http://185.209.23.53/InfoBase/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json&$filter=DeletionMark%20eq%20false&$orderby=Ref_Key%20desc&$skip="+skip+"&$top="+top+"","GET",User.getCredential(),"{}");
             skip+=20;
             String json = server.getRes();
 

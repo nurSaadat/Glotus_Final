@@ -211,7 +211,7 @@ public class ListOtgruzki extends AppCompatActivity {
             String string = AES.aesEncryptString(body, "1234567890123456");
             body="data="+string;
             System.out.println(body);
-            server = new Server("http://89.219.32.202/odata/demoaes.php",null, body);
+            server = new Server("http://185.209.23.53/odata/demoaes.php",null, body);
             return server.post();
         }
 
@@ -224,7 +224,7 @@ public class ListOtgruzki extends AppCompatActivity {
 
 
         System.out.println(User.cred);
-        process("http://89.219.32.202/glotus/odata/standard.odata/Document_%D0%9E%D1%82%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0?$format=json&$orderby=Ref_Key%20desc","GET",User.getCredential(),"{}");
+        process("http://185.209.23.53/InfoBase/odata/standard.odata/Document_%D0%9E%D1%82%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0?$format=json&$orderby=Ref_Key%20desc","GET",User.getCredential(),"{}");
         skip=20;
         String json = server.getRes();
         System.out.println(json);

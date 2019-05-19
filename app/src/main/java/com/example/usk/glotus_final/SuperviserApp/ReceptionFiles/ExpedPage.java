@@ -123,7 +123,7 @@ public class ExpedPage extends AppCompatActivity  {
             } catch (DocumentException e) {
                 e.printStackTrace();
             }
-            printDocument(destinationFile,1);
+            printDocument(destinationFile,2);
         }
 
         return super.onOptionsItemSelected(item);
@@ -132,7 +132,7 @@ public class ExpedPage extends AppCompatActivity  {
     public void fillPDF() throws IOException, DocumentException {
         destinationFile=createFile();
 
-        PdfReader reader=new PdfReader(getResources().openRawResource(R.raw.src_exped_file));
+        PdfReader reader=new PdfReader(getResources().openRawResource(R.raw.exped_src_file));
         OutputStream outputStream=new FileOutputStream(destinationFile);
         PdfStamper pdfStamper=new PdfStamper(reader,outputStream);
         AcroFields acroFields=pdfStamper.getAcroFields();
@@ -151,7 +151,7 @@ public class ExpedPage extends AppCompatActivity  {
         acroFields.setField("naimen_poluch", item.getPoluchatel());
         acroFields.setField("address_poluch", item.getToCity());
         acroFields.setField("mobnum_poluch", Kont.numpoluch);
-        acroFields.setField("platelshik","");
+        acroFields.setField("platelshik","lola");
         acroFields.setField("naimen_gruz", Kont.namegruz);
         acroFields.setField("charac_gruz", item.getHaracgruz());
         acroFields.setField("kolvomest", item.getKolvoMest());
@@ -159,7 +159,14 @@ public class ExpedPage extends AppCompatActivity  {
         acroFields.setField("ves_gruz", item.getVes());
         acroFields.setField("obiem_gruz", item.getObiem());
         acroFields.setField("dop_uslugi","Забор от клиента\n" + "Доставка клиенту\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t");
-        acroFields.setField("otmetki_exp","");
+        acroFields.setField("otmetki_exp","lola");
+
+        AcroFields fields = reader.getAcroFields();
+        Set<String> fldNames = fields.getFields().keySet();
+
+        for (String fldName : fldNames) {
+            System.out.println( fldName + ": " + fields.getField( fldName ) );
+        }
 
         pdfStamper.setFormFlattening(true);
         pdfStamper.close();

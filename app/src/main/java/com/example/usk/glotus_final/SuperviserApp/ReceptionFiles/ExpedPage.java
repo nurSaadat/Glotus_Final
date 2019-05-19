@@ -2,39 +2,39 @@ package com.example.usk.glotus_final.SuperviserApp.ReceptionFiles;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.pdf.PdfDocument;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
-import android.print.PrintAttributes;
 import android.print.PrintManager;
-import android.print.pdf.PrintedPdfDocument;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.AcroFields;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfStamper;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Set;
 
 
 public class ExpedPage extends AppCompatActivity  {
-    private RelativeLayout pdf_cont;
-    private ScrollView scrollView2;
     private MenuItem btn_print;
     private String upak=Reception.upakovka.getSelectedItem().toString();
     private PdfData item;
-    private File imageFile;
+    private File destinationFile;
+
+    private final static String FONT="/assets/fonts/PTC55F.ttf";
+    private final static String DESTFILE="ExpeditorFile.pdf";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,6 @@ public class ExpedPage extends AppCompatActivity  {
         Intent intent=getIntent();
         item=(PdfData) intent.getExtras().getSerializable("pdfExped");
 
-        pdf_cont=findViewById(R.id.relLay);
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
         buildText(item);
@@ -56,41 +55,31 @@ public class ExpedPage extends AppCompatActivity  {
         TextView otkuda=findViewById(R.id.marshrutFill);
         TextView kuda=findViewById(R.id.marshrutFill2);
         TextView naimOtpr=findViewById(R.id.naimenovanieFill);
-
         TextView naimenOtpr=findViewById(R.id.naimenGruzFill);         //from 1C
-        naimenOtpr.setText(item.getNamegruz());
-
         TextView addressOtpr=findViewById(R.id.adresFill);
-
         TextView contactOtpr=findViewById(R.id.contacFill);           //from 1C
-        contactOtpr.setText(Kont.numotpr);
-
         TextView naimenPoluch=findViewById(R.id.naimenPoluchFill);
         TextView addressPoluch=findViewById(R.id.adressPoluchFill);
-
         TextView contactPoluch=findViewById(R.id.contactPoluchFill);  //from 1C
-        contactPoluch.setText(Kont.numpoluch);
-
         TextView platelshik=findViewById(R.id.platelshikFill);        //from 1С
-        platelshik.setText("");
-
         TextView naimenGruz=findViewById(R.id.naimenGruzFill);        //from 1C
-        naimenGruz.setText(Kont.namegruz);
-
         TextView characGruz=findViewById(R.id.characterGruzFill);     //from 1C
-        characGruz.setText(item.getHaracgruz());
-
         TextView kolvoMest=findViewById(R.id.kolvoMestFill);
         TextView upakovka=findViewById(R.id.upakovka);
         TextView ves=findViewById(R.id.ves);
         TextView obiem=findViewById(R.id.obiem);
-
         TextView dopUslugi=findViewById(R.id.dopUslugiFill);            //from 1C
+        TextView osobOtmExp=findViewById(R.id.osobOtmExpFill);          //from 1C
+
+        naimenOtpr.setText(item.getNamegruz());
+        contactOtpr.setText(Kont.numotpr);
+        contactPoluch.setText(Kont.numpoluch);
+        platelshik.setText("");
+        naimenGruz.setText(Kont.namegruz);
+        characGruz.setText(item.getHaracgruz());
         dopUslugi.setText("Забор от клиента\n" +
                 "Доставка клиенту\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t");
-        TextView osobOtmExp=findViewById(R.id.osobOtmExpFill);          //from 1C
         osobOtmExp.setText("");
-        //TextView soprDoc=findViewById(R.id.soprDocFill);                //from 1C
 
         expedNum.setText(item.getNumZakaz());
         date.setText(item.getDate());
@@ -125,50 +114,64 @@ public class ExpedPage extends AppCompatActivity  {
         }
 
         if(id==R.id.btn_print){
-            createPDF(pdf_cont);
-            printDocument(imageFile,1);
+            try {
+                fillPDF();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (DocumentException e) {
+                e.printStackTrace();
+            }
+            printDocument(destinationFile,1);
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void createPDF (View v){
-        //ScrollView scroll = findViewById(R.id.scrollview);
-        RelativeLayout rel=findViewById(R.id.relLay);
-        int yy = v.getScrollY()+v.getHeight();
-        int xx = v.getWidth();
+    public void fillPDF() throws IOException, DocumentException {
+        destinationFile=createFile();
 
-        PrintAttributes printAttrs = new PrintAttributes.Builder().
-                setColorMode(PrintAttributes.COLOR_MODE_COLOR).
-                setMediaSize(PrintAttributes.MediaSize.NA_LETTER).
-                setMinMargins(PrintAttributes.Margins.NO_MARGINS).
-                build();
-        PrintedPdfDocument document = new PrintedPdfDocument(this,printAttrs);
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(xx, yy, 1).create();
-        PdfDocument.Page page = document.startPage(pageInfo);
-        rel.draw(page.getCanvas());
-        document.finishPage(page);
+        PdfReader reader=new PdfReader(getResources().openRawResource(R.raw.src_exped_file));
+        OutputStream outputStream=new FileOutputStream(destinationFile);
+        PdfStamper pdfStamper=new PdfStamper(reader,outputStream);
+        AcroFields acroFields=pdfStamper.getAcroFields();
 
-        saveOnDevice(document);
+        BaseFont bf=BaseFont.createFont(FONT,"CP1251",true);
+        bf.addSubsetRange(BaseFont.CHAR_RANGE_CYRILLIC);
+        acroFields.addSubstitutionFont(bf);
+
+        acroFields.setField("exp_num", item.getNumZakaz());
+        acroFields.setField("date", item.getDate());
+        acroFields.setField("from_city", item.getFromCity());
+        acroFields.setField("dest_city", item.getToCity());
+        acroFields.setField("naimen_otpr", item.getOtpravitel());
+        acroFields.setField("address_otpr", item.getFromCity());
+        acroFields.setField("mobnum_otpr", Kont.numotpr);
+        acroFields.setField("naimen_poluch", item.getPoluchatel());
+        acroFields.setField("address_poluch", item.getToCity());
+        acroFields.setField("mobnum_poluch", Kont.numpoluch);
+        acroFields.setField("platelshik","");
+        acroFields.setField("naimen_gruz", Kont.namegruz);
+        acroFields.setField("charac_gruz", item.getHaracgruz());
+        acroFields.setField("kolvomest", item.getKolvoMest());
+        acroFields.setField("upak_gruz", upak);
+        acroFields.setField("ves_gruz", item.getVes());
+        acroFields.setField("obiem_gruz", item.getObiem());
+        acroFields.setField("dop_uslugi","Забор от клиента\n" + "Доставка клиенту\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t");
+        acroFields.setField("otmetki_exp","");
+
+        pdfStamper.setFormFlattening(true);
+        pdfStamper.close();
+        reader.close();
+        outputStream.close();
     }
 
-    public void saveOnDevice(PrintedPdfDocument document){
-        File mFolder;
-        String fileName="Exped.pdf";
-        try {
-            mFolder = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
-            imageFile = new File(mFolder,fileName);
-            if (!mFolder.exists()) {
-                mFolder.mkdirs();
-            }
-            FileOutputStream out = new FileOutputStream(imageFile);
-            document.writeTo(out);
-            document.close();
-            out.close();
-            Toast.makeText(this,"Результат сохранен", Toast.LENGTH_LONG).show();
-        } catch (IOException e) {
-            Toast.makeText(this, "При сохранении возникла ошибка", Toast.LENGTH_LONG).show();
-        }
+    public File createFile(){
+        File dir=getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+        File newFile=new File(dir,DESTFILE);
+        if(!dir.exists());
+            dir.mkdirs();
+
+        return newFile;
     }
 
     public void printDocument(File file, int totalPage){

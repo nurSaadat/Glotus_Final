@@ -169,8 +169,6 @@ public class Etiketka extends AppCompatActivity{
 
     }
 
-
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void createPDF (){
         int width = 280;

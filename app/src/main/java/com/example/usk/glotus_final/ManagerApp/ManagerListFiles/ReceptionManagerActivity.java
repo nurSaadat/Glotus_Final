@@ -136,7 +136,7 @@ public class ReceptionManagerActivity extends AppCompatActivity {
 
     public ArrayList<String> download(final ArrayList<String> arr){
 
-        String url=("http://185.209.23.53/upload/getimages.php");
+        String url=("http://89.219.32.202/upload/getimages.php");
         MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
         RequestBody body = RequestBody.create(mediaType, "number="+"ALA004807");
         Request request = new Request.Builder()

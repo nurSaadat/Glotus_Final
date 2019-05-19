@@ -31,7 +31,7 @@ public class cc {
     }
     public static void getimages() {
         String body = "number="+"\"ALA004807\"";
-        ServerPhoto sr= new ServerPhoto("http://185.209.23.53/upload/getimages.php",null,body);
+        ServerPhoto sr= new ServerPhoto("http://89.219.32.202/upload/getimages.php",null,body);
         String rr=sr.post();
         Log.d("ada",rr);
         System.out.println(rr);
@@ -42,7 +42,7 @@ public class cc {
     public static void getting()
     {
 
-        String url=("http://185.209.23.53/upload/getimages.php\"");
+        String url=("http://89.219.32.202/upload/getimages.php\"");
         MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
         RequestBody body = RequestBody.create(mediaType, "number="+"ALA004807");
         Request request = new Request.Builder()

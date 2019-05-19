@@ -210,7 +210,7 @@ public class SuperviserListActivity extends AppCompatActivity {
             String string = AES.aesEncryptString(body, "1234567890123456");
             body="data="+string;
             System.out.println(body);
-            server = new Server("http://185.209.23.53/odata/demoaes.php",null, body);
+            server = new Server("http://89.219.32.202/odata/demoaes.php",null, body);
             return server.post();
         }
 
@@ -229,7 +229,7 @@ public class SuperviserListActivity extends AppCompatActivity {
 
 
         System.out.println(User.cred);
-        process("http://185.209.23.53/InfoBase/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json&$filter=DeletionMark%20eq%20false&$filter=%D0%A1%D1%82%D0%B0%D1%82%D1%83%D1%81%D0%97%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%20eq%20%D0%9F%D1%80%D0%B8%D0%BD%D1%8F%D1%82%D0%BD%D0%BE%D0%9D%D0%B0%D0%A1%D0%BA%D0%BB%D0%B0%D0%B4%D0%B5%20or%20%D0%A1%D1%82%D0%B0%D1%82%D1%83%D1%81%D0%97%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%20eq%20%D0%9D%D0%BE%D0%B2%D0%B0%D1%8F%20or%20%D0%A1%D1%82%D0%B0%D1%82%D1%83%D1%81%D0%97%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%20eq%20%D0%9E%D1%82%D0%BA%D0%BB%D0%BE%D0%BD%D0%B8%D1%82%D1%8C%20or%20%D0%A1%D1%82%D0%B0%D1%82%D1%83%D1%81%D0%97%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%20eq%20%D0%9F%D1%80%D0%B8%D0%BD%D1%8F%D1%82%D0%BE%D0%92%D0%A0%D0%B0%D0%B1%D0%BE%D1%82%D1%83&$orderby=Ref_Key%20desc&$skip=0&$top="+top+"","GET",User.getCredential(),"{}");
+        process("http://89.219.32.202/glotus/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json&$filter=DeletionMark%20eq%20false&$filter=%D0%A1%D1%82%D0%B0%D1%82%D1%83%D1%81%D0%97%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%20eq%20%D0%9F%D1%80%D0%B8%D0%BD%D1%8F%D1%82%D0%BD%D0%BE%D0%9D%D0%B0%D0%A1%D0%BA%D0%BB%D0%B0%D0%B4%D0%B5%20or%20%D0%A1%D1%82%D0%B0%D1%82%D1%83%D1%81%D0%97%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%20eq%20%D0%9D%D0%BE%D0%B2%D0%B0%D1%8F%20or%20%D0%A1%D1%82%D0%B0%D1%82%D1%83%D1%81%D0%97%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%20eq%20%D0%9E%D1%82%D0%BA%D0%BB%D0%BE%D0%BD%D0%B8%D1%82%D1%8C%20or%20%D0%A1%D1%82%D0%B0%D1%82%D1%83%D1%81%D0%97%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%20eq%20%D0%9F%D1%80%D0%B8%D0%BD%D1%8F%D1%82%D0%BE%D0%92%D0%A0%D0%B0%D0%B1%D0%BE%D1%82%D1%83&$orderby=Ref_Key%20desc&$skip=0&$top="+top+"","GET",User.getCredential(),"{}");
         skip=60;
         String json = server.getRes();
         System.out.println(json);
@@ -400,7 +400,7 @@ public class SuperviserListActivity extends AppCompatActivity {
                 System.out.println(User.cred);
                 try {
 
-                    process("http://185.209.23.53/InfoBase/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json&$filter=DeletionMark%20eq%20false&$filter=%D0%A1%D1%82%D0%B0%D1%82%D1%83%D1%81%D0%97%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%20eq%20%D0%9F%D1%80%D0%B8%D0%BD%D1%8F%D1%82%D0%BD%D0%BE%D0%9D%D0%B0%D0%A1%D0%BA%D0%BB%D0%B0%D0%B4%D0%B5&$filter=DeletionMark%20eq%20%D0%9D%D0%BE%D0%B2%D0%B0%D1%8F&$filter=DeletionMark%20eq%20%D0%9E%D1%82%D0%BA%D0%BB%D0%BE%D0%BD%D0%B8%D1%82%D1%8C&$filter=DeletionMark%20eq%20%D0%9F%D1%80%D0%B8%D0%BD%D1%8F%D1%82%D0%BE%D0%92%D0%A0%D0%B0%D0%B1%D0%BE%D1%82%D1%83&$orderby=Ref_Key%20desc&$skip="+skip+ finalTy1,"GET",User.getCredential(),"{}");
+                    process("http://89.219.32.202/glotus/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json&$filter=DeletionMark%20eq%20false&$filter=%D0%A1%D1%82%D0%B0%D1%82%D1%83%D1%81%D0%97%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%20eq%20%D0%9F%D1%80%D0%B8%D0%BD%D1%8F%D1%82%D0%BD%D0%BE%D0%9D%D0%B0%D0%A1%D0%BA%D0%BB%D0%B0%D0%B4%D0%B5&$filter=DeletionMark%20eq%20%D0%9D%D0%BE%D0%B2%D0%B0%D1%8F&$filter=DeletionMark%20eq%20%D0%9E%D1%82%D0%BA%D0%BB%D0%BE%D0%BD%D0%B8%D1%82%D1%8C&$filter=DeletionMark%20eq%20%D0%9F%D1%80%D0%B8%D0%BD%D1%8F%D1%82%D0%BE%D0%92%D0%A0%D0%B0%D0%B1%D0%BE%D1%82%D1%83&$orderby=Ref_Key%20desc&$skip="+skip+ finalTy1,"GET",User.getCredential(),"{}");
                 } catch (NoSuchPaddingException e) {
                     e.printStackTrace();
                 } catch (UnsupportedEncodingException e) {

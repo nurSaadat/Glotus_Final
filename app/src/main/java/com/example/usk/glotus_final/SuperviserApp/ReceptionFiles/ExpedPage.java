@@ -159,7 +159,7 @@ public class ExpedPage extends AppCompatActivity  {
         acroFields.setField("ves_gruz", item.getVes());
         acroFields.setField("obiem_gruz", item.getObiem());
         acroFields.setField("dop_uslugi","Забор от клиента\n" + "Доставка клиенту\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t");
-        acroFields.setField("otmetki_exp","lola");
+        acroFields.setField("otmetki_exp","");
 
         AcroFields fields = reader.getAcroFields();
         Set<String> fldNames = fields.getFields().keySet();

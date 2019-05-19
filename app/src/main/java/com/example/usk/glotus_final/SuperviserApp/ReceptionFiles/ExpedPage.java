@@ -49,6 +49,7 @@ public class ExpedPage extends AppCompatActivity  {
         buildText(item);
     }
 
+
     public void buildText(PdfData item){
         TextView expedNum=findViewById(R.id.expedNum);
         TextView date=findViewById(R.id.vremyaFill);
@@ -111,6 +112,7 @@ public class ExpedPage extends AppCompatActivity  {
         if(id==R.id.btn_next){
             Intent myintent = new Intent(ExpedPage.this, SuperviserListActivity.class);
             startActivity(myintent);
+            finish();
         }
 
         if(id==R.id.btn_print){
@@ -184,5 +186,6 @@ public class ExpedPage extends AppCompatActivity  {
     public void onBackPressed() {
         Intent myIntent = new Intent(ExpedPage.this, SuperviserListActivity.class);
         startActivity(myIntent);
+        finish();
     }
 }

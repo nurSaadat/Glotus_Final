@@ -109,6 +109,8 @@ public class Etiketka extends AppCompatActivity{
         idAndDate1.setText(pd.getNumZakaz()+" от "+pd.getDate());
     }
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -129,6 +131,7 @@ public class Etiketka extends AppCompatActivity{
             Intent myIntent = new Intent(Etiketka.this, ExpedPage.class);
             myIntent.putExtra("pdfExped",data);
             startActivity(myIntent);
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -278,5 +281,6 @@ public class Etiketka extends AppCompatActivity{
     public void onBackPressed() {
         Intent myIntent = new Intent(Etiketka.this, SuperviserListActivity.class);
         startActivity(myIntent);
+        finish();
     }
 }

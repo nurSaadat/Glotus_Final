@@ -111,11 +111,18 @@ public class Reception extends AppCompatActivity {
     private static final int REQUEST_CODE=1;
     static final int REQUEST_TAKE_PHOTO = 1;
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        this.finish();
+    }
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+
 
         //System.out.println(ZayavkaListAdapter.item.getMenedjer());
         setContentView(R.layout.activity_reception);
@@ -544,6 +551,7 @@ public class Reception extends AppCompatActivity {
         Intent myIntent = new Intent(Reception.this, Etiketka.class);
         myIntent.putExtra("pdfData", pd);
         startActivity(myIntent);
+        finish();
     }
 
     public void setTransportSpinner(final AutoCompleteTextView spinner){

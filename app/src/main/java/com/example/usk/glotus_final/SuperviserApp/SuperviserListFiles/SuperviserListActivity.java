@@ -59,7 +59,16 @@ public class SuperviserListActivity extends AppCompatActivity {
     Button btnLoadExtra;
     ProgressDialog progressDialog;
 
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        this.finish();
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

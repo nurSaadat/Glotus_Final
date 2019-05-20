@@ -33,6 +33,9 @@ import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.Superviser
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Etiketka extends AppCompatActivity{
     private MenuItem btn_next;
@@ -68,6 +71,12 @@ public class Etiketka extends AppCompatActivity{
     }
 
     public void buildText(PdfData pd){
+        Date c = Calendar.getInstance().getTime();
+        System.out.println("Current time => " + c);
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String formattedDate = df.format(c);
+
         TextView gorodOtkuda=findViewById(R.id.gorod_otkuda);
         TextView gorodKuda=findViewById(R.id.gorod_kuda);
         TextView imya_otprav=findViewById(R.id.imya_otprav);
@@ -101,12 +110,14 @@ public class Etiketka extends AppCompatActivity{
         ves.setText(pd.getVes());
         obiem.setText(pd.getObiem());
         raspechatal.setText(Admin.name);
-        idAndDate.setText(pd.getNumZakaz()+" от "+pd.getDate());
+        idAndDate.setText(pd.getNumZakaz()+" от "+formattedDate);
         gorodOtkuda1.setText(pd.getFromCity());
         gorodKuda1.setText(pd.getToCity());
         mesto.setText("1 из "+pd.getKolvoMest());
         raspechatal1.setText(Admin.name);
-        idAndDate1.setText(pd.getNumZakaz()+" от "+pd.getDate());
+
+
+        idAndDate1.setText(pd.getNumZakaz()+" от "+formattedDate);
     }
 
 

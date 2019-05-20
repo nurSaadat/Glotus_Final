@@ -24,6 +24,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Set;
 
 
@@ -141,8 +144,14 @@ public class ExpedPage extends AppCompatActivity  {
         bf.addSubsetRange(BaseFont.CHAR_RANGE_CYRILLIC);
         acroFields.addSubstitutionFont(bf);
 
+        Date c = Calendar.getInstance().getTime();
+        System.out.println("Current time => " + c);
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String formattedDate = df.format(c);
+
         acroFields.setField("exp_num", item.getNumZakaz());
-        acroFields.setField("date", item.getDate());
+        acroFields.setField("date", formattedDate);
         acroFields.setField("from_city", item.getFromCity());
         acroFields.setField("dest_city", item.getToCity());
         acroFields.setField("naimen_otpr", item.getOtpravitel());

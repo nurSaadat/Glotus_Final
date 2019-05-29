@@ -4,10 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.pdf.PdfDocument;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -29,10 +27,23 @@ import android.widget.Toast;
 import com.example.usk.glotus_final.R;
 import com.example.usk.glotus_final.SuperviserApp.BluetoothPrintService.Other;
 import com.example.usk.glotus_final.SuperviserApp.SuperviserListFiles.SuperviserListActivity;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.AcroFields;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfImportedPage;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfStamper;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfTemplate;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -51,6 +62,13 @@ public class Etiketka extends AppCompatActivity{
     Button send;
     File imageFile;
 
+    private File destinationFile;
+    private final static String FONT="/assets/fonts/PTC55F.ttf";
+    private final static String DESTFILE="EtiketkaFile.pdf";
+
+    private float pdfWidth;
+    private float pdfHeight;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_etiketka);
@@ -66,6 +84,15 @@ public class Etiketka extends AppCompatActivity{
             public void onClick(View view) {
                 createPDF();
                 printDocument(imageFile,kolvoMest+1);
+//                try {
+//                    fillPdf();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                } catch (DocumentException e) {
+//                    e.printStackTrace();
+//                }
+//                printDocument(destinationFile,kolvoMest+1);
+
             }
         });
     }
@@ -115,12 +142,8 @@ public class Etiketka extends AppCompatActivity{
         gorodKuda1.setText(pd.getToCity());
         mesto.setText("1 из "+pd.getKolvoMest());
         raspechatal1.setText(Admin.name);
-
-
         idAndDate1.setText(pd.getNumZakaz()+" от "+formattedDate);
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -146,25 +169,58 @@ public class Etiketka extends AppCompatActivity{
         }
         return super.onOptionsItemSelected(item);
     }
-    /*    public Bitmap getViewBitmap(View v){
-            v.setDrawingCacheEnabled(true);
-            v.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-            v.layout(0, 0, v.getMeasuredWidth(), v.getMeasuredHeight());
-            v.buildDrawingCache(true);
-            Bitmap b = Bitmap.createBitmap(
-                    getResources().getDisplayMetrics().densityDpi*v.getHeight(),
-                    getResources().getDisplayMetrics().densityDpi*v.getWidth(),
-                    Bitmap.Config.ARGB_8888
-                    );
-            Canvas c = new Canvas(b);
-            v.layout(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());
-            v.draw(c);
-            v.setDrawingCacheEnabled(false);
 
-            return b;
-        }
-    */
+    public void fillPdf() throws IOException, DocumentException {
+        destinationFile=createFile();
+
+        PdfReader reader=new PdfReader(getResources().openRawResource(R.raw.etiketka_src));
+        OutputStream outputStream=new FileOutputStream(destinationFile);
+        PdfStamper pdfStamper=new PdfStamper(reader,outputStream);
+        AcroFields acroFields=pdfStamper.getAcroFields();
+
+        pdfStamper.insertPage(reader.getNumberOfPages()+kolvoMest,reader.getPageSizeWithRotation(1));
+
+        System.out.println("/////////////////////////////"+reader.getNumberOfPages());
+
+        BaseFont bf=BaseFont.createFont(FONT,"CP1251",true);
+        bf.addSubsetRange(BaseFont.CHAR_RANGE_CYRILLIC);
+        acroFields.addSubstitutionFont(bf);
+
+        Date c = Calendar.getInstance().getTime();
+        System.out.println("Current time => " + c);
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        String formattedDate = df.format(c);
+
+        acroFields.setField("otkuda",data.getFromCity());
+        acroFields.setField("kuda",data.getToCity());
+        acroFields.setField("otpravitel",data.getOtpravitel());
+        acroFields.setField("poluchatel",data.getPoluchatel());
+        acroFields.setField("kolvo",data.getKolvoMest());
+        acroFields.setField("ves",data.getVes());
+        acroFields.setField("obiem",data.getObiem());
+        acroFields.setField("raspechatal",Admin.name);
+        acroFields.setField("numdog",data.getNumZakaz());
+        acroFields.setField("date",formattedDate);
+        acroFields.setField("kolvoiz","");
+
+
+        pdfStamper.setFormFlattening(true);
+        pdfStamper.close();
+        reader.close();
+        outputStream.close();
+    }
+
+    public File createFile(){
+        File dir=getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+        File newFile=new File(dir,DESTFILE);
+        if(!dir.exists());
+        dir.mkdirs();
+
+        return newFile;
+    }
+
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     public Bitmap getViewBitmap(View v) {
         Bitmap bitmap = Bitmap.createBitmap(
@@ -173,18 +229,27 @@ public class Etiketka extends AppCompatActivity{
                 Bitmap.Config.RGBA_F16
         );
 
+//        double width=(double) pdfWidth;
+//        double height=(double) pdfHeight;
+//
+//        int w=(int) width;
+//        int h=(int) height;
+//        Bitmap bitmap = Bitmap.createBitmap(
+//                w,
+//                h,
+//                Bitmap.Config.RGBA_F16
+//        );
+
         bitmap.setDensity(1300);
         Canvas canvas = new Canvas(bitmap);
 
         v.draw(canvas);
-
-
         return bitmap;
 
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void createPDF (){
+    public void createPDF () {
         int width = 280;
         int height = 280;
 
@@ -222,14 +287,14 @@ public class Etiketka extends AppCompatActivity{
 
     public void createCanvas(Bitmap btm, Bitmap btm1, int width,int height, int width1, int height1, int i){
         if(i==0){
-            PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(width, height, i + 1).create();
-            PdfDocument.Page page = document.startPage(pageInfo);
+            android.graphics.pdf.PdfDocument.PageInfo pageInfo = new android.graphics.pdf.PdfDocument.PageInfo.Builder(width, height, i + 1).create();
+            android.graphics.pdf.PdfDocument.Page page = document.startPage(pageInfo);
             Canvas canvas=page.getCanvas();
             canvas.drawBitmap(btm,0,0,null);
             document.finishPage(page);
         }else if(i>0){
-            PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(width1, height1, i + 1).create();
-            PdfDocument.Page page = document.startPage(pageInfo);
+            android.graphics.pdf.PdfDocument.PageInfo pageInfo = new android.graphics.pdf.PdfDocument.PageInfo.Builder(width1, height1, i + 1).create();
+            android.graphics.pdf.PdfDocument.Page page = document.startPage(pageInfo);
             Canvas canvas=page.getCanvas();
             canvas.drawBitmap(btm1,0,0,null);
             document.finishPage(page);
@@ -294,4 +359,24 @@ public class Etiketka extends AppCompatActivity{
         startActivity(myIntent);
         finish();
     }
+
+    /*    public Bitmap getViewBitmap(View v){
+            v.setDrawingCacheEnabled(true);
+            v.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+            v.layout(0, 0, v.getMeasuredWidth(), v.getMeasuredHeight());
+            v.buildDrawingCache(true);
+            Bitmap b = Bitmap.createBitmap(
+                    getResources().getDisplayMetrics().densityDpi*v.getHeight(),
+                    getResources().getDisplayMetrics().densityDpi*v.getWidth(),
+                    Bitmap.Config.ARGB_8888
+                    );
+            Canvas c = new Canvas(b);
+            v.layout(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());
+            v.draw(c);
+            v.setDrawingCacheEnabled(false);
+
+            return b;
+        }
+    */
 }

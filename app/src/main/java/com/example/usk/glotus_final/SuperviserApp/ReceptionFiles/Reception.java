@@ -111,12 +111,6 @@ public class Reception extends AppCompatActivity {
     private static final int REQUEST_CODE=1;
     static final int REQUEST_TAKE_PHOTO = 1;
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        this.finish();
-    }
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -594,6 +588,11 @@ public class Reception extends AppCompatActivity {
             layToHide.setVisibility(View.GONE);
         }
         System.out.println(damage.toString());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 
     @Override

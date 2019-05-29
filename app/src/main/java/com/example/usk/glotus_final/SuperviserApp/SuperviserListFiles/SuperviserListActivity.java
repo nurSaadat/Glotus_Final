@@ -53,7 +53,7 @@ public class SuperviserListActivity extends AppCompatActivity {
     TextView etSearch;
     ListView mListView;
     int skip=0;
-    int top=60;
+    int top=100;
     boolean but=false;
     String search=null;
     Button btnLoadExtra;

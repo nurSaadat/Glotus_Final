@@ -60,17 +60,6 @@ public class SuperviserListActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
 
     @Override
-    public void onPause() {
-        super.onPause();
-        this.finish();
-    }
-    @Override
-    protected void onStop() {
-        super.onStop();
-        finish();
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_superviser_list);
@@ -190,16 +179,7 @@ public class SuperviserListActivity extends AppCompatActivity {
                 newww.add(mZayavkas.get(i));
             }
         }
-
-
-
-
-                initlist(newww);
-
-
-
-
-
+        initlist(newww);
     }
 
 
@@ -504,21 +484,25 @@ public class SuperviserListActivity extends AppCompatActivity {
             }
         }).start();
 
-
-
       /* for(int i=0;i<10;i++){
            Zayavka a= new Zayavka("a","a","a","a","a","a","a","a","a","a");
            mZayavkas.add(a);
        }*/
 
-
-
-
-
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
     public void onBackPressed() {
         moveTaskToBack(true);
-
     }
 
 

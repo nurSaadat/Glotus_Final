@@ -72,6 +72,8 @@ public class Etiketka extends AppCompatActivity{
     private File destFile;
     private final static String FONT="/assets/fonts/PTC55F.ttf";
     private final static String DEST="EtiketkaFile.pdf";
+    private final static String DESTFILE="EtiketkaFile1.pdf";
+    private File dest2;
 
     private float pdfWidth;
     private float pdfHeight;
@@ -175,7 +177,7 @@ public class Etiketka extends AppCompatActivity{
     public void fillPdf() throws IOException, DocumentException {
         destFile=createFile();
 
-        PdfReader reader=new PdfReader(getResources().openRawResource(R.raw.etiketkalol));
+        PdfReader reader=new PdfReader(getResources().openRawResource(R.raw.etiketsrc));
         OutputStream outputStream=new FileOutputStream(destFile);
         PdfStamper pdfStamper=new PdfStamper(reader,outputStream);
         AcroFields acroFields=pdfStamper.getAcroFields();
@@ -185,6 +187,27 @@ public class Etiketka extends AppCompatActivity{
         /*CREATE PAGES BY KOLVO MEST*/
         generatePdfPages(reader,pdfStamper);
         //createPagesInPDF(reader,outputStream);
+
+        pdfStamper.setFormFlattening(true);
+        pdfStamper.close();
+        reader.close();
+        outputStream.close();
+
+    }
+
+    public void fillPdf2() throws IOException, DocumentException {
+        dest2=createFile2();
+        File dir=getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+        String path=dir+"/"+DEST;
+
+        System.out.println("//////////////////////////"+path);
+
+        PdfReader reader=new PdfReader(path);
+        OutputStream outputStream=new FileOutputStream(dest2);
+        PdfStamper pdfStamper=new PdfStamper(reader,outputStream);
+        AcroFields acroFields=pdfStamper.getAcroFields();
+
+        setAcroFields(acroFields,reader);
 
         pdfStamper.setFormFlattening(true);
         pdfStamper.close();
@@ -261,6 +284,16 @@ public class Etiketka extends AppCompatActivity{
     public File createFile(){
         File dir=getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
         File newFile=new File(dir,DEST);
+        if(!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        return newFile;
+    }
+
+    public File createFile2(){
+        File dir=getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+        File newFile=new File(dir,DESTFILE);
         if(!dir.exists()) {
             dir.mkdirs();
         }

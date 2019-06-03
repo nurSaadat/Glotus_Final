@@ -170,6 +170,13 @@ public class ExpedPage extends AppCompatActivity  {
         acroFields.setField("dop_uslugi","Забор от клиента\n" + "Доставка клиенту\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t");
         acroFields.setField("otmetki_exp","");
 
+        AcroFields fields = reader.getAcroFields();
+        Set<String> fldNames = fields.getFields().keySet();
+
+        for (String fldName : fldNames) {
+            System.out.println( fldName + ": " + fields.getField( fldName ) );
+        }
+
         pdfStamper.setFormFlattening(true);
         pdfStamper.close();
         reader.close();
@@ -179,8 +186,9 @@ public class ExpedPage extends AppCompatActivity  {
     public File createFile(){
         File dir=getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
         File newFile=new File(dir,DESTFILE);
-        if(!dir.exists());
+        if(!dir.exists()) {
             dir.mkdirs();
+        }
 
         return newFile;
     }

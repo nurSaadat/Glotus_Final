@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -32,14 +33,17 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.AcroFields;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfCopy;
 import com.itextpdf.text.pdf.PdfImportedPage;
 import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfSmartCopy;
 import com.itextpdf.text.pdf.PdfStamper;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -47,6 +51,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Set;
 
 public class Etiketka extends AppCompatActivity{
     private MenuItem btn_next;
@@ -62,9 +67,11 @@ public class Etiketka extends AppCompatActivity{
     Button send;
     File imageFile;
 
-    private File destinationFile;
+    private static String formattedDate;
+
+    private File destFile;
     private final static String FONT="/assets/fonts/PTC55F.ttf";
-    private final static String DESTFILE="EtiketkaFile.pdf";
+    private final static String DEST="EtiketkaFile.pdf";
 
     private float pdfWidth;
     private float pdfHeight;
@@ -77,33 +84,28 @@ public class Etiketka extends AppCompatActivity{
         data=(PdfData) intent.getExtras().getSerializable("pdfData");
         buildText(data);
         kolvoMest=Integer.parseInt(data.getKolvoMest());
+        setDateFormat();
 
         send.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                createPDF();
-                printDocument(imageFile,kolvoMest+1);
-//                try {
-//                    fillPdf();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                } catch (DocumentException e) {
-//                    e.printStackTrace();
-//                }
-//                printDocument(destinationFile,kolvoMest+1);
+                //createPDF();
+                //printDocument(imageFile,kolvoMest+1);
+                try {
+                    fillPdf();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (DocumentException e) {
+                    e.printStackTrace();
+                }
 
+                printDocument(destFile,kolvoMest+1);
             }
         });
     }
 
     public void buildText(PdfData pd){
-        Date c = Calendar.getInstance().getTime();
-        System.out.println("Current time => " + c);
-
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        String formattedDate = df.format(c);
-
         TextView gorodOtkuda=findViewById(R.id.gorod_otkuda);
         TextView gorodKuda=findViewById(R.id.gorod_kuda);
         TextView imya_otprav=findViewById(R.id.imya_otprav);
@@ -171,26 +173,37 @@ public class Etiketka extends AppCompatActivity{
     }
 
     public void fillPdf() throws IOException, DocumentException {
-        destinationFile=createFile();
+        destFile=createFile();
 
-        PdfReader reader=new PdfReader(getResources().openRawResource(R.raw.etiketka_src));
-        OutputStream outputStream=new FileOutputStream(destinationFile);
+        PdfReader reader=new PdfReader(getResources().openRawResource(R.raw.etiketkalol));
+        OutputStream outputStream=new FileOutputStream(destFile);
         PdfStamper pdfStamper=new PdfStamper(reader,outputStream);
         AcroFields acroFields=pdfStamper.getAcroFields();
 
-        pdfStamper.insertPage(reader.getNumberOfPages()+kolvoMest,reader.getPageSizeWithRotation(1));
+        setAcroFields(acroFields,reader);
 
-        System.out.println("/////////////////////////////"+reader.getNumberOfPages());
+        /*CREATE PAGES BY KOLVO MEST*/
+        generatePdfPages(reader,pdfStamper);
+        //createPagesInPDF(reader,outputStream);
 
+        pdfStamper.setFormFlattening(true);
+        pdfStamper.close();
+        reader.close();
+        outputStream.close();
+    }
+
+    public void generatePdfPages(PdfReader reader,PdfStamper pdfStamper){
+        for(int i=0; i<kolvoMest-1;i++){
+            int pages=reader.getNumberOfPages();
+            pdfStamper.insertPage(pages + 1, reader.getPageSizeWithRotation(1));
+            pdfStamper.replacePage(reader,2,pages + 1);
+        }
+    }
+
+    public void setAcroFields(AcroFields acroFields,PdfReader reader) throws IOException, DocumentException {
         BaseFont bf=BaseFont.createFont(FONT,"CP1251",true);
         bf.addSubsetRange(BaseFont.CHAR_RANGE_CYRILLIC);
         acroFields.addSubstitutionFont(bf);
-
-        Date c = Calendar.getInstance().getTime();
-        System.out.println("Current time => " + c);
-
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        String formattedDate = df.format(c);
 
         acroFields.setField("otkuda",data.getFromCity());
         acroFields.setField("kuda",data.getToCity());
@@ -202,25 +215,67 @@ public class Etiketka extends AppCompatActivity{
         acroFields.setField("raspechatal",Admin.name);
         acroFields.setField("numdog",data.getNumZakaz());
         acroFields.setField("date",formattedDate);
-        acroFields.setField("kolvoiz","");
+        acroFields.setField("kolvoiz","1");
 
+        AcroFields fields = reader.getAcroFields();
+        Set<String> fldNames = fields.getFields().keySet();
 
-        pdfStamper.setFormFlattening(true);
-        pdfStamper.close();
-        reader.close();
-        outputStream.close();
+        for (String fldName : fldNames) {
+            System.out.println( fldName + ": " + fields.getField( fldName ) );
+        }
+    }
+
+    public void createPagesInPDF(PdfReader reader,OutputStream outputStream) throws IOException, DocumentException {
+        Document doc=new Document();
+        PdfCopy copy=new PdfSmartCopy(doc,outputStream);
+        int pages=reader.getNumberOfPages();
+        PdfImportedPage importedPage=copy.getImportedPage(reader,2);
+        doc.open();
+        for(int i=0; i<kolvoMest-1;i++) {
+            if(i>=1){
+                copy.addPage(importedPage);
+            }else {
+                copy.addPage(copy.getImportedPage(reader, 1));
+            }
+//            pdfStamper.insertPage(pages + 1, reader.getPageSizeWithRotation(1));
+//            pdfStamper.replacePage(reader,2,pages + 1);
+        }
+        doc.close();
+    }
+
+    public void clonePages(PdfReader reader,File dest) throws IOException, DocumentException {
+        Document doc=new Document();
+        PdfCopy copy=new PdfSmartCopy(doc,new FileOutputStream(dest));
+        doc.open();
+
+        int n=reader.getNumberOfPages();
+
+        for(int i=1; i<=n;i++) {
+            PdfImportedPage importedPage = copy.getImportedPage(reader, i);
+            for (int j = 0; j < 2; j++) {
+                copy.addPage(importedPage);
+            }
+        }
     }
 
     public File createFile(){
         File dir=getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
-        File newFile=new File(dir,DESTFILE);
-        if(!dir.exists());
-        dir.mkdirs();
+        File newFile=new File(dir,DEST);
+        if(!dir.exists()) {
+            dir.mkdirs();
+        }
 
         return newFile;
     }
 
+    public void setDateFormat(){
+        Date c = Calendar.getInstance().getTime();
+        System.out.println("Current time => " + c);
 
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        formattedDate = df.format(c);
+    }
+    
     @RequiresApi(api = Build.VERSION_CODES.O)
     public Bitmap getViewBitmap(View v) {
         Bitmap bitmap = Bitmap.createBitmap(
@@ -229,23 +284,11 @@ public class Etiketka extends AppCompatActivity{
                 Bitmap.Config.RGBA_F16
         );
 
-//        double width=(double) pdfWidth;
-//        double height=(double) pdfHeight;
-//
-//        int w=(int) width;
-//        int h=(int) height;
-//        Bitmap bitmap = Bitmap.createBitmap(
-//                w,
-//                h,
-//                Bitmap.Config.RGBA_F16
-//        );
-
         bitmap.setDensity(1300);
         Canvas canvas = new Canvas(bitmap);
 
         v.draw(canvas);
         return bitmap;
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -325,10 +368,12 @@ public class Etiketka extends AppCompatActivity{
         resizedBitmap = Other.resizeImage(bitmap, newWidth, newHeight);
         return resizedBitmap;
     }
+
     public Bitmap get_Resized_Bitmap(Bitmap bmp, int newHeight, int newWidth) {
         Bitmap newBitmap= Bitmap.createScaledBitmap(bmp, newHeight, newWidth, true);
         return newBitmap ;
     }
+
     public void printDocument(File file,int totalPage){
         PrintManager printManager = (PrintManager) this.getSystemService(Context.PRINT_SERVICE);
         String jobName = this.getString(R.string.app_name) + " Document";
@@ -351,13 +396,6 @@ public class Etiketka extends AppCompatActivity{
         canvas.setMatrix(scaleMatrix);
         canvas.drawBitmap(bitmap, 0, 0, new Paint(Paint.FILTER_BITMAP_FLAG));
         return resizedBitmap;
-    }
-
-    @Override
-    public void onBackPressed() {
-        Intent myIntent = new Intent(Etiketka.this, SuperviserListActivity.class);
-        startActivity(myIntent);
-        finish();
     }
 
     /*    public Bitmap getViewBitmap(View v){

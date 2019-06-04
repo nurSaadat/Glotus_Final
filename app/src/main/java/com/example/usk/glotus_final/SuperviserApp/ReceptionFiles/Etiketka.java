@@ -69,9 +69,19 @@ public class Etiketka extends AppCompatActivity{
 
     private static String formattedDate;
 
-    private File destFile;
     private final static String FONT="/assets/fonts/PTC55F.ttf";
-    private final static String DEST="EtiketkaFile.pdf";
+    private final static String DESTFILE="EtiketkaFile.pdf";
+    private final static String DESTFILE1="EtiketkaFile1.pdf";
+    private final static String DESTFILE2="EtiketkaFile2.pdf";
+    private final static String DESTFILE3="EtiketkaFile3.pdf";
+    private final static String DESTFILE4="EtiketkaFile4.pdf";
+
+
+    private File destFile;
+    private static File destFile1;
+    private File destFile2;
+    private File destFile3;
+    private File destFile4;
 
     private float pdfWidth;
     private float pdfHeight;
@@ -86,6 +96,8 @@ public class Etiketka extends AppCompatActivity{
         kolvoMest=Integer.parseInt(data.getKolvoMest());
         setDateFormat();
 
+
+
         send.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
@@ -93,14 +105,16 @@ public class Etiketka extends AppCompatActivity{
                 //createPDF();
                 //printDocument(imageFile,kolvoMest+1);
                 try {
-                    fillPdf();
+                    fillPdfLayer1();
+                    fillPdfLayer2();
+                    //lol();
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (DocumentException e) {
                     e.printStackTrace();
                 }
 
-                printDocument(destFile,kolvoMest+1);
+                printDocument(destFile1,kolvoMest+1);
             }
         });
     }
@@ -172,19 +186,15 @@ public class Etiketka extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
-    public void fillPdf() throws IOException, DocumentException {
-        destFile=createFile();
+    public void fillPdfLayer1() throws IOException, DocumentException {
+        destFile = createFile(DESTFILE);
 
-        PdfReader reader=new PdfReader(getResources().openRawResource(R.raw.etiketkalol));
-        OutputStream outputStream=new FileOutputStream(destFile);
-        PdfStamper pdfStamper=new PdfStamper(reader,outputStream);
-        AcroFields acroFields=pdfStamper.getAcroFields();
+        PdfReader reader = new PdfReader(getResources().openRawResource(R.raw.etiketsrc));
+        OutputStream outputStream = new FileOutputStream(destFile);
+        PdfStamper pdfStamper = new PdfStamper(reader, outputStream);
+        AcroFields acroFields = pdfStamper.getAcroFields();
 
-        setAcroFields(acroFields,reader);
-
-        /*CREATE PAGES BY KOLVO MEST*/
-        generatePdfPages(reader,pdfStamper);
-        //createPagesInPDF(reader,outputStream);
+        setAcroFields(acroFields, reader,0);
 
         pdfStamper.setFormFlattening(true);
         pdfStamper.close();
@@ -192,15 +202,27 @@ public class Etiketka extends AppCompatActivity{
         outputStream.close();
     }
 
-    public void generatePdfPages(PdfReader reader,PdfStamper pdfStamper){
-        for(int i=0; i<kolvoMest-1;i++){
-            int pages=reader.getNumberOfPages();
-            pdfStamper.insertPage(pages + 1, reader.getPageSizeWithRotation(1));
-            pdfStamper.replacePage(reader,2,pages + 1);
-        }
+    public void fillPdfLayer2() throws IOException, DocumentException {
+        destFile1=createFile(DESTFILE1);
+        File dir=getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+        String path=dir+"/"+DESTFILE;
+
+        System.out.println("//////////////////////////"+path);
+
+        PdfReader reader=new PdfReader(path);
+        OutputStream outputStream=new FileOutputStream(destFile1);
+        PdfStamper pdfStamper=new PdfStamper(reader,outputStream);
+
+        /*CREATE PAGES BY KOLVO MEST*/
+        generatePdfPages(reader,pdfStamper);
+
+        pdfStamper.setFormFlattening(true);
+        pdfStamper.close();
+        reader.close();
+        outputStream.close();
     }
 
-    public void setAcroFields(AcroFields acroFields,PdfReader reader) throws IOException, DocumentException {
+    public void setAcroFields(AcroFields acroFields,PdfReader reader, int i) throws IOException, DocumentException {
         BaseFont bf=BaseFont.createFont(FONT,"CP1251",true);
         bf.addSubsetRange(BaseFont.CHAR_RANGE_CYRILLIC);
         acroFields.addSubstitutionFont(bf);
@@ -215,7 +237,7 @@ public class Etiketka extends AppCompatActivity{
         acroFields.setField("raspechatal",Admin.name);
         acroFields.setField("numdog",data.getNumZakaz());
         acroFields.setField("date",formattedDate);
-        acroFields.setField("kolvoiz","1");
+        acroFields.setField("kolvoiz",String.valueOf(i+1));
 
         AcroFields fields = reader.getAcroFields();
         Set<String> fldNames = fields.getFields().keySet();
@@ -225,23 +247,81 @@ public class Etiketka extends AppCompatActivity{
         }
     }
 
-    public void createPagesInPDF(PdfReader reader,OutputStream outputStream) throws IOException, DocumentException {
-        Document doc=new Document();
-        PdfCopy copy=new PdfSmartCopy(doc,outputStream);
-        int pages=reader.getNumberOfPages();
-        PdfImportedPage importedPage=copy.getImportedPage(reader,2);
-        doc.open();
+    public void generatePdfPages(PdfReader reader,PdfStamper pdfStamper){
         for(int i=0; i<kolvoMest-1;i++) {
-            if(i>=1){
-                copy.addPage(importedPage);
-            }else {
-                copy.addPage(copy.getImportedPage(reader, 1));
-            }
-//            pdfStamper.insertPage(pages + 1, reader.getPageSizeWithRotation(1));
-//            pdfStamper.replacePage(reader,2,pages + 1);
+            int pages = reader.getNumberOfPages();
+            pdfStamper.insertPage(pages + 1, reader.getPageSizeWithRotation(1));
+            pdfStamper.replacePage(reader, 2, pages + 1);
         }
-        doc.close();
     }
+
+    public File createFile(String dest){
+        File dir=getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+        File newFile=new File(dir,dest);
+        if(!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        return newFile;
+    }
+
+    public void lol() throws IOException, DocumentException {
+        for(int i=0;i<kolvoMest-1;i++) {
+
+            destFile2=createFile(DESTFILE2);
+
+            PdfReader reader1=new PdfReader(getResources().openRawResource(R.raw.etiketsrc));
+            OutputStream outputStream=new FileOutputStream(destFile2);
+            PdfStamper stamper=new PdfStamper(reader1,outputStream);
+
+            AcroFields acroFields =stamper.getAcroFields();
+            setAcroFields(acroFields,reader1,i+1);
+
+            stamper.close();
+            reader1.close();
+            outputStream.close();
+
+            File dir=getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+            String path=dir+"/"+DESTFILE2;
+            destFile3=createFile(DESTFILE3);
+
+            PdfReader reader2=new PdfReader(path);
+            OutputStream outputStream1=new FileOutputStream(destFile3);
+            PdfStamper stamper1=new PdfStamper(reader2,outputStream1);
+
+            Document doc=new Document();
+            PdfCopy copy=new PdfSmartCopy(doc,new FileOutputStream(destFile1));
+
+            PdfImportedPage importedPage=copy.getImportedPage(reader2,2);
+            copy.addPage(importedPage);
+
+            stamper1.close();
+            reader2.close();
+            outputStream1.close();
+        }
+    }
+
+
+
+    public void fillPdfLayer3() throws IOException, DocumentException {
+        File dir=getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+        String path=dir+"/"+DESTFILE1;
+
+        System.out.println("//////////////////////////"+path);
+
+        PdfReader reader=new PdfReader(path);
+        OutputStream outputStream=new FileOutputStream(destFile2);
+        PdfStamper pdfStamper=new PdfStamper(reader,outputStream);
+
+        //generatePdfPages(reader,pdfStamper);
+
+        pdfStamper.setFormFlattening(true);
+        pdfStamper.close();
+        reader.close();
+        outputStream.close();
+    }
+
+
 
     public void clonePages(PdfReader reader,File dest) throws IOException, DocumentException {
         Document doc=new Document();
@@ -256,16 +336,6 @@ public class Etiketka extends AppCompatActivity{
                 copy.addPage(importedPage);
             }
         }
-    }
-
-    public File createFile(){
-        File dir=getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
-        File newFile=new File(dir,DEST);
-        if(!dir.exists()) {
-            dir.mkdirs();
-        }
-
-        return newFile;
     }
 
     public void setDateFormat(){

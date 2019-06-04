@@ -52,7 +52,6 @@ public class ExpedPage extends AppCompatActivity  {
         buildText(item);
     }
 
-
     public void buildText(PdfData item){
         TextView expedNum=findViewById(R.id.expedNum);
         TextView date=findViewById(R.id.vremyaFill);

@@ -230,7 +230,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="50"
                         android:layout_gravity="center_vertical"
-                        android:text="Стоймость груза"
+                        android:text="Стоимость груза"
                         style="@style/TextBoldBlack"
                         android:ems="6"/>
 

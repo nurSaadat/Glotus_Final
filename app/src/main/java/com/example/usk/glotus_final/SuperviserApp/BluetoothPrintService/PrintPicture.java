@@ -26,11 +26,6 @@ public class PrintPicture {
 
 
     public static byte[] Print_1D2A(Bitmap bmp){
-
-        /*
-         * 使用下传位图打印图片
-         * 先收完再打印
-         */
         int width = bmp.getWidth();
         int height = bmp.getHeight();
         byte data[]=new byte[1024*10];
@@ -45,9 +40,9 @@ public class PrintPicture {
         byte temp = 0;
         for(i = 0; i <width;  i++){
 
-            System.out.println("进来了...I");
+            System.out.println("I");
             for(j = 0; j < height; j++){
-                System.out.println("进来了...J");
+                System.out.println("J");
                 if(bmp.getPixel(i, j) != -1){
                     temp |= (0x80 >> k);
                 } // end if

@@ -14,6 +14,7 @@ import android.print.PrintAttributes;
 import android.print.PrintManager;
 import android.print.pdf.PrintedPdfDocument;
 import android.support.annotation.RequiresApi;
+import android.support.v4.print.PrintHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -96,25 +97,25 @@ public class Etiketka extends AppCompatActivity{
         kolvoMest=Integer.parseInt(data.getKolvoMest());
         setDateFormat();
 
-
-
         send.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
+                createPDF();
+                printDocument(imageFile,kolvoMest+1);
                 //createPDF();
                 //printDocument(imageFile,kolvoMest+1);
-                try {
-                    fillPdfLayer1();
-                    fillPdfLayer2();
-                    //lol();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (DocumentException e) {
-                    e.printStackTrace();
-                }
-
-                printDocument(destFile1,kolvoMest+1);
+//                try {
+//                    fillPdfLayer1();
+//                    fillPdfLayer2();
+//                    //lol();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                } catch (DocumentException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                printDocument(destFile1,kolvoMest+1);
             }
         });
     }
@@ -186,6 +187,17 @@ public class Etiketka extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
+    public void setDateFormat(){
+        Date c = Calendar.getInstance().getTime();
+        System.out.println("Current time => " + c);
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        formattedDate = df.format(c);
+    }
+
+    /*
+        STARTING CREATING BITMAP WITH HELP OF ITEXT
+     */
     public void fillPdfLayer1() throws IOException, DocumentException {
         destFile = createFile(DESTFILE);
 
@@ -302,7 +314,6 @@ public class Etiketka extends AppCompatActivity{
     }
 
 
-
     public void fillPdfLayer3() throws IOException, DocumentException {
         File dir=getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
         String path=dir+"/"+DESTFILE1;
@@ -321,8 +332,6 @@ public class Etiketka extends AppCompatActivity{
         outputStream.close();
     }
 
-
-
     public void clonePages(PdfReader reader,File dest) throws IOException, DocumentException {
         Document doc=new Document();
         PdfCopy copy=new PdfSmartCopy(doc,new FileOutputStream(dest));
@@ -338,16 +347,47 @@ public class Etiketka extends AppCompatActivity{
         }
     }
 
-    public void setDateFormat(){
-        Date c = Calendar.getInstance().getTime();
-        System.out.println("Current time => " + c);
+    /*
+        ENDING CREATING BITMAP WITH HELP OF ITEXT
+     */
 
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        formattedDate = df.format(c);
-    }
-    
+    /*
+        STARTING GET PDF FROM LAYOUT WITH DENSITY
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public Bitmap getViewBitmap(View v) {
+    public void createPDF () {
+        PrintAttributes printAttrs = new PrintAttributes.Builder().
+                setColorMode(PrintAttributes.COLOR_MODE_COLOR).
+                setMediaSize(PrintAttributes.MediaSize.NA_LETTER).
+                setMinMargins(PrintAttributes.Margins.NO_MARGINS).
+                build();
+        document = new PrintedPdfDocument(this,printAttrs);
+
+
+        for(int i=0;i<kolvoMest+1;i++) {
+            mesto.setText(i+" из "+kolvoMest);
+            Bitmap bitmap=getViewBitmapWithDensity(firstPartLayout);
+            Bitmap secondPart=getViewBitmapWithDensity(secondPartLayout);
+            //Bitmap rszBitmap = resizeBitmap(bitmap, width, height);
+            //Bitmap rszBitmap2 = resizeBitmap(secondPart, width, height);
+            //Bitmap rszBitmap = get_Resized_Bitmap(bitmap, width, height);
+            //Bitmap rszBitmap2 = get_Resized_Bitmap(secondPart, width, height);
+
+            Bitmap rszBitmap = bitmap;
+            Bitmap rszBitmap2 = secondPart;
+
+            int xx = rszBitmap.getWidth();
+            int yy = rszBitmap.getHeight();
+            int secXX = rszBitmap2.getWidth();
+            int secYY = rszBitmap2.getHeight();
+
+            createCanvas(rszBitmap, rszBitmap2, xx, yy, secXX, secYY, i);
+        }
+        saveOnDevice(document);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public Bitmap getViewBitmapWithDensity(View v) {
         Bitmap bitmap = Bitmap.createBitmap(
                 1100,
                 1100,
@@ -361,10 +401,18 @@ public class Etiketka extends AppCompatActivity{
         return bitmap;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void createPDF () {
-        int width = 280;
-        int height = 280;
+    /*
+        ENDING GET PDF FROM LAYOUT WITH DENSITY
+     */
+
+
+    /*
+        STARTING GET PDF FROM LAYOUT
+     */
+
+    public void createPDFfromLayout(){
+        int width=280;
+        int height=200;
 
         PrintAttributes printAttrs = new PrintAttributes.Builder().
                 setColorMode(PrintAttributes.COLOR_MODE_COLOR).
@@ -373,19 +421,12 @@ public class Etiketka extends AppCompatActivity{
                 build();
         document = new PrintedPdfDocument(this,printAttrs);
 
-
         for(int i=0;i<kolvoMest+1;i++) {
             mesto.setText(i+" из "+kolvoMest);
             Bitmap bitmap=getViewBitmap(firstPartLayout);
             Bitmap secondPart=getViewBitmap(secondPartLayout);
-            // Bitmap rszBitmap = resizeBitmap(bitmap, width, height);
-            // Bitmap rszBitmap2 = resizeBitmap(secondPart, width, height);
-
-            // Bitmap rszBitmap = get_Resized_Bitmap(bitmap, width, height);
-            // Bitmap rszBitmap2 = get_Resized_Bitmap(secondPart, width, height);
-
-            Bitmap rszBitmap = bitmap;
-            Bitmap rszBitmap2 = secondPart;
+            Bitmap rszBitmap = resizeBitmap(bitmap, width, height);
+            Bitmap rszBitmap2 = resizeBitmap(secondPart, width, height);
 
             int xx = rszBitmap.getWidth();
             int yy = rszBitmap.getHeight();
@@ -393,10 +434,32 @@ public class Etiketka extends AppCompatActivity{
             int secYY = rszBitmap2.getHeight();
 
             createCanvas(rszBitmap, rszBitmap2, xx, yy, secXX, secYY, i);
+
         }
 
         saveOnDevice(document);
     }
+
+    public Bitmap getViewBitmap(View v){
+        v.setDrawingCacheEnabled(true);
+        v.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        v.layout(0, 0, v.getMeasuredWidth(), v.getMeasuredHeight());
+        v.buildDrawingCache(true);
+        Bitmap b = Bitmap.createBitmap(v.getDrawingCache());
+        v.setDrawingCacheEnabled(false);
+        return b;
+    }
+
+    public Bitmap resizeBitmap(Bitmap bitmap, int newWidth,int newHeight){
+        Bitmap resizedBitmap;
+        resizedBitmap = Other.resizeImage(bitmap, newWidth, newHeight);
+        return resizedBitmap;
+    }
+
+    /*
+        ENDING GET PDF FROM LAYOUT
+     */
 
     public void createCanvas(Bitmap btm, Bitmap btm1, int width,int height, int width1, int height1, int i){
         if(i==0){
@@ -433,21 +496,15 @@ public class Etiketka extends AppCompatActivity{
         }
     }
 
-    public Bitmap resizeBitmap(Bitmap bitmap, int newWidth,int newHeight){
-        Bitmap resizedBitmap;
-        resizedBitmap = Other.resizeImage(bitmap, newWidth, newHeight);
-        return resizedBitmap;
+    public void printDocument(File file,int totalPage){
+        PrintManager printManager = (PrintManager) this.getSystemService(Context.PRINT_SERVICE);
+        String jobName = this.getString(R.string.app_name) + " Document";
+        printManager.print(jobName, new MyPrintDocumentAdapter(file,totalPage), null);
     }
 
     public Bitmap get_Resized_Bitmap(Bitmap bmp, int newHeight, int newWidth) {
         Bitmap newBitmap= Bitmap.createScaledBitmap(bmp, newHeight, newWidth, true);
         return newBitmap ;
-    }
-
-    public void printDocument(File file,int totalPage){
-        PrintManager printManager = (PrintManager) this.getSystemService(Context.PRINT_SERVICE);
-        String jobName = this.getString(R.string.app_name) + " Document";
-        printManager.print(jobName, new MyPrintDocumentAdapter(file,totalPage), null);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -467,24 +524,4 @@ public class Etiketka extends AppCompatActivity{
         canvas.drawBitmap(bitmap, 0, 0, new Paint(Paint.FILTER_BITMAP_FLAG));
         return resizedBitmap;
     }
-
-    /*    public Bitmap getViewBitmap(View v){
-            v.setDrawingCacheEnabled(true);
-            v.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-            v.layout(0, 0, v.getMeasuredWidth(), v.getMeasuredHeight());
-            v.buildDrawingCache(true);
-            Bitmap b = Bitmap.createBitmap(
-                    getResources().getDisplayMetrics().densityDpi*v.getHeight(),
-                    getResources().getDisplayMetrics().densityDpi*v.getWidth(),
-                    Bitmap.Config.ARGB_8888
-                    );
-            Canvas c = new Canvas(b);
-            v.layout(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());
-            v.draw(c);
-            v.setDrawingCacheEnabled(false);
-
-            return b;
-        }
-    */
 }

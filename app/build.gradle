@@ -38,5 +38,4 @@ dependencies {
     implementation 'com.itextpdf:io:7.1.6'
     implementation 'com.itextpdf:kernel:7.1.6'
     implementation 'com.itextpdf:layout:7.1.6'
-    implementation files('libs/tscsdk.jar')
 }

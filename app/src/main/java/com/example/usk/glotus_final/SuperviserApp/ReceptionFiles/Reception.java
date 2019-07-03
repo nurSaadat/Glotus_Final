@@ -82,13 +82,13 @@ public class Reception extends AppCompatActivity {
     public static ArrayList<String> singleAddress = new ArrayList<String>();
     public static ArrayList<String> adress = new ArrayList<String>();
     static PdfData pd;
-    static Spinner upakovka;
+    static Spinner upakovka, valuta; ///////VALUTA НОВАЯ ПЕРЕМЕННАЯ
     private LinearLayout layToHide,sop,hide_lay;
     private Spinner soprDocument;
     private AutoCompleteTextView transportType;
     static TextView foto_kol;
     private TextView numZakaz, date, zakazchik, otpravitel, poluchatel, manager,podrazdelenie, soprDoc,tv_zakazchik_nomer,kolichFotok;
-    private EditText dateToFill, vesFact, obiemFact, kolich, komentToFill,comment,sopnumber,sopdate;
+    private EditText dateToFill, vesFact, obiemFact, kolich, komentToFill,comment,sopnumber,sopdate, stoimostGruza; /////STOIMOSTGRUZA НОВАЯ ПЕРЕМЕННАЯ
     private CheckBox gruz;
     private Button save,delete,etiketka,saveBtn;
     private ImageView img,img1,img2;
@@ -195,6 +195,12 @@ public class Reception extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         upakovka.setAdapter(adapter);
 
+
+        String[] arrOfValut=new String[]{"KZT","USD","RUB","CNY"};
+        ArrayAdapter<String> adapterValuty=new ArrayAdapter<>(this,R.layout.spinner_item,arrOfValut);
+        adapterValuty.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        valuta.setAdapter(adapterValuty);
+
         gruz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -239,6 +245,8 @@ public class Reception extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
+                Log.d(TAG, "onClick: "+ valuta.getSelectedItem().toString());
+                Log.d(TAG, "onClick: "+stoimostGruza.getText().toString());
                 if(kolich.getText().toString().equals("")){
                     Toast.makeText(getApplicationContext(), "Количество мест не должно быть пустым", Toast.LENGTH_SHORT).show();
                 }else {
@@ -310,6 +318,9 @@ public class Reception extends AppCompatActivity {
         img=findViewById(R.id.iw_camera_icon);
         delete=findViewById(R.id.del);
         saveBtn=findViewById(R.id.btn_otpr);
+
+        valuta=findViewById(R.id.spin_valuta); ////////////////////////////
+        stoimostGruza=findViewById(R.id.et_stoimostGruza); ///////////////
 
         sopdate.setInputType(InputType.TYPE_NULL);
         sopdate.setInputType(InputType.TYPE_NULL);
@@ -496,6 +507,9 @@ public class Reception extends AppCompatActivity {
             ssp="[{\"LineNumber\": \"1\",\"СопроводительныйДокумент\": \""+pp+"\",\"НомерСД\": \""+sopnumber.getText().toString()+"\",\"ДатаСД\": \""+ttt+"00:00:00\"}}";
         else
             ssp="[{}]";
+
+        String val=valuta.getSelectedItem().toString(); ////////////////////////////////////
+        String stoimost=stoimostGruza.getText().toString(); ////////////////////////////////
 
         String body="{\n" +
                 "    \"КоличествоФакт\": \""+kolich.getText().toString()+"\",\n" +

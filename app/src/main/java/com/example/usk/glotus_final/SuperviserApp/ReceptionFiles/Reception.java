@@ -196,7 +196,7 @@ public class Reception extends AppCompatActivity {
         upakovka.setAdapter(adapter);
 
 
-        String[] arrOfValut=new String[]{"KZT","USD","RUB","CNY"};
+        String[] arrOfValut=new String[]{"EUR","KZT","RUB","USD"};
         ArrayAdapter<String> adapterValuty=new ArrayAdapter<>(this,R.layout.spinner_item,arrOfValut);
         adapterValuty.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         valuta.setAdapter(adapterValuty);

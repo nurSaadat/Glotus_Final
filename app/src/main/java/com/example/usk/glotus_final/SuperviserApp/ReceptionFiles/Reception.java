@@ -196,7 +196,8 @@ public class Reception extends AppCompatActivity {
         upakovka.setAdapter(adapter);
 
 
-        String[] arrOfValut=new String[]{"EUR","KZT","RUB","USD"};
+
+        String[] arrOfValut=new String[]{"","EUR","KZT","RUB","USD"};
         ArrayAdapter<String> adapterValuty=new ArrayAdapter<>(this,R.layout.spinner_item,arrOfValut);
         adapterValuty.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         valuta.setAdapter(adapterValuty);
@@ -509,7 +510,29 @@ public class Reception extends AppCompatActivity {
             ssp="[{}]";
 
         String val=valuta.getSelectedItem().toString(); ////////////////////////////////////
+
+        String[] arrOfValut=new String[]{"","EUR","KZT","RUB","USD"};
+
+        String valkey="";
+
+        if(val.equals("EUR"))
+            valkey="23bbcda0-097f-43e6-a075-8b01a9a6d28";
+        else if(val.equals("KZT"))
+            valkey="6deed34e-6a51-4bdb-be4c-55c07b190d9a";
+        else if (val.equals("RUB"))
+            valkey="80bde4d1-c412-461b-b023-285af0fdf0a7";
+        else if (val.equals("USD"))
+            valkey="f9e038d8-753c-4322-99bb-6bdf4d97fd14";
+        else
+            valkey="00000000-0000-0000-0000-000000000000";
+
+
+
         String stoimost=stoimostGruza.getText().toString(); ////////////////////////////////
+
+
+
+
 
         String body="{\n" +
                 "    \"КоличествоФакт\": \""+kolich.getText().toString()+"\",\n" +
@@ -529,11 +552,15 @@ public class Reception extends AppCompatActivity {
                 "    \"Письмо\": \""+komentToFill.getText().toString()+"\",\n" +
                 "    \"ПисьмоОтправлено\": false,\n"+
                 "    \"Док\": "+ssp+","+
+
                      images+
                 " }";
         Log.d("aa",body);
         System.out.println(body);
         System.out.println(body);
+
+        String datvat="{\"СтоимостьГруза\": "+Integer.parseInt(stoimost)+","+
+                "\"Валюта_Key\": \""+valkey+"\"}";
 
         String res=process("http://89.219.32.202/glotus/odata/standard.odata/Document_%D0%9F%D1%80%D0%B8%D0%B5%D0%BC%D0%9D%D0%B0%D0%A1%D0%BA%D0%BB%D0%B0%D0%B4?$format=json","POST", User.getCredential(),body);
         System.out.println(res);
@@ -545,6 +572,8 @@ public class Reception extends AppCompatActivity {
             e.printStackTrace();
         }
         System.out.println(jsonObj.getString("Ref_Key").toString());
+        String rf=jsonObj.getString("Ref_Key").toString();
+        processM("http://89.219.32.202/glotus/odata/standard.odata/Document_ПриемНаСклад(guid\'"+rf+"\')?$format=json","PATCH","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz",datvat);
 
        res=processM("http://89.219.32.202/glotus/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7(guid\'"+ZayavkaListAdapter.item.getRef_key()+"\')?$format=json","PATCH","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz",
                     "{\"ДокументПриемГруза_Key\": \""+jsonObj.getString("Ref_Key").toString()+"\",\"СтатусЗаказа\": \"ПринятноНаСкладе\",\"ВесФакт\":\""+vesFact.getText().toString()+"\",\"ОбъемФакт\": \""+obiemFact.getText().toString()+"\",\"КоличествоФакт\": \""+kolich.getText().toString()+"\"}");

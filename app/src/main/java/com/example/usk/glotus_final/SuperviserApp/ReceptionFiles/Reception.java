@@ -100,8 +100,8 @@ public class Reception extends AppCompatActivity {
     String ttt="";
     Boolean damage=false;
     private String msg= "Уважаемый клиент, обращаем Ваше внимание, что в результате приемки груза были " +
-                        "выявлены повреждения упаковки (см. фото)," +
-                        " по всем вопросам связывайтесь с Вашим менеджером Администратор тел.";
+            "выявлены повреждения упаковки (см. фото)," +
+            " по всем вопросам связывайтесь с Вашим менеджером Администратор тел.";
     private String trkey="00000000-0000-0000-0000-000000000000";
 
     //новые переменные для фоток
@@ -248,7 +248,7 @@ public class Reception extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d(TAG, "onClick: "+ valuta.getSelectedItem().toString());
                 Log.d(TAG, "onClick: "+stoimostGruza.getText().toString());
-                if(kolich.getText().toString().equals("")){
+                if(kolich.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Количество мест не должно быть пустым", Toast.LENGTH_SHORT).show();
                 }else {
                     try {
@@ -477,7 +477,7 @@ public class Reception extends AppCompatActivity {
         }).start();
     }
 
-        //here some mistakes, look throw
+    //here some mistakes, look throw
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void pposting() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, JSONException {
         uploadingfile();
@@ -502,9 +502,9 @@ public class Reception extends AppCompatActivity {
         else
             pp=soprDocument.getSelectedItem().toString();
 
-       String ssp="[{}]";
-       /*/ soprDocument.getSelectedItem().toString()+" от " +sopnumber.getText().toString()+" "+sopdate.getText().toString();*/
-       if (pp.length()>1 && sopnumber.getText().toString().length()>=1 && sopdate.getText().toString().length()>1)
+        String ssp="[{}]";
+        /*/ soprDocument.getSelectedItem().toString()+" от " +sopnumber.getText().toString()+" "+sopdate.getText().toString();*/
+        if (pp.length()>1 && sopnumber.getText().toString().length()>=1 && sopdate.getText().toString().length()>1)
             ssp="[{\"LineNumber\": \"1\",\"СопроводительныйДокумент\": \""+pp+"\",\"НомерСД\": \""+sopnumber.getText().toString()+"\",\"ДатаСД\": \""+ttt+"00:00:00\"}}";
         else
             ssp="[{}]";
@@ -528,8 +528,13 @@ public class Reception extends AppCompatActivity {
 
 
 
-        String stoimost=stoimostGruza.getText().toString(); ////////////////////////////////
+        String stoimost=""; ////////////////////////////////
 
+        if(stoimostGruza.getText().toString().equals("")){
+            stoimost="0";
+        }else{
+            stoimost=stoimostGruza.getText().toString();
+        }
 
 
 
@@ -545,7 +550,7 @@ public class Reception extends AppCompatActivity {
                 "    \"Date\": \""+timeStamp+"\"    ,\n" +
                 "    \"Транспорт_Key\": \""+trkey+"\",\n" +
                 "    \"ДокументОснования_Key\": \""+ZayavkaListAdapter.item.getRef_key()+"\",\n" +
-              //      "    \"Менеджер_Key\": \""+ZayavkaListAdapter.item.getMenedjer()+"\",\n" +
+                //      "    \"Менеджер_Key\": \""+ZayavkaListAdapter.item.getMenedjer()+"\",\n" +
                 "    \"Отправитель\": \""+ZayavkaListAdapter.item.getSender().replace("\"","\\\"")+"\",\n" +
                 "    \"Комментарий\": \""+comment.getText().toString()+"\",\n" +
                 "    \"Фото_Type\": \"application/image/jpeg\",\n" +
@@ -553,7 +558,7 @@ public class Reception extends AppCompatActivity {
                 "    \"ПисьмоОтправлено\": false,\n"+
                 "    \"Док\": "+ssp+","+
 
-                     images+
+                images+
                 " }";
         Log.d("aa",body);
         System.out.println(body);
@@ -573,16 +578,17 @@ public class Reception extends AppCompatActivity {
         }
         System.out.println(jsonObj.getString("Ref_Key").toString());
         String rf=jsonObj.getString("Ref_Key").toString();
-        processM("http://89.219.32.202/glotus/odata/standard.odata/Document_ПриемНаСклад(guid\'"+rf+"\')?$format=json","PATCH","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz",datvat);
-
-       res=processM("http://89.219.32.202/glotus/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7(guid\'"+ZayavkaListAdapter.item.getRef_key()+"\')?$format=json","PATCH","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz",
-                    "{\"ДокументПриемГруза_Key\": \""+jsonObj.getString("Ref_Key").toString()+"\",\"СтатусЗаказа\": \"ПринятноНаСкладе\",\"ВесФакт\":\""+vesFact.getText().toString()+"\",\"ОбъемФакт\": \""+obiemFact.getText().toString()+"\",\"КоличествоФакт\": \""+kolich.getText().toString()+"\"}");
+//////////////////////////////////надо здесь проверить
+        String respp=processM("http://89.219.32.202/glotus/odata/standard.odata/Document_ПриемНаСклад(guid\'"+rf+"\')?$format=json","PATCH",User.getCredential(),datvat);
+        Log.d("respp",respp);
+        res=processM("http://89.219.32.202/glotus/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7(guid\'"+ZayavkaListAdapter.item.getRef_key()+"\')?$format=json","PATCH",User.getCredential(),
+                "{\"ДокументПриемГруза_Key\": \""+jsonObj.getString("Ref_Key").toString()+"\",\"СтатусЗаказа\": \"ПринятноНаСкладе\",\"ВесФакт\":\""+vesFact.getText().toString()+"\",\"ОбъемФакт\": \""+obiemFact.getText().toString()+"\",\"КоличествоФакт\": \""+kolich.getText().toString()+"\"}");
 
 
         System.out.println(res);
         pd=new PdfData(ZayavkaListAdapter.item.getSenderadr(),ZayavkaListAdapter.item.getReceptadr(),ZayavkaListAdapter.item.getSender(),ZayavkaListAdapter.item.getRecept(),kolich.getText().toString(),vesFact.getText().toString(),
-                    obiemFact.getText().toString(),"AUTO","Админ", ZayavkaListAdapter.item.getNumber().toString(),ZayavkaListAdapter.item.getDate().toString(),
-                    " ", ZayavkaListAdapter.item.getNumotpr(),ZayavkaListAdapter.item.getNumpolu(),ZayavkaListAdapter.item.getPlatel(),ZayavkaListAdapter.item.getNamegruz(),
+                obiemFact.getText().toString(),"AUTO","Админ", ZayavkaListAdapter.item.getNumber().toString(),ZayavkaListAdapter.item.getDate().toString(),
+                " ", ZayavkaListAdapter.item.getNumotpr(),ZayavkaListAdapter.item.getNumpolu(),ZayavkaListAdapter.item.getPlatel(),ZayavkaListAdapter.item.getNamegruz(),
                 ZayavkaListAdapter.item.getHaracgruz());
 
         Intent myIntent = new Intent(Reception.this, Etiketka.class);

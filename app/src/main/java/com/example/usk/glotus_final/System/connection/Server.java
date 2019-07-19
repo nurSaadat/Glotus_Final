@@ -58,6 +58,7 @@ public class Server {
     public String get() {
 
         if (credential==null){
+            t=true;
         Request request = new Request.Builder()
                 .url(url)
                 .get()
@@ -67,6 +68,7 @@ public class Server {
         return connect(request);
         }
         else {
+            t=true;
             Request request = new Request.Builder()
                     .url(url)
                     .get()

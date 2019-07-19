@@ -178,8 +178,10 @@ public class SuperviserListActivity extends AppCompatActivity {
             if(mZayavkas.get(i).getSender().toLowerCase().contains(textToSearch.toLowerCase()) || mZayavkas.get(i).getNumber().toLowerCase().contains(textToSearch.toLowerCase()) || mZayavkas.get(i).getRecept().toLowerCase().contains(textToSearch.toLowerCase())){
                 newww.add(mZayavkas.get(i));
             }
+
         }
         initlist(newww);
+
     }
 
 
@@ -193,6 +195,18 @@ public class SuperviserListActivity extends AppCompatActivity {
             server = new Server("http://89.219.32.202/odata/demoaes.php",null, body);
             return server.post();
         }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static String processM(String url, String way, String cred, String data) throws NoSuchPaddingException, UnsupportedEncodingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+        String body=url+","+way+","+cred+"*---*" +data;
+        System.out.println(body);
+        String string = AES.aesEncryptString(body, "1234567890123456");
+        body="data="+string;
+        Log.d("aaa",body);
+        System.out.println(body);
+        Server server;
+        server = new Server(url,User.getCredential(), data);
+        return server.get();
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void refresh() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, JSONException {
@@ -347,6 +361,11 @@ public class SuperviserListActivity extends AppCompatActivity {
         });
 
     }
+
+    public void findbynumber(){
+
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void showmore(final ArrayList<Zayavka> ppp) throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
        //ArrayList<Orders> peopleList = new ArrayList<>();
@@ -354,23 +373,111 @@ public class SuperviserListActivity extends AppCompatActivity {
 
         String ty="";
         int t=0;
+        ty= "&$top="+(top+t);
+
+        progressDialog.setMessage("Loading..."); // Setting Message
+        progressDialog.setTitle("ProgressDialog"); // Setting Title
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
+        progressDialog.show(); // Display Progress Dialog
+        progressDialog.setCancelable(false);
         if (btnLoadExtra.getText().toString().equals("Найти еще")){
-            t=300;
-            ty= "&$top="+(top+t);
 
 
-            progressDialog.setMessage("Loading..."); // Setting Message
-            progressDialog.setTitle("ProgressDialog"); // Setting Title
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
-            progressDialog.show(); // Display Progress Dialog
-            progressDialog.setCancelable(false);
 
+
+
+
+            String json=processM(" http://89.219.32.202/glotus/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7?$format=json&$filter=Number%20eq%20%27"+etSearch.getText().toString().toUpperCase()+"%27","GET",User.getCredential(),"{}");
+
+
+            System.out.println(json);
+
+            System.out.println(json);
+
+            JSONArray array = null;
+            JSONObject jsonObj=null;
+            try {
+                jsonObj = new JSONObject(json);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                array = jsonObj.getJSONArray("value");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            for(int i = 0; i < array.length(); i++){
+                try {
+                    System.out.println((array.getJSONObject(i).getString("Number")+
+                            array.getJSONObject(i).getString("Date")+
+                            array.getJSONObject(i).getString("Отправитель")+
+                            array.getJSONObject(i).getString("Получатель")+
+                            array.getJSONObject(i).getString("АдресОтправителя")+
+                            array.getJSONObject(i).getString("АдресПолучателя")));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                Zayavka john = null;
+                try {
+                    // String otkuda=getadr(array.getJSONObject(i).getString("Откуда_Key"));
+                    // String kuda=getadr(array.getJSONObject(i).getString("Куда_Key"));
+                    // String mened=getadr(array.getJSONObject(i).getString("Менеджер_Key"));
+
+
+
+
+
+                    john = new Zayavka(array.getJSONObject(i).getString("Number"),
+                            array.getJSONObject(i).getString("Date"),
+                            array.getJSONObject(i).getString("Отправитель"),
+                            array.getJSONObject(i).getString("Получатель"),/**/
+                            (String) Adress.adresspreferences.getAll().get(array.getJSONObject(i).getString("Откуда_Key")),
+                            (String) Adress.adresspreferences.getAll().get(array.getJSONObject(i).getString("Куда_Key")),
+                            array.getJSONObject(i).getString("Ref_Key"),
+                            array.getJSONObject(i).getString("Заказчик_Key"),
+                            (String) Mdnames.mdpreferences.getAll().get(array.getJSONObject(i).getString("Менеджер_Key")),
+                            array.getJSONObject(i).getString("Подразделение_Key"),array.getJSONObject(i).getString("СтатусЗаказа"));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    if(
+                            array.getJSONObject(i).getString("СтатусЗаказа").equals("ПринятноНаСкладе") ||
+                                    array.getJSONObject(i).getString("СтатусЗаказа").equals("Новая")
+                                    ||
+                                    array.getJSONObject(i).getString("СтатусЗаказа").equals("ПринятоВРаботу")
+                                    ||
+                                    array.getJSONObject(i).getString("СтатусЗаказа").equals("Отклонить")
+
+                    )
+                        if (btnLoadExtra.getText().toString().equals("Найти еще")){
+                            if(john.getSender().toLowerCase().contains(search.toLowerCase()) || john.getNumber().toLowerCase().contains(search.toLowerCase()) || john.getRecept().toLowerCase().contains(search.toLowerCase())){
+                                ppp.add(john);
+                            }}
+                        else {
+                            ppp.add(john);
+
+                        }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    adapter.notifyDataSetChanged();
+                }
+            });
+            progressDialog.dismiss();
         }
         else {
 
             t=0;
             ty="&$top="+top;
-        }
+
 
         final String finalTy1 = ty;
         final int finalT = t;
@@ -489,7 +596,7 @@ public class SuperviserListActivity extends AppCompatActivity {
            mZayavkas.add(a);
        }*/
 
-    }
+    } }
 
     @Override
     public void onPause() {

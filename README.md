@@ -1,9 +1,14 @@
 # Glotus_Final
 
-Мобильное приложение интеграции 1с предприятие через Rest интерфейс Odata. Cервере есть php script которое принимает зашифрованную данную от мобильной приложении, и php script расшифровывает эти данные, и отправляем все в 1с(использовая интерфейс Odata), 
-которое все это происходит внутри этой же сервере.
-О безопасности, так когда данные уже готовы, внутри приложение есть класс которое все данные зашифровывает и отправляет в сервер.
-Коротко говоря вся передача данные обмениваются зашифрованном виде.
+Mobile application integrated with 1C:ERC via Rest interface Odata. 
 
+### How it works
+The php script on the server takes encoded data from mobile application as an input, decodes it, and sends decoded data to the 1C.
 
+### Information security
+Data which is collected by mobile application is protected since it is encoded before being sent to the server. 
 
+### Developers
+* [Samakov Ulukbek](https://github.com/samakovuluk) 
+* [Ansar Azatkhanov](https://github.com/wasdx19) 
+* [Saadat Nursultan](https://github.com/nurSaadat)

@@ -26,12 +26,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class MyPrintDocumentAdapter extends PrintDocumentAdapter {
-
-    private int totalpages = 1;
+    private int totalpages;
     private File pdfFile;
 
-    public MyPrintDocumentAdapter(File pdfFile) {
+    public MyPrintDocumentAdapter(File pdfFile,int totalpages) {
         this.pdfFile = pdfFile;
+        this.totalpages=totalpages;
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -41,14 +41,11 @@ public class MyPrintDocumentAdapter extends PrintDocumentAdapter {
                          CancellationSignal cancellationSignal,
                          LayoutResultCallback callback,
                          Bundle metadata) {
-
         try {
-
             if (cancellationSignal.isCanceled()) {
                 callback.onLayoutCancelled();
                 return;
             }
-
             if (totalpages > 0) {
                 PrintDocumentInfo.Builder builder = new PrintDocumentInfo
                         .Builder(pdfFile.getName())
@@ -61,11 +58,9 @@ public class MyPrintDocumentAdapter extends PrintDocumentAdapter {
                 totalpages = 0;
                 callback.onLayoutFailed("Page count is zero.");
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -77,7 +72,6 @@ public class MyPrintDocumentAdapter extends PrintDocumentAdapter {
         InputStream input = null;
         OutputStream output = null;
 
-
         try {
             input = new FileInputStream(pdfFile);
             output = new FileOutputStream(destination.getFileDescriptor());
@@ -87,9 +81,7 @@ public class MyPrintDocumentAdapter extends PrintDocumentAdapter {
             while ((bytesRead = input.read(buf)) > 0) {
                 output.write(buf, 0, bytesRead);
             }
-
             callback.onWriteFinished(new PageRange[]{PageRange.ALL_PAGES});
-
         } catch (FileNotFoundException ee) {
             callback.onWriteFailed(ee.toString());
             return;

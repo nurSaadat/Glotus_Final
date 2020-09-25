@@ -22,6 +22,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -69,45 +70,37 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
-/*
-* there some elements that
-*
-* */
 public class Reception extends AppCompatActivity {
     private static final String TAG = "a";
     static int cm=0;
     public static ArrayList<String> singleAddress = new ArrayList<String>();
     public static ArrayList<String> adress = new ArrayList<String>();
     static PdfData pd;
-    static Spinner upakovka;
-    private LinearLayout layToHide;
+    static Spinner upakovka, valuta; ///////VALUTA НОВАЯ ПЕРЕМЕННАЯ
+    private LinearLayout layToHide,sop,hide_lay;
     private Spinner soprDocument;
     private AutoCompleteTextView transportType;
     static TextView foto_kol;
-    private TextView numZakaz, date, zakazchik, otpravitel, poluchatel, manager,podrazdelenie, soprDoc;
-    private EditText dateToFill, vesFact, obiemFact, kolich, komentToFill,comment;
+    private TextView numZakaz, date, zakazchik, otpravitel, poluchatel, manager,podrazdelenie, soprDoc,tv_zakazchik_nomer,kolichFotok;
+    private EditText dateToFill, vesFact, obiemFact, kolich, komentToFill,comment,sopnumber,sopdate, stoimostGruza; /////STOIMOSTGRUZA НОВАЯ ПЕРЕМЕННАЯ
     private CheckBox gruz;
     private Button save,delete,etiketka,saveBtn;
     private ImageView img,img1,img2;
     private RelativeLayout relativeLayout;
-    private TextView tv_zakazchik_nomer;
-    private LinearLayout hide_lay;
     static Integer fotokol=0;
-    private TextView kolichFotok;
-    private EditText sopnumber;
-    private EditText sopdate;
     private DatePickerDialog.OnDateSetListener mDateListener;
-    String ttt="";
-    boolean ch=false;
 
+    boolean ch=false;
+    String ttt="";
     Boolean damage=false;
-    private String msg= "Уважаемый клиент, обращаем Ваше внимание, что в результате приемки груза были выявлены повреждения упаковки (см. фото),\n" +
-            "\n" +
+    private String msg= "Уважаемый клиент, обращаем Ваше внимание, что в результате приемки груза были " +
+            "выявлены повреждения упаковки (см. фото)," +
             " по всем вопросам связывайтесь с Вашим менеджером Администратор тел.";
     private String trkey="00000000-0000-0000-0000-000000000000";
 
@@ -124,44 +117,13 @@ public class Reception extends AppCompatActivity {
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        relativeLayout=findViewById(R.id.relativeLay);
 
         //System.out.println(ZayavkaListAdapter.item.getMenedjer());
         setContentView(R.layout.activity_reception);
-
-        hide_lay=findViewById(R.id.hide_lay);
-
-        layToHide=findViewById(R.id.lay_to_hide);
-        foto_kol=findViewById(R.id.foto_kol);
-
-        comment=findViewById(R.id.tv_comment);
-        zakazchik=findViewById(R.id.tv_zakazchic);
-        zakazchik.setText((String)Kontragent.kontrpreferences.getAll().get(ZayavkaListAdapter.item.getZakaz()));
-
-        numZakaz=findViewById(R.id.tv_nomer);
-        numZakaz.setText(ZayavkaListAdapter.item.getNumber());
-
-        date=findViewById(R.id.tv_data);
-        date.setText(ZayavkaListAdapter.item.getDate().split("T")[0]);
-
-        vesFact=findViewById(R.id.et_ves_fact);
-        obiemFact=findViewById(R.id.et_obem_fact);
-        kolich=findViewById(R.id.et_kolich);
-
-        sopdate=findViewById(R.id.sopdate);
-        sopnumber=findViewById(R.id.sopnum);
-
-        otpravitel=findViewById(R.id.tv_otpravitel);
-        otpravitel.setText(ZayavkaListAdapter.item.getSender());
-        sopnumber.setInputType(InputType.TYPE_CLASS_NUMBER  );
-
-        poluchatel=findViewById(R.id.tv_poluchatel);
-        poluchatel.setText(ZayavkaListAdapter.item.getRecept());
-        sopdate.setInputType(InputType.TYPE_NULL);
-
-        manager=(TextView)findViewById(R.id.tv_menedzher);
-        manager.setText(ZayavkaListAdapter.item.getMenedjer());
-        sopdate.setInputType(InputType.TYPE_NULL);
+        buildText();
+        arr=new ArrayList<>();
+        adress = new ArrayList<String>();
+        singleAddress = new ArrayList<String>();
         sopdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -177,11 +139,12 @@ public class Reception extends AppCompatActivity {
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         mDateListener,year,month,day
                 );
+                dialog.getDatePicker().setCalendarViewShown(false);
+                dialog.getDatePicker().setSpinnersShown(true);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
         });
-
 
         mDateListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -202,24 +165,15 @@ public class Reception extends AppCompatActivity {
             }
         };
 
-
-
-        podrazdelenie=findViewById(R.id.tv_podrazdel);
-        podrazdelenie.setText((String)Podrazd.pdpreferences.getAll().get(ZayavkaListAdapter.item.getPodrazd()));
-
-        kolichFotok=findViewById(R.id.kolich_fotok);
-
-        soprDocument=findViewById(R.id.spinner_soprDoc);
+        setTransportSpinner(transportType);
         String[] itemsForSop=new String[]{"","Транспортная накладная","Товарно-транспортная накладная",
                 "Универсально-передаточный документ","Счет фактура","Накладная",
                 "Расходная накладная","INVOICE","другое"};
-        final LinearLayout sop;
-        sop=findViewById(R.id.sopr);
-
 
         ArrayAdapter<String> adapterForSop=new ArrayAdapter<String>(this,R.layout.spinner_item, itemsForSop);
         adapterForSop.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         soprDocument.setAdapter(adapterForSop);
+
         soprDocument.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -234,28 +188,20 @@ public class Reception extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });        /*ser(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println(soprDocument.getSelectedItem().toString());
-                if (soprDocument.getSelectedItem().toString().equals("другое"))
-                    sop.setVisibility(View.VISIBLE);
-                else
-                    sop.setVisibility(View.GONE);
-            }
-        });*/
+        });
 
-        transportType=findViewById(R.id.spin_transport);
-        setTransportSpinner(transportType);
-
-        upakovka=findViewById(R.id.spin_upakovka);
         String[] items=new String[]{"Без упаковки","Ящик","Паллет","Короб","Мешок","Другое"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.spinner_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         upakovka.setAdapter(adapter);
 
-        komentToFill=findViewById(R.id.et_message_povrezhden);
-        gruz=findViewById(R.id.cb_gruz_povrezhden);
+
+
+        String[] arrOfValut=new String[]{"","EUR","KZT","RUB","USD"};
+        ArrayAdapter<String> adapterValuty=new ArrayAdapter<>(this,R.layout.spinner_item,arrOfValut);
+        adapterValuty.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        valuta.setAdapter(adapterValuty);
+
         gruz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -264,7 +210,6 @@ public class Reception extends AppCompatActivity {
         });
 
         //it it takes a photo of gruz
-        img=findViewById(R.id.iw_camera_icon);
         img.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -287,7 +232,6 @@ public class Reception extends AppCompatActivity {
         });
 
         //here I will change, this is delete button for gruz;
-        delete=findViewById(R.id.del);
         delete.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -298,12 +242,13 @@ public class Reception extends AppCompatActivity {
             }
         });
 
-        saveBtn=findViewById(R.id.btn_otpr);
         saveBtn.setOnClickListener(new View.OnClickListener(){
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                if(kolich.getText().toString().equals("")){
+                Log.d(TAG, "onClick: "+ valuta.getSelectedItem().toString());
+                Log.d(TAG, "onClick: "+stoimostGruza.getText().toString());
+                if(kolich.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Количество мест не должно быть пустым", Toast.LENGTH_SHORT).show();
                 }else {
                     try {
@@ -336,7 +281,7 @@ public class Reception extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(arr.size()==0){
-                    Toast.makeText(getApplicationContext(),"No any photo",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Фоток нет",Toast.LENGTH_SHORT).show();
                 }else {
                     Intent intent = new Intent(Reception.this, ImageViewer.class);
                     intent.putExtra("imageData", arr);
@@ -344,6 +289,61 @@ public class Reception extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void buildText(){
+        relativeLayout=findViewById(R.id.relativeLay);
+        hide_lay=findViewById(R.id.hide_lay);
+        layToHide=findViewById(R.id.lay_to_hide);
+        foto_kol=findViewById(R.id.foto_kol);
+        comment=findViewById(R.id.tv_comment);
+        zakazchik=findViewById(R.id.tv_zakazchic);
+        numZakaz=findViewById(R.id.tv_nomer);
+        date=findViewById(R.id.tv_data);
+        vesFact=findViewById(R.id.et_ves_fact);
+        obiemFact=findViewById(R.id.et_obem_fact);
+        kolich=findViewById(R.id.et_kolich);
+        sopdate=findViewById(R.id.sopdate);
+        sopnumber=findViewById(R.id.sopnum);
+        otpravitel=findViewById(R.id.tv_otpravitel);
+        poluchatel=findViewById(R.id.tv_poluchatel);
+        manager=findViewById(R.id.tv_menedzher);
+        podrazdelenie=findViewById(R.id.tv_podrazdel);
+        kolichFotok=findViewById(R.id.kolich_fotok);
+        transportType=findViewById(R.id.spin_transport);
+        soprDocument=findViewById(R.id.spinner_soprDoc);
+        sop=findViewById(R.id.sopr);
+        upakovka=findViewById(R.id.spin_upakovka);
+        komentToFill=findViewById(R.id.et_message_povrezhden);
+        gruz=findViewById(R.id.cb_gruz_povrezhden);
+        img=findViewById(R.id.iw_camera_icon);
+        delete=findViewById(R.id.del);
+        saveBtn=findViewById(R.id.btn_otpr);
+
+        valuta=findViewById(R.id.spin_valuta); ////////////////////////////
+        stoimostGruza=findViewById(R.id.et_stoimostGruza); ///////////////
+
+        sopdate.setInputType(InputType.TYPE_NULL);
+        sopdate.setInputType(InputType.TYPE_NULL);
+        sopnumber.setInputType(InputType.TYPE_CLASS_NUMBER  );
+
+        zakazchik.setText((String)Kontragent.kontrpreferences.getAll().get(ZayavkaListAdapter.item.getZakaz()));
+        numZakaz.setText(ZayavkaListAdapter.item.getNumber());
+        date.setText(ZayavkaListAdapter.item.getDate().split("T")[0]);
+        otpravitel.setText(ZayavkaListAdapter.item.getSender());
+        poluchatel.setText(ZayavkaListAdapter.item.getRecept());
+        manager.setText(ZayavkaListAdapter.item.getMenedjer());
+        podrazdelenie.setText((String)Podrazd.pdpreferences.getAll().get(ZayavkaListAdapter.item.getPodrazd()));
+        Kont.namegruz=ZayavkaListAdapter.item.getNamegruz();
+        Kont.numotpr=ZayavkaListAdapter.item.getNumotpr();
+        Kont.numpoluch=ZayavkaListAdapter.item.getNumpolu();
+
+        System.out.println("111");
+        System.out.println(Kont.namegruz);
+        System.out.println(Kont.numotpr);
+        System.out.println(Kont.numpoluch);
+        System.out.println("111");
+
     }
 
     // берет данные с intent камеры
@@ -381,12 +381,26 @@ public class Reception extends AppCompatActivity {
         Log.d("aaa",body);
         System.out.println(body);
         Server server;
-        server = new Server("http://185.209.23.53/odata/demoaes.php",null, body);
+        server = new Server("http://89.219.32.202/odata/demoaes.php",null, body);
         return server.post();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static String processM(String url, String way, String cred, String data) throws NoSuchPaddingException, UnsupportedEncodingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+        String body=url+","+way+","+cred+"*---*" +data;
+        System.out.println(body);
+        String string = AES.aesEncryptString(body, "1234567890123456");
+        body="data="+string;
+        Log.d("aaa",body);
+        System.out.println(body);
+        Server server;
+        server = new Server(url,User.getCredential(), data);
+        return server.post1();
     }
 
 
     public void uploadingfile(){
+        CountDownLatch countDownLatch = new CountDownLatch(1);
 
         for(int i=0;i<arr.size();i++){
             String encodedImage="";
@@ -403,12 +417,13 @@ public class Reception extends AppCompatActivity {
         for (int i=0;i<adress.size();i++){
             System.out.println(adress.get(i).toString());
         }
+        countDownLatch.countDown();
     }
 
     public void upload(String encodedImage, int i) {
         encodedImage=encodedImage.replace("/","%2F").replace("+","%2B");
         String body = "image="+encodedImage+"&key="+ZayavkaListAdapter.item.getNumber().toString()+"&iter="+i;
-        ServerPhoto sr= new ServerPhoto("http://185.209.23.53/upload/uploaded.php",null,body);
+        ServerPhoto sr= new ServerPhoto("http://89.219.32.202/upload/uploaded.php",null,body);
 
         adress.add(sr.post().replace("<","").replace("\\","\\\\").replace("/","\\\\"));
         System.out.println(sr.getRes());
@@ -424,6 +439,7 @@ public class Reception extends AppCompatActivity {
         String encodedImage = Base64.encodeToString(imageBytes,Base64.DEFAULT);
         return encodedImage;
     }
+
     @TargetApi(Build.VERSION_CODES.O)
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void posting() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, JSONException {
@@ -434,10 +450,34 @@ public class Reception extends AppCompatActivity {
         progressDialog.show(); // Display Progress Dialog
         progressDialog.setCancelable(false);
 
-        pposting();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    pposting();
+                } catch (NoSuchPaddingException e) {
+                    e.printStackTrace();
+                } catch (InvalidKeyException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (IllegalBlockSizeException e) {
+                    e.printStackTrace();
+                } catch (BadPaddingException e) {
+                    e.printStackTrace();
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                } catch (InvalidAlgorithmParameterException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
     }
 
-        //here some mistakes, look throw
+    //here some mistakes, look throw
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void pposting() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, JSONException {
         uploadingfile();
@@ -462,11 +502,42 @@ public class Reception extends AppCompatActivity {
         else
             pp=soprDocument.getSelectedItem().toString();
 
-        String ssp=soprDocument.getSelectedItem().toString()+" от " +sopnumber.getText().toString()+" "+sopdate.getText().toString();
+        String ssp="[{}]";
+        /*/ soprDocument.getSelectedItem().toString()+" от " +sopnumber.getText().toString()+" "+sopdate.getText().toString();*/
         if (pp.length()>1 && sopnumber.getText().toString().length()>=1 && sopdate.getText().toString().length()>1)
             ssp="[{\"LineNumber\": \"1\",\"СопроводительныйДокумент\": \""+pp+"\",\"НомерСД\": \""+sopnumber.getText().toString()+"\",\"ДатаСД\": \""+ttt+"00:00:00\"}}";
         else
             ssp="[{}]";
+
+        String val=valuta.getSelectedItem().toString(); ////////////////////////////////////
+
+        String[] arrOfValut=new String[]{"","EUR","KZT","RUB","USD"};
+
+        String valkey="";
+
+        if(val.equals("EUR"))
+            valkey="23bbcda0-097f-43e6-a075-8b01a9a6d28";
+        else if(val.equals("KZT"))
+            valkey="6deed34e-6a51-4bdb-be4c-55c07b190d9a";
+        else if (val.equals("RUB"))
+            valkey="80bde4d1-c412-461b-b023-285af0fdf0a7";
+        else if (val.equals("USD"))
+            valkey="f9e038d8-753c-4322-99bb-6bdf4d97fd14";
+        else
+            valkey="00000000-0000-0000-0000-000000000000";
+
+
+
+        String stoimost=""; ////////////////////////////////
+
+        if(stoimostGruza.getText().toString().equals("")){
+            stoimost="0";
+        }else{
+            stoimost=stoimostGruza.getText().toString();
+        }
+
+
+
 
         String body="{\n" +
                 "    \"КоличествоФакт\": \""+kolich.getText().toString()+"\",\n" +
@@ -479,21 +550,24 @@ public class Reception extends AppCompatActivity {
                 "    \"Date\": \""+timeStamp+"\"    ,\n" +
                 "    \"Транспорт_Key\": \""+trkey+"\",\n" +
                 "    \"ДокументОснования_Key\": \""+ZayavkaListAdapter.item.getRef_key()+"\",\n" +
-              //      "    \"Менеджер_Key\": \""+ZayavkaListAdapter.item.getMenedjer()+"\",\n" +
+                //      "    \"Менеджер_Key\": \""+ZayavkaListAdapter.item.getMenedjer()+"\",\n" +
                 "    \"Отправитель\": \""+ZayavkaListAdapter.item.getSender().replace("\"","\\\"")+"\",\n" +
-                "    \"Подразделение_Key\": \""+ZayavkaListAdapter.item.getPodrazd()+"\",\n" +
                 "    \"Комментарий\": \""+comment.getText().toString()+"\",\n" +
                 "    \"Фото_Type\": \"application/image/jpeg\",\n" +
                 "    \"Письмо\": \""+komentToFill.getText().toString()+"\",\n" +
                 "    \"ПисьмоОтправлено\": false,\n"+
                 "    \"Док\": "+ssp+","+
-                     images+
+
+                images+
                 " }";
         Log.d("aa",body);
         System.out.println(body);
         System.out.println(body);
 
-        String res=process("http://185.209.23.53/InfoBase/odata/standard.odata/Document_%D0%9F%D1%80%D0%B8%D0%B5%D0%BC%D0%9D%D0%B0%D0%A1%D0%BA%D0%BB%D0%B0%D0%B4?$format=json","POST", User.getCredential(),body);
+        String datvat="{\"СтоимостьГруза\": "+Integer.parseInt(stoimost)+","+
+                "\"Валюта_Key\": \""+valkey+"\"}";
+
+        String res=process("http://89.219.32.202/glotus/odata/standard.odata/Document_%D0%9F%D1%80%D0%B8%D0%B5%D0%BC%D0%9D%D0%B0%D0%A1%D0%BA%D0%BB%D0%B0%D0%B4?$format=json","POST", User.getCredential(),body);
         System.out.println(res);
         JSONArray array = null;
         JSONObject jsonObj=null;
@@ -503,18 +577,24 @@ public class Reception extends AppCompatActivity {
             e.printStackTrace();
         }
         System.out.println(jsonObj.getString("Ref_Key").toString());
+        String rf=jsonObj.getString("Ref_Key").toString();
+//////////////////////////////////надо здесь проверить
+        String respp=processM("http://89.219.32.202/glotus/odata/standard.odata/Document_ПриемНаСклад(guid\'"+rf+"\')?$format=json","PATCH",User.getCredential(),datvat);
+        Log.d("respp",respp);
+        res=processM("http://89.219.32.202/glotus/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7(guid\'"+ZayavkaListAdapter.item.getRef_key()+"\')?$format=json","PATCH",User.getCredential(),
+                "{\"ДокументПриемГруза_Key\": \""+jsonObj.getString("Ref_Key").toString()+"\",\"СтатусЗаказа\": \"ПринятноНаСкладе\",\"ВесФакт\":\""+vesFact.getText().toString()+"\",\"ОбъемФакт\": \""+obiemFact.getText().toString()+"\",\"КоличествоФакт\": \""+kolich.getText().toString()+"\"}");
 
-        res=process("http://185.209.23.53/InfoBase/odata/standard.odata/Document_%D0%97%D0%B0%D0%BA%D0%B0%D0%B7(guid\'"+ZayavkaListAdapter.item.getRef_key()+"\')?$format=json","PATCH","Basic 0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YA6MTIz",
-                    "{\"ДокументПриемГруза_Key\": \""+jsonObj.getString("Ref_Key").toString()+"\",\"СтатусЗаказа\": \"ПринятноНаСкладе\",\"ВесФакт\":\""+vesFact.getText().toString()+"\",\"ОбъемФакт\": \""+obiemFact.getText().toString()+"\",\"КоличествоФакт\": \""+kolich.getText().toString()+"\"}");
 
         System.out.println(res);
-        pd=new PdfData(ZayavkaListAdapter.item.getSenderadr(),ZayavkaListAdapter.item.getReceptadr(),ZayavkaListAdapter.item.getRecept(),ZayavkaListAdapter.item.getSender(),kolich.getText().toString(),vesFact.getText().toString(),
-                    obiemFact.getText().toString(),"AUTO","Админ", ZayavkaListAdapter.item.getNumber().toString(),ZayavkaListAdapter.item.getDate().toString(),
-                    " ");
+        pd=new PdfData(ZayavkaListAdapter.item.getSenderadr(),ZayavkaListAdapter.item.getReceptadr(),ZayavkaListAdapter.item.getSender(),ZayavkaListAdapter.item.getRecept(),kolich.getText().toString(),vesFact.getText().toString(),
+                obiemFact.getText().toString(),"AUTO","Админ", ZayavkaListAdapter.item.getNumber().toString(),ZayavkaListAdapter.item.getDate().toString(),
+                " ", ZayavkaListAdapter.item.getNumotpr(),ZayavkaListAdapter.item.getNumpolu(),ZayavkaListAdapter.item.getPlatel(),ZayavkaListAdapter.item.getNamegruz(),
+                ZayavkaListAdapter.item.getHaracgruz());
 
         Intent myIntent = new Intent(Reception.this, Etiketka.class);
         myIntent.putExtra("pdfData", pd);
         startActivity(myIntent);
+        finish();
     }
 
     public void setTransportSpinner(final AutoCompleteTextView spinner){
@@ -532,19 +612,15 @@ public class Reception extends AppCompatActivity {
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,R.layout.spinner_item,list);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                spinner.setAdapter(arrayAdapter);
-                spinner.setWidth(50);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setDropDownHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        spinner.setWidth(50);
 
         spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
                 trkey=(rlist.get(list.indexOf(spinner.getText().toString())));
             }
-
-
         });
     }
 
@@ -562,6 +638,12 @@ public class Reception extends AppCompatActivity {
         }
         System.out.println(damage.toString());
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
     @Override
     public void onBackPressed() {
         Intent myIntent = new Intent(Reception.this, SuperviserListActivity.class);

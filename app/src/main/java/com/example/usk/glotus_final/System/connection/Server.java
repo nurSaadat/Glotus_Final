@@ -30,6 +30,7 @@ public class Server {
     public static String way;
     public static String body;
     public static String ans;
+    public boolean t=false;
 
     MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
     RequestBody data;
@@ -57,6 +58,7 @@ public class Server {
     public String get() {
 
         if (credential==null){
+            t=true;
         Request request = new Request.Builder()
                 .url(url)
                 .get()
@@ -66,6 +68,7 @@ public class Server {
         return connect(request);
         }
         else {
+            t=true;
             Request request = new Request.Builder()
                     .url(url)
                     .get()
@@ -101,6 +104,31 @@ public class Server {
         }
 
     }
+    public String post1() {
+        data = RequestBody.create(mediaType, body);
+        if (credential==null){
+            t=true;
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(data)
+                    .addHeader("content-type", "application/x-www-form-urlencoded")
+                    .addHeader("cache-control", "no-cache")
+                    .build();
+            return connect(request);
+        }
+        else {
+            t=true;
+            Request request = new Request.Builder()
+                    .url(url)
+                    .patch(data)
+                    .addHeader("authorization", credential)
+                    .addHeader("content-type", "application/json")
+                    .addHeader("cache-control", "no-cache")
+                    .build();
+            return connect(request);
+        }
+
+    }
 
     public String connect(Request request) {
         final CountDownLatch countDownLatch = new CountDownLatch(1);
@@ -117,9 +145,16 @@ public class Server {
             public void onResponse(Call call, final Response response) throws IOException {
 
                 if (response.isSuccessful()) {
-
+                    while (true)
                     try {
+                        if (t==true){
+                            res=response.body().string();
+                            t=false;
+                            break;
+                        }
+                        else
                         res= AES.aesDecryptString(response.body().string(),"1234567890123456");
+                        break;
                     } catch (InvalidKeyException e) {
                         e.printStackTrace();
                     } catch (NoSuchAlgorithmException e) {

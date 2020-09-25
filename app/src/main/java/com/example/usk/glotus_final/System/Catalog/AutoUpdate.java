@@ -30,31 +30,31 @@ public class AutoUpdate {
     public void update() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
 
         //Catalog Пользыватели
-       String res=process("http://185.209.23.53/InfoBase/odata/standard.odata/InformationRegister_%D0%98%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5%D0%94%D0%B0%D0%BD%D0%BD%D1%8B%D1%85?$format=json&$filter=Period%20gt%20datetime%27"+UpdateInf.lastupdate.getAll().get("last")+"%27and%20%D0%9E%D0%B1%D1%8A%D0%B5%D0%BA%D1%82_Type%20eq%20%27StandardODATA.Catalog_%D0%9F%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D0%B8%27",
+       String res=process("http://89.219.32.202/glotus/odata/standard.odata/InformationRegister_%D0%98%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5%D0%94%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%D0%94%D0%BB%D1%8F%D0%9F%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F?$format=json&$filter=Period%20gt%20datetime%27"+UpdateInf.lastupdate.getAll().get("last")+"%27and%20%D0%9E%D0%B1%D1%8A%D0%B5%D0%BA%D1%82_Type%20eq%20%27StandardODATA.Catalog_%D0%9F%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D0%B8%27",
                 "GET", User.cred,"{}");
         setCatalogs( URLEncoder.encode("Catalog_Пользователи", java.nio.charset.StandardCharsets.UTF_8.toString()),Mdnames.mdpreferences,res,
                 "Description");
 
         //Catalog Kontragenty
-       res=process("http://185.209.23.53/InfoBase/odata/standard.odata/InformationRegister_%D0%98%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5%D0%94%D0%B0%D0%BD%D0%BD%D1%8B%D1%85?$format=json&$filter=Period%20gt%20datetime%27"+UpdateInf.lastupdate.getAll().get("last")+"%27and%20%D0%9E%D0%B1%D1%8A%D0%B5%D0%BA%D1%82_Type%20eq%20%27StandardODATA.Catalog_Контрагенты%27",
+       res=process("http://89.219.32.202/glotus/odata/standard.odata/InformationRegister_%D0%98%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5%D0%94%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%D0%94%D0%BB%D1%8F%D0%9F%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F?$format=json&$filter=Period%20gt%20datetime%27"+UpdateInf.lastupdate.getAll().get("last")+"%27and%20%D0%9E%D0%B1%D1%8A%D0%B5%D0%BA%D1%82_Type%20eq%20%27StandardODATA.Catalog_Контрагенты%27",
                 "GET", User.cred,"{}");
         setCatalogs( URLEncoder.encode("Catalog_Контрагенты", java.nio.charset.StandardCharsets.UTF_8.toString()),Kontragent.kontrpreferences,res,
                 "Description");
 
         //Catalog Podrazd
-        /*res=process("http://185.209.23.53/InfoBase/odata/standard.odata/InformationRegister_%D0%98%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5%D0%94%D0%B0%D0%BD%D0%BD%D1%8B%D1%85?$format=json&$filter=Period%20gt%20datetime%27"+UpdateInf.lastupdate.getAll().get("last")+"%27and%20%D0%9E%D0%B1%D1%8A%D0%B5%D0%BA%D1%82_Type%20eq%20%27StandardODATA.Catalog_Подразделения%27",
+        res=process("http://89.219.32.202/glotus/odata/standard.odata/InformationRegister_%D0%98%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5%D0%94%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%D0%94%D0%BB%D1%8F%D0%9F%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F?$format=json&$filter=Period%20gt%20datetime%27"+UpdateInf.lastupdate.getAll().get("last")+"%27and%20%D0%9E%D0%B1%D1%8A%D0%B5%D0%BA%D1%82_Type%20eq%20%27StandardODATA.Catalog_Подразделения%27",
                 "GET", User.cred,"{}");
         setCatalogs( URLEncoder.encode("Catalog_Подразделения", java.nio.charset.StandardCharsets.UTF_8.toString()),Podrazd.pdpreferences,res,
-                "Description");*/
+                "Description");
 
         //Catalog Transport
-       /* res=process("http://185.209.23.53/InfoBase/odata/standard.odata/InformationRegister_%D0%98%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5%D0%94%D0%B0%D0%BD%D0%BD%D1%8B%D1%85?$format=json&$filter=Period%20gt%20datetime%27"+UpdateInf.lastupdate.getAll().get("last")+"%27and%20%D0%9E%D0%B1%D1%8A%D0%B5%D0%BA%D1%82_Type%20eq%20%27StandardODATA.Catalog_Транспорт%27",
+       res=process("http://89.219.32.202/glotus/odata/standard.odata/InformationRegister_%D0%98%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5%D0%94%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%D0%94%D0%BB%D1%8F%D0%9F%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F?$format=json&$filter=Period%20gt%20datetime%27"+UpdateInf.lastupdate.getAll().get("last")+"%27and%20%D0%9E%D0%B1%D1%8A%D0%B5%D0%BA%D1%82_Type%20eq%20%27StandardODATA.Catalog_Транспорт%27",
                 "GET", User.cred,"{}");
         setCatalogs( URLEncoder.encode("Catalog_Транспорт", java.nio.charset.StandardCharsets.UTF_8.toString()),Transport.trpreferences,res,
-                "Description");*/
+                "Description");
 
         //Catalog Adress
-        res=process("http://185.209.23.53/InfoBase/odata/standard.odata/InformationRegister_%D0%98%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5%D0%94%D0%B0%D0%BD%D0%BD%D1%8B%D1%85?$format=json&$filter=Period%20gt%20datetime%27"+UpdateInf.lastupdate.getAll().get("last")+"%27and%20%D0%9E%D0%B1%D1%8A%D0%B5%D0%BA%D1%82_Type%20eq%20%27StandardODATA.Catalog_Адресаты%27",
+        res=process("http://89.219.32.202/glotus/odata/standard.odata/InformationRegister_%D0%98%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5%D0%94%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%D0%94%D0%BB%D1%8F%D0%9F%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F?$format=json&$filter=Period%20gt%20datetime%27"+UpdateInf.lastupdate.getAll().get("last")+"%27and%20%D0%9E%D0%B1%D1%8A%D0%B5%D0%BA%D1%82_Type%20eq%20%27StandardODATA.Catalog_Адресаты%27",
                 "GET", User.cred,"{}");
         setCatalogs( URLEncoder.encode("Catalog_Адресаты", java.nio.charset.StandardCharsets.UTF_8.toString()),Adress.adresspreferences,res,
                 "Description");
@@ -94,7 +94,7 @@ public class AutoUpdate {
             }
         }
         for (int i=0;i<refs.size();i++){
-            String ex=process("http://185.209.23.53/InfoBase/odata/standard.odata/"+catalog+"(guid'"+refs.get(i)+"')?$format=json","GET",
+            String ex=process("http://89.219.32.202/glotus/odata/standard.odata/"+catalog+"(guid'"+refs.get(i)+"')?$format=json","GET",
                     User.cred,"{}");
 
             JSONArray arrayex = null;
@@ -132,7 +132,7 @@ public class AutoUpdate {
 
 
 
-        String res=process("http://185.209.23.53/InfoBase/odata/standard.odata/InformationRegister_%D0%98%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5%D0%94%D0%B0%D0%BD%D0%BD%D1%8B%D1%85?$format=json&$orderby=Period%20desc&$top=1&$select=Period",
+        String res=process("http://89.219.32.202/glotus/odata/standard.odata/InformationRegister_%D0%98%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5%D0%94%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%D0%94%D0%BB%D1%8F%D0%9F%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F?$format=json&$orderby=Period%20desc&$top=1&$select=Period",
                 "GET", User.cred,"{}");
         System.out.println(res);
         JSONArray array = null;
@@ -150,7 +150,7 @@ public class AutoUpdate {
         try {
             System.out.println();
             UpdateInf.lastupdate.edit().putString("last",array.getJSONObject(0).getString("Period")).commit();
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -164,7 +164,7 @@ public class AutoUpdate {
         String string = AES.aesEncryptString(body, "1234567890123456");
         body = "data=" + string;
         System.out.println(body);
-        server = new Server("http://185.209.23.53/odata/demoaes.php", null, body);
+        server = new Server("http://89.219.32.202/odata/demoaes.php", null, body);
         return server.post().toString();
     }
 

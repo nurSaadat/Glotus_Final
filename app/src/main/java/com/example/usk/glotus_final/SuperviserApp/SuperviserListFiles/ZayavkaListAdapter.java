@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.usk.glotus_final.R;
+import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.Kont;
 import com.example.usk.glotus_final.SuperviserApp.ReceptionFiles.Reception;
 
 import java.util.List;
@@ -63,7 +64,10 @@ public class ZayavkaListAdapter extends ArrayAdapter<Zayavka> {
         String zakaz=getItem(position).getZakaz();
         String status=getItem(position).getStatus();
 
-        final Zayavka zayavka=new Zayavka(number,date,sender,recept,senderadr,receptadr,ref_key,zakaz,manager,podrazd,status);
+
+
+        final Zayavka zayavka=new Zayavka(number,date,sender,recept,senderadr,receptadr,ref_key,zakaz,manager,podrazd,status,getItem(position).getNumotpr(),getItem(position).getNumpolu(),getItem(position).getPlatel(),
+                getItem(position).getNamegruz(),getItem(position).getHaracgruz());
         final View result;
 
         final ViewHolder holder;
